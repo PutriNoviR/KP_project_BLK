@@ -33,7 +33,7 @@ class RegisterController extends Controller
      */
   //  protected $redirectTo = RouteServiceProvider::HOME;
    public function redirectTo(){
-    Session::flash('success', 'Pendaftaran berhasil');   
+    Session::flash('success', 'Pendaftaran peserta berhasil');   
     return "/login";
    } 
  
