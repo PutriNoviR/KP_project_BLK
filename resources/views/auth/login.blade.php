@@ -12,9 +12,9 @@
       
         <div class="col-md-8">
         
-            <div class="cover">
-                <img src="{{ asset('assets/image/cover.png')}}">
-            </div>
+            <!-- <div class="cover">
+                <img src="{{ asset('assets/image/disnaker.jpeg')}}">
+            </div> -->
 
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>

@@ -4,10 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class='cover'>
-                <img src="{{ asset('assets/image/cover.png')}}">
-            </div>
-
             <div class="card">
                 <div class="card-header">Pendaftaran Peserta</div>
 
