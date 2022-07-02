@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/image/icon.png') }}">
+    <link rel="shortcut icon" href="favicon.ico">
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin-permission','App\Policies\AdminPolicy@access');
+        Gate::define('peserta-permission','App\Policies\PesertaPolicy@access');
     }
 }

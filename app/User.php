@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-       'nik','email','password', 'nama_lengkap','nomer_hp','alamat','kota',
+       'nik','email','password', 'nama_lengkap','nomer_hp','alamat','kota', 'username','peran'
     ];
 
     /**
@@ -38,4 +38,5 @@ class User extends Authenticatable
     ];
 
     protected $primaryKey = 'nik';
+    
 }

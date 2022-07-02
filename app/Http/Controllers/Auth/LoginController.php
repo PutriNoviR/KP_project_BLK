@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,8 +27,24 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "/";
+    // protected $redirectTo = "/";
 
+    public function redirectTo(){
+        $role = Auth::user()->peran;
+        switch($role){
+            case 'Admin':
+                return '/admin';
+                break;
+            case 'Peserta':
+                return '/';
+                break;
+
+            default:
+                return '/';
+                break;
+        }
+    }
+     
     /**
      * Create a new controller instance.
      *
@@ -36,5 +53,10 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // untuk mengganti login dari email menjadi username
+    public function username(){
+        return 'username';
     }
 }
