@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Conquer | Admin Dashboard Template</title>
+<title>@yield('title')</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
@@ -128,38 +128,44 @@ License: You must have a valid license purchased only from themeforest(the above
 					</form>
 				</li>
 				<li>
-					<a href="#">
+					<a href="http://127.0.0.1:8000">
 					<i class="icon-home"></i>
 					<span class="title">Dashboard</span>
 					<span class="selected"></span>
 					</a>
 				</li>
 				<li >
-					<a href="javascript:;">
-					<i class="icon-puzzle"></i>
-					<span class="title">Admin</span>
-					<span class="arrow"></span>
+					<a>
+						<i class="icon-user"></i>
+						<span class="title">Admin</span>
+						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
 							<a href="#">
-							<i class="icon-anchor"></i>
+							<i class="icon-list"></i>
 							Daftar peserta</a>
 						</li>
 						<li>
-							<a href="#">
-							<i class="icon-book-open"></i>
-							Menu Soal</a>
+							<a href="{{url('soal')}}">
+								<i class="icon-book-open"></i>
+								Menu Soal
+							</a>
 						</li>
 						<!-- belum fix -->
 						<li>
 							<a href="#">
-							<i class="icon-book-open"></i>
+							<i class="icon-list"></i>
 							Daftar Karyawan</a>
 						</li>
 					</ul>
 				</li>
-				
+				<li >
+					<a href="http://127.0.0.1:8000/menu/role">
+						<i class="fa fa-group"></i>
+						<span class="title">Role</span>
+					</a>
+				</li>
 				
 				
 			</ul>
@@ -172,16 +178,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="page-content">
 			
 			<div class="page-bar">
-				<ul class="page-breadcrumb">
-					<li>
-						<i class="fa fa-home"></i>
-						<a href="index.html">Home</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="#">Dashboard</a>
-					</li>
-				</ul>
+				@yield('page-bar')
 			</div>
 			
 			@yield('contents')
@@ -251,6 +248,8 @@ jQuery(document).ready(function() {
    Tasks.initDashboardWidget();
 });
 </script>
+
+@yield('javascript')
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

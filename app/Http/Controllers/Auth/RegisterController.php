@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 use Session;
 
@@ -32,10 +34,10 @@ class RegisterController extends Controller
      * @var string
      */
   //  protected $redirectTo = RouteServiceProvider::HOME;
-   public function redirectTo(){
-    Session::flash('success', 'Pendaftaran peserta berhasil');   
-    return "/login";
-   } 
+    public function redirectTo(){
+        Session::flash('success', 'Pendaftaran peserta berhasil');   
+        return route("login");
+    } 
  
 
     /**
@@ -57,11 +59,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:250'],
+            'lastname' => ['required', 'string', 'max:250'],
+            'username' => ['required', 'string', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
-            'nomer' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'size:12'],
-            'nik' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'size:16', 'unique:users'],
+            'nomer' => ['required', 'numeric', 'digits:12'],
+            'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
         ]);
     }
 
@@ -73,18 +77,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $role = Role::where('nama_role', $data['peran'])->first();
+        $idRole = $role->id;
 
-            'nama_lengkap' => $data['name'],
+        return User::create([
+            'nomor_identitas' => $data['nomor_identitas'],
+            'tipe_identitas' => $data['tipe_identitas'],
+            'nama_depan' => $data['firstname'],
+            'nama_belakang' => $data['lastname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'nik'=>$data['nik'],
-            'alamat'=>$data['alamat'],
             'nomer_hp'=>$data['nomer'],
+            'alamat'=>$data['alamat'],
             'kota'=>$data['kota'],
             'username'=>$data['username'],
-            'peran'=>$data['peran']
-            
+            'password' => Hash::make($data['password']),
+            'roles_id' => $idRole,
         ]);
     }
 

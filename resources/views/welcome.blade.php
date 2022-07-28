@@ -1,4 +1,4 @@
-
+{{-- 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -28,9 +28,22 @@
             }
         </style>
     </head>
-    <body>
+    <body> --}}
+    
     @extends('layouts.index')
-@section('contents')
+
+    @section('page-bar')
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="http://127.0.0.1:8000/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+        </ul>
+    @endsection
+
+    @section('contents')
+        <h3>Selamat datang, peserta {{Auth::user()->nama_depan.' '.Auth::user()->nama_belakang}}</h3>
         <div class="flex-center position-ref full-height">
            
 
@@ -41,6 +54,6 @@
 
 
         </div>
-        @endsection
-    </body>
-</html>
+    @endsection
+    {{--</body>
+</html>--}}

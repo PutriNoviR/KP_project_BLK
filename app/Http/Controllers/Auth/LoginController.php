@@ -27,23 +27,24 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = "/";
+    protected $redirectTo = "/";
+    protected $username;
 
-    public function redirectTo(){
-        $role = Auth::user()->peran;
-        switch($role){
-            case 'Admin':
-                return '/admin';
-                break;
-            case 'Peserta':
-                return '/';
-                break;
+    // public function redirectTo(){
+    //     $role = Auth::user()->role->nama_role;
+    //     switch($role){
+    //         case 'Admin':
+    //             return '/admin';
+    //             break;
+    //         case 'Peserta':
+    //             return '/';
+    //             break;
 
-            default:
-                return '/';
-                break;
-        }
-    }
+    //         default:
+    //             return '/';
+    //             break;
+    //     }
+    // }
      
     /**
      * Create a new controller instance.

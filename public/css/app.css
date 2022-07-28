@@ -2127,6 +2127,7 @@ pre code {
 }
 
 .table-responsive {
+  margin-top: 15px;
   display: block;
   width: 100%;
   overflow-x: auto;

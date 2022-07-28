@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
+// Role
+Route::resource('menu/role','RoleController');
+Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
+
+//CRUD
+Route::resource('menu/blk', 'BlkController');
+Route::resource('soal', 'PertanyaanController');
 // Route::get('/home', 'HomeController@dashboardPage')->name('home');
 
 Route::get('/helloworld', function () {
@@ -38,5 +45,6 @@ Route::middleware(['can:admin-permission'])->group(function(){
     // Route::get('/submit_checkout', 'TransaksiController@submit_front')->name('submitcheckout');
 
 });
+
 
 

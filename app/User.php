@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-       'nik','email','password', 'nama_lengkap','nomer_hp','alamat','kota', 'username','peran'
+       'email','nomor_identitas', 'tipe_identitas', 'nama_depan', 'nama_belakang','nomer_hp','kota', 'alamat',
+       'username','password','ktp','pas_foto','ijazah','ksk', 'is_verified', 'verified_by', 'verified_at', 'roles_id',
     ];
 
     /**
@@ -37,6 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $primaryKey = 'nik';
+    protected $primaryKey = 'email';
+    //perlu ditambahkan agar primary key dapat dikenali
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    public function role(){
+        return $this->belongsTo('App\Role','roles_id');
+    }
     
 }
