@@ -105,15 +105,13 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $data = Role::find($role);
-
         try{
-            $data->delete();
+            $role->delete();
             return redirect()->back()->with('status','Role berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
-            return redirect()->back()-with('error',$msg);
+            return redirect()->back()->with('error',$msg);
         }
     }
 

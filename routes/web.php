@@ -21,6 +21,10 @@ Route::get('/', function () {
 Route::resource('menu/role','RoleController');
 Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
 
+//Peserta
+Route::resource('menu/peserta','PesertaController');
+Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
+
 //CRUD
 Route::resource('menu/blk', 'BlkController');
 Route::resource('soal', 'PertanyaanController');

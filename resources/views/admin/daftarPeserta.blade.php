@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-    Menu Role
+    Daftar Peserta
 @endsection
 
 @section('javascript')
@@ -9,15 +9,19 @@
     function getEditForm(id)
     {
         $.ajax({
-        type:'POST',
-        url:'{{route("role.edit")}}',
-        data:{'_token':'<?php echo csrf_token() ?>',
-            'roleId':id
-        },
-        success: function(data){
-            $('#modalContent').html(data.msg)
-        }
+            type:'POST',
+            url:'{{route("peserta.edit")}}',
+            data:{'_token':'<?php echo csrf_token() ?>',
+                'email':id
+            },
+            success: function(data){
+                $('#modalContent').html(data.msg)
+            }
         });
+    }
+    
+    function updateTabAt(no){
+        $('#theTab').val(no);
     }
 </script>
 @endsection
@@ -31,7 +35,7 @@
         </li>
 
         <li>
-            <a href="http://127.0.0.1:8000/menu/role">Role</a>
+            <a href="http://127.0.0.1:8000/menu/peserta">Peserta</a>
             <i class="fa fa-angle-right"></i>
         </li> 
     </ul>
@@ -39,18 +43,10 @@
 
 @section('contents')
 
-@if($message = Session::get('success'))
-  
-  <div class="alert alert-success">
-    <li>{{$message}}</li>
-  </div>
-@endif
-
-@if($message = Session::get('error'))
-  
-  <div class="alert alert-danger">
-    <li>{{$message}}</li>
-  </div>
+@if($message = Session::get('status'))
+    <div class="alert alert-success">
+        <li>{{$message}}</li>
+    </div>
 @endif
 
 @if(count($errors) > 0)
@@ -61,21 +57,13 @@
   @endforeach
 @endif
 
-
 <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-               Hak Akses Pengguna
+               Daftar Peserta
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="table-group-actions pull-right">
-                        <button class="btn btn-xs btn-success" data-target='#tambahModal' data-toggle='modal'><i class="fa fa-plus"></i> Tambah Data</button>
-                    </div>
-                </div>
-            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                 <thead>
@@ -84,7 +72,13 @@
                         No
                     </th>
                     <th>
-                        Nama
+                        Nama Lengkap
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Username
                     </th>
                     <th>
                         Detail
@@ -106,22 +100,28 @@
                             {{$no}}
                         </td>
                         <td>
-                            {{$d->nama_role}}
+                            {{$d->nama_depan." ".$d->nama_belakang}}
                         </td>
                         <td>
-                            <a data-toggle='modal' data-target='#modal_{{$d->id}}' class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
+                            {{$d->email}}
                         </td>
                         <td>
-                            <a onclick="getEditForm({{ $d->id }})" data-toggle='modal' data-target='#editModal' class="btn btn-default btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                            {{$d->username}}
+                        </td>
+                        <td>
+                            <a data-toggle='modal' data-target='#modal_{{$d->username}}' class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
+                        </td>
+                        <td>
+                            <a onclick="getEditForm('{{ $d->email }}')" data-toggle='modal' data-target='#editModal' class="btn btn-default btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                            
-                            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d->id}}">
+                            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d->username}}">
                                 <i class="fa fa-trash-o"></i> Hapus
                             </a>
                             
-                            <form method='POST' action="{{ url('menu/role/'.$d->id) }}">
+                            <form method='POST' action="{{ url('menu/peserta/'.$d->email) }}">
                                 @csrf
                                 @method('DELETE')
-                                <div id="deleteModal_{{$d->id}}" class="modal fade" tabindex="-1" role="basic">
+                                <div id="deleteModal_{{$d->username}}" class="modal fade" tabindex="-1" role="basic">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-body" style="text-align: center;">
@@ -129,8 +129,9 @@
                                                     <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
                                                 </div>
                                                 <p>
-                                                    Apakah Anda yakin ingin menghapus data <b>{{$d->nama_role}}</b>?
+                                                    Apakah Anda yakin ingin menghapus data <b>{{$d->username}}</b>?
                                                 </p>
+                                                <input type='hidden' name='email' value='{{ $d->email }}'>
                                             </div>
                                             <div style="border-top: none; text-align: center;" class="modal-footer">
                                                 <button type="submit" class="btn btn-danger">Hapus</button>
@@ -147,24 +148,33 @@
                             $no++;
                         @endphp
 
-                    <div class="modal fade" id="modal_{{$d->id}}" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal fade" id="modal_{{$d->username}}" tabindex="-1" role="basic" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-group"></i> {{$d->nama_role}}</h4>
-                                    
+                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-user"></i> {{$d->username}}</h4>
+                                    <small>{{$d->email}}</small>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control" rows="3" disabled>{{$d->deskripsi}}</textarea>
-                                        
+                                        <label class="col-sm-4 control-label">Alamat</label>
+                                        <input name="alamat" class="form-control" disabled value='{{$d->alamat}}'>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Data User</label>:
-                                        @foreach($d->find($d->id)->users as $user)
-                                            <span class="btn btn-xs btn-info">{{$user->username}}</span>
-                                        @endforeach
+                                        <label class="col-sm-4 control-label">Kota</label>
+                                        <input name="kota" class="form-control" disabled value='{{$d->kota}}'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Nomor Hp</label>
+                                        <input name="nomor_hp" class="form-control" disabled value='{{$d->nomer_hp}}'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">kewarganegaraan</label>
+                                        <input name="kewarganegaraan" class="form-control" disabled value='{{$d->tipe_identitas}}'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Nomor Identitas</label>
+                                        <input name="nomor_identitas" class="form-control" disabled value='{{$d->nomor_identitas}}'>
                                     </div>
                                 </div>
                                 <div style="border-top: none; text-align: center;" class="modal-footer">
@@ -180,43 +190,6 @@
         </div>
     </div>
 
-    {{-- modal tambah role --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="tambahModal" aria-labelledby="mediumModalLabel" style="display: none; padding-right: 17px;">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>    
-                
-                    <h5 class="modal-title" id="mediumModalLabel"><strong>Tambah Role</strong></h5>   
-                </div>
-                
-                <form class="register-form" method="POST" action="{{url('/menu/role')}}">
-                        @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="nama" class=" form-control-label">Nama</label>
-                            <input type="text" name="nama" placeholder="Enter role name" class="form-control" required>
-                        </div>
-                   
-                        <div class="form-group">
-                            <label>Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control" rows="3" required></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="submit" id="register-submit-btn" class="btn btn-success pull-right">
-                        Simpan <i class="m-icon-swapright m-icon-white"></i>
-                        </button>
-                    </div>
-                </form>
-                
-            </div>
-        </div>
-    </div>
-
     {{-- modal edit role --}}
     <div class="modal fade" tabindex="-1" role="dialog" id="editModal" aria-labelledby="mediumModalLabel" style="display: none; padding-right: 17px;">
         <div class="modal-dialog" role="document">
@@ -225,5 +198,8 @@
             </div>
         </div>
     </div>
+
+
+                
 
 @endsection

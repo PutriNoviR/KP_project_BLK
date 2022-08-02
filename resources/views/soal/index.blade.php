@@ -44,12 +44,12 @@
       <tbody>
           @foreach ($data as $key=>$item)
           <tr class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
-            <td>{{ $i }}</td>
+            <td>{{ $item->id }}</td>
             
             <td>{{ $item->pertanyaan}}</td>
             
             {{-- <td>
-                {{-- <a class='btn btn-xs btn-info' data-toggle='modal' data-target='#myModal' onclick='showProducts({{ $item->id }})'>Show Pertanyaan</a> --}}
+                 <a class='btn btn-xs btn-info' data-toggle='modal' data-target='#myModal' onclick='showProducts({{ $item->id }})'>Show Pertanyaan</a>
               <ul>
                 @foreach($item->jawaban as $value )
                   <li>{{ $value->jawaban }}</li>
@@ -62,11 +62,11 @@
               Edit
             </a>
         
-            <form method='POST' action="{{ route('pertanyaan.destroy'.$item->id) }}">
+       {{--     <form method='POST' action="{{ route('pertanyaan.destroy'.$item->id) }}">
               @csrf
               @method('DELETE')
               <input type="submit" value="delete" class='btn btn-danger btn-xs' onclick="if(!confirm('are you sure to delete this record ?')) return false;">
-            </form>
+            </form>--}}
 
 
             <div class="modal fade" id="modalEdit" tabindex="-1" role="basic" aria-hidden="true">

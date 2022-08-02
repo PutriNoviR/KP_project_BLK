@@ -67,7 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
 		<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<img src="assets/img/menu-toggler.png" alt=""/>
+		<img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/>
 		</a>
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN TOP NAVIGATION MENU -->
@@ -75,7 +75,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!-- BEGIN USER LOGIN DROPDOWN -->
 			<li class="dropdown user">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-				<img alt="" src="assets/img/avatar.png" width="32px"/>
+				<img alt="" src="{{ asset('assets/img/avatar.png') }}" width="32px"/>
 				<span class="username username-hide-on-mobile">{{Auth::user()->username}} </span>
 				<i class="fa fa-angle-down"></i>
 				</a>
@@ -142,7 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#">
+							<a href="http://127.0.0.1:8000/menu/peserta">
 							<i class="icon-list"></i>
 							Daftar peserta</a>
 						</li>

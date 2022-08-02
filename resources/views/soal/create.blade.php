@@ -25,7 +25,7 @@
 @endsection
 
 @section('contents')
-<form method="POST" action="url('soal')">
+<form method="POST" action="{{url('soal')}}">
   @csrf
   <div class="form-group">
     <label for="pertanyaan">Pertanyaan</label>
