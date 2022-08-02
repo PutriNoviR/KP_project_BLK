@@ -4,6 +4,30 @@
     Menu Soal
 @endsection
 
+@section('javascript')
+
+<script>
+    //$('#myTable').DataTable();
+
+  function getEditForm(id){
+    $.ajax({
+      type:'POST',
+      url:'{{ route("soal.edit")}}',
+      data:{'_token':'<?php echo csrf_token() ?>',
+            'id':id
+          },
+      success: function(data){
+        // alert(data.msg);
+        $('#modalContent').html(data.msg)
+      }
+    });
+  }
+
+
+</script>
+
+@endsection
+
 @section('page-bar')
     <ul class="page-breadcrumb">
         <li>
@@ -18,6 +42,7 @@
         </li> 
     </ul>
 @endsection
+
 
 
 @section('contents')
@@ -58,22 +83,21 @@
             </td>--}}
           
           <td>
-            <a href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs' onclick="getEditForm({{$item->id}})">
+            <a onclick="getEditForm({{$item->id}})" href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs'>
               Edit
             </a>
-        
-       {{--     <form method='POST' action="{{ route('pertanyaan.destroy'.$item->id) }}">
+            <div class="modal fade" id="modalEdit" tabindex="-1" role="basic" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content" id='modalContent'></div>
+              </div>
+            </div> 
+
+       {{--<form method='POST' action="{{ route('pertanyaan.destroy'.$item->id) }}">
               @csrf
               @method('DELETE')
               <input type="submit" value="delete" class='btn btn-danger btn-xs' onclick="if(!confirm('are you sure to delete this record ?')) return false;">
             </form>--}}
 
-
-            <div class="modal fade" id="modalEdit" tabindex="-1" role="basic" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content" id='modalContent'></div>
-              </div>
-            </div>   
           </td>
         </tr>
         @endforeach

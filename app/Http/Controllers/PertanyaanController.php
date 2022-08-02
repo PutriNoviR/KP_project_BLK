@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pertanyaan;
+use App\Jawaban;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PertanyaanController extends Controller
@@ -40,11 +42,25 @@ class PertanyaanController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user()->email;
+
         $pertanyaan= new Pertanyaan();
         $pertanyaan->pertanyaan= $request->get('pertanyaan');
-
+        $pertanyaan->created_by = $user;
+        $pertanyaan->updated_by = $user;
 
         $pertanyaan->save();
+
+        for($i = 0; $i<5; $i++){
+          
+            $jawaban = new Jawaban();
+            $jawaban->jawaban = $request->jawaban[$i];
+            $jawaban->question_id = $pertanyaan->id;
+            $jawaban->kejuruans_id = $request->kejuruan[$i];
+              
+            $jawaban->save();
+        }
+
         return redirect()->route('soal.index')->with('status','Pertanyaan berhasil ditambahkan');
     }
 
@@ -67,7 +83,7 @@ class PertanyaanController extends Controller
      */
     public function edit(Pertanyaan $pertanyaan)
     {
-        //
+        
     }
 
     /**
@@ -79,11 +95,24 @@ class PertanyaanController extends Controller
      */
     public function update(Request $request, Pertanyaan $pertanyaan)
     {
+        $user = Auth::user()->email;
+
         $pertanyaan= new Pertanyaan();
         $pertanyaan->pertanyaan= $request->get('pertanyaan');
-
+        $pertanyaan->created_by = $user;
+        $pertanyaan->updated_by = $user;
 
         $pertanyaan->save();
+
+        for($i = 0; $i<5; $i++){
+          
+            $jawaban = new Jawaban();
+            $jawaban->jawaban = $request->jawaban[$i];
+            $jawaban->question_id = $pertanyaan->id;
+            $jawaban->kejuruans_id = $request->kejuruan[$i];
+              
+            $jawaban->save();
+        }
         return redirect()->route('soal.index')->with('status','Pertanyaan berhasil diubah');
     }
 
@@ -108,11 +137,11 @@ class PertanyaanController extends Controller
     public function getEditForm(Request $request){
         $id=$request->get('id');
         $data= Pertanyaan::find($id);
-        $kategori = Jawaban::all();
+        $jawaban = Jawaban::where('question_id',$id)->first();
         // dd($data);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('soal.update',compact('data',''))->render()
+            'msg'=>view('soal.edit',compact('id','data','jawaban'))->render()
         ),200);
     }
 }
