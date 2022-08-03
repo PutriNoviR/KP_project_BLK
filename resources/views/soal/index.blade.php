@@ -22,8 +22,6 @@
       }
     });
   }
-
-
 </script>
 
 @endsection
@@ -83,7 +81,7 @@
             </td>--}}
           
           <td>
-            <a onclick="getEditForm({{$item->id}})" href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs'>
+            <a href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs' onclick="getEditForm({{$item->id}})">
               Edit
             </a>
             <div class="modal fade" id="modalEdit" tabindex="-1" role="basic" aria-hidden="true">
@@ -92,12 +90,42 @@
               </div>
             </div> 
 
-       {{--<form method='POST' action="{{ route('pertanyaan.destroy'.$item->id) }}">
+            {{-- Button Delete 1--}}
+            <form method='POST' action="{{ url('soal/'.$item->id) }}">
               @csrf
               @method('DELETE')
+              <input type="hidden" name="old_id" value="{{ $item->id }}">
               <input type="submit" value="delete" class='btn btn-danger btn-xs' onclick="if(!confirm('are you sure to delete this record ?')) return false;">
-            </form>--}}
+            </form>
 
+            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$item->id}}">
+              Hapus
+            </a>
+                            
+            <form method='POST' action="{{ url('soal/'.$item->id) }}">
+                @csrf
+                @method('DELETE')
+                <div id="deleteModal_{{$item->id}}" class="modal fade" tabindex="-1" role="basic">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body" style="text-align: center;">
+                                <div style="width: 60px; height: 60px; margin: auto;">
+                                    <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
+                                </div>
+                                <p>
+                                    Apakah Anda yakin ingin menghapus soal no <b>{{$item->id}}</b>?
+                                </p>
+                                <input type="hidden" name="old_id" value="{{ $item->id }}">
+                            </div>
+                            <div style="border-top: none; text-align: center;" class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
           </td>
         </tr>
         @endforeach

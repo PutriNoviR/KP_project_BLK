@@ -12,6 +12,8 @@ class Pertanyaan extends Model
         return $this->hasMany('App\Jawaban','question_id', 'idanswers');
     }
 
-
+    protected $fillable = [
+        'pertanyaan','created_by', 'updated_by',
+     ];
 
 }

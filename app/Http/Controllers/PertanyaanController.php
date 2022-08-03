@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pertanyaan;
+use Illuminate\Validation\Rule;
 use App\Jawaban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -97,23 +98,27 @@ class PertanyaanController extends Controller
     {
         $user = Auth::user()->email;
 
-        $pertanyaan= new Pertanyaan();
-        $pertanyaan->pertanyaan= $request->get('pertanyaan');
-        $pertanyaan->created_by = $user;
-        $pertanyaan->updated_by = $user;
+        $dataPertanyaan=[
+            'pertanyaan' => $request->get('pertanyaan'),
+            'created_by' => $request->old_creator,
+            'updated_by' => $user,
+        ];
 
-        $pertanyaan->save();
+        Pertanyaan::find($request->old_id)->update($dataPertanyaan);
 
-        for($i = 0; $i<5; $i++){
-          
-            $jawaban = new Jawaban();
-            $jawaban->jawaban = $request->jawaban[$i];
-            $jawaban->question_id = $pertanyaan->id;
-            $jawaban->kejuruans_id = $request->kejuruan[$i];
+        for($i=0; $i<5; $i++){ 
+
+            $dataJawaban=[
+                'jawaban' => $request->jawaban[$i],
+                'kejuruans_id' => $request->kejuruan[$i],
+            ];
+        //         // $jawaban->question_id = $pertanyaan->id;
               
-            $jawaban->save();
+            Jawaban::where('question_id', $request->old_id)->where('kejuruans_id', $request->kejuruan[$i])->update($dataJawaban);   
+        //    }
         }
-        return redirect()->route('soal.index')->with('status','Pertanyaan berhasil diubah');
+    
+        return redirect()->back()->with('status','Pertanyaan berhasil diubah');
     }
 
     /**
@@ -122,11 +127,12 @@ class PertanyaanController extends Controller
      * @param  \App\Pertanyaan  $pertanyaan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pertanyaan $pertanyaan)
+    public function destroy(Request $request, Pertanyaan $pertanyaan)
     {
-        $pertanyaan = Pertanyaan::find($pertanyaan);
         try{
-            $pertanyaan->delete();
+            Jawaban::where('question_id', $request->old_id)->delete();
+            Pertanyaan::find($request->old_id)->delete();
+
             return redirect()->route('soal.index')->with('status','Pertanyaan berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
@@ -136,12 +142,12 @@ class PertanyaanController extends Controller
     }
     public function getEditForm(Request $request){
         $id=$request->get('id');
-        $data= Pertanyaan::find($id);
-        $jawaban = Jawaban::where('question_id',$id)->first();
+        $data= Pertanyaan::where('id',$id)->first();
+        $jawaban = Jawaban::where('question_id',$id)->get();
         // dd($data);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('soal.edit',compact('id','data','jawaban'))->render()
+            'msg'=>view('soal.edit',compact('data','jawaban'))->render()
         ),200);
     }
 }

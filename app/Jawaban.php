@@ -12,4 +12,8 @@ class Jawaban extends Model
     }
 
     protected $primaryKey = 'idanswers';
+
+    protected $fillable = [
+        'jawaban','question_id', 'kejuruans_id',
+     ];
 }

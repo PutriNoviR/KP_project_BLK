@@ -27,7 +27,7 @@ Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');
-Route::resource('soal', PertanyaanController::class);
+Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
 // Route::get('/home', 'HomeController@dashboardPage')->name('home');
 
