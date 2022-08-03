@@ -133,10 +133,20 @@ class PesertaController extends Controller
                 'no_identitas' => ['required', 'numeric', 'digits:16', Rule::unique('users', 'nomor_identitas')->ignore($request->email, 'email')],
       
             ]);
+
+            if($request['tipe_identitas'] == "WNA"){
+                $identitas = "Pasport";
+                $idCountry = 2;
+            }
+            else{
+                $identitas = "KTP";
+                $idCountry = 1;
+            }
     
             $peserta = [
+
                 "nomor_identitas" => $request->no_identitas,
-                'tipe_identitas' => $request->tipe_identitas,
+                'jenis_identitas' => $request->tipe_identitas,
                 'username'=> $request->username,
                 "password" => $request->password,
             ];

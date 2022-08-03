@@ -3,6 +3,7 @@ var TableAdvanced = function () {
     var initTable1 = function () {
         var table = $('#sample_1');
 
+        // alert('halo');
         /* Table tools samples: https://www.datatables.net/release-datatables/extras/TableTools/ */
 
         /* Set tabletools buttons and button container */
@@ -34,16 +35,17 @@ var TableAdvanced = function () {
 
             "tableTools": {
                 "sSwfPath": "assets/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
-                "aButtons": [{
-                    "sExtends": "pdf",
-                    "sButtonText": "PDF"
-                }, {
-                    "sExtends": "csv",
-                    "sButtonText": "CSV"
-                }, {
-                    "sExtends": "xls",
-                    "sButtonText": "Excel"
-                }, {
+                "aButtons": [
+                    {
+                //     "sExtends": "pdf",
+                //     "sButtonText": "PDF"
+                // }, {
+                //     "sExtends": "csv",
+                //     "sButtonText": "CSV"
+                // }, {
+                //     "sExtends": "xls",
+                //     "sButtonText": "Excel"
+                // }, {
                     "sExtends": "print",
                     "sButtonText": "Print",
                     "sInfo": 'Please press "CTR+P" to print or "ESC" to quit',

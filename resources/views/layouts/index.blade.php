@@ -31,6 +31,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 <link href="{{asset('assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.css') }}" rel="stylesheet" type="text/css"/>
@@ -227,15 +231,25 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-easypiechart/jquery.easypiechart.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script src="{{ asset('assets/scripts/app.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/scripts/index.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/scripts/tasks.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/scripts/table-advanced.js') }}"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    
    App.init(); // initlayout and core plugins
+   TableAdvanced.init();
    Index.init();
    Index.initJQVMAP(); // init index page's custom scripts
    Index.initCalendar(); // init index page's custom scripts
@@ -246,10 +260,12 @@ jQuery(document).ready(function() {
    Index.initKnowElements();
    Index.initDashboardDaterange();
    Tasks.initDashboardWidget();
+ 
 });
 </script>
 
 @yield('javascript')
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

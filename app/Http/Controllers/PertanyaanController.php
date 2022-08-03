@@ -104,7 +104,14 @@ class PertanyaanController extends Controller
             'updated_by' => $user,
         ];
 
-        Pertanyaan::find($request->old_id)->update($dataPertanyaan);
+        // dd($request->old_id);
+        if(Pertanyaan::find($request->old_id) != null){
+            Pertanyaan::find($request->old_id)->update($dataPertanyaan);
+        }else{
+            return;
+            // todo = alert('id yang tidak sesuai')
+        }
+      
 
         for($i=0; $i<5; $i++){ 
 

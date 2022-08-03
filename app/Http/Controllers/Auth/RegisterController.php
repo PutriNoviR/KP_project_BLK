@@ -80,9 +80,21 @@ class RegisterController extends Controller
         $role = Role::where('nama_role', $data['peran'])->first();
         $idRole = $role->id;
 
+        $identitas = "";
+        $idCountry = 0;
+
+        if($data['tipe_identitas'] == "WNA"){
+            $identitas = "Pasport";
+            $idCountry = 2;
+        }
+        else{
+            $identitas = "KTP";
+            $idCountry = 1;
+        }
+
         return User::create([
             'nomor_identitas' => $data['nomor_identitas'],
-            'tipe_identitas' => $data['tipe_identitas'],
+            'jenis_identitas' => $identitas,
             'nama_depan' => $data['firstname'],
             'nama_belakang' => $data['lastname'],
             'email' => $data['email'],
@@ -92,6 +104,7 @@ class RegisterController extends Controller
             'username'=>$data['username'],
             'password' => Hash::make($data['password']),
             'roles_id' => $idRole,
+            'countries_id' => $idCountry,
         ]);
     }
 
