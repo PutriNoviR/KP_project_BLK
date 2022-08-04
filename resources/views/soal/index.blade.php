@@ -59,7 +59,7 @@
 <div class="portlet">
   <div class="portlet-body">
  
-      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
         <thead>
           <tr role="row">
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
@@ -70,9 +70,15 @@
               aria-label="Browser: activate to sort column ascending" style="width: 250px;">
                       Pertanyaan
             </th>
+            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                      Detail
+            </th>
+            
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
                       Aksi
             </th>
+            
           </tr>
         </thead>
         
@@ -90,6 +96,10 @@
             <td>
                 {{ $item->pertanyaan }}
             </td>
+            
+            <td>
+                  <a data-toggle='modal' data-target='#modal_{{$item->id}}' class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
+            </td>
             <td>
               {{-- Button Edit --}}
               <a href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs' onclick="getEditForm({{$item->id}})">
@@ -101,17 +111,11 @@
                 </div>
               </div> 
 
-              {{-- Button Delete 1 --}}
-              <form method='POST' action="{{ url('soal/'.$item->id) }}">
-                @csrf
-                @method('DELETE')
-                <input type="hidden" name="old_id" value="{{ $item->id }}">
-                <input type="submit" value="delete" class='btn btn-danger btn-xs' onclick="if(!confirm('are you sure to delete this record ?')) return false;">
-              </form>
+              
 
               {{-- Button Delete 2--}}
               <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$item->id}}">
-                Hapus
+                Delete
               </a>
                             
               <form method='POST' action="{{ url('soal/'.$item->id) }}">
@@ -143,10 +147,61 @@
           @php
             $no++;
           @endphp
-          
-          @endforeach
-        </tbody>
-      </table>
+
+          <div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="form-group">
+                  <label for="pertanyaan">Pertanyaan</label>
+                  <textarea name="pertanyaan" class="form-control" disabled value='{{ $item->pertanyaan }}' rows="3" placeholder="Masukkan Pertanyaan" required>{{ $item->pertanyaan }}</textarea>
+                </div>
+ 
+                <div class="form-group">
+                  <div class='row'>
+                    <div class='col-md-8'>
+                      <label for="jawaban">Jawaban</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="kejuruan">Kejuruan</label>
+                    </div>
+                  </div>
+
+                  @php
+                    $i = 0;
+                  @endphp
+
+                  @foreach($data2 as $d)
+                  @if($d->question_id == $item->id)
+
+                  <div class='row'>
+                    <div class='col-md-8'>
+                        <input type="text" class="form-control" disabled value='{{ $d->jawaban }}' id="jawaban" name="jawaban[{{ $i }}]" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" name="kejuruan[{{ $i }}]" required>
+                        {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
+                          <option value="">-Pilih Kejuruan-</option>
+                          <option value=1 {{$d->kejuruans_id == 1? "selected":""}}>Kejuruan 1</option>
+                          <option value=2 {{$d->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
+                          <option value=3 {{$d->kejuruans_id == 3? "selected":""}}>Kejuruan 3</option>
+                          <option value=4 {{$d->kejuruans_id == 4? "selected":""}}>Kejuruan 4</option>
+                          <option value=5 {{$d->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option>
+                        </select>
+                    </div>
+                  </div><br>
+                  @php
+                    $i++;
+                  @endphp
+                  @endif
+                  @endforeach
+                </div>
+              </div>
+            </div>
+          </div>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
     
   </div>
 </div>

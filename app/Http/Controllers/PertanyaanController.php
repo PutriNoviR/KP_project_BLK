@@ -18,9 +18,10 @@ class PertanyaanController extends Controller
     public function index()
     {
         $list_pertanyaan = Pertanyaan::all();
+        $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
         // return view('soal.index',['data'=>$list_pertanyaan,'jawaban'=>$jawaban]);
-        return view('soal.index',['data'=>$list_pertanyaan]);
+        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban]);
     }
 
     /**
@@ -111,6 +112,7 @@ class PertanyaanController extends Controller
             return;
             // todo = alert('id yang tidak sesuai')
         }
+        
       
 
         for($i=0; $i<5; $i++){ 
