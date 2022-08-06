@@ -6,7 +6,8 @@ Reset and overrides
 ***/
 body {
   color: #222222;
-  background-color: #35363a !important;
+  /* background-color: #35363a !important; */
+  background-color: #fff !important;
 }
 /***
 Page header
@@ -14,11 +15,14 @@ Page header
 .header {
   filter: none;
   background-image: none;
-  background-color: #242527;
+  /* background-color: #242527; */
+  background-color: #fff;
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.4);;
 }
 .header .navbar-nav .dropdown-toggle:hover,
 .header .navbar-nav .dropdown.open .dropdown-toggle {
-  background-color: #414247 !important;
+  /* background-color: #414247 !important; */
+  background-color: transparent !important;
 }
 .header .navbar-nav li.dropdown .dropdown-toggle i {
   color: #999ba2 !important;
@@ -27,17 +31,20 @@ Page header
   border-left: 1px solid #484a4f !important;
 }
 .header .navbar-nav > li.dropdown.user .dropdown-toggle .username {
-  color: #cecfd3;
+  /* color: #cecfd3; */
+  color: #000;
+  font-weight: bold;
 }
 .header .search-form .form-control,
 .page-sidebar-menu .search-form .form-control {
-  color: #7e818a;
-  background-color: #4d4f55;
-  border-color: #1d1d1f;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #8D8C8C;
 }
 .header .search-form .input-icon > i,
 .page-sidebar-menu .search-form .input-icon > i {
-  color: #292a2d;
+  /* color: #292a2d; */
+  color: #000;
 }
 
 .header .search-form .form-control:-moz-placeholder {
@@ -64,13 +71,15 @@ Page header
 Page sidebar
 ***/
 .page-sidebar {
-  background: #35363a;
+  /* background: #35363a; */
+  background: #fff;
 }
-ul.page-sidebar-menu > li {
-  border-bottom: 1px solid #414247;
-}
+/* ul.page-sidebar-menu > li {
+  border-bottom: 1px solid #8D8C8C;
+} */
 ul.page-sidebar-menu > li > a {
-  color: #eee;
+  color: #012970;
+  font-weight: 600;
 }
 ul.page-sidebar-menu > li > a > .arrow {
   color: #414247;
@@ -79,7 +88,8 @@ ul.page-sidebar-menu > li:first-child {
   border-bottom: 1px solid transparent;
 }
 ul.page-sidebar-menu > li a i {
-  color: #999;
+  /* color: #999; */
+  color: #000;
 } 
 
 .page-sidebar-menu.page-sidebar-menu-circle-icons > li > a i {
@@ -89,7 +99,8 @@ ul.page-sidebar-menu > li a i {
 ul.page-sidebar-menu > li.open > a,
 ul.page-sidebar-menu > li > a:hover,
 ul.page-sidebar-menu > li:hover > a {
-  background: #2B2B30;
+  /* background: #2B2B30; */
+  background: #fff;
 }
 
 ul.page-sidebar-menu > li.open,
@@ -109,11 +120,11 @@ ul.page-sidebar-menu > li > ul.sub-menu > li:first-child {
 }
 ul.page-sidebar-menu > li > ul.sub-menu > li.active > a,
 ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
-  color: #ffffff !important;
-  background: #414247 !important;
+  color: #012970 !important;
+  background: #fff !important;
 }
 ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
-  background: #414247 !important;
+  background: transparent !important;
 }
 /* 3rd level sub menu */
 ul.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li.active > a,
@@ -124,7 +135,9 @@ ul.page-sidebar-menu > li > ul.sub-menu li.open > a {
 }
 /* font color for all sub menu links*/
 ul.page-sidebar-menu li > ul.sub-menu > li > a {
-  color: #cecfd3;
+  /* color: #cecfd3; */
+  color: #012970;
+  font-weight: 600;
 }
 /* menu arrows */
 ul.page-sidebar-menu > li > a .arrow:before,
@@ -222,14 +235,15 @@ Landscape phone to portrait tablet
     ***/
   .page-sidebar-menu,
   .page-sidebar {
-    background-color: #1d1d1f !important;
+    /* background-color: #1d1d1f !important; */
+    background-color: #fff;
     -webkit-border-radius: 4px !important;
     -moz-border-radius: 4px !important;
     border-radius: 4px !important;
   }
-  ul.page-sidebar-menu > li {
+  /* ul.page-sidebar-menu > li {
     border-bottom: 1px solid #313237;
-  }
+  } */
   ul.page-sidebar-menu > li:first-child,
   ul.page-sidebar-menu > li:last-child {
     border-bottom: 0 !important;
@@ -237,7 +251,8 @@ Landscape phone to portrait tablet
   ul.page-sidebar-menu > li.open > a,
   ul.page-sidebar-menu > li > a:hover,
   ul.page-sidebar-menu > li:hover > a {
-    background: #09090a;
+    /* background: #09090a; */
+    background: transparent;
   }
 }
 @media (max-width: 480px) {

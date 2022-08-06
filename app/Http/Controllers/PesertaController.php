@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Role;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class PesertaController extends Controller
 {
@@ -134,19 +135,19 @@ class PesertaController extends Controller
       
             ]);
 
-            if($request['tipe_identitas'] == "WNA"){
+            if($request->jenis_identitas == "Pasport"){
                 $identitas = "Pasport";
-                $idCountry = 2;
+               
             }
             else{
                 $identitas = "KTP";
-                $idCountry = 1;
+                
             }
     
             $peserta = [
 
                 "nomor_identitas" => $request->no_identitas,
-                'jenis_identitas' => $request->tipe_identitas,
+                'jenis_identitas' => $identitas,
                 'username'=> $request->username,
                 "password" => $request->password,
             ];
@@ -178,5 +179,74 @@ class PesertaController extends Controller
             'status'=>'oke',
             'msg'=>view('admin.editPeserta', compact('data'))->render() 
         ), 200);
+    }
+
+    public function kelengkapanDataPribadi(Request $request){
+        $this->validate($request, [
+            'nomer' => ['required', 'numeric', 'min:10'],
+            'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
+        ]);
+
+        $data = $request->session()->get('kelengkapanData');
+
+        if(empty($data)){
+           
+            $data=[
+                "nomor_identitas" => $request->nomor_identitas,
+                "jenis_identitas" => $request->jenis_identitas,
+                "nomer_hp" => $request->nomer,
+                "alamat" => $request->alamat,
+                "kota" => $request->kota,
+            ];
+
+            $request->session()->put('kelengkapanData', $data);
+        }
+        
+        return view('kelengkapan_data', compact('data'));
+    }
+
+    public function kelengkapanDataDokumen(Request $request){
+        $myname = Auth::user()->username;
+
+        $data = $request->session()->get('kelengkapanData');
+
+        if(!isset($data['ktp'])){
+            $this->validate($request, [
+                'no_ktp' => ['required', 'mimes:png,jpeg,pdf', 'max:20480'],
+                'ijazah' => ['required','mimes:png,jpeg,pdf', 'max:20480'],
+                'ksk' => ['required', 'mimes:png,jpeg,pdf', 'max:20480'],
+                'pas_foto' => ['required', 'mimes:png,jpeg,pdf', 'max:20480'],
+            ]);
+
+            // Format nama file: username_waktu_nama file
+            $ksk= $request->file('ksk');
+            $kskName = $myname.'_'.time().'_'.$ksk->getClientOriginalName();
+            $ksk->move(public_path('images'),$kskName);
+    
+            $pas_foto= $request->file('pas_foto');
+            $fotoName = $myname.'_'.time().'_'.$pas_foto->getClientOriginalName();
+            $pas_foto->move(public_path('images'),$fotoName);
+
+            $ktp= $request->file('no_ktp');
+            $ktpName = $myname.'_'.time().'_'.$ktp->getClientOriginalName();
+            $ktp->move(public_path('images'),$ktpName);
+    
+            $ijazah= $request->file('ijazah');
+            $ijazahName = $myname.'_'.time().'_'.$ijazah->getClientOriginalName();
+            $ijazah->move(public_path('images'),$ijazahName);
+
+            $data['ktp'] = $ktpName;
+            $data['ijazah'] = $ijazahName;
+            $data['ksk'] = $kskName;
+            $data['pas_foto'] = $fotoName;
+
+            $request->session()->put('kelengkapanData', $data);
+
+            User::where('username', $myname)->update($data);
+
+            $request->session()->forget('kelengkapanData');
+        }  
+        
+        return redirect()->route('home');
     }
 }

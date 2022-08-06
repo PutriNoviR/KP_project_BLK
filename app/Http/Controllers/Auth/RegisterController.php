@@ -64,8 +64,21 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
-            'nomer' => ['required', 'numeric', 'digits:12'],
-            'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
+            'g-recaptcha-response' => function($attribute, $value, $fail){
+                $secretKey = config('services.recaptcha.secret');
+                $response = $value;
+                $userIP = $_SERVER['REMOTE_ADDR'];
+                $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response&remoteip=$userIP";
+                $response = \file_get_contents($url);
+                // decode response
+                $response = json_decode($response);
+                
+                if(!$response->success){
+                    $fail('please check the recaptcha');
+                    Session::flash('recaptcha', 'please check the recaptcha');
+
+                }
+            }
         ]);
     }
 
@@ -80,27 +93,27 @@ class RegisterController extends Controller
         $role = Role::where('nama_role', $data['peran'])->first();
         $idRole = $role->id;
 
-        $identitas = "";
-        $idCountry = 0;
+        // $identitas = "";
+        $idCountry = 1;
 
-        if($data['tipe_identitas'] == "WNA"){
-            $identitas = "Pasport";
-            $idCountry = 2;
-        }
-        else{
-            $identitas = "KTP";
-            $idCountry = 1;
-        }
+        // if($data['tipe_identitas'] == "WNA"){
+        //     $identitas = "Pasport";
+        //     $idCountry = 2;
+        // }
+        // else{
+        //     $identitas = "KTP";
+        //     $idCountry = 1;
+        // }
 
         return User::create([
-            'nomor_identitas' => $data['nomor_identitas'],
-            'jenis_identitas' => $identitas,
+            // 'nomor_identitas' => $data['nomor_identitas'],
+            // 'jenis_identitas' => $identitas,
             'nama_depan' => $data['firstname'],
             'nama_belakang' => $data['lastname'],
             'email' => $data['email'],
-            'nomer_hp'=>$data['nomer'],
-            'alamat'=>$data['alamat'],
-            'kota'=>$data['kota'],
+            // 'nomer_hp'=>$data['nomer'],
+            // 'alamat'=>$data['alamat'],
+            // 'kota'=>$data['kota'],
             'username'=>$data['username'],
             'password' => Hash::make($data['password']),
             'roles_id' => $idRole,

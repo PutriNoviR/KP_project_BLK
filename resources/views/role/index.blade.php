@@ -61,6 +61,7 @@
   @endforeach
 @endif
 
+<a data-target='#tambahModal' data-toggle='modal' class='btn btn-xs btn-success'><i class="fa fa-plus"></i> Tambah Data</a><br><br>
 
 <div class="portlet">
         <div class="portlet-title">
@@ -68,28 +69,25 @@
                Hak Akses Pengguna
             </div>
         </div>
-        <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="table-group-actions pull-right">
-                        <button class="btn btn-xs btn-success" data-target='#tambahModal' data-toggle='modal'><i class="fa fa-plus"></i> Tambah Data</button>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
+
+        <div class="portlet-body"> 
+
+            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                 <thead>
-                <tr>
-                    <th>
+                <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         No
                     </th>
-                    <th>
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
                         Nama
                     </th>
-                    <th>
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         Detail
                     </th>
-                    <th>
+                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
                         Aksi
                     </th>
                 </tr>
@@ -99,9 +97,9 @@
                         $no = 1;
                     @endphp
 
-                    @foreach($data as $d)
+                    @foreach($data as $key=>$d)
                    
-                    <tr>
+                    <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                         <td>
                             {{$no}}
                         </td>
@@ -176,7 +174,7 @@
                     @endforeach
                 </tbody>
                 </table>
-            </div>
+            
         </div>
     </div>
 

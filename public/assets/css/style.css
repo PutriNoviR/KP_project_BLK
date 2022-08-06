@@ -50,6 +50,8 @@ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address
 @-ms-viewport { 
   width: auto !important; 
 }
+/* Form Kelengkapan Data Diri */
+
 
 /* Page print */
 
@@ -391,6 +393,10 @@ Header and header elements.
   box-shadow: none;
   color: #fff;
   border: 0;
+}
+
+.navbar-toggle i{
+  color: #000;
 }
 
 .header .navbar-toggle:hover {
@@ -825,7 +831,8 @@ Sidebar toggler(show/hide)
   width: 24px;
   height: 23px;
   margin-right: -1px;
-  background-color: #FcFcFc;
+  /* background-color: #FcFcFc; */
+  background-color: #F5F5F5;
 }
 
 .sidebar-toggler:before {
@@ -873,7 +880,8 @@ Page content
 .page-content {  
   margin-top: 0px;   
   padding: 0px;
-  background-color: #FaFaFa; 
+  /* background-color: #FaFaFa;  */
+  background-color: #F6F9FF;
   border-radius: 0 0 0 4px;
 }
 
@@ -940,7 +948,8 @@ Page breadcrumb
 .page-bar {
   border: 0;
   padding: 0px;
-  background-color: #eee;
+  /* background-color: #eee; */
+  background-color: #F5F5F5;
   margin-bottom: 25px;
   margin-left: -20px;
   margin-right: -20px;
@@ -999,6 +1008,22 @@ Page breadcrumb
 
 .page-bar .page-toolbar .btn.default {  
   background-color: #ddd;
+}
+
+input[type=file]::file-selector-button{
+  background-color: #F8F8FF;
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  border: 1px solid #CED4DA;
+}
+
+input[type=file]::file-selector-button:hover{
+ cursor: pointer;
+ border: none;
+}
+
+.defaults{
+  height: 40px;
 }
 
 /***
@@ -1103,7 +1128,6 @@ i.normal {
 /* input with left aligned icons */
 .input-icon {
   position: relative;
-  left: 20px;
 }
 
 
@@ -1159,12 +1183,56 @@ Portlets
   border-radius: 4px;
 }
 
+.card-kelengkapan{
+  position: relative;
+  clear: both;
+  margin: 6% auto;
+  width: 670px;
+  max-width: 100%;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #CED4DA;
+  padding: 20px 0px 0px 0;
+  border-radius: 18px;
+}
+
+.form-button{
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.form-button .btn{
+  width: 100%;
+  border-radius: 8px;
+}
+
+
+.form-button .btn-primary{
+  color: #fff;
+  background-color: #0D6EFD;
+  border-color: #3490dc;
+}
+
 .portlet > .portlet-title { 
   background-color: #eee;
   border-radius: 4px 4px 0 0;
   padding:10px 10px 2px 10px;
   height: 38px;
 }
+
+.card-header {
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -5px;
+}
+
+.card-header p{
+  color: #012970;
+  font-weight: 600;
+  font-size: 18px;
+}
+
 
 .portlet > .portlet-title:after,
 .portlet > .portlet-title:before {
@@ -3106,7 +3174,7 @@ textarea.placeholder {
 }
 
 .form {
-  padding: 0 !important;
+  padding: 20px !important;
 }
 
 .form-body {
@@ -3428,4 +3496,10 @@ Responsive Flip Scroll Tables
   .flip-scroll tbody tr { border-left: 1px solid #ddd; }
   .flip-scroll th:last-child,
   .flip-scroll td:last-child { border-bottom: 1px solid #ddd; }
+}
+
+@media (min-width: 654px){
+  .input-icon {
+    left: 20px;
+  }
 }

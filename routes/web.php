@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+// Route::get('/', function () {
+//     return view('welcome');
+// })
+
+Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
 
 // Role
 Route::resource('menu/role','RoleController');
@@ -24,12 +26,14 @@ Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
 //Peserta
 Route::resource('menu/peserta','PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
+Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('pengguna.data.pribadi');
+Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');
 Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
-// Route::get('/home', 'HomeController@dashboardPage')->name('home');
+
 
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';

@@ -71,7 +71,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
 		<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/>
+		<i class="fa fa-bars"></i>
+		<!-- <img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/> -->
 		</a>
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN TOP NAVIGATION MENU -->
@@ -85,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#"><i class="fa fa-user"></i> Profile</a>
+						<a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
 					</li>
 					<div class="divider"></div>
 					<li>
@@ -146,26 +147,26 @@ License: You must have a valid license purchased only from themeforest(the above
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="http://127.0.0.1:8000/menu/peserta">
+							<a href="http://127.0.0.1:8000/menu/peserta" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 							<i class="icon-list"></i>
 							Daftar peserta</a>
 						</li>
 						<li>
-							<a href="{{url('soal')}}">
+							<a href="{{url('soal')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 								<i class="icon-book-open"></i>
 								Menu Soal
 							</a>
 						</li>
 						<!-- belum fix -->
 						<li>
-							<a href="#">
+							<a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 							<i class="icon-list"></i>
 							Daftar Karyawan</a>
 						</li>
 					</ul>
 				</li>
 				<li >
-					<a href="http://127.0.0.1:8000/menu/role">
+					<a href="http://127.0.0.1:8000/menu/role" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 						<i class="fa fa-group"></i>
 						<span class="title">Role</span>
 					</a>
@@ -195,7 +196,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN FOOTER -->
 <div class="footer">
 	<div class="footer-inner">
-		 2013 &copy; Conquer by keenthemes.
+		 2022 &copy; BLK UVII. Sahabat Mandira
 	</div>
 </div>
 <!-- END FOOTER -->

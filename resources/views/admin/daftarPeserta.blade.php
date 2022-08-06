@@ -64,26 +64,31 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
+     
+            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                 <thead>
-                <tr>
-                    <th>
+                <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         No
                     </th>
-                    <th>
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
                         Nama Lengkap
                     </th>
-                    <th>
+                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         Email
                     </th>
-                    <th>
+                    <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         Username
                     </th>
-                    <th>
+                    <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                         Detail
                     </th>
-                    <th>
+                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
                         Aksi
                     </th>
                 </tr>
@@ -93,9 +98,9 @@
                         $no = 1;
                     @endphp
 
-                    @foreach($data as $d)
+                    @foreach($data as $key=>$d)
                    
-                    <tr>
+                    <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                         <td>
                             {{$no}}
                         </td>
@@ -170,7 +175,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">kewarganegaraan</label>
-                                        <input name="kewarganegaraan" class="form-control" disabled value='{{$d->tipe_identitas}}'>
+                                        <input name="kewarganegaraan" class="form-control" disabled value='{{$d->jenis_identitas == "Pasport"? "Warga Negara Asing":"Warga Negara Indonesia"}}'>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Nomor Identitas</label>
@@ -185,8 +190,7 @@
                     </div>
                     @endforeach
                 </tbody>
-                </table>
-            </div>
+            </table>
         </div>
     </div>
 

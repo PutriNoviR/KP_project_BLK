@@ -4,12 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="cover2">
+        {{--    <div class="cover2">
                 <img src="{{ asset('assets/image/forgot-password.png')}}">
-            </div>
+            </div>--}}
 
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+            <div class="card-forgot">
+                <div class="card-header">
+                    <h4>{{ __('Forgot Your Password') }}</h4>
+                    <p>Please enter your email address, so we can send you link to reset your password</p>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -21,10 +24,10 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="form-group">
+                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -35,11 +38,27 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group mb-0 rata_tengah">
+                            <div class="col-md-12 offset-manual">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
+                                <br>
+
+                                @if (Route::has('register'))
+                                    <div class="register">
+                                        <span> Don't have account? </span>
+                                        <a class="btn btn-link" href="{{ route('register') }}">
+                                            {{ __('Register') }}
+                                        </a>
+                                    </div>
+                                @endif
+
+                                @if (Route::has('login'))
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Login') }}
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </form>

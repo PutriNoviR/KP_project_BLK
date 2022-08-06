@@ -129,7 +129,7 @@
                                       <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
                                   </div>
                                   <p>
-                                      Apakah Anda yakin ingin menghapus soal no <b>{{$item->id}}</b>?
+                                      Apakah Anda yakin ingin menghapus soal no <b>{{$no}}</b>?
                                   </p>
                                   <input type="hidden" name="old_id" value="{{ $item->id }}">
                               </div>
@@ -144,61 +144,71 @@
               </form>
             </td>
           </tr>
-          @php
-            $no++;
-          @endphp
 
           <div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="form-group">
-                  <label for="pertanyaan">Pertanyaan</label>
-                  <textarea name="pertanyaan" class="form-control" disabled value='{{ $item->pertanyaan }}' rows="3" placeholder="Masukkan Pertanyaan" required>{{ $item->pertanyaan }}</textarea>
+                <div class="modal-header">
+                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-group"></i>Soal no {{$no}}</h4>  
                 </div>
- 
-                <div class="form-group">
-                  <div class='row'>
-                    <div class='col-md-8'>
-                      <label for="jawaban">Jawaban</label>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="kejuruan">Kejuruan</label>
-                    </div>
+
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="pertanyaan">Pertanyaan</label>
+                    <textarea name="pertanyaan" class="form-control" disabled value='{{ $item->pertanyaan }}' rows="3" placeholder="Masukkan Pertanyaan" required>{{ $item->pertanyaan }}</textarea>
                   </div>
-
-                  @php
-                    $i = 0;
-                  @endphp
-
-                  @foreach($data2 as $d)
-                  @if($d->question_id == $item->id)
-
-                  <div class='row'>
-                    <div class='col-md-8'>
-                        <input type="text" class="form-control" disabled value='{{ $d->jawaban }}' id="jawaban" name="jawaban[{{ $i }}]" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
+ 
+                  <div class="form-group">
+                    <div class='row'>
+                      <div class='col-md-8'>
+                        <label for="jawaban">Jawaban</label>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="kejuruan">Kejuruan</label>
+                      </div>
                     </div>
-                    <div class="col-md-4">
-                        <select class="form-control" name="kejuruan[{{ $i }}]" required>
-                        {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-                          <option value="">-Pilih Kejuruan-</option>
-                          <option value=1 {{$d->kejuruans_id == 1? "selected":""}}>Kejuruan 1</option>
-                          <option value=2 {{$d->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
-                          <option value=3 {{$d->kejuruans_id == 3? "selected":""}}>Kejuruan 3</option>
-                          <option value=4 {{$d->kejuruans_id == 4? "selected":""}}>Kejuruan 4</option>
-                          <option value=5 {{$d->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option>
-                        </select>
-                    </div>
-                  </div><br>
-                  @php
-                    $i++;
-                  @endphp
-                  @endif
-                  @endforeach
+
+                    @php
+                      $i = 0;
+                    @endphp
+
+                    @foreach($data2 as $d)
+                    @if($d->question_id == $item->id)
+
+                    <div class='row'>
+                      <div class='col-md-8'>
+                          <input type="text" class="form-control" disabled value='{{ $d->jawaban }}' id="jawaban" name="jawaban[{{ $i }}]" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
+                      </div>
+                      <div class="col-md-4">
+                          <select class="form-control" name="kejuruan[{{ $i }}]" disabled required>
+                          {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
+                            <option value="">-Pilih Kejuruan-</option>
+                            <option value=1 {{$d->kejuruans_id == 1? "selected":""}}>Kejuruan 1</option>
+                            <option value=2 {{$d->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
+                            <option value=3 {{$d->kejuruans_id == 3? "selected":""}}>Kejuruan 3</option>
+                            <option value=4 {{$d->kejuruans_id == 4? "selected":""}}>Kejuruan 4</option>
+                            <option value=5 {{$d->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option>
+                          </select>
+                      </div>
+                    </div><br>
+                    @php
+                      $i++;
+                    @endphp
+                    @endif
+                    @endforeach
+                  </div>
+                </div>
+   
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
           </div>
-        </tr>
+          @php
+            $no++;
+          @endphp
+
         @endforeach
       </tbody>
     </table>
@@ -208,15 +218,3 @@
 
 
 @endsection
-<!-- <form method="POST" action="{{route('soal.store')}}">
-    @csrf
-  <div class="form-group">
-    <label for="pertanyaan">Pertanyaan</label>
-    <input type="text" class="form-control" id="pertanyaan" placeholder="Pertanyaan">
-  </div>
-  <div class="form-group">
-    <label for="jawaban">Jawaban</label>
-    <input type="text" class="form-control" id="jawaban" placeholder="Jawaban">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> -->
