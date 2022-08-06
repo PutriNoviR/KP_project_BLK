@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    // protected $connection = ''; tidak perlu dipakai, karena database pusatblk sudah diset sebagai database utama
+
     /**
      * The attributes that are mass assignable.
      *
