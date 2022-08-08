@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // })
 
+// FOR TESTING PURPOSE ONLY - TESTING SECTION STARTS
+Route::get('/testingDir', function () {
+        return view('dummy-testing.dummy');
+    });
+
+Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
+// TESTING SECTION ENDS HERE
+
 Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
 
 // Role
