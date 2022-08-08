@@ -70,12 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </form>
 		<!-- END LOGO -->
-		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-		<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<i class="fa fa-bars"></i>
-		<!-- <img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/> -->
-		</a>
-		<!-- END RESPONSIVE MENU TOGGLER -->
+		
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<ul class="nav navbar-nav pull-right">
 			<!-- BEGIN USER LOGIN DROPDOWN -->
@@ -107,108 +102,22 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- END TOP NAVIGATION BAR -->
 </div>
 
-<!-- END HEADER -->
-<div class="clearfix">
-</div>
-<!-- BEGIN CONTAINER -->
-
-<div class="page-container">
-	<!-- BEGIN SIDEBAR -->
-	<div class="page-sidebar-wrapper">
-		<div class="page-sidebar navbar-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<!-- DOC: for circle icon style menu apply page-sidebar-menu-circle-icons class right after sidebar-toggler-wrapper -->
-			<ul class="page-sidebar-menu">
-				<li class="sidebar-toggler-wrapper">
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler">
-					</div>
-					<div class="clearfix">
-					</div>
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-				</li>
-				<li class="sidebar-search-wrapper">
-					<form class="search-form" role="form" action="index.html" method="get">
-						<div class="input-icon right">
-							<i class="icon-magnifier"></i>
-							<input type="text" class="form-control" name="query" placeholder="Search...">
-						</div>
-					</form>
-				</li>
-				<li>
-					<a href="http://127.0.0.1:8000">
-					<i class="icon-home"></i>
-					<span class="title">Dashboard</span>
-					<span class="selected"></span>
-					</a>
-				</li>
-				<li >
-					<a>
-						<i class="icon-user"></i>
-						<span class="title">Admin</span>
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="http://127.0.0.1:8000/menu/peserta" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-							<i class="icon-list"></i>
-							Daftar peserta</a>
-						</li>
-						<li>
-							<a href="{{url('soal')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-								<i class="icon-book-open"></i>
-								Bank Soal
-							</a>
-						</li>
-						<li>
-							<a href="{{route('peserta.tes')}}">
-								<i class="fa fa-play"></i>
-								Mulai Tes
-							</a>
-						</li>
-							
-						<!-- belum fix -->
-						<li>
-							<a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-							<i class="icon-list"></i>
-							Daftar Karyawan</a>
-						</li>
-					</ul>
-				</li>
-				<li >
-					<a href="http://127.0.0.1:8000/menu/role" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-						<i class="fa fa-group"></i>
-						<span class="title">Role</span>
-					</a>
-				</li>
-				
-				
-			</ul>
-			<!-- END SIDEBAR MENU -->
-		</div>
-	</div>
+ <div class="page-container"> 
+	
 	<!-- END SIDEBAR -->
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
-		<div class="page-content">
-			
-			<div class="page-bar">
-				@yield('page-bar')
-			</div>
+		<div class='page-content2'>
 			
 			@yield('contents')
 			
 		</div>
-	</div>
+	</div> 
 	<!-- END CONTENT -->
-</div>
+ </div> 
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<div class="footer">
-	<div class="footer-inner">
-		 2022 &copy; BLK UVII. Sahabat Mandira
-	</div>
-</div>
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->

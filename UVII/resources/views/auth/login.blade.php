@@ -13,7 +13,7 @@
         <div class="col-md-8">
             <div class="content">
                 <div class="title">
-                    <p>Welcome To Pelatihan Minat Bakat</p>
+                    <p>Welcome To UVII</p>
                 </div>
             
                 <div class="card">

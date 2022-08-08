@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pertanyaan extends Model
 {
+    protected $connection ="uvii";
+    
     protected $table = 'question_admins';
 
     public function jawaban(){

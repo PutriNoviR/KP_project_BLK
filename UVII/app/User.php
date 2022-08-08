@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
        'email','nomor_identitas', 'jenis_identitas', 'nama_depan', 'nama_belakang','nomer_hp','kota', 'alamat',
-       'username','password','ktp','pas_foto','ijazah','ksk', 'is_verified', 'verified_by', 'verified_at', 'roles_id', 'countries_id',
+       'username','password','ktp','pas_foto','ijazah','ksk', 'is_verified', 'verified_by', 'verified_at', 'rolemandira_id', 'countries_id',
     ];
 
     /**
@@ -46,7 +46,7 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     public function role(){
-        return $this->belongsTo('App\Role','roles_id');
+        return $this->belongsTo('App\Role','rolemandira_id');
     }
     
 }

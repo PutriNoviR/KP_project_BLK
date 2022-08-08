@@ -23,7 +23,7 @@
 
     <div class="portlet-body form">
 
-        <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('pengguna.data.dokumen') }}">
+        <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('peserta.data.dokumen') }}">
             @csrf
             <div class="form-body">
                 <div class="form-group">
