@@ -257,14 +257,4 @@ class PesertaController extends Controller
         
         return redirect()->route('home');
     }
-
-    public function menuTesHome(){
-        return view('ujiTahapAwal.index');
-    }
-
-    public function menuTesUjiTahapAwal(){
-        // insert data ke tabel uji_minat_awals
-        $url = 'uji_minat_awal';
-        return view('ujiTahapAwal.tes', compact('url'));
-    }
 }

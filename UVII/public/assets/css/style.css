@@ -103,7 +103,7 @@ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address
   .page-content2 {
     padding: 0 !important;
     /* min-height: 300px !important; */
-    height: 100%;
+    height: 100vh;
     padding: 0px 20px 20px !important;
     margin: 20px !important;
   }
@@ -588,7 +588,7 @@ Page content
   margin-top: 50px;
   min-height: 760px; 
   padding: 25px 20px 20px 20px;
-  height: 100%;
+  height: 100vh;
 }
 /*** IE 8 Fixes ***/
 
@@ -1480,10 +1480,15 @@ Portlets
   padding: 10px 30px; 
 }
 
-.finish_attempt p{
+.finish_attempt a{
   font-size: 4vw;
 	font-weight: bold;
   color:#179FFB;
+  text-decoration: none;
+}
+
+.finish_attempt a:hover{
+  cursor: pointer;
 }
 
 .timer{
@@ -1511,10 +1516,10 @@ Portlets
   width: 100%;
 }
 
-.soal li{
-  list-style-type: decimal;
+.soal p{
+  /* list-style-type: decimal; */
   padding: 4px;
-  font-size: 4vw;
+  font-size: 3.8vw;
   font-weight: bold;
   color: #000;
 }
@@ -1559,9 +1564,9 @@ Portlets
 }
 
 @media (min-width: 600px){
-  .page-content2{
+  /* .page-content2{
     height: 100vh;
-  }
+  } */
 
   .navigation{
     width: 20%;
@@ -1573,11 +1578,10 @@ Portlets
 
   .navigation .row{
     max-width: 100%;
-    padding: 10px 20px;
+    padding: 10px 30px;
     display: grid;
     width: 100%;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(7, 1fr);
     grid-row-gap: 10px;
     grid-column-gap: 5px;
     text-align: center;
@@ -1593,7 +1597,7 @@ Portlets
     padding: 10px; 
   }
 
-  .finish_attempt p{
+  .finish_attempt a{
     font-size: 1.2vw;
   }
 
@@ -1607,28 +1611,31 @@ Portlets
 
   .body_test{
     width: 70%;
-    float: right;
+    position: relative;
+    top: 20%;
+    right: -28%;
     margin-right: 20px;
     padding: 30px 50px;
   }  
 
-  .soal li{
-    font-size: 1.5vw;
+  .soal p{
+    font-size: 1.4vw;
     padding: 6px;
   }
 
   .pilihan label{
-    font-size: 1.2vw;
+    font-size: 1.3vw;
+    padding-left: 4%;
   }
 
   .timer{
     position: relative;
     right: -35%;
+    margin-top: 0;
   }
 
   .tes-btn{
-    clear: both;
-    margin-top: 41%;
+    margin-top: 5%;
   }
 
   .tes-btn .button{
@@ -1639,13 +1646,6 @@ Portlets
     margin-right: 30%;
   }
 
-}
-
-@media(min-width: 900px){
-  .tes-btn{
-    clear: both;
-    margin-top: 50%;
-  }
 }
 
 /* End Form Tes Tahap 1 */

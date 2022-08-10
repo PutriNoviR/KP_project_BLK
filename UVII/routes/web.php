@@ -28,8 +28,10 @@ Route::resource('menu/peserta','PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
 Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('peserta.data.pribadi');
 Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('peserta.data.dokumen');
-Route::get('menu/tes', 'PesertaController@menuTesHome')->name('peserta.tes');
-Route::get('menu/tes/uji-tahap-awal', 'PesertaController@menuTesUjiTahapAwal')->name('peserta.uji.tahap.awal');
+
+//Tes Tahap Awal
+Route::get('menu/tes', 'TesTahapAwalController@menuTesHome')->name('peserta.tes');
+Route::get('menu/tes/uji-tahap-awal', 'TesTahapAwalController@menuTesUjiTahapAwal')->name('peserta.uji.tahap.awal');
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');

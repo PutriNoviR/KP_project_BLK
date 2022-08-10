@@ -12,50 +12,34 @@
 
     <div class="body_test">
 
+        @php
+            $no = 1;
+        @endphp
+
+        @foreach($dataSoal as $data)
         <div class="soal">
-           <li> Manakah aktivitas kerja Yang anda sukai ?</li>
-            
+           <p> {{ $no }}. {{ $data->pertanyaan }}</p>
+           <input type="hidden" name="soal_{{ $no }}" value="{{ $data->id }}"> 
         </div>
 
         <div class="row_pilihan">
 
+            @foreach($data->find($data->id)->jawaban->shuffle() as $pilihan)
             <div class="pilihan">
                 
                 <label>
-                    <input type="radio" name="pilahan_soal_1" value="kejuruan_id"> 
-                    Mengembangkan  website
+                    <input type="radio" name="pilihan_jawaban_{{ $no }}" value="{{ $pilihan->idanswers }}"> 
+                    {{ $pilihan->jawaban }}
                 </label>
             </div>
-
-            <div class="pilihan">
-                <label>
-                    <input type="radio" name="pilahan_soal_1" value="kujuruan_id"> 
-                    Mengembangkan produk Virtual Reality
-                </label>
-            </div>
-
-            <div class="pilihan">
-                <label>
-                    <input type="radio" name="pilahan_soal_1" value="kejuruan_id"> 
-                    Menghitung proses distribusi barang
-                </label>
-            </div>
-    
-            <div class="pilihan">
-                <label>
-                    <input type="radio" class="form-check-input" name="pilahan_soal_1" value="kejuruan_id">
-                    Mengkombinasikan elemen-elemen kimia
-                </label>
-            </div>
-            
-            <div class="pilihan">
-                <label>
-                    <input type="radio" name="pilahan_soal_1" value="kejuruan_id"> 
-                    Merakit elemen-elemen elektronik
-                </label>
-            </div>
+            @endforeach
         </div>
 
+        @php
+            $no++;
+        @endphp
+
+        @endforeach
     </div>
 
     <div class="tes-btn">
@@ -72,7 +56,7 @@
         <div class="line"></div>
 
         <div class="row">
-            @for($i=1; $i <= 20; $i++)
+            @for($i=1; $i <= $dataSoal->count(); $i++)
             <div class="box">
                 <span>{{ $i }}</span>
             </div>
@@ -80,7 +64,7 @@
         </div>
 
         <div class="finish_attempt" >
-            <p>Finish Attempt...</p>
+            <a>Finish Attempt...</a>
         </div>
     </div>
 

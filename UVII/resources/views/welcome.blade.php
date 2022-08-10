@@ -232,7 +232,7 @@
                     <div class="form-group form-button">
                 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Next') }}
+                            {{ __('Save') }}
                         </button>
                     
                     </div>
@@ -244,7 +244,7 @@
 
     </div>
 
-    @elseif(Auth::user()->ktp == null)
+    {{-- @elseif(Auth::user()->ktp == null)
         <div class="card-kelengkapan">
 
             <div class="card-header">
@@ -306,7 +306,7 @@
                 </form>
             </div>
 
-        </div>
+        </div> --}}
 
     @else
         <div class="card-kelengkapan">
