@@ -18,7 +18,7 @@ class PesertaController extends Controller
     public function index()
     {
         $idRole = Role::where('nama_role', 'Peserta')->first();
-        $data = User::where('roles_id', $idRole->id)->get();
+        $data = User::where('rolemandira_id', $idRole->id)->get();
 
         return view('admin.daftarPeserta', compact('data'));
     }
@@ -183,24 +183,30 @@ class PesertaController extends Controller
 
     public function kelengkapanDataPribadi(Request $request){
         $this->validate($request, [
-            'nomer' => ['required', 'numeric', 'min:10'],
             'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
         ]);
 
-        $data = $request->session()->get('kelengkapanData');
+        // $data = $request->session()->get('kelengkapanData');
 
-        if(empty($data)){
+        // if(empty($data)){
            
             $data=[
                 "nomor_identitas" => $request->nomor_identitas,
                 "jenis_identitas" => $request->jenis_identitas,
-                "nomer_hp" => $request->nomer,
+                "jenis_kelamin" => $request->jenis_kelamin,
+                "hobi" => $request->hobi,
+                "tanggal_lahir" => $request->tanggal_lahir,
+                "pendidikan_terakhir" => $request->pendidikan_terakhir,
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,
             ];
 
-            $request->session()->put('kelengkapanData', $data);
-        }
+            $myemail = Auth::user()->email;
+            // setelah next sistem akan langsung update 
+            User::where('email', $myemail)->update($data);
+
+            // $request->session()->put('kelengkapanData', $data);
+        // }
         
         return view('kelengkapan_data', compact('data'));
     }
@@ -208,9 +214,9 @@ class PesertaController extends Controller
     public function kelengkapanDataDokumen(Request $request){
         $myname = Auth::user()->username;
 
-        $data = $request->session()->get('kelengkapanData');
+        // $data = $request->session()->get('kelengkapanData');
 
-        if(!isset($data['ktp'])){
+        // if(!isset($data['ktp'])){
             $this->validate($request, [
                 'no_ktp' => ['required', 'mimes:png,jpeg,pdf', 'max:20480'],
                 'ijazah' => ['required','mimes:png,jpeg,pdf', 'max:20480'],
@@ -218,7 +224,7 @@ class PesertaController extends Controller
                 'pas_foto' => ['required', 'mimes:png,jpeg,pdf', 'max:20480'],
             ]);
 
-            // Format nama file: username_waktu_nama file
+            // Format nama file awalnya belum fix: username_waktu_nama file
             $ksk= $request->file('ksk');
             $kskName = $myname.'_'.time().'_'.$ksk->getClientOriginalName();
             $ksk->move(public_path('images'),$kskName);
@@ -235,17 +241,19 @@ class PesertaController extends Controller
             $ijazahName = $myname.'_'.time().'_'.$ijazah->getClientOriginalName();
             $ijazah->move(public_path('images'),$ijazahName);
 
-            $data['ktp'] = $ktpName;
-            $data['ijazah'] = $ijazahName;
-            $data['ksk'] = $kskName;
-            $data['pas_foto'] = $fotoName;
+            $data=[
+                'ktp' => $ktpName,
+                'ijazah' => $ijazahName,
+                'ksk' => $kskName,
+                'pas_foto' => $fotoName,
+            ];
 
-            $request->session()->put('kelengkapanData', $data);
+            // $request->session()->put('kelengkapanData', $data);
 
             User::where('username', $myname)->update($data);
 
-            $request->session()->forget('kelengkapanData');
-        }  
+            // $request->session()->forget('kelengkapanData');
+        // }  
         
         return redirect()->route('home');
     }

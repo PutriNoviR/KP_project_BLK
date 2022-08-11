@@ -17,6 +17,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
+        
         $list_pertanyaan = Pertanyaan::all();
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();

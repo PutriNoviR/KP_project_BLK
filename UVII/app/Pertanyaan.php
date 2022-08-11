@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pertanyaan extends Model
 {
+    protected $connection ="uvii";
+    
     protected $table = 'question_admins';
 
     public function jawaban(){
-        return $this->hasMany('App\Jawaban','question_id', 'idanswers');
+        return $this->hasMany('App\Jawaban','question_id', 'id');
+    }
+
+    public function hasilJawabans(){
+        return $this->belongsToMany('App\UjiMinatAwals','hasil_jawabans','questions_id',
+        'uji_minat_awals_id') -> withPivot('jawaban');
     }
 
     protected $fillable = [

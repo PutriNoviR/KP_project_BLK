@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Session;
 
@@ -64,6 +65,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
+            'nomer' => ['required', 'numeric', 'min:10'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');
                 $response = $value;
@@ -91,6 +93,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $role = Role::where('nama_role', $data['peran'])->first();
+        
         $idRole = $role->id;
 
         // $identitas = "";
@@ -111,12 +114,12 @@ class RegisterController extends Controller
             'nama_depan' => $data['firstname'],
             'nama_belakang' => $data['lastname'],
             'email' => $data['email'],
-            // 'nomer_hp'=>$data['nomer'],
+            'nomer_hp'=>$data['nomer'],
             // 'alamat'=>$data['alamat'],
             // 'kota'=>$data['kota'],
             'username'=>$data['username'],
             'password' => Hash::make($data['password']),
-            'roles_id' => $idRole,
+            'rolemandira_id' => $idRole,
             'countries_id' => $idCountry,
         ]);
     }

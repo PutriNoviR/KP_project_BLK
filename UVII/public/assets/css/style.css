@@ -99,6 +99,14 @@ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address
       padding: 0px 20px 20px !important;
       margin: 0 !important;
   }
+
+  .page-content2 {
+    padding: 0 !important;
+    /* min-height: 300px !important; */
+    height: 100vh;
+    padding: 0px 20px 20px !important;
+    margin: 20px !important;
+  }
 }
 
 /***
@@ -305,6 +313,7 @@ ie8 & ie9 modes
 /********************
  GENERAL LAYOUT 
 *********************/
+
 
 /***
 Header and header elements.
@@ -573,6 +582,14 @@ Page content
     min-height: 760px; 
     padding: 25px 20px 20px 20px;
  }
+
+ .ie8 .page-content2 { 
+  margin-left: 0px; 
+  margin-top: 50px;
+  min-height: 760px; 
+  padding: 25px 20px 20px 20px;
+  height: 100vh;
+}
 /*** IE 8 Fixes ***/
 
 .page-sidebar.navbar-collapse {
@@ -738,7 +755,6 @@ Page content
   text-decoration: none;
   font-size: 14px;
   font-weight: 300;
-  background: none;
 }
 
 /* 3rd level sub menu */
@@ -784,6 +800,7 @@ Page content
   margin: 0px;
   padding: 0px;
   margin-top: 1px !important;
+  background: none;
 }
 
 .page-sidebar-menu > li > ul.sub-menu  li > ul.sub-menu > li > a {
@@ -881,6 +898,13 @@ Page content
   margin-top: 0px;   
   padding: 0px;
   /* background-color: #FaFaFa;  */
+  background-color: #F6F9FF;
+  border-radius: 0 0 0 4px;
+}
+
+.page-content2 {  
+  margin-top: 50px;   
+  padding: 0px;
   background-color: #F6F9FF;
   border-radius: 0 0 0 4px;
 }
@@ -1194,7 +1218,11 @@ Portlets
   background-clip: border-box;
   border: 1px solid #CED4DA;
   padding: 20px 0px 0px 0;
-  border-radius: 18px;
+  /* border-radius: 18px; */
+  -ms-border-radius: 20px;
+	-o-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
 }
 
 .form-button{
@@ -1231,8 +1259,396 @@ Portlets
   color: #012970;
   font-weight: 600;
   font-size: 18px;
+  letter-spacing: 0.36px;
+}
+/* Tes Tahap 1 */
+.card-page{
+  position: relative;
+  clear: both;
+  margin: 6% auto;
+  width: 670px;
+  max-width: 100%;
+  word-wrap: break-word;
+  background:rgba(251.81,250.76,250.76,1);
+  background-clip: border-box;
+  border: 1px solid #CED4DA;
+  padding: 20px 0px 0px 0;
+  -ms-border-radius: 20px;
+	-o-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
 }
 
+.card-body{
+  padding: 30px !important;
+}
+
+.body-title p{
+  width: 100%;
+	font-size: 14px;
+	text-align: left;
+	margin-top: 5px;
+}
+
+.body-content{
+	width: 100%;
+	overflow: hidden;
+	font-size: 12px;
+	text-align: left;
+}
+
+.tulisan_rata{
+  list-style-position: outside;
+  margin-left: -25px;
+  line-height: 24px;
+}
+
+.body-content li{
+  list-style-type: decimal;
+  padding: 4px;
+}
+
+.body-btn {
+	text-align: center;
+  -ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+  line-height: 90px;
+}
+
+.body-btn button, .button{
+  background: #18A0FB;
+  border-color: #3490dc;
+  width: 174.62px;
+}
+
+.body-btn button:hover, .button:hover{
+  background: #18A0FB;
+}
+
+.body-btn button:focus, .button:focus{
+  background: #18A0FB;
+}
+
+#modalTes{
+  top: 20%;
+	left: 0;
+  float: left;
+  position: absolute;
+  width: 100%;
+  display: none;
+}
+
+.modal-btn{
+  border-top: none; 
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  padding: 15px;
+}
+
+.modal-btn button, .button{
+  width: 40%;
+  flex: 0 0 66.66666667%;
+  max-width: 100%;
+}
+
+.modal-btn .btn-primary{
+  background: #18A0FB;
+  border-color: #3490dc;
+  margin-right: 20px;
+}
+
+.modal-btn .btn-default{
+  background:rgba(206.74,210.83,213.56,1);
+  border-color: rgba(206.74,210.83,213.56,1);
+}
+
+.modal-body-icon{
+  width: 60px; 
+  height: 60px; 
+  margin: auto;
+}
+
+.modal-body-icon i{
+  font-size: 46px; 
+  color: #8a6d3b; 
+  margin-top: 10px;
+}
+
+@media (max-width: 360px) { 
+  .modal-btn{
+    width: 100%;
+  }
+  .modal-btn .button, .modal-btn button{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+}
+
+/* end tes tahap 1 */
+
+/* Form Tes Tahap 1 */
+.container{
+  margin: 0;
+  padding: 15px;
+  width: 100%;
+}
+.navigation{
+	width: 100%;
+	height: 100%;
+  opacity:10;
+	background:rgba(204,204,204,0.19);
+}
+.nav-title{
+	width: 100%;
+	height: 46px;
+	overflow: hidden;
+	text-align: center;
+  padding: 10px;
+}
+.line{
+  width: 100%;
+	height: 5px;
+  margin-top: -2px;
+  background-color:#EEF0F5;
+  box-shadow:inset 0px 4px 4px 1px rgba(0,0,0,0.25);
+}
+
+.body_test{
+	width: 100%;
+	background: #FCFBFB;
+  margin-bottom: 20px;
+  padding: 20px;
+  -ms-border-radius: 27px;
+	-o-border-radius: 27px;
+	-moz-border-radius: 27px;
+	-webkit-border-radius: 27px;
+	border-radius: 27px;
+}
+
+.nav-title p {
+  font-size: 4vw;
+	font-weight: bold;
+  color: #000;
+}
+
+.navigation .row{
+  display: grid;
+  width: 100%;
+  padding: 20px 30px;
+  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-rows: repeat(4, 1fr); */
+  grid-row-gap: 10px;
+  grid-column-gap: 5px;
+  text-align: center;
+  margin: 0;
+}
+
+.navigation .row:before{
+  content: none;
+}
+
+.box{
+	width: 80%;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+  padding: 10%;
+  background-color: #fff;
+  border: 1px solid #000;
+  margin: 0;
+}
+
+.box:hover{
+  background: #D9D9D9;
+  opacity:0.18999999761581;
+}
+
+.box span{
+	font-size: 4vw;
+	font-weight: bold;
+  color:#000000;
+}
+
+.finish_attempt{
+	width: 100%;
+	overflow: hidden;
+	text-align: right;
+  padding: 10px 30px; 
+}
+
+.finish_attempt a{
+  font-size: 4vw;
+	font-weight: bold;
+  color:#179FFB;
+  text-decoration: none;
+}
+
+.finish_attempt a:hover{
+  cursor: pointer;
+}
+
+.timer{
+  padding: 5px 8px;
+  width: 180px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	background:rgba(0,0,139,1);
+  position: relative;
+  margin: 6% auto;
+  text-align: center;
+}
+
+.timer p{
+  color: #ffff;
+  margin: 0;
+}
+
+.soal{
+  list-style-position: outside;
+  line-height: 24px;
+  width: 100%;
+}
+
+.soal p{
+  /* list-style-type: decimal; */
+  padding: 4px;
+  font-size: 3.8vw;
+  font-weight: bold;
+  color: #000;
+}
+
+.row_pilihan{
+  line-height: 30px;
+  max-width: 100%;
+}
+
+.row_pilihan label{
+  padding: 6px 5px;
+}
+
+.pilihan label{
+  font-size: 3.2vw;
+	font-weight: 600;
+	color:#000000;
+}
+
+
+.tes-btn{
+  border-top: none; 
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  padding: 15px;
+  margin: 25px 0 10px 0;
+}
+
+.tes-btn .button{
+  width: 40%;
+  flex: 0 0 66.66666667%;
+  max-width: 100%;
+  text-transform: uppercase;
+  background: #00008B;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tes-btn .button:nth-child(1){
+  margin-right: 20px;
+}
+
+@media (min-width: 600px){
+  /* .page-content2{
+    height: 100vh;
+  } */
+
+  .navigation{
+    width: 20%;
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    height: fit-content;
+  }
+
+  .navigation .row{
+    max-width: 100%;
+    padding: 10px 30px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 5px;
+    text-align: center;
+    margin: 0px;
+  }
+
+  .nav-title p {
+    font-size: 1.5vw;
+  }
+
+  .finish_attempt{
+    width: 100%;
+    padding: 10px; 
+  }
+
+  .finish_attempt a{
+    font-size: 1.2vw;
+  }
+
+  .box{
+    padding: 6%;
+  }
+
+  .box span{
+    font-size: 1.3vw;
+  }
+
+  .body_test{
+    width: 70%;
+    position: relative;
+    top: 20%;
+    right: -28%;
+    margin-right: 20px;
+    padding: 30px 50px;
+  }  
+
+  .soal p{
+    font-size: 1.4vw;
+    padding: 6px;
+  }
+
+  .pilihan label{
+    font-size: 1.3vw;
+    padding-left: 4%;
+  }
+
+  .timer{
+    position: relative;
+    right: -35%;
+    margin-top: 0;
+  }
+
+  .tes-btn{
+    margin-top: 5%;
+  }
+
+  .tes-btn .button{
+    width: 30%;
+  }
+
+  .tes-btn .button:nth-of-type(1){
+    margin-right: 30%;
+  }
+
+}
+
+/* End Form Tes Tahap 1 */
 
 .portlet > .portlet-title:after,
 .portlet > .portlet-title:before {

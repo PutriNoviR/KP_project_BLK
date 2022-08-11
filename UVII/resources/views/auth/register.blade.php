@@ -68,36 +68,11 @@
                                 </div>
                             </div>
                         </div>
-                        
-                     {{--   <div class="form-group row">
-                            <label for="nomor_identitas" class="col-md-4 col-form-label text-md-right">Nomor Identitas</label>
 
-                            <div class="col-md-6">
-                                <input id="nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required autocomplete="nomor_identitas" autofocus>
+                       <div class="form-group">
+                            <label for="nomer" class="col-md-12 col-form-label">Nomor Handphone</label>
 
-                                @error('nomor_identitas')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="form-group row">
-                            <label for="tipe_identitas" class="col-md-4 col-form-label text-md-right">Tipe Identitas</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control input-small" name="tipe_identitas" required>
-                                    <option value="WNI" selected>Warga Negara Indonesia</option>
-                                    <option value="WNA">Warga Negara Asing</option>
-                                </select>
-                            </div>
-                        </div> --}}
-
-                       {{-- <div class="form-group row">
-                            <label for="nomer" class="col-md-4 col-form-label text-md-right">Nomor Handphone</label>
-
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="nomer" type="text" class="form-control @error('nomer') is-invalid @enderror" name="nomer" value="{{ old('nomer') }}" required autocomplete="nomer" autofocus>
 
                                 @error('nomer')
@@ -106,35 +81,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>--}}
-
-                     {{--   <div class="form-group row">
-                            <label for="kota" class="col-md-4 col-form-label text-md-right">Alamat</label>
-
-                            <div class="col-md-6">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
-
-                                @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>--}}
-
-                      {{--  <div class="form-group row">
-                            <label for="kota" class="col-md-4 col-form-label text-md-right">Kota</label>
-
-                            <div class="col-md-6">
-                                <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ old('kota') }}" required autocomplete="kota" autofocus>
-
-                                @error('kota')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>--}}
+                        </div>
 
                         <div class="form-group">
                             <label for="username" class="col-md-12 col-form-label">{{ __('username') }}</label>
