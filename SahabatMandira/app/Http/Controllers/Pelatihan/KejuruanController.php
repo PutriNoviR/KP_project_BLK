@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pelatihan;
 
-use App\Blk;
+use App\Http\Controllers\Controller;
+use App\Kejuruan;
 use Illuminate\Http\Request;
 
-class BlkController extends Controller
+class KejuruanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +16,8 @@ class BlkController extends Controller
     public function index()
     {
         //
+        $data = Kejuruan::all();
+        return view();
     }
 
     /**
@@ -25,6 +28,7 @@ class BlkController extends Controller
     public function create()
     {
         //
+        return view();
     }
 
     /**
@@ -36,50 +40,63 @@ class BlkController extends Controller
     public function store(Request $request)
     {
         //
+        $Kejuruan = new Kejuruan();
+        $Kejuruan->nama = $request->nama;
+        $Kejuruan->link_kejuruan_test_2 = $request->link_kejuruan_test_2;
+        $Kejuruan->save();
+        return view();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Blk  $blk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Blk $blk)
+    public function show(Kejuruan $Kejuruan)
     {
         //
+        return view($data = $Kejuruan);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Blk  $blk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blk $blk)
+    public function edit(Kejuruan $Kejuruan)
     {
         //
+        return view($data = $Kejuruan);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Blk  $blk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blk $blk)
+    public function update(Request $request, Kejuruan $Kejuruan)
     {
         //
+        $Kejuruan->nama = $request->nama;
+        $Kejuruan->link_kejuruan_test_2 = $request->link_kejuruan_test_2;
+        $Kejuruan->save();
+        return view();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Blk  $blk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blk $blk)
+    public function destroy(Kejuruan $Kejuruan)
     {
         //
+        $Kejuruan->delete();
+        return view();
     }
 }
