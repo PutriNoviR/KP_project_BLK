@@ -7,6 +7,8 @@ use App\User;
 use App\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EncryptController;
+
 
 class PesertaController extends Controller
 {
@@ -107,20 +109,22 @@ class PesertaController extends Controller
     
             $ksk= $request->file('ksk');
             $kskName = $myname.'_'.time().'_'.$ksk->getClientOriginalName();
-            $ksk->move(public_path('images'),$kskName);
+            // $ksk->move(public_path('images'),$kskName);
     
             $pas_foto= $request->file('pas_foto');
             $fotoName = $myname.'_'.time().'_'.$pas_foto->getClientOriginalName();
-            $pas_foto->move(public_path('images'),$fotoName);
+            // $pas_foto->move(public_path('images'),$fotoName);
 
             $ktp= $request->file('no_ktp');
             $ktpName = $myname.'_'.time().'_'.$ktp->getClientOriginalName();
-            $ktp->move(public_path('images'),$ktpName);
+            // $ktp->move(public_path('images'),$ktpName);
     
             $ijazah= $request->file('ijazah');
             $ijazahName = $myname.'_'.time().'_'.$ijazah->getClientOriginalName();
-            $ijazah->move(public_path('images'),$ijazahName);
+            // $ijazah->move(public_path('images'),$ijazahName);
            
+            $upload_encrypted = (new EncryptController)->encrypt_user_data($request);
+
             $peserta = [
                 "ktp" => $ktpName,
                 'pas_foto' => $fotoName,
@@ -221,19 +225,21 @@ class PesertaController extends Controller
             // Format nama file: username_waktu_nama file
             $ksk= $request->file('ksk');
             $kskName = $myname.'_'.time().'_'.$ksk->getClientOriginalName();
-            $ksk->move(public_path('images'),$kskName);
+            // $ksk->move(public_path('images'),$kskName);
     
             $pas_foto= $request->file('pas_foto');
             $fotoName = $myname.'_'.time().'_'.$pas_foto->getClientOriginalName();
-            $pas_foto->move(public_path('images'),$fotoName);
+            // $pas_foto->move(public_path('images'),$fotoName);
 
             $ktp= $request->file('no_ktp');
             $ktpName = $myname.'_'.time().'_'.$ktp->getClientOriginalName();
-            $ktp->move(public_path('images'),$ktpName);
+            // $ktp->move(public_path('images'),$ktpName);
     
             $ijazah= $request->file('ijazah');
             $ijazahName = $myname.'_'.time().'_'.$ijazah->getClientOriginalName();
-            $ijazah->move(public_path('images'),$ijazahName);
+            // $ijazah->move(public_path('images'),$ijazahName);
+
+            $upload_encrypted = (new EncryptController)->encrypt_user_data($request);
 
             $data['ktp'] = $ktpName;
             $data['ijazah'] = $ijazahName;
