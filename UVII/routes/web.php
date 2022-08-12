@@ -32,12 +32,15 @@ Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')-
 //Tes Tahap Awal
 Route::get('menu/tes', 'TesTahapAwalController@menuTesHome')->name('peserta.tes');
 Route::get('menu/tes/uji-tahap-awal', 'TesTahapAwalController@menuTesUjiTahapAwal')->name('peserta.uji.tahap.awal');
+Route::get('menu/tes/uji', 'TesTahapAwalController@test');
+Route::post('menu/tes/uji-tahap-awal/save', 'TesTahapAwalController@simpanJawaban')->name('peserta.save.jawaban');
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');
 Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
-
+Route::get('soal/setting','PertanyaanController@setting')->name('soal.setting');
+Route::post('soal/setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
 
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';

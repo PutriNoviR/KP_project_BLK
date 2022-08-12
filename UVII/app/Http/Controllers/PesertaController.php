@@ -208,7 +208,7 @@ class PesertaController extends Controller
             // $request->session()->put('kelengkapanData', $data);
         // }
         
-        return view('kelengkapan_data', compact('data'));
+        return view('welcome');
     }
 
     public function kelengkapanDataDokumen(Request $request){

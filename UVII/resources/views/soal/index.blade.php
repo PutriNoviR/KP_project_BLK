@@ -56,6 +56,7 @@
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
 <a class='btn btn-info'> Import Soal </a><br><br>
 
+
 <div class="portlet">
   <div class="portlet-body">
  
@@ -215,6 +216,7 @@
     
   </div>
 </div>
-
+<a href="{{route('soal.setting')}}" class='btn btn-info'> Setting Soal </a>
+<a href="#" class='btn btn-info'> Preview Soal </a><br><br>
 
 @endsection

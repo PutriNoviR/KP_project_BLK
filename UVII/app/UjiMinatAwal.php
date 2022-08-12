@@ -15,6 +15,8 @@ class UjiMinatAwal extends Model
 
     public function hasilJawabans(){
         return $this->belongsToMany('App\Pertanyaan','hasil_jawabans','questions_id',
-        'uji_minat_awals_id') -> withPivot('jawaban');
+        'uji_minat_awals_id')->withPivot('jawaban');
     }
+
+    public $timestamps = false;
 }
