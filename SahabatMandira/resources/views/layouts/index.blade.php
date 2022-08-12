@@ -64,57 +64,59 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <body class="page-header-fixed">
     <!-- BEGIN HEADER -->
-    {{-- <div class="header navbar navbar-fixed-top">
+    <div class="header navbar navbar-fixed-top">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="header-inner">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
                 <img src="{{ asset('assets/image/disnaker.jpeg') }}" alt="logo" width="250px" />
-    </div>
-    <form class="search-form search-form-header" role="form" action="index.html">
-        <div class="input-icon right">
-            <i class="icon-magnifier"></i>
-            <input type="text" class="form-control input-sm" name="query" placeholder="Search...">
-        </div>
-    </form>
-    <!-- END LOGO -->
-    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-    <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <i class="fa fa-bars"></i>
-        <!-- <img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/> -->
-    </a>
-    <!-- END RESPONSIVE MENU TOGGLER -->
-    <!-- BEGIN TOP NAVIGATION MENU -->
-    <ul class="nav navbar-nav pull-right">
-        <!-- BEGIN USER LOGIN DROPDOWN -->
-        <li class="dropdown user">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" src="{{ asset('assets/img/avatar.png') }}" width="32px" />
-                <span class="username username-hide-on-mobile">{{Auth::user()->username}} </span>
-                <i class="fa fa-angle-down"></i>
+            </div>
+            <form class="search-form search-form-header" role="form" action="index.html">
+                <div class="input-icon right">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" class="form-control input-sm" name="query" placeholder="Search...">
+                </div>
+            </form>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+                <!-- <img src="{{ asset('assets/img/menu-toggler.png') }}" alt=""/> -->
             </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i
-                            class="fa fa-user"></i> Profile</a>
-                </li>
-                <div class="divider"></div>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST" class="d-none logout">
-                        @csrf
-                        <i class="fa fa-sign-out"></i>
-                        <input class="btn btn-sm btn-danger" type="submit" value="Logout">
-                    </form>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                        data-close-others="true">
+                        <img alt="" src="{{ asset('assets/img/avatar.png') }}" width="32px" />
+                        <span class="username username-hide-on-mobile">{{Auth::user()->username}} </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"
+                                style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i
+                                    class="fa fa-user"></i> Profile</a>
+                        </li>
+                        <div class="divider"></div>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" class="d-none logout">
+                                @csrf
+                                <i class="fa fa-sign-out"></i>
+                                <input class="btn btn-sm btn-danger" type="submit" value="Logout">
+                            </form>
 
+                        </li>
+                    </ul>
                 </li>
+                <!-- END USER LOGIN DROPDOWN -->
             </ul>
-        </li>
-        <!-- END USER LOGIN DROPDOWN -->
-    </ul>
-    <!-- END TOP NAVIGATION MENU -->
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
     </div>
-    <!-- END TOP NAVIGATION BAR -->
-    </div> --}}
     <!-- END HEADER -->
     <div class="clearfix">
     </div>
@@ -122,7 +124,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-container">
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">
-            {{-- <div class="page-sidebar navbar-collapse collapse">
+            <div class="page-sidebar navbar-collapse collapse">
                 <!-- BEGIN SIDEBAR MENU -->
                 <!-- DOC: for circle icon style menu apply page-sidebar-menu-circle-icons class right after sidebar-toggler-wrapper -->
                 <ul class="page-sidebar-menu">
@@ -159,131 +161,132 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li>
                                 <a href="http://127.0.0.1:8000/menu/peserta"
                                     style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-            <i class="icon-list"></i>
-            Daftar peserta</a>
-            </li>
-            <li>
-                <a href="{{url('soal')}}"
-                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                    <i class="icon-book-open"></i>
-                    Menu Soal
-                </a>
-            </li>
-            <!-- belum fix -->
-            <li>
-                <a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                    <i class="icon-list"></i>
-                    Daftar Karyawan</a>
-            </li>
-            </ul>
-            </li>
-            <li>
-                <a href="http://127.0.0.1:8000/menu/role"
-                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                    <i class="fa fa-group"></i>
-                    <span class="title">Role</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="icon-user"></i>
-                    <span class="title">Kejuruan</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="http://127.0.0.1:8000/menu/kejuruans"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-list"></i>
-                            Daftar Kejuruan</a>
+                                    <i class="icon-list"></i>
+                                    Daftar peserta</a>
+                            </li>
+                            <li>
+                                <a href="{{url('soal')}}"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-book-open"></i>
+                                    Menu Soal
+                                </a>
+                            </li>
+                            <!-- belum fix -->
+                            <li>
+                                <a href="#"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Daftar Karyawan</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="http://127.0.0.1:8000/menu/kejuruans/create"
+                        <a href="http://127.0.0.1:8000/menu/role"
                             style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-list"></i>
-                            Create Kejuruan</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="icon-user"></i>
-                    <span class="title">BLK</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="http://127.0.0.1:8000/menu/blk"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-book-open"></i>
-                            Daftar BLK
+                            <i class="fa fa-group"></i>
+                            <span class="title">Role</span>
                         </a>
                     </li>
                     <li>
-                        <a href="http://127.0.0.1:8000/menu/blk/create"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-list"></i>
-                            Create BLK</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a>
-                    <i class="icon-user"></i>
-                    <span class="title">Sub Kejuruan</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="http://127.0.0.1:8000/menu/subkejuruan"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-book-open"></i>
-                            Daftar Sub Kejuruan
+                        <a>
+                            <i class="icon-user"></i>
+                            <span class="title">Kejuruan</span>
+                            <span class="arrow"></span>
                         </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/kejuruans"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Daftar Kejuruan</a>
+                            </li>
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/kejuruans/create"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Create Kejuruan</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="http://127.0.0.1:8000/menu/subkejuruan/create"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-list"></i>
-                            Create Sub Kejuruan</a>
+                        <a>
+                            <i class="icon-user"></i>
+                            <span class="title">BLK</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/blk"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-book-open"></i>
+                                    Daftar BLK
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/blk/create"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Create BLK</a>
+                            </li>
+                        </ul>
                     </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="icon-user"></i>
-                    <span class="title">Report</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
+
                     <li>
-                        <a href="http://127.0.0.1:8000/menu/detailPelatihan"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-                            <i class="icon-list"></i>
-                            Detail Pelatihan</a>
+                        <a>
+                            <i class="icon-user"></i>
+                            <span class="title">Sub Kejuruan</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/subkejuruan"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-book-open"></i>
+                                    Daftar Sub Kejuruan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/subkejuruan/create"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Create Sub Kejuruan</a>
+                            </li>
+                        </ul>
                     </li>
+                    <li>
+                        <a>
+                            <i class="icon-user"></i>
+                            <span class="title">Report</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="http://127.0.0.1:8000/menu/detailPelatihan"
+                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                    <i class="icon-list"></i>
+                                    Detail Pelatihan</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
-            </li>
-
-            </ul>
-            <!-- END SIDEBAR MENU -->
-        </div> --}}
-    </div>
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
-    <div class="page-content-wrapper">
-        <div class="page-content">
-
-            <div class="page-bar">
-                @yield('page-bar')
+                <!-- END SIDEBAR MENU -->
             </div>
-
-            @yield('contents')
-
         </div>
-    </div>
-    <!-- END CONTENT -->
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+
+                <div class="page-bar">
+                    @yield('page-bar')
+                </div>
+
+                @yield('contents')
+
+            </div>
+        </div>
+        <!-- END CONTENT -->
     </div>
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
