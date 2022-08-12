@@ -97,7 +97,7 @@ session_start();
 
     $page = ((!isset($_GET['page']) || empty($_GET['page']) )? 1:$_GET['page']);
 
-    $lastNumber = ($page-1)*3;
+    $lastNumber = ($page-1)*1;
 
 
 @endphp
@@ -166,7 +166,7 @@ session_start();
         <a href="{{ $dataSoal->previousPageUrl() }}" class="button btn btn-primary" style="{{ $dataSoal->previousPageUrl() == null ? 'visibility:hidden;':''}}">Previous</a>
       
         @if($dataSoal->nextPageUrl() == null)
-            <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">SUBMIT</a>
+            <a href="{{ route('soal.hasilJawaban.score') }}" class="button btn btn-primary">SUBMIT</a>
 
         @else
             <a href="{{ $dataSoal->nextPageUrl()}}" class="button btn btn-primary">NEXT</a>

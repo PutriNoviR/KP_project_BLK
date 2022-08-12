@@ -1428,6 +1428,18 @@ Portlets
 	-webkit-border-radius: 27px;
 	border-radius: 27px;
 }
+.body_hasil{
+  width: 100%;
+	background: #FCFBFB;
+  margin-bottom: 20px;
+  padding: 20px;
+  -ms-border-radius: 27px;
+	-o-border-radius: 27px;
+	-moz-border-radius: 27px;
+	-webkit-border-radius: 27px;
+	border-radius: 27px;
+
+}
 
 .nav-title p {
   font-size: 4vw;
@@ -1610,6 +1622,14 @@ Portlets
   }
 
   .body_test{
+    width: 70%;
+    position: relative;
+    top: 20%;
+    right: -28%;
+    margin-right: 20px;
+    padding: 30px 50px;
+  }
+  .body_hasil{
     width: 70%;
     position: relative;
     top: 20%;

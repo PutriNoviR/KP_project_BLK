@@ -217,6 +217,6 @@
   </div>
 </div>
 <a href="{{route('soal.setting')}}" class='btn btn-info'> Setting Soal </a>
-<a href="#" class='btn btn-info'> Preview Soal </a><br><br>
+<a href="#" class='btn btn-info'> view Soal </a><br><br>
 
 @endsection

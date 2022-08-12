@@ -1,5 +1,9 @@
 @extends('layouts.index')
 
+@section('title')
+    Setting
+@endsection
+
 @section('contents')
 <form method="POST" action="{{route('soal.setting.save')}}">
   @csrf

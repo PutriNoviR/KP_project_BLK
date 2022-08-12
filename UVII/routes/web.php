@@ -41,6 +41,8 @@ Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
 Route::get('soal/setting','PertanyaanController@setting')->name('soal.setting');
 Route::post('soal/setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
+Route::get('soal/hasilJawaban/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
+
 
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';

@@ -102,20 +102,35 @@ class TesTahapAwalController extends Controller
     public function menuTesUjiTahapAwal(Request $request){
           // insert data uji_tahap_awals
           $email = Auth::user()->email;
-        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->get();
-        $idUjiMinat = 0;
+        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
 
         if($tes == null){
+            // membuat sesi ujian
             $uji_minat = new UjiMinatAwal();
             $uji_minat->tanggal_mulai = Carbon::now()->format('Y-m-d H:i:m');
             $uji_minat->users_email = Auth::user()->email;
+            $uji_minat->kejuruans_id = 0;
          
             $uji_minat->save();
+            // membuat soal random dan dikunci
+
+            $dataSoal = Pertanyaan::inRandomOrder()->get();
+       
+            UjiMinatAwal::insertPertanyaanPerSesi($uji_minat->id, $dataSoal);
+        }
+        else{
+            $uji_minat = $tes;
         }
 
-        // Get soal
-        $dataSoal = Pertanyaan::inRandomOrder()->paginate(3);
-        $totalSoal = Pertanyaan::all()->count();
+
+        // Get soals
+        // $dataSoal = Pertanyaan::inRandomOrder(); //->paginate(1);
+        // random masuk ke tabel
+
+
+        $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate(1);
+        
+        $totalSoal = count($uji_minat->hasilJawabans);
 
         return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal'));
     }
@@ -129,11 +144,28 @@ class TesTahapAwalController extends Controller
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
     
         $id_tes = $tes->id;
-        $tes->hasilJawabans()->attach($request->soal, ['jawaban' => $request->jawaban]); 
+
+        UjiMinatAwal::updateJawabanPeserta($id_tes, $request->soal, $request->jawaban);
+
+        // $tes->hasilJawabans()->attach($request->soal, ['jawaban' => $request->jawaban]);
+        // $tes->hasilJawabans->update 
 
         return response()->json(array(
             'msg'=>"Jawaban tersimpan di tes".$id_tes ." dengan ".$request->soal." dan ".$request->jawaban
         ),200);
+    }
+
+    public function hasilTes(){
+        $user = Auth::user()->email;
+        
+        $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
+    
+        $dataHasil = UjiMinatAwal::HitungScore($tes->id);
+        
+        dd($dataHasil);
+        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
+        
+        return view('ujiTahapAwal.hasilJawaban', compact('dataHasil'));
     }
 
     
