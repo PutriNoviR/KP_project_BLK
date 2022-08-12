@@ -160,4 +160,29 @@ class PertanyaanController extends Controller
             'msg'=>view('soal.edit',compact('data','jawaban'))->render()
         ),200);
     }
+
+    public function setting(){
+        return view('soal.setting');
+    }
+
+    public function getSetting(Request $request){
+        $dataSetting= new setting;
+    
+        $dataSetting=[
+            [
+                'key' => "durasi",
+                // menit
+                'value' =>$request->menit,
+            ],
+            [
+                'key' => "halaman",
+                // menit
+                'value' =>$request->perHalaman,
+            ]
+        ];
+
+        $dataSetting->save();
+
+        return redirect()->back()->with('status', 'data berhasil ditambah');
+    }
 }

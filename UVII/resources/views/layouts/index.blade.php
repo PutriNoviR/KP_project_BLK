@@ -160,12 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								Bank Soal
 							</a>
 						</li>
-						<li>
-							<a href="{{route('peserta.tes')}}">
-								<i class="fa fa-play"></i>
-								Mulai Tes
-							</a>
-						</li>
+						
 							
 						<!-- belum fix -->
 						<li>
@@ -173,14 +168,21 @@ License: You must have a valid license purchased only from themeforest(the above
 							<i class="icon-list"></i>
 							Daftar Karyawan</a>
 						</li>
+						<li >
+							<a href="http://127.0.0.1:8000/menu/role" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="fa fa-group"></i>
+							<span class="title">Role</span>
+							</a>
+						</li>
 					</ul>
+					<li>
+						<a href="{{route('peserta.tes')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+								<i class="fa fa-play"></i>
+								Mulai Tes
+						</a>
+					</li>
 				</li>
-				<li >
-					<a href="http://127.0.0.1:8000/menu/role" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-						<i class="fa fa-group"></i>
-						<span class="title">Role</span>
-					</a>
-				</li>
+				
 				
 				
 			</ul>
