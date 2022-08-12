@@ -44,7 +44,7 @@ class SubkejuruanController extends Controller
         $Subkejuruan->nama = $request->nama;
         $Subkejuruan->kejuruans_id = $request->kejuruans_id;
         $Subkejuruan->save();
-        return view();
+        return redirect()->back()->with('success', 'Data Subkejuruan berhasil ditambahkan!');
     }
 
     /**
@@ -56,7 +56,7 @@ class SubkejuruanController extends Controller
     public function show(Subkejuruan $Subkejuruan)
     {
         //
-        return view($data = $Subkejuruan);
+        return view('subkejuruan.detail',compact($Subkejuruan));
     }
 
     /**
@@ -68,7 +68,7 @@ class SubkejuruanController extends Controller
     public function edit(Subkejuruan $Subkejuruan)
     {
         //
-        return view($data = $Subkejuruan);
+        return view('subkejuruan.edit',compact($Subkejuruan));
     }
 
     /**
@@ -84,7 +84,7 @@ class SubkejuruanController extends Controller
         $Subkejuruan->nama = $request->nama;
         $Subkejuruan->kejuruans_id = $request->kejuruans_id;
         $Subkejuruan->save();
-        return view();
+        return redirect()->back()->with('success', 'Data Subkejuruan berhasil diubah!');
     }
 
     /**
@@ -97,7 +97,7 @@ class SubkejuruanController extends Controller
     {
         //
         $Subkejuruan->delete();
-        return view();
+        return redirect()->back()->with('success', 'Data Subkejuruan berhasil dihapus!');
     }
 
 }

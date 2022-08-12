@@ -45,9 +45,8 @@ class KejuruanController extends Controller
         $data = new Kejuruan();
         $data->nama = $request->nama;
         $data->link_kejuruan_tes_2 = $request->link_kejuruan_tes_2;
-        // dd($Kejuruan);
         $data->save();
-        return view('kejuruan.index', compact('data'));
+        return redirect()->back()->with('success', 'Data Kejuruan berhasil ditambahkan!');
     }
 
     /**
@@ -59,7 +58,7 @@ class KejuruanController extends Controller
     public function show(Kejuruan $Kejuruan)
     {
         //
-        return view($data = $Kejuruan);
+        return view('kejuruan.detail',compact($Kejuruan));
     }
 
     /**
@@ -71,7 +70,7 @@ class KejuruanController extends Controller
     public function edit(Kejuruan $Kejuruan)
     {
         //
-        return view($data = $Kejuruan);
+        return view('kejuruan.edit',compact($Kejuruan));
     }
 
     /**
@@ -87,7 +86,7 @@ class KejuruanController extends Controller
         $Kejuruan->nama = $request->nama;
         $Kejuruan->link_kejuruan_test_2 = $request->link_kejuruan_test_2;
         $Kejuruan->save();
-        return view();
+        return redirect()->back()->with('success', 'Data Kejuruan berhasil diubah!');
     }
 
     /**
@@ -100,7 +99,7 @@ class KejuruanController extends Controller
     {
         //
         $Kejuruan->delete();
-        return view();
+        return redirect()->back()->with('success', 'Data Kejuruan berhasil dihapus!');
     }
 
     public function detailAllPelatihan(){

@@ -22,96 +22,113 @@ BLK
 @section('contents')
 <div class="row justify-content-center">
 
-<div class="col-md-8">
-    <div class="card-register">
-        <div class="card-header">
-            <h4>Tambah Balai Latihan Kerja</h4>
-        </div>
+    <div class="col-md-8">
+        <div class="card-register">
+            <div class="card-header">
+                <h4>Tambah Balai Latihan Kerja</h4>
+            </div>
+            @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
+            @endif
 
-        <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+            <div class="card-body">
+                <form method="POST" action="{{ route('blk.store') }}">
+                    @csrf
 
-                <div class="form-group">
-                    <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                    <div class="form-group">
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                        <div class="col-md-12">
+                            <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
+                                name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
-                        @error('nama')
+                            @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                    <div class="form-group">
+                        <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                        <div class="col-md-12">
+                            <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
+                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
 
-                        @error('alamat')
+                            @error('alamat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
+                    <div class="form-group">
+                        <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="website" type="text" class="form-control @error('website') is-invalid @enderror" name="website" value="{{ old('website') }}" required autocomplete="website" autofocus>
+                        <div class="col-md-12">
+                            <input id="website" type="text" class="form-control @error('website') is-invalid @enderror"
+                                name="website_portfolio" value="{{ old('website') }}" required autocomplete="website"
+                                autofocus>
 
-                        @error('website')
+                            @error('website')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="memilikiSistem" type="text" class="form-control @error('memilikiSistem') is-invalid @enderror" name="memilikiSistem" value="{{ old('memilikiSistem') }}" required autocomplete="memilikiSistem" autofocus>
+                    <div class="form-group">
+                        <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
-                        @error('memilikiSistem')
+                        <div class="col-md-12">
+                            <input id="memilikiSistem" type="text"
+                                class="form-control @error('memilikiSistem') is-invalid @enderror" name="is_punyasistem"
+                                value="{{ old('memilikiSistem') }}" required autocomplete="memilikiSistem" autofocus>
+
+                            @error('memilikiSistem')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="linkPendaftaran" class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
+                    <div class="form-group">
+                        <label for="linkPendaftaran"
+                            class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="linkPendaftaran" type="text" class="form-control @error('linkPendaftaran') is-invalid @enderror" name="linkPendaftaran" value="{{ old('linkPendaftaran') }}" required autocomplete="linkPendaftaran" autofocus>
+                        <div class="col-md-12">
+                            <input id="linkPendaftaran" type="text"
+                                class="form-control @error('linkPendaftaran') is-invalid @enderror"
+                                name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required
+                                autocomplete="linkPendaftaran" autofocus>
 
-                        @error('linkPendaftaran')
+                            @error('linkPendaftaran')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group mb-0 rata_tengah">
-                    <div class="col-md-12 offset-manual">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('SIMPAN') }}
-                        </button>
-                        <br>
+                    <div class="form-group mb-0 rata_tengah">
+                        <div class="col-md-12 offset-manual">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('SIMPAN') }}
+                            </button>
+                            <br>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

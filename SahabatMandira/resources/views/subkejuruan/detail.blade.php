@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-BLK
+Kejuruan
 @endsection
 
 @section('page-bar')
@@ -13,7 +13,7 @@ BLK
     </li>
 
     <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
+        <a href="http://127.0.0.1:8000/menu/kejuruan">Kejuruan</a>
         <i class="fa fa-angle-right"></i>
     </li>
 </ul>
@@ -21,7 +21,7 @@ BLK
 
 @section('contents')
 <div class="container">
-    <h2>Daftar Program BLK</h2>
+    <h2>Daftar Program Kejuruan</h2>
     <div class="input-group">
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
@@ -30,8 +30,8 @@ BLK
         <thead>
             <tr>
                 <th>ID</th>
-                <th>NAMA BLK</th>
-                <th>ALAMAT BLK</th>
+                <th>NAMA Kejuruan</th>
+                <th>ALAMAT Kejuruan</th>
                 <th>WEBSITE</th>
                 <th>is_punyasistem</th>
                 <th>Link Pendaftaran</th>
@@ -39,12 +39,8 @@ BLK
         </thead>
         <tbody id="myTable">
             <tr>
-                <td>{{ $blk->id }}</td>
-                <td>{{ $blk->nama }}</td>
-                <td>{{ $blk->alamat }}</td>
-                <td>{{ $blk->website_portofolio }}</td>
-                <td>{{ $blk->is_punyasistem }}</td>
-                <td>{{ $blk->link_pendaftaran }}</td>
+                <td>{{ $Subkejuruan->id }}</td>
+                <td>{{ $Subkejuruan->kejuruans_id }}</td>
             </tr>
         </tbody>
     </table>

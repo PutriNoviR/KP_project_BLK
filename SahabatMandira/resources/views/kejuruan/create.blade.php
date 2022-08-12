@@ -22,54 +22,59 @@ Kejuruan
 @section('contents')
 <div class="row justify-content-center">
 
-<div class="col-md-8">
-    <div class="card-register">
-        <div class="card-header">
-            <h4>Tambah Kejuruan</h4>
-        </div>
+    <div class="col-md-8">
+        <div class="card-register">
+            <div class="card-header">
+                <h4>Tambah Kejuruan</h4>
+            </div>
 
-        <div class="card-body">
-            <form method="POST" action="{{ route('kejuruans.store') }}">
-                @csrf
+            <div class="card-body">
+                <form method="POST" action="{{ route('kejuruans.store') }}">
+                    @csrf
 
-                <div class="form-group">
-                    <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
+                    <div class="form-group">
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                        <div class="col-md-12">
+                            <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
+                                name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
-                        @error('nama')
+                            @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="linkKejuruan" class="col-md-12 col-form-label">{{ __('Link Kejuruan Test') }}</label>
+                    <div class="form-group">
+                        <label for="linkKejuruan"
+                            class="col-md-12 col-form-label">{{ __('Link Kejuruan Test') }}</label>
 
-                    <div class="col-md-12">
-                        <input id="linkKejuruan" type="text" class="form-control @error('linkKejuruan') is-invalid @enderror" name="link_kejuruan_tes_2" value="{{ old('linkKejuruan') }}" required autocomplete="linkKejuruan" autofocus>
+                        <div class="col-md-12">
+                            <input id="linkKejuruan" type="text"
+                                class="form-control @error('linkKejuruan') is-invalid @enderror"
+                                name="link_kejuruan_tes_2" value="{{ old('linkKejuruan') }}" required
+                                autocomplete="linkKejuruan" autofocus>
 
-                        @error('alamat')
+                            @error('alamat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group mb-0 rata_tengah">
-                    <div class="col-md-12 offset-manual">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('SIMPAN') }}
-                        </button>
-                        <br>
+                    <div class="form-group mb-0 rata_tengah">
+                        <div class="col-md-12 offset-manual">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('SIMPAN') }}
+                            </button>
+                            <br>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

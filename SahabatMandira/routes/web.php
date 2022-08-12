@@ -85,6 +85,3 @@ Route::middleware(['can:admin-permission'])->group(function(){
     // Route::get('/submit_checkout', 'TransaksiController@submit_front')->name('submitcheckout');
 
 });
-
-
-

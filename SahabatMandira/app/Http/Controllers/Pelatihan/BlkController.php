@@ -47,7 +47,7 @@ class BlkController extends Controller
         $blk->is_punyasistem = $request->is_punyasistem;
         $blk->link_pendaftaran = $request->link_pendaftaran;
         $blk->save();
-        return view();
+        return redirect()->back()->with('success', 'Data BLK berhasil ditambahkan!');
     }
 
     /**
@@ -59,7 +59,7 @@ class BlkController extends Controller
     public function show(Blk $blk)
     {
         //
-        return view($data = $blk);
+        return view('blk.detail',compact('blk'));
     }
 
     /**
@@ -71,7 +71,7 @@ class BlkController extends Controller
     public function edit(Blk $blk)
     {
         //
-        return view($data = $blk);
+        return view('blk.update',compact('blk'));
     }
 
     /**
@@ -84,13 +84,14 @@ class BlkController extends Controller
     public function update(Request $request, Blk $blk)
     {
         //
+        dd($request);
         $blk->nama = $request->nama;
         $blk->alamat = $request->alamat;
         $blk->website_portfolio = $request->website_portfolio;
         $blk->is_punyasistem = $request->is_punyasistem;
         $blk->link_pendaftaran = $request->link_pendaftaran;
         $blk->save();
-        return view();
+        return redirect()->back()->with('success', 'Data BLK berhasil diubah!');
     }
 
     /**
@@ -103,7 +104,7 @@ class BlkController extends Controller
     {
         //
         $blk->delete();
-        return view();
+        return redirect()->back()->with('success', 'Data BLK berhasil dihapus!');
     }
 
     public function detail($id){
