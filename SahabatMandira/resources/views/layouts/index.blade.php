@@ -171,7 +171,80 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span class="title">Role</span>
 					</a>
 				</li>
+				<li >
+					<a>
+						<i class="icon-user"></i>
+						<span class="title">Kejuruan</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="http://127.0.0.1:8000/menu/kejuruans" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="icon-list"></i>
+							Daftar Kejuruan</a>
+						</li>
+						<li>
+							<a href="http://127.0.0.1:8000/menu/kejuruans/create" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="icon-list"></i>
+							Create Kejuruan</a>
+						</li>
+					</ul>
+				</li>
+				<li >
+					<a>
+						<i class="icon-user"></i>
+						<span class="title">BLK</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="http://127.0.0.1:8000/menu/blk" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+								<i class="icon-book-open"></i>
+								Daftar BLK
+							</a>
+						</li>
+						<li>
+							<a href="http://127.0.0.1:8000/menu/blk/create" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="icon-list"></i>
+							Create BLK</a>
+						</li>
+					</ul>
+				</li>
 				
+				<li >
+					<a>
+						<i class="icon-user"></i>
+						<span class="title">Sub Kejuruan</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="http://127.0.0.1:8000/menu/subkejuruan" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+								<i class="icon-book-open"></i>
+								Daftar Sub Kejuruan
+							</a>
+						</li>
+						<li>
+							<a href="http://127.0.0.1:8000/menu/subkejuruan/create" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="icon-list"></i>
+							Create Sub Kejuruan</a>
+						</li>
+					</ul>
+				</li>
+				<li >
+					<a>
+						<i class="icon-user"></i>
+						<span class="title">Report</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="http://127.0.0.1:8000/menu/detailPelatihan" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="icon-list"></i>
+							Detail Pelatihan</a>
+						</li>
+					</ul>
+				</li>
 				
 			</ul>
 			<!-- END SIDEBAR MENU -->

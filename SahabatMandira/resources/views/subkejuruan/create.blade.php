@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-Kejuruan
+Sub Kejuruan
 @endsection
 
 @section('page-bar')
@@ -13,7 +13,7 @@ Kejuruan
     </li>
 
     <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruans">Kejuruan</a>
+        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
         <i class="fa fa-angle-right"></i>
     </li>
 </ul>
@@ -25,11 +25,11 @@ Kejuruan
 <div class="col-md-8">
     <div class="card-register">
         <div class="card-header">
-            <h4>Tambah Kejuruan</h4>
+            <h4>Tambah Sub Kejuruan</h4>
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('kejuruans.store') }}">
+            <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div class="form-group">
@@ -47,10 +47,10 @@ Kejuruan
                 </div>
 
                 <div class="form-group">
-                    <label for="linkKejuruan" class="col-md-12 col-form-label">{{ __('Link Kejuruan Test') }}</label>
+                    <label for="linkKejuruan" class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
 
                     <div class="col-md-12">
-                        <input id="linkKejuruan" type="text" class="form-control @error('linkKejuruan') is-invalid @enderror" name="link_kejuruan_tes_2" value="{{ old('linkKejuruan') }}" required autocomplete="linkKejuruan" autofocus>
+                        <input id="subKejuruan" type="text" class="form-control @error('subKejuruan') is-invalid @enderror" name="subKejuruan" value="{{ old('subKejuruan') }}" required autocomplete="subKejuruan" autofocus>
 
                         @error('alamat')
                             <span class="invalid-feedback" role="alert">

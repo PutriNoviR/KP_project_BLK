@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,10 +39,32 @@ Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi'
 Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
 
 //CRUD
-Route::resource('menu/blk', 'BlkController');
 Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
 
+//REPORT
+Route::resource('menu/kejuruans','Pelatihan\KejuruanController');
+Route::resource('menu/blk','Pelatihan\BlkController');
+Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
+Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatihan');
+
+//Kejuruan
+Route::get('menu/kejuruans/detail/{id}','Pelatihan\KejuruanController@detail');
+Route::get('menu/kejuruans/update','Pelatihan\KejuruanController@update');
+Route::get('menu/kejuruans/delete','Pelatihan\KejuruanController@delete');
+Route::get('menu/kejuruans/create','Pelatihan\KejuruanController@create');
+
+//BLK
+Route::get('menu/blk/detail/{id}','Pelatihan\BlkController@detail');
+Route::get('menu/blk/update','Pelatihan\BlkController@update');
+Route::get('menu/blk/delete','Pelatihan\BlkController@delete');
+Route::get('menu/blk/create','Pelatihan\BlkController@create');
+
+//SubKejuruan
+Route::get('menu/subkejuruan/detail/{id}','Pelatihan\SubkejuruanController@detail');
+Route::get('menu/subkejuruan/update','Pelatihan\SubkejuruanController@update');
+Route::get('menu/subkejuruan/delete','Pelatihan\SubkejuruanController@delete');
+Route::get('menu/subkejuruan/create','Pelatihan\SubkejuruanController@create');
 
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';

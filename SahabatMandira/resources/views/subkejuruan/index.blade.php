@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-    Daftar Kejuruan
+    Daftar Sub Kejuruan
 @endsection
 
 @section('page-bar')
@@ -13,7 +13,7 @@
         </li>
 
         <li>
-            <a href="http://127.0.0.1:8000/menu/kejuruan">Kejuruan</a>
+            <a href="http://127.0.0.1:8000/menu/subkejuruan">Sub Kejuruan</a>
             <i class="fa fa-angle-right"></i>
         </li> 
     </ul>
@@ -23,7 +23,7 @@
 
 @section('contents')
 <div class="container">
-    <h2>DAFTAR KEJURUAN</h2>
+    <h2>DAFTAR SUB KEJURUAN</h2>
     <div class="input-group">
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
@@ -32,16 +32,14 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>NAMA KEJURUAN</th>
-        <th>Link</th>
+        <th>NAMA SUB KEJURUAN</th>
     </tr>
     </thead>
     <tbody id="myTable">
     @foreach($data as $d)
     <tr>
-        <td>{{ $d->id }}</td>
+        <td>{{ $d->idsub_kejuruans }}</td>
         <td>{{ $d->nama }}</td>
-        <td><a href="{{ $d->link_kejuruan_test_2 }}"></a></td>
     </tr>
     @endforeach
     </tbody>

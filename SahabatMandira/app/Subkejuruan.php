@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subkejuruan extends Model
 {
-    //
+    protected $table='sub_kejuruans';
     public function kejuruan()
     {
         $this->belongsTo('App/Subkejuruan','kejuruans_id','id');
@@ -14,6 +14,6 @@ class Subkejuruan extends Model
 
     public function paketprogram()
     {
-        return $this->hasMany('App/PaketProgram','subkejuruans_id','id');
+        return $this->hasMany('App/PaketProgram','subkejuruans_id','idsub_kejuruans');
     }
 }

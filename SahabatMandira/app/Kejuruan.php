@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kejuruan extends Model
 {
-    //
+    protected $table='kejuruans';
     public function subkejuruan()
     {
         return $this->hasMany('App\Subkejuruan','kejuruans_id','id');

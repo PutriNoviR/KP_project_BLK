@@ -17,7 +17,7 @@ class SubkejuruanController extends Controller
     {
         //
         $data = Subkejuruan::all();
-        return view();
+        return view('subkejuruan.index',compact('data'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SubkejuruanController extends Controller
     public function create()
     {
         //
-        return view();
+        return view('subkejuruan.create');
     }
 
     /**
@@ -99,4 +99,5 @@ class SubkejuruanController extends Controller
         $Subkejuruan->delete();
         return view();
     }
+
 }

@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('title')
-    Daftar Kejuruan
+    Kejuruan
 @endsection
 
 @section('page-bar')
@@ -11,7 +11,6 @@
             <a href="http://127.0.0.1:8000/">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
-
         <li>
             <a href="http://127.0.0.1:8000/menu/kejuruan">Kejuruan</a>
             <i class="fa fa-angle-right"></i>
@@ -23,7 +22,7 @@
 
 @section('contents')
 <div class="container">
-    <h2>DAFTAR KEJURUAN</h2>
+    <h2>DETAIL PROGRAM PELATIHAN YANG DIBUKA</h2>
     <div class="input-group">
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
@@ -31,17 +30,25 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>NAMA KEJURUAN</th>
-        <th>Link</th>
+        <th>KEJURUAN</th>
+        <th>PROGRAM PELATIHAN</th>
+        <th>BLK TERKAIT</th>
+        <th>PERIODE PENDAFTARAN</th>
+        <th>ALAMAT BLK</th>
+        <th>STATUS</th>
     </tr>
     </thead>
     <tbody id="myTable">
     @foreach($data as $d)
     <tr>
-        <td>{{ $d->id }}</td>
-        <td>{{ $d->nama }}</td>
-        <td><a href="{{ $d->link_kejuruan_test_2 }}"></a></td>
+        <td>{{ $d->kejuruan }}</td>
+        <td>{{ $d->program }}</td>
+        <td>{{ $d->blk }}</td>
+        <td>{{ $d->periode }}</td>
+        <td>{{ $d->alamat }}</td>
+        <td>
+            <input type="submit" value="DAFTAR" class="btn btn-info btn-xs" onclick="if(!confirm('are you sure to delete this record')) return false;">
+        </td>
     </tr>
     @endforeach
     </tbody>

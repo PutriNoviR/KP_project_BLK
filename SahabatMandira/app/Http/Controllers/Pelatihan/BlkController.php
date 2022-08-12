@@ -17,7 +17,7 @@ class BlkController extends Controller
     {
         //
         $data = Blk::all();
-        return view();
+        return view('blk.index', compact('data'));
     }
 
     /**
@@ -28,7 +28,7 @@ class BlkController extends Controller
     public function create()
     {
         //
-        return view();
+        return view('blk.create');
     }
 
     /**
@@ -104,5 +104,11 @@ class BlkController extends Controller
         //
         $blk->delete();
         return view();
+    }
+
+    public function detail($id){
+        $data = BLK::find($id);
+        // dd($data);
+        return view('blk.detail',['data'=>$data]);
     }
 }
