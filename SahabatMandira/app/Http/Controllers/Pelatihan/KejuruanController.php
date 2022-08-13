@@ -58,7 +58,7 @@ class KejuruanController extends Controller
     public function show(Kejuruan $Kejuruan)
     {
         //
-        return view('kejuruan.detail',compact($Kejuruan));
+        return view('kejuruan.detail',compact('Kejuruan'));
     }
 
     /**
@@ -70,7 +70,7 @@ class KejuruanController extends Controller
     public function edit(Kejuruan $Kejuruan)
     {
         //
-        return view('kejuruan.edit',compact($Kejuruan));
+        return view('kejuruan.edit',compact('Kejuruan'));
     }
 
     /**
@@ -84,7 +84,7 @@ class KejuruanController extends Controller
     {
         //
         $Kejuruan->nama = $request->nama;
-        $Kejuruan->link_kejuruan_test_2 = $request->link_kejuruan_test_2;
+        $Kejuruan->link_kejuruan_tes_2 = $request->link_kejuruan_tes_2;
         $Kejuruan->save();
         return redirect()->back()->with('success', 'Data Kejuruan berhasil diubah!');
     }

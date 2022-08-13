@@ -36,15 +36,15 @@ Sub Kejuruan
             @endif
 
             <div class="card-body">
-                <form method="POST" action="{{ route('subkejuruan.store') }}">
+                <form method="POST" action="{{ route('subkejuruan.update',$Subkejuruan->id) }}">
                     @csrf
-
+                    @method('PUT')
                     <div class="form-group">
-                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Sub Kejuruan') }}</label>
 
                         <div class="col-md-12">
                             <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
-                                name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                name="nama" value="{{ $Subkejuruan->nama }}" required autocomplete="nama" autofocus>
 
                             @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -55,12 +55,16 @@ Sub Kejuruan
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                        <label for="alamat" class="col-md-12 col-form-label">{{ __('Tipe Kejuruan') }}</label>
 
                         <div class="col-md-12">
-                            <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                name="kejuruans_id" value="{{ old('alamat') }}" required autocomplete="alamat"
-                                autofocus>
+                            <select class="form-select" aria-label="Default select example" name="kejuruans_id">
+                                @foreach ($kejuruan as $k )
+                                <option value="{{ $k->id }}"
+                                    {{ $Subkejuruan->kejuruans_id == $k->id ? 'selected' : '' }}>
+                                    {{ $k->nama }}</option>
+                                @endforeach
+                            </select>
 
                             @error('alamat')
                             <span class="invalid-feedback" role="alert">
@@ -74,11 +78,17 @@ Sub Kejuruan
                             <button type="submit" class="btn btn-primary">
                                 {{ __('SIMPAN') }}
                             </button>
-                            <br>
-                        </div>
-                    </div>
+                </form>
+                <form action="{{ route('subkejuruan.destroy',$Subkejuruan->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('DELETE') }}
+                    </button>
                 </form>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+</div>
+@endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pelatihan;
 
 use App\Http\Controllers\Controller;
+use App\Kejuruan;
 use App\Subkejuruan;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,8 @@ class SubkejuruanController extends Controller
     public function create()
     {
         //
-        return view('subkejuruan.create');
+        $kejuruan = Kejuruan::all();
+        return view('subkejuruan.create', compact('kejuruan'));
     }
 
     /**
@@ -56,7 +58,7 @@ class SubkejuruanController extends Controller
     public function show(Subkejuruan $Subkejuruan)
     {
         //
-        return view('subkejuruan.detail',compact($Subkejuruan));
+        return view('subkejuruan.detail',compact('Subkejuruan'));
     }
 
     /**
@@ -68,7 +70,8 @@ class SubkejuruanController extends Controller
     public function edit(Subkejuruan $Subkejuruan)
     {
         //
-        return view('subkejuruan.edit',compact($Subkejuruan));
+        $kejuruan = Kejuruan::all();
+        return view('subkejuruan.edit',compact('Subkejuruan','kejuruan'));
     }
 
     /**

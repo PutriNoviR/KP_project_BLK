@@ -36,15 +36,16 @@ BLK
             @endif
 
             <div class="card-body">
-                <form method="POST" action="{{ route('blk.update') }}">
+                <form method="POST" action="{{ route('blk.update',$blk->id) }}">
                     @csrf
+                    @method('PUT')
 
                     <div class="form-group">
                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
                         <div class="col-md-12">
                             <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
-                                name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                name="nama" value="{{ $blk->nama }}" required autocomplete="nama" autofocus>
 
                             @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -59,7 +60,7 @@ BLK
 
                         <div class="col-md-12">
                             <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                                name="alamat" value="{{ $blk->alamat }}" required autocomplete="alamat" autofocus>
 
                             @error('alamat')
                             <span class="invalid-feedback" role="alert">
@@ -74,8 +75,8 @@ BLK
 
                         <div class="col-md-12">
                             <input id="website" type="text" class="form-control @error('website') is-invalid @enderror"
-                                name="website_portfolio" value="{{ old('website') }}" required autocomplete="website"
-                                autofocus>
+                                name="website_portfolio" value="{{ $blk->website_portfolio }}" required
+                                autocomplete="website" autofocus>
 
                             @error('website')
                             <span class="invalid-feedback" role="alert">
@@ -89,9 +90,10 @@ BLK
                         <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
                         <div class="col-md-12">
-                            <input id="memilikiSistem" type="text"
-                                class="form-control @error('memilikiSistem') is-invalid @enderror" name="is_punyasistem"
-                                value="{{ old('memilikiSistem') }}" required autocomplete="memilikiSistem" autofocus>
+                            <select class="form-select" aria-label="Default select example" name="is_punyasistem">
+                                <option value="1" {{ $blk->is_punyasistem == 1 ? 'selected' : '' }}>YA</option>
+                                <option value="0" {{ $blk->is_punyasistem == 0 ? 'selected' : '' }}>Tidak</option>
+                            </select>
 
                             @error('memilikiSistem')
                             <span class="invalid-feedback" role="alert">
@@ -108,7 +110,7 @@ BLK
                         <div class="col-md-12">
                             <input id="linkPendaftaran" type="text"
                                 class="form-control @error('linkPendaftaran') is-invalid @enderror"
-                                name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required
+                                name="link_pendaftaran" value="{{ $blk->link_pendaftaran }}" required
                                 autocomplete="linkPendaftaran" autofocus>
 
                             @error('linkPendaftaran')
@@ -122,13 +124,21 @@ BLK
                     <div class="form-group mb-0 rata_tengah">
                         <div class="col-md-12 offset-manual">
                             <button type="submit" class="btn btn-primary">
-                                {{ __('SIMPAN') }}
+                                {{ __('EDIT') }}
                             </button>
-                            <br>
-                        </div>
-                    </div>
                 </form>
+                <form action="{{ route('blk.destroy',$blk->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('DELETE') }}
+                    </button>
+                </form>
+                <br>
             </div>
         </div>
+
     </div>
-    @endsection
+</div>
+</div>
+@endsection

@@ -89,9 +89,10 @@ BLK
                         <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
                         <div class="col-md-12">
-                            <input id="memilikiSistem" type="text"
-                                class="form-control @error('memilikiSistem') is-invalid @enderror" name="is_punyasistem"
-                                value="{{ old('memilikiSistem') }}" required autocomplete="memilikiSistem" autofocus>
+                            <select class="form-select" aria-label="Default select example" name="is_punyasistem">
+                                <option value="1">YA</option>
+                                <option value="0">Tidak</option>
+                            </select>
 
                             @error('memilikiSistem')
                             <span class="invalid-feedback" role="alert">

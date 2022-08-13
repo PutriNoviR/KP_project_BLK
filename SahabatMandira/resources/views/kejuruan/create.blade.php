@@ -27,7 +27,13 @@ Kejuruan
             <div class="card-header">
                 <h4>Tambah Kejuruan</h4>
             </div>
-
+            @if (\Session::has('success'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('success') !!}</li>
+                </ul>
+            </div>
+            @endif
             <div class="card-body">
                 <form method="POST" action="{{ route('kejuruans.store') }}">
                     @csrf
@@ -54,8 +60,7 @@ Kejuruan
                         <div class="col-md-12">
                             <input id="linkKejuruan" type="text"
                                 class="form-control @error('linkKejuruan') is-invalid @enderror"
-                                name="link_kejuruan_tes_2" value="{{ old('linkKejuruan') }}" required
-                                autocomplete="linkKejuruan" autofocus>
+                                name="link_kejuruan_tes_2">
 
                             @error('alamat')
                             <span class="invalid-feedback" role="alert">
