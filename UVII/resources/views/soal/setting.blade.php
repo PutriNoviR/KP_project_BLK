@@ -5,29 +5,40 @@
 @endsection
 
 @section('contents')
-<form method="POST" action="{{route('soal.setting.save')}}">
+<form method="POST" action="{{route('soal.setting')}}">
   @csrf
-    
-    <h3 for="setting">Setting</h3>
+  <div class="card-page">
+    <div class="card-header">
+    <h3 for="setting"><b>Setting Soal</b></h3>
+    </div>
+  <div class="card-body">
+  <div class="body-content">
  
   <div class="form-group">
     <div class='row'>
       <div class='col-md-8'>
-        <label for="setting">menit</label>
-        <input type="text" name="menit"/>
+        <label for="setting">Waktu:</label>
+        <input type="text" name="menit" placeholder="dalam menit"/>
+        
       </div>
-      {{-- <div class='col-md-8'> --}}
-       {{-- <label for="setting">detik</label> --}}
-     {{--  <input type="text" name="detik"/>--}}
-        {{--</div>--}
-   
-      <div class="col-md-4">
+    </div><br>
+    <div class='row'>
+    <div class="col-md-6">
+        <label for="setting">Jumlah soal yang akan ditampilkan :</label>
+        <input type="text" name="jmlSoal" placeholder="jumlah soal"/>
+      </div>
+    </div><br>
+    <div class='row'>
+    <div class="col-md-6">
         <label for="setting">Soal per halaman :</label>
-        <input type="text" name="perHalaman"/>
+        <input type="text" name="perHalaman" placeholder="soal per halaman"/>
       </div>
     </div>
   </div>
  
   <button type="submit" class="btn btn-primary">Simpan</button>
+</div>
+</div>
+</div>
 </form>
 @endsection

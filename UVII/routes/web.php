@@ -39,9 +39,9 @@ Route::post('menu/tes/uji-tahap-awal/save', 'TesTahapAwalController@simpanJawaba
 Route::resource('menu/blk', 'BlkController');
 Route::resource('soal', "PertanyaanController");
 Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
-Route::get('soal/setting','PertanyaanController@setting')->name('soal.setting');
-Route::post('soal/setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
-Route::get('soal/hasilJawaban/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
+Route::get('soal_setting','PertanyaanController@setting')->name('soal.setting');
+Route::post('soal_setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
+Route::get('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
 
 
 Route::get('/helloworld', function () {

@@ -122,17 +122,16 @@ class TesTahapAwalController extends Controller
             $uji_minat = $tes;
         }
 
-
+        $dataJawaban = UjiMinatAwal::getDataJawaban($uji_minat->id);
         // Get soals
         // $dataSoal = Pertanyaan::inRandomOrder(); //->paginate(1);
         // random masuk ke tabel
-
 
         $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate(1);
         
         $totalSoal = count($uji_minat->hasilJawabans);
 
-        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal'));
+        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban'));
     }
     
     public function simpanJawaban(Request $request){
@@ -161,8 +160,10 @@ class TesTahapAwalController extends Controller
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
     
         $dataHasil = UjiMinatAwal::HitungScore($tes->id);
+
+        UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
         
-        dd($dataHasil);
+        //dd($dataHasil);
         UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
         
         return view('ujiTahapAwal.hasilJawaban', compact('dataHasil'));

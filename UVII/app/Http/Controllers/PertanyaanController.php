@@ -162,11 +162,12 @@ class PertanyaanController extends Controller
     }
 
     public function setting(){
+        
         return view('soal.setting');
     }
 
     public function getSetting(Request $request){
-        $dataSetting= new setting;
+        $dataSetting= new Setting;
     
         $dataSetting=[
             [
