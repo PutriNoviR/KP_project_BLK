@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\UjiMinatAwal;
 use App\Pertanyaan;
 use App\Jawaban;
+use App\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,34 +105,56 @@ class TesTahapAwalController extends Controller
           $email = Auth::user()->email;
         $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
 
+        //ambil data untuk di setting
+       
+        $dataSet= Setting::where('key','soal_perHalaman')->first();
+        $dataMenit= Setting::where('key','durasi')->first();
+
+        dd($dataSet);
+
+        $menit = $dataMenit->value;
+
+        $dataJmlSoal=Setting::where('key','jmlSoal')->first();
+
         if($tes == null){
             // membuat sesi ujian
             $uji_minat = new UjiMinatAwal();
             $uji_minat->tanggal_mulai = Carbon::now()->format('Y-m-d H:i:m');
             $uji_minat->users_email = Auth::user()->email;
             $uji_minat->kejuruans_id = 0;
+            $uji_minat->durasi = $menit;
+            $waktu = explode(':', $uji_minat->durasi);
+           
          
             $uji_minat->save();
             // membuat soal random dan dikunci
 
-            $dataSoal = Pertanyaan::inRandomOrder()->get();
+            $dataSoal = Pertanyaan::inRandomOrder()->take($dataJmlSoal->value)->get();
        
             UjiMinatAwal::insertPertanyaanPerSesi($uji_minat->id, $dataSoal);
         }
         else{
             $uji_minat = $tes;
+           
+            $waktu = explode(':',$uji_minat->durasi);
+            
         }
+        $waktu1= $waktu[0];
+        $waktu2= $waktu[1];
 
+        //ambil hasil jawaban yang tersimpan
         $dataJawaban = UjiMinatAwal::getDataJawaban($uji_minat->id);
         // Get soals
         // $dataSoal = Pertanyaan::inRandomOrder(); //->paginate(1);
         // random masuk ke tabel
 
-        $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate(1);
+        //ambil data jumlah halaman dari setting 
+        $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate($dataSet->value);
         
         $totalSoal = count($uji_minat->hasilJawabans);
+        
 
-        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban'));
+        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban','waktu1', 'waktu2'));
     }
     
     public function simpanJawaban(Request $request){
@@ -169,5 +192,13 @@ class TesTahapAwalController extends Controller
         return view('ujiTahapAwal.hasilJawaban', compact('dataHasil'));
     }
 
-    
+    public function updateTimer(Request $request){
+        $timer = $request->menit.":".$request->detik;
+
+        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['durasi' => $timer]);
+
+        return response()->json(array(
+            'msg'=>"Timer updated".$request->jawaban
+        ),200);
+    }
 }

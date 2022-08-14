@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Jawaban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Setting;
 
 class PertanyaanController extends Controller
 {
@@ -167,22 +168,23 @@ class PertanyaanController extends Controller
     }
 
     public function getSetting(Request $request){
-        $dataSetting= new Setting;
-    
-        $dataSetting=[
-            [
-                'key' => "durasi",
-                // menit
-                'value' =>$request->menit,
-            ],
-            [
-                'key' => "halaman",
-                // menit
-                'value' =>$request->perHalaman,
-            ]
-        ];
+      
 
-        $dataSetting->save();
+        if($request->has('value')){
+            for($i=0; $i < 3; $i++){
+                $dataSetting= new Setting();
+                $dataSetting->key = $request->key[$i];
+               
+                $dataSetting->value =$request->value[$i];
+        
+                $dataSetting->save();
+        
+            }
+        }
+        else{
+            dd($request->key[0]);
+        }
+        
 
         return redirect()->back()->with('status', 'data berhasil ditambah');
     }

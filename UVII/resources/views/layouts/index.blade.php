@@ -142,7 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<span class="selected"></span>
 					</a>
 				</li>
-				<li >
+				<li>
 					<a>
 						<i class="icon-user"></i>
 						<span class="title">Admin</span>
@@ -175,14 +175,13 @@ License: You must have a valid license purchased only from themeforest(the above
 							</a>
 						</li>
 					</ul>
-					<li>
-						<a href="{{route('peserta.tes')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
-								<i class="fa fa-play"></i>
-								Mulai Tes
-						</a>
-					</li>
 				</li>
-				
+				<li>
+					<a href="{{route('peserta.tes')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="fa fa-play"></i>
+							<span class="title">Mulai Tes</span>
+					</a>
+				</li>
 				
 				
 			</ul>

@@ -10,4 +10,10 @@ class Setting extends Model
     
     protected $connection ="uvii";
     
+    public $timestamps = false;
+
+    protected $fillable = [
+        'key',
+        'value',  
+      ];
 }

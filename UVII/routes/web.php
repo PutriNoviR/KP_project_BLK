@@ -34,6 +34,7 @@ Route::get('menu/tes', 'TesTahapAwalController@menuTesHome')->name('peserta.tes'
 Route::get('menu/tes/uji-tahap-awal', 'TesTahapAwalController@menuTesUjiTahapAwal')->name('peserta.uji.tahap.awal');
 Route::get('menu/tes/uji', 'TesTahapAwalController@test');
 Route::post('menu/tes/uji-tahap-awal/save', 'TesTahapAwalController@simpanJawaban')->name('peserta.save.jawaban');
+Route::post('menu/tes/timer', 'TesTahapAwalController@updateTimer')->name('peserta.update.timer');
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');

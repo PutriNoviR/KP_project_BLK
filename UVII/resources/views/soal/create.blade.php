@@ -4,6 +4,19 @@
     Tambah Soal
 @endsection
 
+@section('javascript')
+  <script>
+    
+    $('select').change(function(){
+      var value_select = [];
+
+      var value = $(this).val();
+
+      $('select option[value="'+value+'"]').hide();
+    });
+  </script>
+@endsection
+
 @section('page-bar')
     <ul class="page-breadcrumb">
         <li>
