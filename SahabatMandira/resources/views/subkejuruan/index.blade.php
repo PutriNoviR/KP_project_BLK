@@ -38,7 +38,7 @@
     <tbody id="myTable">
     @foreach($data as $d)
     <tr>
-        <td>{{ $d->idsub_kejuruans }}</td>
+        <td>{{ $d->id }}</td>
         <td>{{ $d->nama }}</td>
     </tr>
     @endforeach
