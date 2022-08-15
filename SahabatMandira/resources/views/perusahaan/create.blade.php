@@ -1,22 +1,19 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 BLK
 @endsection
 
 @section('page-bar')
-<ul class="page-breadcrumb">
-    <li>
-        <i class="fa fa-home"></i>
-        <a href="http://127.0.0.1:8000/">Dashboard</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-
-    <li>
-        <a href="http://127.0.0.1:8000/menu/perusahaan">Perusahaan</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-</ul>
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Dashboard</h1>
+</div><!-- /.col -->
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard v1</li>
+    </ol>
+</div><!-- /.col -->
 @endsection
 
 @section('contents')
@@ -74,8 +71,7 @@ BLK
 
                         <div class="col-md-12">
                             <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat"
-                                autofocus>
+                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
 
                             @error('alamat')
                             <span class="invalid-feedback" role="alert">

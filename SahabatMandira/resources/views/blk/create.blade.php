@@ -1,22 +1,19 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 BLK
 @endsection
 
 @section('page-bar')
-<ul class="page-breadcrumb">
-    <li>
-        <i class="fa fa-home"></i>
-        <a href="http://127.0.0.1:8000/">Dashboard</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-
-    <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-</ul>
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Dashboard</h1>
+</div><!-- /.col -->
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard v1</li>
+    </ol>
+</div><!-- /.col -->
 @endsection
 
 @section('contents')
@@ -40,10 +37,12 @@ BLK
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                            <label for="nama"
+                                class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
+                                    name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
                                 @error('nama')
                                 <span class="invalid-feedback" role="alert">
@@ -57,7 +56,9 @@ BLK
                             <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                             <div class="col-md-12">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                                <input id="alamat" type="text"
+                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                    value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
 
                                 @error('alamat')
                                 <span class="invalid-feedback" role="alert">
@@ -71,7 +72,9 @@ BLK
                             <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
 
                             <div class="col-md-12">
-                                <input id="website" type="text" class="form-control @error('website') is-invalid @enderror" name="website_portfolio" value="{{ old('website') }}" required autocomplete="website" autofocus>
+                                <input id="website" type="text"
+                                    class="form-control @error('website') is-invalid @enderror" name="website_portfolio"
+                                    value="{{ old('website') }}" required autocomplete="website" autofocus>
 
                                 @error('website')
                                 <span class="invalid-feedback" role="alert">
@@ -82,7 +85,8 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
+                            <label for="memilikiSistem"
+                                class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
                             <div class="col-md-12">
                                 <select class="form-select" aria-label="Default select example" name="is_punyasistem">
@@ -99,10 +103,14 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="linkPendaftaran" class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
+                            <label for="linkPendaftaran"
+                                class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
 
                             <div class="col-md-12">
-                                <input id="linkPendaftaran" type="text" class="form-control @error('linkPendaftaran') is-invalid @enderror" name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required autocomplete="linkPendaftaran" autofocus>
+                                <input id="linkPendaftaran" type="text"
+                                    class="form-control @error('linkPendaftaran') is-invalid @enderror"
+                                    name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required
+                                    autocomplete="linkPendaftaran" autofocus>
 
                                 @error('linkPendaftaran')
                                 <span class="invalid-feedback" role="alert">
@@ -112,14 +120,14 @@ BLK
                             </div>
                         </div>
 
-                       
-                                <div class="body-btn">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('SIMPAN') }}
-                                    </button>
-                                </div>
-                                <br>
-                        
+
+                        <div class="body-btn">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('SIMPAN') }}
+                            </button>
+                        </div>
+                        <br>
+
                     </form>
                 </div>
             </div>

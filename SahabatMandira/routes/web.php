@@ -72,7 +72,7 @@ Route::get('menu/subkejuruan/create','Pelatihan\SubkejuruanController@create');
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
 Route::get('/helloworld', function () {
-    return 'Hello World, Pak Dosen';
+    return view('layouts.adminlte');
 });
 
 Route::view('/selamatdatang','welcome');
