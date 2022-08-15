@@ -37,6 +37,7 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         //
+        return redirect()->back()->with('success', 'Data Perusahaan berhasil ditambahkan!');
     }
 
     /**

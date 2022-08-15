@@ -13,7 +13,7 @@ BLK
     </li>
 
     <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
+        <a href="http://127.0.0.1:8000/menu/perusahaan">Perusahaan</a>
         <i class="fa fa-angle-right"></i>
     </li>
 </ul>
@@ -25,7 +25,7 @@ BLK
     <div class="col-md-8">
         <div class="card-register">
             <div class="card-header">
-                <h4>Tambah Balai Latihan Kerja</h4>
+                <h4>Profil Perusahaan</h4>
             </div>
             @if (\Session::has('success'))
             <div class="alert alert-success">
@@ -36,11 +36,11 @@ BLK
             @endif
 
             <div class="card-body">
-                <form method="POST" action="{{ route('blk.store') }}">
+                <form method="POST" action="{{ route('perusahaan.store') }}">
                     @csrf
 
                     <div class="form-group">
-                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Perusahaan') }}</label>
 
                         <div class="col-md-12">
                             <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
@@ -55,13 +55,13 @@ BLK
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                        <label for="alamat" class="col-md-12 col-form-label">{{ __('Bidang') }}</label>
 
                         <div class="col-md-12">
-                            <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                            <input id="bidang" type="text" class="form-control @error('bidang') is-invalid @enderror"
+                                name="bidang" value="{{ old('bidang') }}" required autocomplete="bidang" autofocus>
 
-                            @error('alamat')
+                            @error('bidang')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -70,14 +70,14 @@ BLK
                     </div>
 
                     <div class="form-group">
-                        <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
+                        <label for="website" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                         <div class="col-md-12">
-                            <input id="website" type="text" class="form-control @error('website') is-invalid @enderror"
-                                name="website_portfolio" value="{{ old('website') }}" required autocomplete="website"
+                            <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror"
+                                name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat"
                                 autofocus>
 
-                            @error('website')
+                            @error('alamat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

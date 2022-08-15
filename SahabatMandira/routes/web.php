@@ -66,6 +66,9 @@ Route::get('menu/subkejuruan/update','Pelatihan\SubkejuruanController@update');
 Route::get('menu/subkejuruan/delete','Pelatihan\SubkejuruanController@delete');
 Route::get('menu/subkejuruan/create','Pelatihan\SubkejuruanController@create');
 
+//Perusahaan
+Route::resource('menu/perusahaan','Bursa\PerusahaanController');
+
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';
 });
