@@ -112,14 +112,21 @@ BLK
                             </div>
                         </div>
 
-                       
-                                <div class="body-btn">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('SIMPAN') }}
-                                    </button>
-                                </div>
-                                <br>
-                        
+
+                        <div class="body-btn">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('EDIT') }}
+                            </button>
+                        </div>
+                        <br>
+
+                        <div class="body-btn">
+                            <button type="button" class="btn btn-primary">
+                                {{ __('DELETE') }}
+                            </button>
+                        </div>
+                        <br>
+
                     </form>
                 </div>
             </div>

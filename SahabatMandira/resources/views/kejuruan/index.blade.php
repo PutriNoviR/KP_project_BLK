@@ -41,7 +41,7 @@
     <tr>
         <td>{{ $d->id }}</td>
         <td>{{ $d->nama }}</td>
-        <td><a href="{{ $d->link_kejuruan_test_2 }}"></a></td>
+        <td><a href="{{ $d->link_kejuruan_test_2 }}">LINK</a></td>
     </tr>
     @endforeach
     </tbody>

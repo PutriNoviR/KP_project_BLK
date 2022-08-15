@@ -42,7 +42,7 @@ BLK
                 <td>{{ $blk->id }}</td>
                 <td>{{ $blk->nama }}</td>
                 <td>{{ $blk->alamat }}</td>
-                <td>{{ $blk->website_portofolio }}</td>
+                <td>{{ $blk->website_portfolio }}</td>
                 <td>{{ $blk->is_punyasistem }}</td>
                 <td>{{ $blk->link_pendaftaran }}</td>
             </tr>

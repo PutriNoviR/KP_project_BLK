@@ -159,30 +159,26 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/peserta"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/peserta">
                                     <i class="icon-list"></i>
                                     Daftar peserta</a>
                             </li>
                             <li>
-                                <a href="{{url('soal')}}"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="{{url('soal')}}">
                                     <i class="icon-book-open"></i>
                                     Menu Soal
                                 </a>
                             </li>
                             <!-- belum fix -->
                             <li>
-                                <a href="#"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="#">
                                     <i class="icon-list"></i>
                                     Daftar Karyawan</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="http://127.0.0.1:8000/menu/role"
-                            style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                        <a href="http://127.0.0.1:8000/menu/role">
                             <i class="fa fa-group"></i>
                             <span class="title">Role</span>
                         </a>
@@ -195,14 +191,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/kejuruans"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/kejuruans">
                                     <i class="icon-list"></i>
                                     Daftar Kejuruan</a>
                             </li>
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/kejuruans/create"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/kejuruans/create">
                                     <i class="icon-list"></i>
                                     Create Kejuruan</a>
                             </li>
@@ -216,15 +210,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/blk"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/blk">
                                     <i class="icon-book-open"></i>
                                     Daftar BLK
                                 </a>
                             </li>
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/blk/create"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/blk/create">
                                     <i class="icon-list"></i>
                                     Create BLK</a>
                             </li>
@@ -239,15 +231,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/subkejuruan"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/subkejuruan">
                                     <i class="icon-book-open"></i>
                                     Daftar Sub Kejuruan
                                 </a>
                             </li>
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/subkejuruan/create"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/subkejuruan/create">
                                     <i class="icon-list"></i>
                                     Create Sub Kejuruan</a>
                             </li>
@@ -261,8 +251,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="http://127.0.0.1:8000/menu/detailPelatihan"
-                                    style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+                                <a href="http://127.0.0.1:8000/menu/detailPelatihan">
                                     <i class="icon-list"></i>
                                     Detail Pelatihan</a>
                             </li>
