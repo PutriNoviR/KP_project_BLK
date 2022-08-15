@@ -18,7 +18,7 @@ class PesertaController extends Controller
     public function index()
     {
         $idRole = Role::where('nama_role', 'Peserta')->first();
-        $data = User::where('rolemandira_id', $idRole->id)->get();
+        $data = User::where('roles_id', $idRole->id)->get();
 
         return view('admin.daftarPeserta', compact('data'));
     }
@@ -135,7 +135,7 @@ class PesertaController extends Controller
       
             ]);
 
-            if($request->jenis_identitas == "Pasport"){
+            if($request->tipe_identitas == "Pasport"){
                 $identitas = "Pasport";
                
             }
@@ -208,7 +208,7 @@ class PesertaController extends Controller
             // $request->session()->put('kelengkapanData', $data);
         // }
         
-        return view('welcome');
+        return redirect()->route('home');
     }
 
     public function kelengkapanDataDokumen(Request $request){

@@ -46,26 +46,33 @@ class PertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user()->email;
+        try{
+            $user = Auth::user()->email;
 
-        $pertanyaan= new Pertanyaan();
-        $pertanyaan->pertanyaan= $request->get('pertanyaan');
-        $pertanyaan->created_by = $user;
-        $pertanyaan->updated_by = $user;
-
-        $pertanyaan->save();
-
-        for($i = 0; $i<5; $i++){
-          
-            $jawaban = new Jawaban();
-            $jawaban->jawaban = $request->jawaban[$i];
-            $jawaban->question_id = $pertanyaan->id;
-            $jawaban->kejuruans_id = $request->kejuruan[$i];
+            $pertanyaan= new Pertanyaan();
+            $pertanyaan->pertanyaan= $request->get('pertanyaan');
+            $pertanyaan->created_by = $user;
+            $pertanyaan->updated_by = $user;
+    
+            $pertanyaan->save();
+    
+            for($i = 0; $i<5; $i++){
               
-            $jawaban->save();
-        }
+                $jawaban = new Jawaban();
+                $jawaban->jawaban = $request->jawaban[$i];
+                $jawaban->question_id = $pertanyaan->id;
+                $jawaban->kejuruans_id = $request->kejuruan[$i];
+                  
+                $jawaban->save();
+            }
 
-        return redirect()->route('soal.index')->with('status','Pertanyaan berhasil ditambahkan');
+            return redirect()->route('soal.index')->with('status','Pertanyaan berhasil ditambahkan');
+        }
+       catch(\PDOException $e){
+            return redirect()->back()->with('error',"pertanyaan gagal diinput!");
+       }
+
+        
     }
 
     /**
@@ -114,8 +121,6 @@ class PertanyaanController extends Controller
             return;
             // todo = alert('id yang tidak sesuai')
         }
-        
-      
 
         for($i=0; $i<5; $i++){ 
 
@@ -148,7 +153,7 @@ class PertanyaanController extends Controller
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
-            return redirect()->route('soal.index')-with('error',$msg);
+            return redirect()->route('soal.index')->with('error',$msg);
         }
     }
     public function getEditForm(Request $request){
@@ -180,12 +185,12 @@ class PertanyaanController extends Controller
                 $dataSetting->save();
         
             }
+
+            return redirect()->back()->with('status', 'data berhasil ditambah');
         }
         else{
-            dd($request->key[0]);
+            return redirect()->back()->with('status', 'data gagal ditambah');
         }
-        
-
-        return redirect()->back()->with('status', 'data berhasil ditambah');
+    
     }
 }

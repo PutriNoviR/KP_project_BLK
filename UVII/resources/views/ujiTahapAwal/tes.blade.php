@@ -39,7 +39,7 @@
                     'detik':seconds,
                 },
                 success: function(data){
-                    alert(data.msg);
+                    // alert(data.msg);
                 }
             });
               
@@ -114,7 +114,7 @@
 
     $page = ((!isset($_GET['page']) || empty($_GET['page']) )? 1:$_GET['page']);
 
-    $lastNumber = ($page-1)*1;
+    $lastNumber = ($page-1)*$page;
 
 
 @endphp

@@ -126,8 +126,8 @@
                                 <div class="form-group">
                                     <label for="tipe_identitas" class="form-control-label">Kewarganegaraan</label>
                                     <select class="form-control" name="tipe_identitas" required>
-                                        <option value="WNI" {{ ($data->jenis_identitas == 'KTP')? 'selected':'' }}>Warga Negara Indonesia</option>
-                                        <option value="WNA" {{ ($data->jenis_identitas == 'Pasport')? 'selected':'' }}>Warga Negara Asing</option>
+                                        <option value="KTP" {{ ($data->jenis_identitas == 'KTP')? 'selected':'' }}>Warga Negara Indonesia</option>
+                                        <option value="Pasport" {{ ($data->jenis_identitas == 'Pasport')? 'selected':'' }}>Warga Negara Asing</option>
                                     </select>
                                 </div>
         

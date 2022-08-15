@@ -119,8 +119,9 @@ class RegisterController extends Controller
             // 'kota'=>$data['kota'],
             'username'=>$data['username'],
             'password' => Hash::make($data['password']),
-            'rolemandira_id' => $idRole,
+            'roles_id' => $idRole,
             'countries_id' => $idCountry,
+            'suspended_by' => null
         ]);
     }
 

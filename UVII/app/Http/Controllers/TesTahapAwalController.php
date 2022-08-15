@@ -110,7 +110,7 @@ class TesTahapAwalController extends Controller
         $dataSet= Setting::where('key','soal_perHalaman')->first();
         $dataMenit= Setting::where('key','durasi')->first();
 
-        dd($dataSet);
+        $page = $dataSet->value;
 
         $menit = $dataMenit->value;
 
@@ -149,12 +149,12 @@ class TesTahapAwalController extends Controller
         // random masuk ke tabel
 
         //ambil data jumlah halaman dari setting 
-        $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate($dataSet->value);
+        $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate($page);
         
         $totalSoal = count($uji_minat->hasilJawabans);
         
 
-        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban','waktu1', 'waktu2'));
+        return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban','waktu1', 'waktu2', 'page'));
     }
     
     public function simpanJawaban(Request $request){
@@ -182,19 +182,24 @@ class TesTahapAwalController extends Controller
         
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
     
-        $dataHasil = UjiMinatAwal::HitungScore($tes->id);
+       
+            $dataHasil = UjiMinatAwal::HitungScore($tes->id);
 
-        UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+            UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+            
+            //dd($dataHasil);
+            UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
+            
+            return view('ujiTahapAwal.hasilJawaban', compact('dataHasil'));
         
-        //dd($dataHasil);
-        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
-        
-        return view('ujiTahapAwal.hasilJawaban', compact('dataHasil'));
+      
     }
 
     public function updateTimer(Request $request){
-        $timer = $request->menit.":".$request->detik;
+        $user = Auth::user()->email;
 
+        $timer = ($request->menit.":".$request->detik);
+       
         UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['durasi' => $timer]);
 
         return response()->json(array(

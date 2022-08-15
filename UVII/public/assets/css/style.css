@@ -1331,6 +1331,20 @@ Portlets
   background: #18A0FB;
 }
 
+.body-content .form-group{
+  width: 100%;
+  padding: 3px 20px;
+}
+
+.body-content input{
+  width: 25%;
+  margin-bottom: 15px;
+}
+
+.body-content input[type=number]{
+  padding: 5px 15px;
+}
+
 #modalTes{
   top: 20%;
 	left: 0;
