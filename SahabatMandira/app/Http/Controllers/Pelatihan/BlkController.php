@@ -70,8 +70,6 @@ class BlkController extends Controller
      */
     public function edit(Blk $blk)
     {
-        //
-        
         return view('blk.update',compact('blk'));
     }
 
@@ -112,4 +110,16 @@ class BlkController extends Controller
         // dd($data);
         return view('blk.detail',['data'=>$data]);
     }
+
+
+    public function getEditForm(Request $request)
+    {
+        $blk = Blk::find($request->id);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('blk.update', compact('blk'))->render() 
+        ), 200);
+        // return view('blk.update',compact('blk'));
+    }
+
 }
