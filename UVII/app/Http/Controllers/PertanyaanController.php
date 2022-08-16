@@ -8,6 +8,7 @@ use App\Jawaban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Setting;
+use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
@@ -18,12 +19,12 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        
+        $list_klaster = DB::table('klaster_psikometrik')->get();
         $list_pertanyaan = Pertanyaan::all();
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
         // return view('soal.index',['data'=>$list_pertanyaan,'jawaban'=>$jawaban]);
-        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban]);
+        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster]);
     }
 
     /**
@@ -33,9 +34,11 @@ class PertanyaanController extends Controller
      */
     public function create()
     {
+        $namaKlaster= DB::table('klaster_psikometrik')->get();
+        
         // $jawaban= Jawaban::all();
         // return view('soal.create',['jawaban'=>$jawaban]);
-        return view('soal.create');
+        return view('soal.create', compact('namaKlaster'));
     }
 
     /**
@@ -56,19 +59,19 @@ class PertanyaanController extends Controller
     
             $pertanyaan->save();
     
-            for($i = 0; $i<5; $i++){
+            for($i = 0; $i<4; $i++){
               
                 $jawaban = new Jawaban();
                 $jawaban->jawaban = $request->jawaban[$i];
                 $jawaban->question_id = $pertanyaan->id;
-                $jawaban->kejuruans_id = $request->kejuruan[$i];
+                $jawaban->klaster_id = $request->kejuruan[$i];
                   
                 $jawaban->save();
             }
 
             return redirect()->route('soal.index')->with('status','Pertanyaan berhasil ditambahkan');
         }
-       catch(\PDOException $e){
+       catch(Exception $e){
             return redirect()->back()->with('error',"pertanyaan gagal diinput!");
        }
 
@@ -122,15 +125,15 @@ class PertanyaanController extends Controller
             // todo = alert('id yang tidak sesuai')
         }
 
-        for($i=0; $i<5; $i++){ 
+        for($i=0; $i<4; $i++){ 
 
             $dataJawaban=[
                 'jawaban' => $request->jawaban[$i],
-                'kejuruans_id' => $request->kejuruan[$i],
+                'klaster_id' => $request->kejuruan[$i],
             ];
         //         // $jawaban->question_id = $pertanyaan->id;
               
-            Jawaban::where('question_id', $request->old_id)->where('kejuruans_id', $request->kejuruan[$i])->update($dataJawaban);   
+            Jawaban::where('question_id', $request->old_id)->where('klaster_id', $request->kejuruan[$i])->update($dataJawaban);   
         //    }
         }
     
@@ -157,13 +160,16 @@ class PertanyaanController extends Controller
         }
     }
     public function getEditForm(Request $request){
+        $namaKlaster= DB::table('klaster_psikometrik')->get();
+
         $id=$request->get('id');
         $data= Pertanyaan::where('id',$id)->first();
         $jawaban = Jawaban::where('question_id',$id)->get();
-        // dd($data);
+      
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('soal.edit',compact('data','jawaban'))->render()
+            // 'msg'=>'success'
+            'msg'=>view('soal.edit',compact('namaKlaster','data','jawaban'))->render()
         ),200);
     }
 
@@ -186,11 +192,13 @@ class PertanyaanController extends Controller
         
             }
 
-            return redirect()->back()->with('status', 'data berhasil ditambah');
+            return redirect()->route('soal.index')->with('status', 'data berhasil ditambah');
         }
         else{
-            return redirect()->back()->with('status', 'data gagal ditambah');
+            return redirect()->route('soal.index')->with('status', 'data gagal ditambah');
         }
     
     }
+
+    
 }

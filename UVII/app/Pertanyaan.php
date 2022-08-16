@@ -23,4 +23,10 @@ class Pertanyaan extends Model
         'pertanyaan','created_by', 'updated_by',
      ];
 
+    //  public function getNamaKlaster(){
+    //     $getNama= DB::table('klaster_psikometrik')->
+    //  }
+
+     
+
 }

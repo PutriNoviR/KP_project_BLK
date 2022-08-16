@@ -12,7 +12,7 @@ class UjiMinatAwal extends Model
     protected $table = 'uji_minat_awals';
 
     protected $fillable = [
-        'tanggal_mulai','tanggal_selesai', 'kejuruans_id', 'users_email',
+        'tanggal_mulai','tanggal_selesai', 'klaster_id', 'users_email',
      ];
 
     public function user(){
@@ -57,12 +57,13 @@ class UjiMinatAwal extends Model
    }
 
    public static function HitungScore($idSesi){
+
         
-       $data = DB::table('kejuruans as kk') 
-            ->select('kk.id as id', 'kk.nama as kejuruan')
+       $data = DB::table('klaster_psikometrik as kk') 
+            ->select('kk.id as id', 'kk.nama as klaster','kk.link_kejuruan_tes_2 as link')
             // sub query
-            ->addSelect(DB::raw('IFNULL((select count(hj.jawaban) from masterblk_db.kejuruans k 
-                    left join uvii_db.answers as a on k.id = a.kejuruans_id
+            ->addSelect(DB::raw('IFNULL((select count(hj.jawaban) from masterblk_db.klaster_psikometrik k 
+                    left join uvii_db.answers as a on k.id = a.klaster_id
                     left join uvii_db.hasil_jawabans hj on a.idanswers = hj.jawaban
                     inner join uvii_db.uji_minat_awals as uma on uma.id = hj.uji_minat_awals_id 
                     inner join uvii_db.question_admins as qa on qa.id = hj.questions_id 
@@ -88,7 +89,7 @@ class UjiMinatAwal extends Model
             ->where('id', $idSesi)
             ->update(
                 [
-                    'kejuruans_id' => $idKejuruan,
+                    'klaster_id' => $idKejuruan,
                     'score' => $score
                 ]
             );

@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        @for($i = 0; $i<=4; $i++)
+        @for($i = 0; $i<=3; $i++)
           <div class='row'>
             <div class='col-md-8'>
               <input type="text" class="form-control" id="jawaban" name="jawaban[{{ $i }}]" value="{{ $jawaban[$i]->jawaban }}" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
@@ -36,12 +36,11 @@
             <div class="col-md-4">
               <select class="form-control" name="kejuruan[{{ $i }}]" required>
               {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-                <option value="">-Pilih Kejuruan-</option>
-                <option value=1 {{$jawaban[$i]->kejuruans_id == 1? "selected":""}}>Kejuruan 1</option>
-                <option value=2 {{$jawaban[$i]->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
-                <option value=3 {{$jawaban[$i]->kejuruans_id == 3? "selected":""}}>Kejuruan 3</option>
-                <option value=4 {{$jawaban[$i]->kejuruans_id == 4? "selected":""}}>Kejuruan 4</option>
-                <option value=5 {{$jawaban[$i]->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option>
+                <option value="">-Pilih Klaster-</option>
+               @foreach($namaKlaster as $klaster)
+                  <option value='{{ $klaster->id }}' {{ $jawaban[$i]->klaster_id == $klaster->id ? 'selected':'' }}>{{ $klaster->nama }}</option>
+                @endforeach
+                
               </select>
             </div>
           </div><br>
@@ -51,6 +50,6 @@
    {{--  @endforeach --}}
   </div>
   <div class="modal-footer">
-      <button type="submit" class="btn btn-primary pull-right">Submit</button>
+      <button type="submit" class="btn btn-primary pull-right">Simpan</button>
     </div>
 </form>

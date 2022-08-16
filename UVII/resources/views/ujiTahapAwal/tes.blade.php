@@ -114,7 +114,7 @@
 
     $page = ((!isset($_GET['page']) || empty($_GET['page']) )? 1:$_GET['page']);
 
-    $lastNumber = ($page-1)*$page;
+    $lastNumber = ($page-1)*$perPage;
 
 
 @endphp

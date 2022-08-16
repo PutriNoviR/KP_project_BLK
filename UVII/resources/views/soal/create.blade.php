@@ -58,24 +58,22 @@
               <label for="jawaban">Jawaban</label>
             </div>
             <div class="col-md-4">
-              <label for="kejuruan">Kejuruan</label>
+              <label for="kejuruan">Klaster</label>
             </div>
           </div>
 
-          @for($i = 0; $i<=4; $i++)
+          @for($i = 0; $i<=3; $i++)
             <div class='row'>
               <div class='col-md-8'>
                 <input type="text" class="form-control" id="jawaban" name="jawaban[{{ $i }}]" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
               </div>
               <div class="col-md-4">
                 <select class="form-control" name="kejuruan[{{ $i }}]" required>
-                {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-                  <option value="">-Pilih Kejuruan-</option>
-                  <option value=1>Kejuruan 1</option>
-                  <option value=2>Kejuruan 2</option>
-                  <option value=3>Kejuruan 3</option>
-                  <option value=4>Kejuruan 4</option>
-                  <option value=5>Kejuruan 5</option>
+                {{-- Tinggal di looping lagi sesuai table klaster --}}
+                <option value="">-Pilih Klaster-</option>
+                @foreach($namaKlaster as $data)
+                  <option value='{{ $data->id }}'>{{$data->nama}}</option>
+                @endforeach
                 </select>
               </div>
             </div><br>
