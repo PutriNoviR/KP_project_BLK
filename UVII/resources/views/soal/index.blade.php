@@ -51,6 +51,12 @@
   </div>
 @endif
 
+@if($message = Session::get('error'))
+  <div class="alert alert-danger">
+    <li>{{$message}}</li>
+  </div>
+@endif
+
 <h4 class="text-center">List Soal</h4>
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
@@ -117,8 +123,7 @@
               {{-- Button Delete 2--}}
               <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$item->id}}">
                 Delete
-              </a>
-                            
+              </a>              
               <form method='POST' action="{{ url('soal/'.$item->id) }}">
                   @csrf
                   @method('DELETE')
@@ -183,12 +188,18 @@
                       <div class="col-md-4">
                           <select class="form-control" name="kejuruan[{{ $i }}]" disabled required>
                           {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-                            <option value="">-Pilih Kejuruan-</option>
-                            <option value=1 {{$d->kejuruans_id == 1? "selected":""}}>Kejuruan 1</option>
-                            <option value=2 {{$d->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
+  
+                           @foreach($data3 as $e)
+                              @if($e->id == $d->klaster_id)
+                                <option value='{{ $d->klaster_id }}'>{{ $e->nama }}</option>
+                              
+                              @endif
+                           @endforeach
+                           
+                            <!-- <option value=2 {{$d->kejuruans_id == 2? "selected":""}}>Kejuruan 2</option>
                             <option value=3 {{$d->kejuruans_id == 3? "selected":""}}>Kejuruan 3</option>
                             <option value=4 {{$d->kejuruans_id == 4? "selected":""}}>Kejuruan 4</option>
-                            <option value=5 {{$d->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option>
+                            <option value=5 {{$d->kejuruans_id == 5? "selected":""}}>Kejuruan 5</option> -->
                           </select>
                       </div>
                     </div><br>
@@ -217,6 +228,6 @@
   </div>
 </div>
 <a href="{{route('soal.setting')}}" class='btn btn-info'> Setting Soal </a>
-<a href="#" class='btn btn-info'> view Soal </a><br><br>
+{{--<a href="#" class='btn btn-info'> view Soal </a><br><br>--}}
 
 @endsection
