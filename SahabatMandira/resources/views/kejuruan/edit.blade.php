@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 Kejuruan
@@ -22,10 +22,10 @@ Kejuruan
 @section('contents')
 <div class="row justify-content-center">
 
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card-register">
             <div class="card-header">
-                <h4>Tambah Kejuruan</h4>
+                <h4>Edit Kejuruan</h4>
             </div>
             @if (\Session::has('success'))
             <div class="alert alert-success">
@@ -42,8 +42,7 @@ Kejuruan
                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
 
                         <div class="col-md-12">
-                            <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
-                                name="nama" value="{{ $Kejuruan->nama }}" required autocomplete="nama" autofocus>
+                            <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ $Kejuruan->nama }}" required autocomplete="nama" autofocus>
 
                             @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -54,13 +53,10 @@ Kejuruan
                     </div>
 
                     <div class="form-group">
-                        <label for="linkKejuruan"
-                            class="col-md-12 col-form-label">{{ __('Link Kejuruan Test') }}</label>
+                        <label for="linkKejuruan" class="col-md-12 col-form-label">{{ __('Link Kejuruan Test') }}</label>
 
                         <div class="col-md-12">
-                            <input id="linkKejuruan" type="text"
-                                class="form-control @error('linkKejuruan') is-invalid @enderror"
-                                name="link_kejuruan_tes_2" value="{{ $Kejuruan->link_kejuruan_tes_2 }}">
+                            <input id="linkKejuruan" type="text" class="form-control @error('linkKejuruan') is-invalid @enderror" name="link_kejuruan_tes_2" value="{{ $Kejuruan->link_kejuruan_tes_2 }}">
 
                             @error('alamat')
                             <span class="invalid-feedback" role="alert">
@@ -70,15 +66,16 @@ Kejuruan
                         </div>
                     </div>
 
-                    <div class="form-group mb-0 rata_tengah">
-                        <div class="col-md-12 offset-manual">
-                            <button type="submit" class="btn btn-primary">
+                    <div class="form-group my-3">
+                        <div class="col-md-15 text-center">
+                            <button type="submit" class="btn btn-lg btn-primary">
                                 {{ __('SIMPAN') }}
                             </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

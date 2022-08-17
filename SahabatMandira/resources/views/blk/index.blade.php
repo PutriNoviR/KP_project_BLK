@@ -4,6 +4,8 @@
 BLK
 @endsection
 
+
+
 @section('javascript')
 <script>
     function getEditForm(myid) {
@@ -22,6 +24,7 @@ BLK
     }
 </script>
 @endsection
+
 @section('page-bar')
 {{-- <ul class="page-breadcrumb">
     <li>
@@ -36,9 +39,20 @@ BLK
     </li>
 </ul> --}}
 @endsection
+
 @section('contents')
 <div class="container">
     <h2>Daftar Program BLK</h2>
+    <a href="{{url('menu/blk/create')}}" class="btn btn-info" type="button">
+        + BLK Baru
+    </a>
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
     <div class="input-group">
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
@@ -67,17 +81,17 @@ BLK
                     <a href="#modalEdit" data-toggle='modal' class='btn btn-warning btn-xs' onclick="getEditForm('{{$d->id}}')">
                         Edit
                     </a>
-                    
+
 
                     <a class="btn btn-primary" data-toggle="modal" href="{{route('blk.show',$d->id)}}" data-toggle="modal">Delete</a>
                 </td>
             </tr>
             @endforeach
             <div class="modal fade" id="modalEdit" tabindex="-1" role="basic" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content" id='modalContent'></div>
-                        </div>
-                    </div>
+                <div class="modal-dialog">
+                    <div class="modal-content" id='modalContent'></div>
+                </div>
+            </div>
         </tbody>
     </table>
 </div>

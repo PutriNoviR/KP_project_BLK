@@ -56,14 +56,12 @@ Route::get('menu/kejuruans/create','Pelatihan\KejuruanController@create');
 
 //BLK
 Route::get('menu/blk/detail/{id}','Pelatihan\BlkController@detail');
-Route::post('menu/blk/update','Pelatihan\BlkController@update');
-Route::get('menu/blk/edit','Pelatihan\BlkController@edit');
 Route::post('menu/blk/delete','Pelatihan\BlkController@destroy');
 Route::get('menu/blk/create','Pelatihan\BlkController@create');
 Route::post('menu/blk/getEditForm','Pelatihan\BlkController@getEditForm')->name('blk.getEditForm');
 
 //SubKejuruan
-Route::get('menu/subkejuruan/detail/{id}','Pelatihan\SubkejuruanController@detail');
+Route::get('menu/subkejuruan/detail/{id}','Pelatihan\SubkejuruanController@show');
 Route::get('menu/subkejuruan/update','Pelatihan\SubkejuruanController@update');
 Route::get('menu/subkejuruan/delete','Pelatihan\SubkejuruanController@delete');
 Route::get('menu/subkejuruan/create','Pelatihan\SubkejuruanController@create');
