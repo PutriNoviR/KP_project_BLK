@@ -76,13 +76,6 @@ Kejuruan
                                 {{ __('SIMPAN') }}
                             </button>
                 </form>
-                <form action="{{ route('kejuruans.destroy',$Kejuruan->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('DELETE') }}
-                    </button>
-                </form>
             </div>
         </div>
     </div>
