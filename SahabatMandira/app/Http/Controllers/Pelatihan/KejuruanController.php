@@ -86,7 +86,7 @@ class KejuruanController extends Controller
         $Kejuruan->nama = $request->nama;
         $Kejuruan->link_kejuruan_tes_2 = $request->link_kejuruan_tes_2;
         $Kejuruan->save();
-        return redirect()->back()->with('success', 'Data Kejuruan berhasil diubah!');
+        return redirect()->route('kejuruans.index')->with('success', 'Data Kejuruan berhasil diubah!');
     }
 
     /**
@@ -98,8 +98,14 @@ class KejuruanController extends Controller
     public function destroy(Kejuruan $Kejuruan)
     {
         //
-        $Kejuruan->delete();
-        return redirect()->back()->with('success', 'Data Kejuruan berhasil dihapus!');
+        try {
+            $Kejuruan->delete();
+            return redirect()->route('kejuruans.index')->with('success', 'Data Kejuruan berhasil dihapus!');
+        } catch (\PDOException $e) {
+            $msg="Data gagal dihapus";
+
+            return redirect()->route('kejuruans.index')->with('error',$msg);
+        }
     }
 
     public function detailAllPelatihan(){
@@ -112,5 +118,11 @@ class KejuruanController extends Controller
         ->groupBy('kejuruans.nama','P.NAMA','B.NAMA','B.ALAMAT','periode')
         ->get();
         return view('report.index', compact('data'));
+    }
+
+    public function detail($id){
+        $data = Kejuruan::find($id);
+        // dd($data);
+        return view('kejuruan.detail',['data'=>$data]);
     }
 }

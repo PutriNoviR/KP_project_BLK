@@ -33,7 +33,8 @@
     <tr>
         <th>ID</th>
         <th>NAMA KEJURUAN</th>
-        <th>Link</th>
+        <th>LINK</th>
+        <th>DETAIL</th>
     </tr>
     </thead>
     <tbody id="myTable">
@@ -42,6 +43,10 @@
         <td>{{ $d->id }}</td>
         <td>{{ $d->nama }}</td>
         <td><a href="{{ $d->link_kejuruan_test_2 }}">LINK</a></td>
+        <td>
+        <a class="btn btn-primary" data-toggle="modal" href="{{url('/menu/kejuruans/detail/'.$d->id)}}" 
+                data-toggle="modal">detail</a>
+        </td>
     </tr>
     @endforeach
     </tbody>
