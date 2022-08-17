@@ -182,23 +182,31 @@ class TesTahapAwalController extends Controller
         
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
     
-        
-        $dataHasil = UjiMinatAwal::HitungScore($tes->id);
-        $totalScore = $dataHasil->sum('score');
-        // dd($totalScore);
-
-        $data = UjiMinatAwal::where('id', $tes->id)->first();
-        
-        $waktu = explode(':', $data->durasi);
-        $waktu1 = $waktu[0];
-        $waktu2 = $waktu[1];
-        // dd($waktu1, $waktu2);
-        UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+        $dataJawaban = UjiMinatAwal::getDataJawaban($tes->id);
        
-        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
+        // cek apakah ada soal yang belum terisi dan masih terdapat cukup waktu;
+        if(in_array(0, $dataJawaban) && $tes->durasi != "00:00"){ 
+            return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
+        }
+        else{
+            $dataHasil = UjiMinatAwal::HitungScore($tes->id);
+            $totalScore = $dataHasil->sum('score');
+
+            // dd($totalScore);
+
+            $data = UjiMinatAwal::where('id', $tes->id)->first();
+            
+            $waktu = explode(':', $data->durasi);
+            $waktu1 = $waktu[0];
+            $waktu2 = $waktu[1];
+            // dd($waktu1, $waktu2);
+            UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
         
-        return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2'));
+            UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
+            
+            return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2'));
     
+        }
     
     }
 
@@ -212,5 +220,20 @@ class TesTahapAwalController extends Controller
         return response()->json(array(
             'msg'=>"Timer updated".$request->jawaban
         ),200);
+    }
+
+    public function riwayatTes(){
+        $user = Auth::user()->email;
+        $riwayat= UjiMinatAwal::riwayatTes($user);
+
+        return view('riwayatUjian.index', compact('riwayat'));
+
+    }
+    public function riwayatTesGlobal(){
+        
+        $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes'));
+
     }
 }

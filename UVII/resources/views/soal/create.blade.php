@@ -38,6 +38,12 @@
 @endsection
 
 @section('contents')
+@if($message = Session::get('error'))
+  <div class="alert alert-danger">
+    <li>{{$message}}</li>
+  </div>
+@endif
+
 <div class="card-kelengkapan">
 
     <div class="card-header">

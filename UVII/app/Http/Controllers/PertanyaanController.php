@@ -19,12 +19,16 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
+        $settingDurasi = Setting::where('key', 'durasi')->first()->value;
+        $settingSoal = Setting::where('key', 'jmlSoal')->first()->value;
+        $settingHalaman = Setting::where('key', 'soal_perHalaman')->first()->value;
+        
         $list_klaster = DB::table('klaster_psikometrik')->get();
         $list_pertanyaan = Pertanyaan::all();
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
         // return view('soal.index',['data'=>$list_pertanyaan,'jawaban'=>$jawaban]);
-        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster]);
+        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster, 'durasi'=>$settingDurasi, 'soal'=>$settingSoal, 'halaman'=>$settingHalaman]);
     }
 
     /**
@@ -121,7 +125,7 @@ class PertanyaanController extends Controller
         if(Pertanyaan::find($request->old_id) != null){
             Pertanyaan::find($request->old_id)->update($dataPertanyaan);
         }else{
-            return;
+            return redirect()->back()->with('error','Pertanyaan tidak ditemukan');
             // todo = alert('id yang tidak sesuai')
         }
 
@@ -183,19 +187,19 @@ class PertanyaanController extends Controller
 
         if($request->has('value')){
             for($i=0; $i < 3; $i++){
-                $dataSetting= new Setting();
-                $dataSetting->key = $request->key[$i];
-               
-                $dataSetting->value =$request->value[$i];
+
+                $dataSetting = [
+                    'key' => $request->key[$i],
+                    'value' => $request->value[$i]
+                ]; 
         
-                $dataSetting->save();
-        
+                Setting::where('key', $request->key[$i])->update($dataSetting);
             }
 
-            return redirect()->route('soal.index')->with('status', 'data berhasil ditambah');
+            return redirect()->back()->with('status', 'data berhasil diubah');
         }
         else{
-            return redirect()->route('soal.index')->with('status', 'data gagal ditambah');
+            return redirect()->back()->with('error', 'data gagal diubah');
         }
     
     }

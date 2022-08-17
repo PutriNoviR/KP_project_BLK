@@ -24,7 +24,7 @@
             <label for="jawaban">Jawaban</label>
           </div>
           <div class="col-md-4">
-            <label for="kejuruan">Kejuruan</label>
+            <label for="kejuruan">Klaster</label>
           </div>
         </div>
 

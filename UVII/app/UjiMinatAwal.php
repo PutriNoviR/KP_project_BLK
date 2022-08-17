@@ -112,5 +112,26 @@ class UjiMinatAwal extends Model
         return $arr_data;
    }
 
+   public static function riwayatTes($user){
+     $data= DB::connection('uvii')->table('uji_minat_awals as um')
+        ->select('um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster')
+        ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
+        ->where('um.users_email',$user)
+        ->orderBy('um.tanggal_selesai','DESC')
+        ->get();
+
+        return $data;
+   }
+   public static function riwayatTesGlobal(){
+    $data= DB::connection('uvii')->table('uji_minat_awals as um')
+       ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster')
+       ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
+       //->groupBy('um.users_email')
+       ->orderBy('um.tanggal_selesai','DESC')
+       ->get();
+
+       return $data;
+  }
+
    
 }

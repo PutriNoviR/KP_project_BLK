@@ -174,12 +174,24 @@ License: You must have a valid license purchased only from themeforest(the above
 							<span class="title">Role</span>
 							</a>
 						</li>
+						<li>
+							<a href="{{route('riwayat_tes_global.user')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+								<i class="fa fa-file-text"></i>
+								<span class="title">Riwayat Tes Peserta</span>
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li>
 					<a href="{{route('peserta.tes')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 							<i class="fa fa-play"></i>
 							<span class="title">Mulai Tes</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{route('riwayat_tes.user')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="fa fa-file-text"></i>
+							<span class="title">Riwayat Ujian</span>
 					</a>
 				</li>
 				

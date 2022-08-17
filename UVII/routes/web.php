@@ -29,6 +29,7 @@ Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta
 Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('peserta.data.pribadi');
 Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('peserta.data.dokumen');
 
+
 //Tes Tahap Awal
 Route::get('menu/tes', 'TesTahapAwalController@menuTesHome')->name('peserta.tes');
 Route::get('menu/tes/uji-tahap-awal', 'TesTahapAwalController@menuTesUjiTahapAwal')->name('peserta.uji.tahap.awal');
@@ -43,6 +44,11 @@ Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name(
 Route::get('soal_setting','PertanyaanController@setting')->name('soal.setting');
 Route::post('soal_setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
 Route::get('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
+
+//riwayat tes
+Route::get('riwayat/tes/peserta', 'TesTahapAwalController@riwayatTes')->name('riwayat_tes.user');
+Route::get('riwayat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal')->name('riwayat_tes_global.user');
+
 
 
 Route::get('/helloworld', function () {

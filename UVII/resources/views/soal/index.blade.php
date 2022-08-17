@@ -170,7 +170,7 @@
                         <label for="jawaban">Jawaban</label>
                       </div>
                       <div class="col-md-4">
-                        <label for="kejuruan">Kejuruan</label>
+                        <label for="kejuruan">Klaster</label>
                       </div>
                     </div>
 
@@ -227,7 +227,63 @@
     
   </div>
 </div>
-<a href="{{route('soal.setting')}}" class='btn btn-info'> Setting Soal </a>
+<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
+
 {{--<a href="#" class='btn btn-info'> view Soal </a><br><br>--}}
+
+
+<div class="modal fade" id="modalSetting" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Setting Soal</h4>  
+        </div>
+
+        <form method="POST" action="{{route('soal.setting.save')}}">
+          @csrf
+            <div class="modal-body">
+         
+              <div class="form-group row">
+              
+                  <label for="setting" class="col-md-6">Waktu (Menit):</label>
+                  <div class="col-md-4">
+                    <input type="hidden" name='key[]' value="durasi">
+                    <input type="time" class='form-control' name='value[]' placeholder="dalam menit" value="{{ $durasi }}">
+                  </div>
+                
+              </div>
+              <div class='form-group row'>
+                <!-- <div class="row col-md-12"> -->
+                    <label for="setting" class="col-md-6">Jumlah soal yang akan ditampilkan :</label>
+                    <div class="col-md-4">
+                      <input type="hidden" name='key[]' value="jmlSoal">
+                      <input type="number" class='form-control' name='value[]' min=0 value="{{ $soal }}">
+                    </div>
+                <!-- </div> -->
+              </div>
+                  
+              <div class='form-group row'>
+                
+                  <!-- <div class="row col-md-12">     -->
+                      <label for="setting" class="col-md-6">Soal per halaman :</label>
+                      <div class="col-md-4">
+                        <input type="hidden" name='key[]' value="soal_perHalaman">
+                        <input type="number" class='form-control' name='value[]' min=0 value="{{ $halaman }}">
+                      </div>
+                  <!-- </div> -->
+              
+              </div>
+            </div>
+
+            <div class="modal-footer" style="border-top: none; text-align: center;">
+              <button type="submit" class="btn btn-primary">Simpan</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+            </div>
+             
+        </form>
+        
+      </div>
+    </div>
+  </div>
 
 @endsection

@@ -7,6 +7,12 @@
 
 @section('javascript')
 <script>
+    $('#modalInfo').modal('show');
+    
+    function closeModal(){
+        $('#modalInfo').modal('hide');   
+    }
+
     function startTimer(duration, display1, display2) {
         var timer = duration, minutes, seconds;
        
@@ -71,17 +77,18 @@
         // }
       
         // ubah ke satuan detik
-        var minutes = (60 * menit) + detik,
+        var time = (60 * menit) + detik,
             display1 = document.querySelector('#menit'), 
             display2 = document.querySelector('#detik');
 
-        if($('#menit').html()!= "00"){
-            startTimer(minutes, display1, display2);
+        if(time == 0){
+            alert('waktu habis');
+            
         }    
         else{
-            alert('waktu habis');
-        }         
-    };
+         startTimer(time, display1, display2);
+        }     
+    }
 
     $("input[type=radio]").click(function(){
         var idJawaban = $(this).val();
@@ -118,6 +125,29 @@
 
 
 @endphp
+
+@if($message = Session::get('error'))
+    <div id='modalInfo' class="modal" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; margin: auto;">
+                        <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-info-sign"></i>
+                    </div>
+                    <p>
+                       {{ $message }}
+                    </p>
+                    
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <a class="btn btn-default" onclick="closeModal()">OK</a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 
 <div class="container">
     <div class="timer" >
@@ -210,10 +240,31 @@
         </div>
 
         <div class="finish_attempt" >
-            <a >Finish Attempt...</a>
+            <a href="{{ route('soal.hasilJawaban.score') }}">Finish Attempt...</a>
         </div>
     </div>
 
+    
+    <div id="waktuHabisModal" class="modal fade" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; margin: auto;">
+                        <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
+                    </div>
+                    <p>
+                        Waktu pengerjaan habis!
+                    </p>
+                    
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <a class="btn btn-danger" href="{{ route('soal.hasilJawaban.score') }}">OK</a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
