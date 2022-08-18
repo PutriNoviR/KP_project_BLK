@@ -44,7 +44,6 @@ Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name(
 
 //REPORT
 Route::resource('menu/kejuruans','Pelatihan\KejuruanController');
-Route::resource('menu/blk','Pelatihan\BlkController')->middleware('super.admin');
 Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
 Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatihan');
 
@@ -55,10 +54,8 @@ Route::get('menu/kejuruans/delete','Pelatihan\KejuruanController@delete');
 Route::get('menu/kejuruans/create','Pelatihan\KejuruanController@create');
 
 //BLK
-Route::get('menu/blk/detail/{id}','Pelatihan\BlkController@detail');
-Route::post('menu/blk/delete','Pelatihan\BlkController@destroy');
-Route::get('menu/blk/create','Pelatihan\BlkController@create');
-Route::post('menu/blk/getEditForm','Pelatihan\BlkController@getEditForm')->name('blk.getEditForm');
+Route::resource('menu/blk','Pelatihan\BlkController')->middleware('super.admin');
+Route::post('menu/blk/getEditForm','Pelatihan\BlkController@getEditForm')->name('blk.getEditForm')->middleware('super.admin');
 
 //SubKejuruan
 Route::get('menu/subkejuruan/detail/{id}','Pelatihan\SubkejuruanController@show');
