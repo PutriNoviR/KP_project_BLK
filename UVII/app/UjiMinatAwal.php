@@ -133,5 +133,12 @@ class UjiMinatAwal extends Model
        return $data;
   }
 
-   
+  public static function selisihDurasiPengerjaan($idSesi){
+    $data= DB::connection('uvii')->table('uji_minat_awals')
+       ->selectRaw('TIMEDIFF(durasi_awal,sisa_durasi) as durasi')
+       ->where('id', $idSesi)
+       ->first();
+
+       return $data;
+  }
 }

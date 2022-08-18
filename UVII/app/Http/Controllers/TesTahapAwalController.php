@@ -89,7 +89,6 @@ class TesTahapAwalController extends Controller
     }
 
     public function menuTesHome(){
-
         return view('ujiTahapAwal.index');
     }
 
@@ -122,8 +121,9 @@ class TesTahapAwalController extends Controller
             $uji_minat->tanggal_mulai = Carbon::now()->format('Y-m-d H:i:m');
             $uji_minat->users_email = Auth::user()->email;
             $uji_minat->klaster_id = 0;
-            $uji_minat->durasi = $menit;
-            $waktu = explode(':', $uji_minat->durasi);
+            $uji_minat->sisa_durasi = $menit;
+            $uji_minat->durasi_awal = $menit;
+            $waktu = explode(':', $uji_minat->sisa_durasi);
            
          
             $uji_minat->save();
@@ -136,7 +136,7 @@ class TesTahapAwalController extends Controller
         else{
             $uji_minat = $tes;
            
-            $waktu = explode(':',$uji_minat->durasi);
+            $waktu = explode(':',$uji_minat->sisa_durasi);
             
         }
         $waktu1= $waktu[0];
@@ -180,12 +180,12 @@ class TesTahapAwalController extends Controller
     public function hasilTes(){
         $user = Auth::user()->email;
         
-        $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
-    
+        $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first() ?? UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
+
         $dataJawaban = UjiMinatAwal::getDataJawaban($tes->id);
        
         // cek apakah ada soal yang belum terisi dan masih terdapat cukup waktu;
-        if(in_array(0, $dataJawaban) && $tes->durasi != "00:00"){ 
+        if(in_array(0, $dataJawaban) && $tes->sisa_durasi != "00:00"){ 
             return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
         }
         else{
@@ -194,8 +194,11 @@ class TesTahapAwalController extends Controller
 
             // dd($totalScore);
 
-            $data = UjiMinatAwal::where('id', $tes->id)->first();
-            
+            // $data = UjiMinatAwal::where('id', $tes->id)->first();
+            $waktu = Setting::where('key', 'durasi')->first();
+
+            $data = UjiMinatAwal::selisihDurasiPengerjaan($tes->id);
+           
             $waktu = explode(':', $data->durasi);
             $waktu1 = $waktu[0];
             $waktu2 = $waktu[1];
@@ -215,7 +218,7 @@ class TesTahapAwalController extends Controller
 
         $timer = ($request->menit.":".$request->detik);
        
-        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['durasi' => $timer]);
+        UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['sisa_durasi' => $timer]);
 
         return response()->json(array(
             'msg'=>"Timer updated".$request->jawaban

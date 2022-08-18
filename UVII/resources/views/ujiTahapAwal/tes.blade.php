@@ -7,8 +7,7 @@
 
 @section('javascript')
 <script>
-    $('#modalInfo').modal('show');
-    
+
     function closeModal(){
         $('#modalInfo').modal('hide');   
     }
@@ -26,18 +25,16 @@
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            display1.textContent = minutes;
-            display2.textContent = seconds;
-
             if (--timer < 0) {
                 // localStorage.clear("menit");
                 // localStorage.clear("detik");
-                display1.textContent ="00";
-                display2.textContent= "00";
-                //timer = duration;
+                minutes = "00";
+                seconds = "00";
+                $('#waktuHabisModal').modal('show',{backdrop:'static',keyboard:'false'});
+
             }
-            else{
-                $.ajax({
+           
+            $.ajax({
                 type:'post',
                 url:'{{ route("peserta.update.timer")}}',
                 data:{'_token':'<?php echo csrf_token() ?>',
@@ -48,14 +45,20 @@
                     // alert(data.msg);
                 }
             });
+
+            display1.textContent = minutes;
+            display2.textContent = seconds;
               
                 // localStorage.setItem("menit",minutes);
                 // localStorage.setItem("detik",seconds);
-            }
+            
         }, 1000);
     }
 
     window.onload = function () {
+      
+        $('#modalInfo').modal('show');
+    
         // pengecekan apakah boleh klik next atau tidak
         if($('input[type=radio]').is(':checked') == true){
             $('#btnNext').css('pointer-events', 'true');
@@ -81,13 +84,10 @@
             display1 = document.querySelector('#menit'), 
             display2 = document.querySelector('#detik');
 
-        if(time == 0){
-            alert('waktu habis');
-            
-        }    
-        else{
-         startTimer(time, display1, display2);
-        }     
+        if(time > 0){
+            startTimer(time, display1, display2);
+        }   
+         
     }
 
     $("input[type=radio]").click(function(){
@@ -111,6 +111,8 @@
         });
 
     });
+
+
 </script>
 @endsection
 
@@ -118,15 +120,14 @@
 {{--foreach untuk menampilkan data setting--}}
 @php
 
-
     $page = ((!isset($_GET['page']) || empty($_GET['page']) )? 1:$_GET['page']);
 
     $lastNumber = ($page-1)*$perPage;
 
-
 @endphp
 
-@if($message = Session::get('error'))
+@if(Session::has('error'))
+   
     <div id='modalInfo' class="modal" tabindex="-1" role="basic">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,7 +136,7 @@
                         <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-info-sign"></i>
                     </div>
                     <p>
-                       {{ $message }}
+                       {{ Session::get('error') }}
                     </p>
                     
                 </div>
@@ -147,6 +148,7 @@
             </div>
         </div>
     </div>
+
 @endif
 
 <div class="container">
@@ -266,5 +268,6 @@
         </div>
     </div>
 </div>
+{{ Session::forget('error') }}
 @endsection
 

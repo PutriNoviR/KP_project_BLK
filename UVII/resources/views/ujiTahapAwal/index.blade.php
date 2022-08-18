@@ -61,11 +61,10 @@
                     </div>
 
                     <div class="body-btn">
-
                         <button type="button" class="btn btn-primary" onclick="show()">
                             Mulai Tes
                         </button>
-
+                        
                     </div>
                 </div>
 
