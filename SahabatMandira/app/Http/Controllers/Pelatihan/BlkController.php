@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pelatihan;
 
 use App\Blk;
 use App\Http\Controllers\Controller;
+use App\PaketProgram;
 use Illuminate\Http\Request;
 
 class BlkController extends Controller

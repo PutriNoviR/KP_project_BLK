@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Pelatihan;
 
+use App\Blk;
 use App\Http\Controllers\Controller;
 use App\Kejuruan;
+use App\PaketProgram;
 use App\Subkejuruan;
 use Illuminate\Http\Request;
 
@@ -17,8 +19,11 @@ class SubkejuruanController extends Controller
     public function index()
     {
         //
-        $data = Subkejuruan::all();
-        return view('subkejuruan.index',compact('data'));
+        $paket_programs = PaketProgram::all();
+        $blks = Blk::all();
+        $kejuruans=  Kejuruan::all();
+        $subs = Subkejuruan::all();
+        return view('subkejuruan.index',compact('subs','kejuruans','blks','paket_programs'));
     }
 
     /**
@@ -43,9 +48,19 @@ class SubkejuruanController extends Controller
     {
         //
         $Subkejuruan = new Subkejuruan();
-        $Subkejuruan->nama = $request->nama;
+        $Subkejuruan->nama = $request->nama_subkejuruan;
         $Subkejuruan->kejuruans_id = $request->kejuruans_id;
         $Subkejuruan->save();
+
+        $paket_program = PaketProgram::where('blks_id',$request->blks_id)->where('kejuruans_id',$request->kejuruans_id)->whereNull('sub_kejuruans_id')->first();
+        if ($paket_program == null) {
+            $paket_program = new PaketProgram;
+            $paket_program->blks_id = $request->blks_id;
+            $paket_program->kejuruans_id = $request->kejuruans_id;
+        }
+        $paket_program->sub_kejuruans_id = $Subkejuruan->id;
+        $paket_program->save();
+
         return redirect()->back()->with('success', 'Data Subkejuruan berhasil ditambahkan!');
     }
 

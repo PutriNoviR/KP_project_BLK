@@ -1,11 +1,11 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 Daftar Kejuruan
 @endsection
 
 @section('page-bar')
-<ul class="page-breadcrumb">
+{{-- <ul class="page-breadcrumb">
     <li>
         <i class="fa fa-home"></i>
         <a href="http://127.0.0.1:8000/">Dashboard</a>
@@ -16,15 +16,29 @@ Daftar Kejuruan
         <a href="http://127.0.0.1:8000/menu/kejuruan">Kejuruan</a>
         <i class="fa fa-angle-right"></i>
     </li>
-</ul>
+</ul> --}}
+@endsection
+
+@section('javascript')
+<script>
+    $(function () {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+
+</script>
 @endsection
 
 @section('contents')
 <div class="container">
-    <h2>Daftar Kejuruan</h2>
-    <a href="{{url('menu/kejuruans/create')}}" class="btn btn-info" type="button">
-        + Kejuruan Baru
-    </a>
+    <div class="d-flex justify-content-between mb-2">
+        <h2>Daftar Kejuruan</h2>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
+            Tambah Kejuruan Baru
+        </button>
+    </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
         <ul>
@@ -32,31 +46,81 @@ Daftar Kejuruan
         </ul>
     </div>
     @endif
-    <div class="input-group">
-        <input class="form-control" id="myInput" type="text" placeholder="Search..">
-        <br>
-    </div>
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">ID</th>
-                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">NAMA KEJURUAN</th>
-                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">LINK</th>
-                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">DETAIL</th>
+                <th>BLK</th>
+                <th>KEJURUAN</th>
+                <th>AKSI</th>
             </tr>
         </thead>
-        <tbody id="myTable">
-            @foreach($data as $d)
+        <tbody>
+            @foreach($paket_programs as $program)
             <tr>
-                <td>{{ $d->id }}</td>
-                <td>{{ $d->nama }}</td>
-                <td><a href="{{ $d->link_kejuruan_test_2 }}">LINK</a></td>
+                <td>{{ $program->blk->nama }}</td>
+                <td>{{ $program->kejuruan === null ? 'Tidak Ada' : $program->kejuruan->nama}}</td>
                 <td>
-                    <a class="btn btn-primary" type="submit" href="{{url('/menu/kejuruans/detail/'.$d->id)}}" data-toggle="modal">detail</a>
+                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
+                        onclick="modalEdit({{$program->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('kejuruans.destroy',$program->id) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-@endsection
+{{-- MODAL --}}
+<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Kejuruan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('kejuruans.store') }}">
+                        @csrf
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">{{ __('Asal BLK') }}</label>
+
+                            <div class="col-md-12">
+                                <select class="form-control" aria-label="Default select example" name="blks_id">
+                                    @foreach ($blks as $blk)
+                                    <option value="{{ $blk->id }}">{{ $blk->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
+
+                            <div class="col-md-12">
+                                <input id="nama" type="text" class="form-control " name="nama_kejuruan" required
+                                    autocomplete="nama">
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endsection

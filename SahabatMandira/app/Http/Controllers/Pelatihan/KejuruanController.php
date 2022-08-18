@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Pelatihan;
 
+use App\Blk;
 use App\Http\Controllers\Controller;
 use App\Kejuruan;
+use App\PaketProgram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,9 +19,11 @@ class KejuruanController extends Controller
     public function index()
     {
         //
-        $data = Kejuruan::all();
+        // $data = Kejuruan::all();
+        $blks = Blk::all();
+        $paket_programs = PaketProgram::all();
         // dd($data);
-        return view('kejuruan.index', compact('data'));
+        return view('kejuruan.index', compact('blks','paket_programs'));
     }
 
     /**
@@ -42,10 +46,21 @@ class KejuruanController extends Controller
     public function store(Request $request)
     {
         //
-        $data = new Kejuruan();
-        $data->nama = $request->nama;
-        $data->link_kejuruan_tes_2 = $request->link_kejuruan_tes_2;
-        $data->save();
+        $nama_kejuruan = $request->nama_kejuruan;
+        $kejuruan = Kejuruan::where('nama',$nama_kejuruan)->first();
+        if($kejuruan === null){
+            $kejuruan = new Kejuruan;
+            $kejuruan->nama = $nama_kejuruan;
+            $kejuruan->save();
+        }
+        $paket_program = new PaketProgram;
+        $paket_program->blks_id = $request->blks_id;
+        $paket_program->kejuruans_id = $kejuruan->id;
+        $paket_program->save();
+
+        // $kejuruan = new Kejuruan();
+        // $kejuruan->nama = $request->nama_kejuruan;
+        // $kejuruan->save();
         return redirect()->back()->with('success', 'Data Kejuruan berhasil ditambahkan!');
     }
 

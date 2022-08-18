@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaketProgram extends Model
 {
+    protected $table = 'paket_program';
     //
     public function blk()
     {

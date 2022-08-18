@@ -9,7 +9,7 @@ BLK
 @section('javascript')
 <script>
     $(function () {
-        $("#example2").DataTable({
+        $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
         });
@@ -82,7 +82,7 @@ BLK
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="example2" role="grid"
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
         aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
