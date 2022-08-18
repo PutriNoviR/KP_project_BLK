@@ -44,7 +44,7 @@ Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name(
 
 //REPORT
 Route::resource('menu/kejuruans','Pelatihan\KejuruanController');
-Route::resource('menu/blk','Pelatihan\BlkController');
+Route::resource('menu/blk','Pelatihan\BlkController')->middleware('super.admin');
 Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
 Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatihan');
 
