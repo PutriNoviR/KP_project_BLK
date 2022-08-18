@@ -1,28 +1,25 @@
-{{-- @extends('layouts.index') --}}
+@extends('layouts.adminlte')
 
 @section('title')
 BLK
 @endsection
 
 @section('page-bar')
-<ul class="page-breadcrumb">
-    <li>
-        <i class="fa fa-home"></i>
-        <a href="http://127.0.0.1:8000/">Dashboard</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-
-    <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-</ul>
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">BLK</h1>
+</div><!-- /.col -->
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active"><a href="{{url('menu/blk')}}">BLK</a></li>
+    </ol>
+</div><!-- /.col -->
 @endsection
 
 @section('contents')
 <div class="row justify-content-center">
 
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card-register">
             <div class="card-header">
                 <h4>Edit Balai Latihan Kerja</h4>
@@ -113,24 +110,18 @@ BLK
                         </div>
                     </div>
 
-                    <div class="form-group mb-0 rata_tengah">
-                        <div class="col-md-12 offset-manual">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('EDIT') }}
+                    <div class="form-group my-3">
+                        <div class="col-md-15 text-center">
+                            <button type="submit" class="btn btn-lg btn-primary">
+                                {{ __('SIMPAN') }}
                             </button>
+                        </div>
+                    </div>
                 </form>
-                {{-- <form action="{{ route('blk.destroy',$blk->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('DELETE') }}
-                    </button>
-                </form> --}}
                 <br>
             </div>
         </div>
 
     </div>
-</div>
 </div>
 @endsection

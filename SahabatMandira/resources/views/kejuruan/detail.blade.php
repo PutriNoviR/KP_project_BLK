@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 Kejuruan
@@ -22,7 +22,7 @@ Kejuruan
 @section('contents')
 <div class="row justify-content-center">
 
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card-register">
             <div class="card-header">
                 <h4>Detail Kejuruan</h4>
@@ -59,15 +59,16 @@ Kejuruan
                     </div>
                 </div>
 
-                <div class="form-group mb-0 rata_tengah">
-                    <div class="col-md-12 offset-manual">
-                        <a href="{{ url('menu/kejuruans/'.$data->id.'/edit')}}" type="submit" class="btn btn-primary">
-                            {{ __('UPDATE') }}
-                        </a>
+                <div class="form-group my-3">
+                    <div class="col-md-15 text-center">
+                        
                         <form method="POST" action="{{ url('menu/kejuruans/'.$data->id)}}">
+                            <a href="{{ url('menu/kejuruans/'.$data->id.'/edit')}}" type="submit" class="btn btn-lg btn-primary mr-5">
+                                {{ __('UPDATE') }}
+                            </a>
                             @csrf
                             @method('DELETE')
-                            <input type="submit" value="DELETE" class="btn btn-danger" onclick="if(!confirm('are you sure to delete this record ?')) return false;">
+                            <input type="submit" value="DELETE" class="btn btn-lg btn-danger " onclick="if(!confirm('are you sure to delete this record ?')) return false;">
                         </form>
                     </div>
 

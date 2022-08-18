@@ -5,18 +5,15 @@ BLK
 @endsection
 
 @section('page-bar')
-<ul class="page-breadcrumb">
-    <li>
-        <i class="fa fa-home"></i>
-        <a href="http://127.0.0.1:8000/">Dashboard</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-
-    <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">BLK</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-</ul>
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">BLK</h1>
+</div><!-- /.col -->
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active"><a href="{{url('menu/blk')}}">BLK</a></li>
+    </ol>
+</div><!-- /.col -->
 @endsection
 
 @section('contents')

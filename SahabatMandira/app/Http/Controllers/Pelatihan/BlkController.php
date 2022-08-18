@@ -28,7 +28,7 @@ class BlkController extends Controller
     public function create()
     {
         //
-        return view('blk.create');
+        // return view('blk.create');
     }
 
     /**
@@ -70,6 +70,7 @@ class BlkController extends Controller
      */
     public function edit(Blk $blk)
     {
+        // dd($blk);
         return view('blk.update',compact('blk'));
     }
 
@@ -89,7 +90,7 @@ class BlkController extends Controller
         $blk->is_punyasistem = $request->is_punyasistem;
         $blk->link_pendaftaran = $request->link_pendaftaran;
         $blk->save();
-        return redirect()->back()->with('success', 'Data BLK berhasil diubah!');
+        return redirect()->route('blk.index')->with('success', 'Data BLK berhasil diubah!');
     }
 
     /**
@@ -101,8 +102,14 @@ class BlkController extends Controller
     public function destroy(Blk $blk)
     {
         //
-        $blk->delete();
-        return redirect()->back()->with('success', 'Data BLK berhasil dihapus!');
+        try {
+            $blk->delete(); 
+            return redirect()->route('blk.index')->with('success','Data BLK berhasil dihapus!');
+        } catch (\PDOException $e) {
+            $msg="Data gagal dihapus";
+
+            return redirect()->route('blk.index')->with('error',$msg);
+        }
     }
 
     public function detail($id){
@@ -117,7 +124,7 @@ class BlkController extends Controller
         $blk = Blk::find($request->id);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('blk.update', compact('blk'))->render() 
+            'msg'=>view('blk.modal', compact('blk'))->render() 
         ), 200);
         // return view('blk.update',compact('blk'));
     }
