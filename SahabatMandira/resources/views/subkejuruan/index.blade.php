@@ -62,7 +62,6 @@ Daftar Sub Kejuruan
                 <td>{{ $d->kejuruan->nama }}</td>
                 <td>
                     {{ $d->subkejuruan === null ? 'Tidak Ada' : $d->subkejuruan->nama }}
-                </td>
             </tr>
             @endforeach
         </tbody>
@@ -110,6 +109,13 @@ Daftar Sub Kejuruan
                             <div class="col-md-12">
                                 <input id="nama" type="text" class="form-control " name="nama_subkejuruan" required
                                     autocomplete="nama">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('aktivitas') }}</label>
+                            <div class="col-md-12">
+                                <!-- <input id="aktivitas" type="text" class="form-control " name="aktivitas" required autocomplete="aktivitas"> -->
+                                <textarea name="aktivitas" id="aktivitas" cols="40" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
