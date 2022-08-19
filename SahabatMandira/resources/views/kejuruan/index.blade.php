@@ -28,6 +28,39 @@ Daftar Kejuruan
         });
     });
 
+    function modalEdit(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("kejuruans.getEditForm") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                $("#modalContent").html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function submitFormDelete(form) {
+        swal({
+                title: "Peringatan!",
+                text: "Apakah anda yakin ingin menghapus data ini?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+        return false;
+    }
+
 </script>
 @endsection
 
@@ -50,28 +83,28 @@ Daftar Kejuruan
         aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th>BLK</th>
+                <th>NO</th>
                 <th>KEJURUAN</th>
                 <th>AKSI</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($paket_programs as $program)
+            @foreach($kejuruans as $kej)
             <tr>
-                <td>{{ $program->blk->nama }}</td>
-                <td>{{ $program->kejuruan === null ? 'Tidak Ada' : $program->kejuruan->nama}}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $kej->nama}}</td>
                 <td>
-                    {{-- <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$program->id}})">
-                    <i class="fas fa-pen"></i>
-                    </a> --}}
-                    {{-- <form method="POST" action="{{ route('kejuruans.destroy',$program->id) }}"
-                    onsubmit="return submitFormDelete(this);" class="d-inline">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger" data-toggle="modal"><i
-                            class="fas fa-trash"></i></button>
-                    </form> --}}
+                    <a data-toggle="modal" data-target="#modalEditKejuruan" class='btn btn-warning'
+                        onclick="modalEdit({{$kej->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('kejuruans.destroy',$kej->id) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
+                    </form>
                 </td>
             </tr>
             @endforeach
@@ -79,6 +112,12 @@ Daftar Kejuruan
     </table>
 </div>
 {{-- MODAL --}}
+<div class="modal fade" id="modalEditKejuruan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalContent">
+
+    </div>
+</div>
+
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -92,18 +131,6 @@ Daftar Kejuruan
                 <div class="card-body">
                     <form method="POST" action="{{ route('kejuruans.store') }}">
                         @csrf
-
-                        <div class="form-group">
-                            <label class="col-md-12 col-form-label">{{ __('Asal BLK') }}</label>
-
-                            <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="blks_id">
-                                    @foreach ($blks as $blk)
-                                    <option value="{{ $blk->id }}">{{ $blk->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>

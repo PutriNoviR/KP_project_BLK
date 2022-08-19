@@ -21,9 +21,10 @@ class KejuruanController extends Controller
         //
         // $data = Kejuruan::all();
         $blks = Blk::all();
-        $paket_programs = PaketProgram::distinct()->get(['blks_id','kejuruans_id']);
+        // $paket_programs = PaketProgram::distinct()->get(['blks_id','kejuruans_id']);
+        $kejuruans = Kejuruan::all();
         // dd($paket_programs);
-        return view('kejuruan.index', compact('blks','paket_programs'));
+        return view('kejuruan.index', compact('blks','kejuruans'));
     }
 
     /**
@@ -46,21 +47,10 @@ class KejuruanController extends Controller
     public function store(Request $request)
     {
         //
-        $nama_kejuruan = $request->nama_kejuruan;
-        $kejuruan = Kejuruan::where('nama',$nama_kejuruan)->first();
-        if($kejuruan === null){
-            $kejuruan = new Kejuruan;
-            $kejuruan->nama = $nama_kejuruan;
-            $kejuruan->save();
-        }
-        $paket_program = new PaketProgram;
-        $paket_program->blks_id = $request->blks_id;
-        $paket_program->kejuruans_id = $kejuruan->id;
-        $paket_program->save();
 
-        // $kejuruan = new Kejuruan();
-        // $kejuruan->nama = $request->nama_kejuruan;
-        // $kejuruan->save();
+        $kejuruan = new Kejuruan();
+        $kejuruan->nama = $request->nama_kejuruan;
+        $kejuruan->save();
         return redirect()->back()->with('success', 'Data Kejuruan berhasil ditambahkan!');
     }
 
@@ -99,7 +89,6 @@ class KejuruanController extends Controller
     {
         //
         $Kejuruan->nama = $request->nama;
-        $Kejuruan->link_kejuruan_tes_2 = $request->link_kejuruan_tes_2;
         $Kejuruan->save();
         return redirect()->route('kejuruans.index')->with('success', 'Data Kejuruan berhasil diubah!');
     }
@@ -121,6 +110,14 @@ class KejuruanController extends Controller
 
             return redirect()->route('kejuruans.index')->with('error',$msg);
         }
+    }
+    public function getEditForm(Request $request)
+    {
+        $kejuruan = Kejuruan::find($request->id);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('kejuruan.modal', compact('kejuruan'))->render() 
+        ), 200);
     }
 
     public function detailAllPelatihan(){
