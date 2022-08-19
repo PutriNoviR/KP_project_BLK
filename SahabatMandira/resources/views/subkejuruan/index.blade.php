@@ -21,13 +21,12 @@ Daftar Sub Kejuruan
 
 @section('javascript')
 <script>
-    $(function () {
+    $(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
         });
     });
-
 </script>
 @endsection
 
@@ -46,26 +45,42 @@ Daftar Sub Kejuruan
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>ID</th>
                 <th>NAMA SUB KEJURUAN</th>
-                <th>DETAIL</th>
+                <th>KEJURUAN</th>
+                <th>KATEGORI</th>
+                <th>KLASTER</th>
+                <th>AKTIVITAS</th>
+                <th>AKSI</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach($data as $d)
+            @foreach($data as $d)
             <tr>
                 <td>{{ $d->id }}</td>
-            <td>{{ $d->nama }}</td>
-            <td>
-                <a class="btn btn-primary" data-toggle="modal"
-                    href="{{url('/menu/subkejuruan/detail/'.$d->idsub_kejuruans)}}" data-toggle="modal">detail</a>
-            </td>
+                <td>{{ $d->subkejuruan }}</td>
+                <td>{{ $d->kejuruan }}</td>
+                <td>{{ $d->kategori }}</td>
+                <td>{{ $d->klaster }}</td>
+                <td>{{ $d->aktivitas }}</td>
+                <td>
+                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
+                        onclick="modalEdit({{$d->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('kejuruans.destroy',$d->id) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
     </table>
 </div>
@@ -109,8 +124,34 @@ Daftar Sub Kejuruan
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Sub Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="nama_subkejuruan" required
-                                    autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="nama_subkejuruan" required autocomplete="nama">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Kategori') }}</label>
+                            <div class="col-md-12">
+                                <select class="form-control" aria-label="Default select example" name="kode_kategori">
+                                    @foreach ($kategori as $k)
+                                    <option value="{{ $kej->id }}">{{ $k->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Klaster') }}</label>
+                            <div class="col-md-12">
+                                <select class="form-control" aria-label="Default select example" name="kode_klaster">
+                                    @foreach ($klaster as $kl)
+                                    <option value="{{ $kej->id }}">{{ $kl->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('aktivitas') }}</label>
+                            <div class="col-md-12">
+                                <!-- <input id="aktivitas" type="text" class="form-control " name="aktivitas" required autocomplete="aktivitas"> -->
+                                <textarea name="aktivitas" id="aktivitas" cols="40" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

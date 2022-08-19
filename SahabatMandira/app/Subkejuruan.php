@@ -14,6 +14,16 @@ class Subkejuruan extends Model
 
     public function paketprogram()
     {
-        return $this->hasMany('App/PaketProgram','subkejuruans_id','idsub_kejuruans');
+        return $this->hasMany('App/PaketProgram','subkejuruans_id','id');
+    }
+
+    public function kategoripsikometrik()
+    {
+        $this->belongsTo('App/KategoriPsikometrik','kode_kategori','id');
+    }
+
+    public function klasterpsikometrik()
+    {
+        $this->belongsTo('App/KlasterPsikometrik','kode_klaster','id');
     }
 }

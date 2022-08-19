@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Pelatihan;
 
 use App\Blk;
 use App\Http\Controllers\Controller;
+use App\KategoriPsikometrik;
 use App\Kejuruan;
+use App\KlasterPsikometrik;
 use App\PaketProgram;
 use App\Subkejuruan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubkejuruanController extends Controller
 {
@@ -20,10 +23,19 @@ class SubkejuruanController extends Controller
     {
         //
         $paket_programs = PaketProgram::all();
+        $kategori = KategoriPsikometrik::all();
+        $klaster = KlasterPsikometrik::all();
         $blks = Blk::all();
         $kejuruans=  Kejuruan::all();
         $subs = Subkejuruan::all();
-        return view('subkejuruan.index',compact('subs','kejuruans','blks','paket_programs'));
+        // dd($subs);
+        $data = Subkejuruan::join('kejuruans as K', 'kejuruans_id', '=', 'K.id')
+        ->join('kategori_psikometriks AS KP', 'kode_kategori', '=', 'KP.id')
+        ->join('klaster_psikometriks AS KL', 'kode_klaster', '=', 'KL.id')
+        ->select('sub_kejuruans.id as id','sub_kejuruans.nama as subkejuruan','sub_kejuruans.aktivitas as aktivitas','K.nama as kejuruan','KP.nama as kategori','KL.nama as klaster')
+        ->groupBy('sub_kejuruans.id','sub_kejuruans.nama','sub_kejuruans.aktivitas','K.nama','KP.nama','KL.nama')
+        ->get();
+        return view('subkejuruan.index',compact('subs','kejuruans','blks','paket_programs','data','kategori','klaster'));
     }
 
     /**
@@ -50,6 +62,9 @@ class SubkejuruanController extends Controller
         $Subkejuruan = new Subkejuruan();
         $Subkejuruan->nama = $request->nama_subkejuruan;
         $Subkejuruan->kejuruans_id = $request->kejuruans_id;
+        $Subkejuruan->kode_kategori = $request->kode_kategori;
+        $Subkejuruan->kode_klaster = $request->kode_klaster;
+        $Subkejuruan->aktivitas = $request->aktivitas;
         $Subkejuruan->save();
 
         $paket_program = PaketProgram::where('blks_id',$request->blks_id)->where('kejuruans_id',$request->kejuruans_id)->whereNull('sub_kejuruans_id')->first();
