@@ -61,17 +61,17 @@ Daftar Kejuruan
                 <td>{{ $program->blk->nama }}</td>
                 <td>{{ $program->kejuruan === null ? 'Tidak Ada' : $program->kejuruan->nama}}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
+                    {{-- <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
                         onclick="modalEdit({{$program->id}})">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                    <form method="POST" action="{{ route('kejuruans.destroy',$program->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
-                                class="fas fa-trash"></i></button>
-                    </form>
+                    <i class="fas fa-pen"></i>
+                    </a> --}}
+                    {{-- <form method="POST" action="{{ route('kejuruans.destroy',$program->id) }}"
+                    onsubmit="return submitFormDelete(this);" class="d-inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger" data-toggle="modal"><i
+                            class="fas fa-trash"></i></button>
+                    </form> --}}
                 </td>
             </tr>
             @endforeach

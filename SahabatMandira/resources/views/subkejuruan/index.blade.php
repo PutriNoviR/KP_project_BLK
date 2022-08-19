@@ -50,22 +50,21 @@ Daftar Sub Kejuruan
         aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th>ID</th>
-                <th>NAMA SUB KEJURUAN</th>
-                <th>DETAIL</th>
+                <th>BLK</th>
+                <th>KEJURUAN</th>
+                <th>SUB KEJURUAN</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach($data as $d)
+            @foreach($paket_programs as $d)
             <tr>
-                <td>{{ $d->id }}</td>
-            <td>{{ $d->nama }}</td>
-            <td>
-                <a class="btn btn-primary" data-toggle="modal"
-                    href="{{url('/menu/subkejuruan/detail/'.$d->idsub_kejuruans)}}" data-toggle="modal">detail</a>
-            </td>
+                <td>{{ $d->blk->nama }}</td>
+                <td>{{ $d->kejuruan->nama }}</td>
+                <td>
+                    {{ $d->subkejuruan === null ? 'Tidak Ada' : $d->subkejuruan->nama }}
+                </td>
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
     </table>
 </div>

@@ -21,8 +21,8 @@ class KejuruanController extends Controller
         //
         // $data = Kejuruan::all();
         $blks = Blk::all();
-        $paket_programs = PaketProgram::all();
-        // dd($data);
+        $paket_programs = PaketProgram::distinct()->get(['blks_id','kejuruans_id']);
+        // dd($paket_programs);
         return view('kejuruan.index', compact('blks','paket_programs'));
     }
 

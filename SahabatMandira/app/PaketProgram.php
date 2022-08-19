@@ -18,6 +18,6 @@ class PaketProgram extends Model
     }
     public function subkejuruan()
     {
-        return $this->belongsTo('App\Subkejuruan','subkejuruans_id','id');
+        return $this->belongsTo('App\Subkejuruan','sub_kejuruans_id','id');
     }
 }
