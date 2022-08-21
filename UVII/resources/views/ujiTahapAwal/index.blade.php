@@ -61,9 +61,13 @@
                     </div>
 
                     <div class="body-btn">
-                        <button type="button" class="btn btn-primary" onclick="show()">
-                            Mulai Tes
-                        </button>
+                        @if($tes == null)
+                            <button type="button" class="btn btn-primary" onclick="show()">
+                                Mulai Tes
+                            </button>
+                        @else
+                            <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Lanjut Tes</a>
+                        @endif
                         
                     </div>
                 </div>

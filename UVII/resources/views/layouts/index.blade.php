@@ -174,6 +174,13 @@ License: You must have a valid license purchased only from themeforest(the above
 							<span class="title">Role</span>
 							</a>
 						</li>
+						<li >
+							<!-- <a href="http://127.0.0.1:8000/menu_manajemen/role" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'> -->
+							<a href="{{route('manajemen.index')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
+							<i class="fa fa-group"></i>
+							<span class="title">Menu Manajemen</span>
+							</a>
+						</li>
 						<li>
 							<a href="{{route('riwayat_tes_global.user')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 								<i class="fa fa-file-text"></i>

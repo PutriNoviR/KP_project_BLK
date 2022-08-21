@@ -9,6 +9,7 @@ use App\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TesTahapAwalController extends Controller
 {
@@ -89,7 +90,10 @@ class TesTahapAwalController extends Controller
     }
 
     public function menuTesHome(){
-        return view('ujiTahapAwal.index');
+        $email = Auth::user()->email;
+        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
+
+        return view('ujiTahapAwal.index', compact('tes'));
     }
 
     public function test(){
@@ -177,7 +181,7 @@ class TesTahapAwalController extends Controller
         ),200);
     }
 
-    public function hasilTes(){
+    public function hasilTes(Request $request){
         $user = Auth::user()->email;
         
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first() ?? UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
@@ -193,22 +197,42 @@ class TesTahapAwalController extends Controller
             $totalScore = $dataHasil->sum('score');
 
             // dd($totalScore);
+            //Mengecek apakah ada hasil score klaster yang sama
+            $klaster = UjiMinatAwal::HasilKlasterSama($dataHasil);
 
             // $data = UjiMinatAwal::where('id', $tes->id)->first();
             $waktu = Setting::where('key', 'durasi')->first();
 
             $data = UjiMinatAwal::selisihDurasiPengerjaan($tes->id);
-           
+
             $waktu = explode(':', $data->durasi);
             $waktu1 = $waktu[0];
             $waktu2 = $waktu[1];
+           
             // dd($waktu1, $waktu2);
-            UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+            $klasters = $klaster['jmlKlaster'];
+
+            //jika hasil score ada yang sama
+            if($klasters > 1){
+                //Nama klaster yang sama
+                $dataKlaster = DB::table('klaster_psikometrik')->whereIn('nama', $klaster['namaKlaster'])->get();
+                
+                if($request->jawaban != null){
+                    UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil, $request->jawaban);
+                   
+                    $klasters = 1;
+                }
+            }
+            else{
+                $dataKlaster = null;
+                UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+              
+            }
+            $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
         
             UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
             
-            return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2'));
-    
+            return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru'));
         }
     
     }

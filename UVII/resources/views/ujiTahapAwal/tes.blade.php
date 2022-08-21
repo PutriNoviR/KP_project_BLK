@@ -234,11 +234,20 @@
         <div class="line"></div>
 
         <div class="row">
-            @for($i=1; $i <= $totalSoal; $i++)
-            <div class="box">
-                <span>{{ $i }}</span>
-            </div>
-            @endfor
+          {{--  @for($i=1; $i <= $totalSoal; $i++) --}}
+            @php
+                $no = 1;
+            @endphp
+            @foreach($dataJawaban as $data)
+                <div id="box_{{ $no }}" class="{{ $data != 0 ? 'box answered':'box' }}" onclick="getSoalAt($no)">
+                    <span>{{ $no }}</span>
+                </div>
+              @php
+                $no++;
+              @endphp
+            @endforeach
+           
+           {{-- @endfor --}}
         </div>
 
         <div class="finish_attempt" >
@@ -268,6 +277,6 @@
         </div>
     </div>
 </div>
-{{ Session::forget('error') }}
+
 @endsection
 

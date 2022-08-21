@@ -22,6 +22,9 @@ Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
 // Role
 Route::resource('menu/role','RoleController');
 Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
+Route::resource('manajemen', "MenuManajemenController");
+Route::post('manajemen/edit', "MenuManajemenController@getEditForm")->name('menu.edit');
+Route::post('manajemen/role/save', "MenuManajemenController@menuRole")->name('manajemen.role');
 
 //Peserta
 Route::resource('menu/peserta','PesertaController');
@@ -36,6 +39,7 @@ Route::get('menu/tes/uji-tahap-awal', 'TesTahapAwalController@menuTesUjiTahapAwa
 Route::get('menu/tes/uji', 'TesTahapAwalController@test');
 Route::post('menu/tes/uji-tahap-awal/save', 'TesTahapAwalController@simpanJawaban')->name('peserta.save.jawaban');
 Route::post('menu/tes/timer', 'TesTahapAwalController@updateTimer')->name('peserta.update.timer');
+Route::post('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.tambahan.score');
 
 //CRUD
 Route::resource('menu/blk', 'BlkController');

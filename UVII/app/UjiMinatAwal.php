@@ -57,7 +57,6 @@ class UjiMinatAwal extends Model
    }
 
    public static function HitungScore($idSesi){
-
         
        $data = DB::table('klaster_psikometrik as kk') 
             ->select('kk.id as id', 'kk.nama as klaster','kk.link_kejuruan_tes_2 as link')
@@ -77,11 +76,11 @@ class UjiMinatAwal extends Model
 
    public static function updateHasil($idSesi, $data)
    {
-        $idKejuruan = 0;
+        $idKlaster = 0;
         $score = 0;
 
         foreach($data as $d){
-            $idKejuruan = $d->id;
+            $idKlaster = $d->id;
             $score = $d->score;
         }
 
@@ -89,7 +88,7 @@ class UjiMinatAwal extends Model
             ->where('id', $idSesi)
             ->update(
                 [
-                    'klaster_id' => $idKejuruan,
+                    'klaster_id' => $idKlaster,
                     'score' => $score
                 ]
             );
@@ -100,6 +99,7 @@ class UjiMinatAwal extends Model
    public static function getDataJawaban($idSesi){
        $listJawaban = DB::connection('uvii')->table('hasil_jawabans')
             ->where('uji_minat_awals_id', $idSesi)
+            ->orderBy('urutan', 'ASC')
             ->get();
 
         $arr_data = [];
@@ -141,4 +141,46 @@ class UjiMinatAwal extends Model
 
        return $data;
   }
+
+  public static function HasilKlasterSama($listPerScore){
+    $totalKlaster = 0;
+    $arr_klaster = [];
+
+    foreach($listPerScore->take(1) as $d){
+        $maxScore = $d->score;
+    }
+
+   foreach($listPerScore as $data){
+        if($data->score == $maxScore){
+            $totalKlaster++;
+            array_push($arr_klaster, $data->klaster);
+        }
+        
+   }
+
+    return ['jmlKlaster'=>$totalKlaster, 'namaKlaster'=>$arr_klaster];        
+ }
+
+public static function updateHasilTesSama($idSesi, $data, $jawaban){
+    $idKlaster = 0;
+    $score = 0;
+
+    foreach($data as $d){
+        if($d->id == $jawaban){
+            $idKlaster = $d->id;
+            $score = ($d->score + 1);
+        }
+      
+    }
+
+    DB::connection('uvii')->table('uji_minat_awals')
+        ->where('id', $idSesi)
+        ->update(
+            [
+                'klaster_id' => $idKlaster,
+                'score' => $score
+            ]
+        );
+}
+
 }

@@ -86,14 +86,9 @@
                         <label for="kewarganegaraan">Kewarganegaraan</label>
 
                         <select id='txt_kewarganegaraan' class="form-control" name="kewarganegaraan" required>
-                            @if(session()->get('kelengkapanData') != null)
-                                <option value="WNI" {{$data['jenis_identitas'] == 'KTP' ? "selected":"" }}>Indonesia</option>
-                                <option value="WNA" {{$data['jenis_identitas'] != 'KTP' ? "selected":"" }}>Bukan Indonesia</option>
                             
-                            @else
                                 <option value="WNI" selected>Indonesia</option>
                                 <option value="WNA">Bukan Indonesia</option>
-                            @endif
 
                         </select>
                         
@@ -103,13 +98,10 @@
                         <label for="jenis_identitas">Jenis Identitas</label>
 
                         <select id="txt_jenis_identitas" class="form-control" name="jenis_identitas" required>
-                            @if(session()->get('kelengkapanData') != null)
-                                <option value="KTP" {{$data['jenis_identitas'] == 'KTP' ? "selected":"" }}>KTP</option>
-                                <option value="Pasport" {{$data['jenis_identitas'] != 'KTP' ? "selected":"" }}>Pasport</option>
-                            @else
+                    
                                 <option value="KTP" selected>KTP</option>
                                 <option value="Pasport">Pasport</option>
-                            @endif
+                            
                         </select>
                         
                     </div>
@@ -117,7 +109,7 @@
                     <div class="form-group">
                         <label for="nomor_identitas">Nomor Identitas</label>
 
-                        <input id="txt_nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" value="{{ $data['nomor_identitas'] ?? ''}}" required autocomplete="nomor_identitas" autofocus>
+                        <input id="txt_nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" required autocomplete="nomor_identitas" autofocus>
 
                         @error('nomor_identitas')
                             <span class="invalid-feedback" role="alert">
@@ -130,7 +122,7 @@
                     <div class="form-group">
                         <label for="tanggal_lahir">Tanggal Lahir</label>
 
-                        <input id="txt_tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ $data['tanggal_lahir'] ?? ''}}" required autocomplete="tanggal_lahir" autofocus>
+                        <input id="txt_tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" required autocomplete="tanggal_lahir" autofocus>
 
                         @error('tanggal_lahir')
                             <span class="invalid-feedback" role="alert">
@@ -206,7 +198,7 @@
                         <label for="hobi">Hobi</label>
 
                         <textarea id="txt_hobi" rows='3' class="form-control @error('hobi') is-invalid @enderror" name="hobi" required autocomplete="hobi" autofocus>
-                            {{ $data['hobi'] ?? ''}}
+                           
                         </textarea>
 
                         @error('hobi')
@@ -220,7 +212,7 @@
                     <div class="form-group">
                         <label for="kota">Alamat</label>
 
-                        <input id="txt_alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ $data['alamat'] ?? ''}}" required autocomplete="alamat" autofocus>
+                        <input id="txt_alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" autofocus>
 
                         @error('alamat')
                             <span class="invalid-feedback" role="alert">
@@ -233,7 +225,7 @@
                     <div class="form-group">
                         <label for="kota">Kota</label>
 
-                        <input id="txt_kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ $data['kota'] ?? ''}}" required autocomplete="kota" autofocus>
+                        <input id="txt_kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" required autocomplete="kota" autofocus>
 
                         @error('kota')
                             <span class="invalid-feedback" role="alert">
@@ -350,10 +342,13 @@
                     </div>
 
                     <div class="body-btn">
-
-                        <button type="button" class="btn btn-primary" onclick="show()">
-                            Mulai Tes
-                        </button>
+                        @if($tes == null)
+                            <button type="button" class="btn btn-primary" onclick="show()">
+                                Mulai Tes
+                            </button>
+                        @else
+                            <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Lanjut Tes</a>
+                        @endif
 
                     </div>
                 </div>
