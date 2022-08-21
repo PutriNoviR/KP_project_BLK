@@ -33,7 +33,6 @@ BLK
     }
 
     function submitFormDelete(form) {
-        console.log('oi');
         swal({
                 title: "Peringatan!",
                 text: "Apakah anda yakin ingin menghapus data ini?",

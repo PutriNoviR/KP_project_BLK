@@ -21,12 +21,66 @@ Daftar Sub Kejuruan
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
         });
     });
+
+    function modalEdit(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("subkejuruan.getEditForm") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                $("#modalContent").html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function submitFormDelete(form) {
+        swal({
+                title: "Peringatan!",
+                text: "Apakah anda yakin ingin menghapus data ini?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+        return false;
+    }
+
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("subkejuruan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
 </script>
 @endsection
 
@@ -45,33 +99,33 @@ Daftar Sub Kejuruan
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th>ID</th>
-                <th>NAMA SUB KEJURUAN</th>
+                <th>SUB KEJURUAN</th>
                 <th>KEJURUAN</th>
                 <th>KATEGORI</th>
                 <th>KLASTER</th>
-                <th>AKTIVITAS</th>
                 <th>AKSI</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $d)
+            @foreach($subs as $sub)
             <tr>
-                <td>{{ $d->id }}</td>
-                <td>{{ $d->subkejuruan }}</td>
-                <td>{{ $d->kejuruan }}</td>
-                <td>{{ $d->kategori }}</td>
-                <td>{{ $d->klaster }}</td>
-                <td>{{ $d->aktivitas }}</td>
+                <td>{{ $sub->nama }}</td>
+                <td>{{ $sub->kejuruan->nama }}</td>
+                <td>{{ $sub->kategori->nama }}</td>
+                <td>{{ $sub->klaster->nama }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$d->id}})">
+                    <button class='btn btn-info' onclick="alertShow({{$sub->id}})">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <a data-toggle="modal" data-target="#modalEditSubKejuruan" class='btn btn-warning'
+                        onclick="modalEdit({{$sub->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('kejuruans.destroy',$d->id) }}"
+                    <form method="POST" action="{{ route('subkejuruan.destroy',$sub->id) }}"
                         onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
@@ -85,6 +139,12 @@ Daftar Sub Kejuruan
     </table>
 </div>
 {{-- modal --}}
+<div class="modal fade" id="modalEditSubKejuruan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalContent">
+
+    </div>
+</div>
+
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -98,19 +158,21 @@ Daftar Sub Kejuruan
                 <div class="card-body">
                     <form method="POST" action="{{ route('subkejuruan.store') }}">
                         @csrf
-
                         <div class="form-group">
-                            <label class="col-md-12 col-form-label">{{ __('Asal BLK') }}</label>
-
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Sub Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="blks_id">
-                                    @foreach ($blks as $blk)
-                                    <option value="{{ $blk->id }}">{{ $blk->nama }}</option>
-                                    @endforeach
-                                </select>
+                                <input id="nama" type="text" class="form-control " name="nama_subkejuruan" required
+                                    autocomplete="nama">
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('aktivitas') }}</label>
+                            <div class="col-md-12">
+                                <!-- <input id="aktivitas" type="text" class="form-control " name="aktivitas" required autocomplete="aktivitas"> -->
+                                <textarea name="aktivitas" class="form-control" required id="aktivitas" cols="40"
+                                    rows="10"></textarea>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
                             <div class="col-md-12">
@@ -122,36 +184,23 @@ Daftar Sub Kejuruan
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Sub Kejuruan') }}</label>
-                            <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="nama_subkejuruan" required autocomplete="nama">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Kategori') }}</label>
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Kategori Psikometrik') }}</label>
                             <div class="col-md-12">
                                 <select class="form-control" aria-label="Default select example" name="kode_kategori">
-                                    @foreach ($kategori as $k)
-                                    <option value="{{ $kej->id }}">{{ $k->nama }}</option>
+                                    @foreach ($kategoris as $kat)
+                                    <option value="{{ $kat->id }}">{{ $kat->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Klaster') }}</label>
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Klaster Psikometrik') }}</label>
                             <div class="col-md-12">
                                 <select class="form-control" aria-label="Default select example" name="kode_klaster">
-                                    @foreach ($klaster as $kl)
-                                    <option value="{{ $kej->id }}">{{ $kl->nama }}</option>
+                                    @foreach ($klasters as $klaster)
+                                    <option value="{{ $klaster->id }}">{{ $klaster->nama }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('aktivitas') }}</label>
-                            <div class="col-md-12">
-                                <!-- <input id="aktivitas" type="text" class="form-control " name="aktivitas" required autocomplete="aktivitas"> -->
-                                <textarea name="aktivitas" id="aktivitas" cols="40" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -9,21 +9,22 @@ class Subkejuruan extends Model
     protected $table='sub_kejuruans';
     public function kejuruan()
     {
-        $this->belongsTo('App/Subkejuruan','kejuruans_id','id');
+        return $this->belongsTo('App\Kejuruan','kejuruans_id','id');
     }
 
     public function paketprogram()
     {
-        return $this->hasMany('App/PaketProgram','subkejuruans_id','id');
+        return $this->hasMany('App\PaketProgram','subkejuruans_id','id');
+
     }
 
-    public function kategoripsikometrik()
+    public function kategori()
     {
-        $this->belongsTo('App/KategoriPsikometrik','kode_kategori','id');
+        return $this->belongsTo('App\KategoriPsikometrik','kode_kategori','id');
     }
 
-    public function klasterpsikometrik()
+    public function klaster()
     {
-        $this->belongsTo('App/KlasterPsikometrik','kode_klaster','id');
+        return $this->belongsTo('App\KlasterPsikometrik','kode_klaster','id');
     }
 }
