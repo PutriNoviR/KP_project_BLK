@@ -261,7 +261,7 @@
                             </ul>
                         </li>
                         {{-- Super Admin --}}
-
+                        @can('super.admin-permission')
                         <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
@@ -291,14 +291,34 @@
                                         <p>SubKejuruan</p>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview {{ Request::is('datapegawai/*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Data Pegawai
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('super.adminblk') }}"
+                                        class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Pegawai</p>
+                                        <p>Admin BLK</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('kejuruans.index') }}"
+                                        class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Admin Bursa</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                        @endcan
                         {{-- End Super Admin --}}
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -386,6 +406,7 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="nav-item has-treeview">
                             <a href="{{ route('logout') }}" class="nav-link " onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Blk;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -106,5 +108,32 @@ class UserController extends Controller
         //
         $User->delete();
         return view();
+    }
+
+    public function daftarAdminBlk()
+    {
+        $blks = Blk::all();
+        $adminblks = User::whereNotNull('blks_id_admin')->get(); 
+        return view('admin.daftarAdminBlk', compact('adminblks','blks'));
+    }
+
+    public function tambahAdminBlk(Request $request)
+    {
+        $adminblk = User::where('email',$request->email)->first();
+        if ($adminblk == null) {
+            return redirect()->back()->with('failed','Data user tidak ditemukan!');
+        }
+        $role = Role::where('nama_role','adminblk')->first();
+
+        dd($adminblk);
+        $adminblk->blks_id_admin = $request->blks_id;
+        $adminblk->roles_id = $role->id; 
+        $adminblk->save();
+        return redirect()->back()->with('success','Admin BLK berhasil ditambahkan!');
+    }
+
+    public function getEditFormAdminBlk(Request $request)
+    {
+        
     }
 }
