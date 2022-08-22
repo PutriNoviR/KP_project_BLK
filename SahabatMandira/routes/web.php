@@ -61,6 +61,9 @@ Route::post('menu/subkejuruan/getDetail','Pelatihan\SubkejuruanController@getDet
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
+//Lowongan
+Route::resource('menu/lowongan','Bursa\LowonganController');
+
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
 });
