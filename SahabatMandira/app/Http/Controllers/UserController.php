@@ -125,7 +125,6 @@ class UserController extends Controller
         }
         $role = Role::where('nama_role','adminblk')->first();
 
-        dd($adminblk);
         $adminblk->blks_id_admin = $request->blks_id;
         $adminblk->roles_id = $role->id; 
         $adminblk->save();
