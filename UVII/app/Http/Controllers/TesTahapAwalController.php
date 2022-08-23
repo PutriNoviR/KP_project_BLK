@@ -221,6 +221,10 @@ class TesTahapAwalController extends Controller
                     UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil, $request->jawaban);
                    
                     $klasters = 1;
+
+                    // $list_score_terbaru = UjiMinatAwal::scoreTertinggi($dataHasil, $tes->id);
+
+                    // dd($list_score_terbaru);
                 }
             }
             else{
@@ -233,6 +237,8 @@ class TesTahapAwalController extends Controller
             
             $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
         
+            
+
             return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru'));
      
         }

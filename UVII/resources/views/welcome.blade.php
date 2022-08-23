@@ -176,8 +176,9 @@
                                 </label>
                                 <label>
                                     <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" required autofocus> 
-                                    D3/D4 (Diplomat)
+                                    D3/D4 (Diploma)
                                 </label>
+                           
                                 <label>
                                     <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" required autofocus> 
                                     S1
@@ -201,9 +202,7 @@
                     <div class="form-group">
                         <label for="hobi">Hobi</label>
 
-                        <textarea id="txt_hobi" rows='3' class="form-control @error('hobi') is-invalid @enderror" name="hobi" required autocomplete="hobi" autofocus>
-                           
-                        </textarea>
+                        <textarea id="txt_hobi" rows='3' class="form-control @error('hobi') is-invalid @enderror" name="hobi" required autocomplete="hobi" autofocus></textarea>
 
                         @error('hobi')
                             <span class="invalid-feedback" role="alert">

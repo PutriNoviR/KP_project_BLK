@@ -90,32 +90,47 @@
                     <p>Kesimpulan Tes Minat Bakat: </p><br>
                     @if((($d->id == $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score) || ($d->id != $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score)) && $dataKlaster != null)
                         
+                        @foreach($dataHasil->where('id',$tesTerbaru->klaster_id) as $d2)
+                                    
                         <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
                             sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah
                             <b>
-                                @foreach($dataHasil->where('id',$tesTerbaru->klaster_id) as $d2)
-                                    {{$d2->klaster}}
-                                @endforeach
+                            {{$d2->klaster}}
+                                
                             </b>
                             dengan total score yang diperoleh sebesar {{ $tesTerbaru->score }} dari pengerjaan {{ $totalScore}} soal umum dan 1 soal tambahan dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
                         </p>
+
+                        <br>
+
+                        <div class="modal-body-icon" style="text-align: center;">
+                            <i class="glyphicon glyphicon-warning-sign"></i>
+                        </div>
+                        <p>Tahap ini belum selesai. Silahkan klik tombol <b>Lanjut Tes</b> untuk menentukan rekomendasi pelatihan yang sesuai minat Anda.</p>
+                        
+                        <div class="body-btn">
+                            <a href="{{$d2->link}}" class="btn btn-primary button" >Lanjut</a>
+                        </div>
+                        @endforeach
                     @else
                         <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
                             sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah<b> {{$d->klaster}} </b>
                             dengan total score yang diperoleh sebesar {{ $d->score }} dari pengerjaan {{ $totalScore}} soal dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
                             
                         </p>
-                    @endif
+                        
                         <br>
-            
-                <div class="modal-body-icon" style="text-align: center;">
-                    <i class="glyphicon glyphicon-warning-sign"></i>
-                </div>
-                <p>Tahap ini belum selesai. Silahkan klik tombol <b>Lanjut Tes</b> untuk menentukan rekomendasi pelatihan yang sesuai minat Anda.</p>
-                
-                <div class="body-btn">
-                    <a href="{{$d->link}}" class="btn btn-primary button" >Lanjut</a>
-                </div>
+
+                        <div class="modal-body-icon" style="text-align: center;">
+                            <i class="glyphicon glyphicon-warning-sign"></i>
+                        </div>
+                        <p>Tahap ini belum selesai. Silahkan klik tombol <b>Lanjut Tes</b> untuk menentukan rekomendasi pelatihan yang sesuai minat Anda.</p>
+                        
+                        <div class="body-btn">
+                            <a href="{{$d->link}}" class="btn btn-primary button" >Lanjut</a>
+                        </div>
+                    @endif
+
                 @endforeach
             </div>
 

@@ -183,4 +183,27 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
         );
 }
 
+    public static function scoreTertinggi($dataHasil, $idSesi){
+        $sesi = UjiMinatAwal::where('id', $idSesi)->orderBy('tanggal_selesai', 'DESC')->first();
+        $klasterTerbaru = $sesi->klaster_id;
+        $scoreTerbaru = $sesi->score;
+
+        $arr_data_akhir = [];
+
+        foreach($dataHasil as $data){
+            if($data->id == $klasterTerbaru){
+            }
+
+               $arr_data = [
+                    "nama" => $data->klaster,
+                    "score" => $score,
+                ]; 
+            
+
+            array_push($arr_data_akhir, $arr_data);
+        }
+
+        return collect($arr_data_akhir)->sortByDesc('score')->all();
+    }
+
 }
