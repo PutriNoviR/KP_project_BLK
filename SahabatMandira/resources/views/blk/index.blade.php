@@ -115,7 +115,9 @@ BLK
                     <form method="POST" action="{{ route('blk.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i class="fas fa-trash"></i></button>
+
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
@@ -126,7 +128,7 @@ BLK
 
 <!-- Modal -->
 <div class="modal fade" id="modalEditBlk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modalContent">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
 </div>

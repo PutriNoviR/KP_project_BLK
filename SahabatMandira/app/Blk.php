@@ -10,4 +10,8 @@ class Blk extends Model
     {
         return $this->hasMany('App\PaketProgram','blks_id','id');
     }
+    public function user()
+    {
+        return $this->hasMany('App\User','blks_id_admin','id');
+    }
 }
