@@ -32,6 +32,28 @@ Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
 Route::resource('menu/role','RoleController');
 Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
 
+// SuperAdmin
+Route::middleware('super.admin')->group(function(){
+    //Kejuruan
+    Route::resource('menu/kejuruans','Pelatihan\KejuruanController');
+    Route::post('menu/kejuruans/getEditForm','Pelatihan\KejuruanController@getEditForm')->name('kejuruans.getEditForm');
+
+    //BLK
+    Route::resource('menu/blk','Pelatihan\BlkController');
+    Route::post('menu/blk/getEditForm','Pelatihan\BlkController@getEditForm')->name('blk.getEditForm');
+
+    //SubKejuruan
+    Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
+    Route::post('menu/subkejuruan/getEditForm','Pelatihan\SubkejuruanController@getEditForm')->name('subkejuruan.getEditForm');
+    Route::post('menu/subkejuruan/getDetail','Pelatihan\SubkejuruanController@getDetail')->name('subkejuruan.getDetail');
+    // Data Pegawai
+    Route::get('datapegawai/adminblk','UserController@daftarAdminBlk')->name('super.adminblk');
+    Route::post('datapegawai/adminblk/tambah','UserController@tambahAdminBlk')->name('super.adminblk.store');
+    Route::post('datapegawai/adminblk/hapus','UserController@daftarAdminBlk')->name('super.adminblk.destroy');
+    Route::post('datapegawai/adminblk/getEditForm','UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
+});
+
+
 //Peserta
 Route::resource('menu/peserta','PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
@@ -45,18 +67,6 @@ Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name(
 //REPORT
 Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatihan');
 
-//Kejuruan
-Route::resource('menu/kejuruans','Pelatihan\KejuruanController')->middleware('super.admin');
-Route::post('menu/kejuruans/getEditForm','Pelatihan\KejuruanController@getEditForm')->name('kejuruans.getEditForm')->middleware('super.admin');
-
-//BLK
-Route::resource('menu/blk','Pelatihan\BlkController')->middleware('super.admin');
-Route::post('menu/blk/getEditForm','Pelatihan\BlkController@getEditForm')->name('blk.getEditForm')->middleware('super.admin');
-
-//SubKejuruan
-Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController')->middleware('super.admin');
-Route::post('menu/subkejuruan/getEditForm','Pelatihan\SubkejuruanController@getEditForm')->name('subkejuruan.getEditForm')->middleware('super.admin');
-Route::post('menu/subkejuruan/getDetail','Pelatihan\SubkejuruanController@getDetail')->name('subkejuruan.getDetail')->middleware('super.admin');
 
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');

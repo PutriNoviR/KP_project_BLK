@@ -140,7 +140,7 @@ Daftar Sub Kejuruan
 </div>
 {{-- modal --}}
 <div class="modal fade" id="modalEditSubKejuruan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modalContent">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
 </div>

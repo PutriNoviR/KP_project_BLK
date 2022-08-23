@@ -113,7 +113,7 @@ Daftar Kejuruan
 </div>
 {{-- MODAL --}}
 <div class="modal fade" id="modalEditKejuruan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modalContent">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
 </div>
