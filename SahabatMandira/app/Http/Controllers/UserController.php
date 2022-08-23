@@ -131,8 +131,17 @@ class UserController extends Controller
         return redirect()->back()->with('success','Admin BLK berhasil ditambahkan!');
     }
 
-    public function getEditFormAdminBlk(Request $request)
+    public function editAdminBlk(Request $request)
     {
         
+    }
+
+    public function getEditFormAdminBlk(Request $request)
+    {
+        $admin = User::where('email',$request->email)->first();
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('admin.editModalAdminBlk', compact('admin'))->render() 
+        ), 200);
     }
 }

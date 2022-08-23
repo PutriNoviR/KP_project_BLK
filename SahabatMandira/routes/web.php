@@ -50,6 +50,7 @@ Route::middleware('super.admin')->group(function(){
     Route::get('datapegawai/adminblk','UserController@daftarAdminBlk')->name('super.adminblk');
     Route::post('datapegawai/adminblk/tambah','UserController@tambahAdminBlk')->name('super.adminblk.store');
     Route::post('datapegawai/adminblk/hapus','UserController@daftarAdminBlk')->name('super.adminblk.destroy');
+    Route::put('datapegawai/adminblk/edit','UserController@editAdminBlk')->name('super.adminblk.update');
     Route::post('datapegawai/adminblk/getEditForm','UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
 });
 
