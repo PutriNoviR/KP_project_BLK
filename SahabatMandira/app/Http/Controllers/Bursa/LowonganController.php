@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Bursa;
 
-use App\Perusahaan;
 use App\Http\Controllers\Controller;
+use App\Lowongan;
 use Illuminate\Http\Request;
 
-class PerusahaanController extends Controller
+class LowonganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,6 @@ class PerusahaanController extends Controller
     public function create()
     {
         //
-        return view ("perusahaan.create");
     }
 
     /**
@@ -38,25 +37,15 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         //
-        $perusahaan = new Perusahaan();
-        $perusahaan->nama=$request->nama;
-        $perusahaan->bidang=$request->bidang;
-        $perusahaan->alamat=$request->alamat;
-        $perusahaan->kode_pos=$request->kode_pos;
-        $perusahaan->no_telp=$request->no_telp;
-        $perusahaan->email=$request->email;
-        $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
-        $perusahaan->save();
-        return redirect()->back()->with('success', 'Data Perusahaan berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lowongan $lowongan)
     {
         //
     }
@@ -64,10 +53,10 @@ class PerusahaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lowongan $lowongan)
     {
         //
     }
@@ -76,10 +65,10 @@ class PerusahaanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lowongan $lowongan)
     {
         //
     }
@@ -87,18 +76,11 @@ class PerusahaanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lowongan $lowongan)
     {
         //
-    }
-
-    public function posting()
-    {
-        //compact untuk kirim data
-        $lowongan = Lowongan::all();
-        return view("welcome", compact("lowongan"));
     }
 }
