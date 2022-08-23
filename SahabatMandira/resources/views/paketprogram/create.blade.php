@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.adminlte')
 
 @section('title')
 BLK
@@ -6,12 +6,12 @@ BLK
 
 @section('page-bar')
 <div class="col-sm-6">
-    <h1 class="m-0 text-dark">BLK </h1>
+    <h1 class="m-0 text-dark">BLK</h1>
 </div><!-- /.col -->
 <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active"><a href="{{url('menu/blk')}}">BLK</a></li>
+        <li class="breadcrumb-item active">BLK</li>
     </ol>
 </div><!-- /.col -->
 @endsection
@@ -22,7 +22,7 @@ BLK
         <div class="col-md-8">
             <div class="card-register">
                 <div class="card-header">
-                    <h4>Tambah Balai Latihan Kerja</h4>
+                    <h4>Tambah Program Kerja</h4>
                 </div>
                 @if (\Session::has('success'))
                 <div class="alert alert-success">
@@ -39,7 +39,7 @@ BLK
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
                                 @error('nama')
@@ -47,28 +47,14 @@ BLK
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                            </div> --}}
 
                             <div class="col-md-12">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
 
-                                @error('alamat')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="website" type="text" class="form-control @error('website') is-invalid @enderror" name="website_portfolio" value="{{ old('website') }}" required autocomplete="website" autofocus>
+                                <select class="form-control" aria-label="Default select example" name="name">
+                                    <option value="1">BLK satu</option>
+                                    <option value="0">BLK dua</option>
+                                </select>
 
                                 @error('website')
                                 <span class="invalid-feedback" role="alert">
@@ -79,15 +65,26 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
+                            <label for="kejuruan" class="col-md-12 col-form-label">{{ __('Kejuruan') }}</label>
+
+                            {{-- <div class="col-md-12">
+                                <input id="kejuruan" type="text" class="form-control @error('alamat') is-invalid @enderror" name="kejuruan" value="{{ old('kejuruan') }}" required autocomplete="kejuruan" autofocus>
+
+                                @error('kejuruan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div> --}}
 
                             <div class="col-md-12">
-                                <select class="form-select" aria-label="Default select example" name="is_punyasistem">
-                                    <option value="1">YA</option>
-                                    <option value="0">Tidak</option>
+
+                                <select class="form-control" aria-label="Default select example" name="kejuruan">
+                                    <option value="1">kejuruan satu</option>
+                                    <option value="0">kejuruan dua</option>
                                 </select>
 
-                                @error('memilikiSistem')
+                                @error('website')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -96,12 +93,16 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="linkPendaftaran" class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
+                            <label for="subKejuruan" class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
 
                             <div class="col-md-12">
-                                <input id="linkPendaftaran" type="text" class="form-control @error('linkPendaftaran') is-invalid @enderror" name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required autocomplete="linkPendaftaran" autofocus>
 
-                                @error('linkPendaftaran')
+                                <select class="form-control" aria-label="Default select example" name="subKejuruan">
+                                    <option value="1">Sub kejuruan satu</option>
+                                    <option value="0">Sub kejuruan dua</option>
+                                </select>
+
+                                @error('website')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -109,17 +110,9 @@ BLK
                             </div>
                         </div>
 
-
                         <div class="body-btn">
                             <button type="submit" class="btn btn-primary">
-                                {{ __('EDIT') }}
-                            </button>
-                        </div>
-                        <br>
-
-                        <div class="body-btn">
-                            <button type="button" class="btn btn-primary">
-                                {{ __('DELETE') }}
+                                {{ __('SIMPAN') }}
                             </button>
                         </div>
                         <br>

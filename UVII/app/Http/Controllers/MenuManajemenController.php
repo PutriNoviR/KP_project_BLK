@@ -104,11 +104,16 @@ class MenuManajemenController extends Controller
      * @param  \App\MenuManajemen  $menuManajemen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MenuManajemen $menuManajemen)
+    public function destroy($id)
     {
         try{
-            $menuManajemen->delete();
-            // MenuManajemen::find($request->id)->delete();
+            //dd($);
+            //$m->delete()->toSql();
+            //dd($m);
+            MenuManajemen::deleteMenuRole($id);
+            // $menu_manajemen=MenuManajemen::where('id',$id)->first();
+            //dd($menu_manajemen);
+           // $menu_manajemen->delete();
 
             return redirect()->back()->with('status','Menu berhasil dihapus');
         }catch (\PDOException $e) {
@@ -116,6 +121,7 @@ class MenuManajemenController extends Controller
 
             return redirect()->back()->with('error',$msg);
         }
+
     }
     public function getEditForm(Request $request){
         

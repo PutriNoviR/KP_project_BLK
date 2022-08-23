@@ -46,10 +46,11 @@ Route::middleware('super.admin')->group(function(){
     Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
     Route::post('menu/subkejuruan/getEditForm','Pelatihan\SubkejuruanController@getEditForm')->name('subkejuruan.getEditForm');
     Route::post('menu/subkejuruan/getDetail','Pelatihan\SubkejuruanController@getDetail')->name('subkejuruan.getDetail');
-    // Data Pegawai
+     // Data Pegawai
     Route::get('datapegawai/adminblk','UserController@daftarAdminBlk')->name('super.adminblk');
     Route::post('datapegawai/adminblk/tambah','UserController@tambahAdminBlk')->name('super.adminblk.store');
     Route::post('datapegawai/adminblk/hapus','UserController@daftarAdminBlk')->name('super.adminblk.destroy');
+    Route::put('datapegawai/adminblk/edit','UserController@editAdminBlk')->name('super.adminblk.update');
     Route::post('datapegawai/adminblk/getEditForm','UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
 });
 
@@ -73,6 +74,17 @@ Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
+
+<<<<<<< HEAD
+//Lowongan
+Route::resource('menu/lowongan','Bursa\LowonganController');
+=======
+
+//Paket Program
+Route::view('/paketProgram','paketprogram.index');
+//Sesi Pelatihan
+
+>>>>>>> 9c3a74d4602069d85e4d69d0b4eee68e48564439
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
