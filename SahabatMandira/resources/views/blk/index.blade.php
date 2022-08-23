@@ -8,7 +8,7 @@ BLK
 
 @section('javascript')
 <script>
-    $(function () {
+    $(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -23,10 +23,10 @@ BLK
                 '_token': '<?php echo csrf_token() ?>',
                 'id': blkId,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -47,7 +47,6 @@ BLK
             });
         return false;
     }
-
 </script>
 @endsection
 
@@ -67,6 +66,13 @@ BLK
 @endsection
 
 @section('contents')
+<!-- Modal -->
+<div class="modal fade" id="modalEditBlk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalContent">
+
+    </div>
+</div>
+
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Program BLK</h2>
@@ -81,8 +87,7 @@ BLK
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -104,16 +109,14 @@ BLK
                 <td>{{ $d->is_punyasistem == 1 ? 'Ya' : 'Tidak' }}</td>
                 <td>{{ $d->link_pendaftaran }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$d->id}})">
+                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('blk.destroy',$d->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('blk.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"
-                            href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i
+
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-toggle="modal"><i
                                 class="fas fa-trash"></i></button>
                     </form>
                 </td>
@@ -125,7 +128,7 @@ BLK
 
 <!-- Modal -->
 <div class="modal fade" id="modalEditBlk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modalContent">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
 </div>
@@ -145,12 +148,10 @@ BLK
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama"
-                                class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror"
-                                    name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
                                 @error('nama')
                                 <span class="invalid-feedback" role="alert">
@@ -164,9 +165,7 @@ BLK
                             <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                             <div class="col-md-12">
-                                <input id="alamat" type="text"
-                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat"
-                                    value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
 
                                 @error('alamat')
                                 <span class="invalid-feedback" role="alert">
@@ -180,9 +179,7 @@ BLK
                             <label for="website" class="col-md-12 col-form-label">{{ __('Website Portofolio') }}</label>
 
                             <div class="col-md-12">
-                                <input id="website" type="text"
-                                    class="form-control @error('website') is-invalid @enderror" name="website_portfolio"
-                                    value="{{ old('website') }}" required autocomplete="website" autofocus>
+                                <input id="website" type="text" class="form-control @error('website') is-invalid @enderror" name="website_portfolio" value="{{ old('website') }}" required autocomplete="website" autofocus>
 
                                 @error('website')
                                 <span class="invalid-feedback" role="alert">
@@ -193,8 +190,7 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="memilikiSistem"
-                                class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
+                            <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Memiliki Sistem') }}</label>
 
                             <div class="col-md-12">
                                 <select class="form-control" aria-label="Default select example" name="is_punyasistem">
@@ -211,14 +207,10 @@ BLK
                         </div>
 
                         <div class="form-group">
-                            <label for="linkPendaftaran"
-                                class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
+                            <label for="linkPendaftaran" class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
 
                             <div class="col-md-12">
-                                <input id="linkPendaftaran" type="text"
-                                    class="form-control @error('linkPendaftaran') is-invalid @enderror"
-                                    name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required
-                                    autocomplete="linkPendaftaran" autofocus>
+                                <input id="linkPendaftaran" type="text" class="form-control @error('linkPendaftaran') is-invalid @enderror" name="link_pendaftaran" value="{{ old('linkPendaftaran') }}" required autocomplete="linkPendaftaran" autofocus>
 
                                 @error('linkPendaftaran')
                                 <span class="invalid-feedback" role="alert">
@@ -235,6 +227,6 @@ BLK
                 </div>
             </div>
         </div>
-
-
-        @endsection
+    </div>
+</div>
+@endsection
