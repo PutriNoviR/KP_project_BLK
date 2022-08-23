@@ -51,7 +51,7 @@
 <h4 class="text-center">Menu Manajemen</h4>
 <a href="#modalMenu" data-toggle='modal' class='btn btn-info'> Tambah Menu </a><br><br>
 
-<a data-target='#settingModal' data-toggle='modal' class='btn btn-xs btn-success'><i class="fa fa-gear"></i> Setting Soal</a><br><br>
+<a data-target='#settingModal' data-toggle='modal' class='btn btn-xs btn-success'><i class="fa fa-gear"></i> Setting Menu</a><br><br>
 
 
 <div class="portlet">
@@ -122,7 +122,7 @@
               <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$data->id}}">
                 Delete
               </a>              
-              <form method='POST' action="{{ url('manajemen/'.$data->id) }}">
+              <form method='POST' action="{{route('manajemen.destroy',$data->id) }}">
                   @csrf
                   @method('DELETE')
                   <div id="deleteModal_{{$data->id}}" class="modal fade" tabindex="-1" role="basic">
@@ -223,16 +223,16 @@
          
               <div class="form-group row">
               
-                  <label for="menu_manajemen" class="col-md-6">Nama:</label>
-                  <div class="col-md-4">
+                  <label for="menu_manajemen" class="col-md-2">Nama:</label>
+                  <div class="col-md-8">
                     <input type="text" class='form-control' name='nama' placeholder="nama menu">
                   </div>
                 
               </div>
               <div class='form-group row'>
                 <!-- <div class="row col-md-12"> -->
-                    <label for="menu_manajemen" class="col-md-6">Deskripsi :</label>
-                    <div class="col-md-4">
+                    <label for="menu_manajemen" class="col-md-2">Deskripsi :</label>
+                    <div class="col-md-8">
                       <textarea class='form-control' name='deskripsi' rows='3'></textarea>
                     </div>
                 <!-- </div> -->
@@ -241,24 +241,26 @@
               <div class='form-group row'>
                 
                   <!-- <div class="row col-md-12">     -->
-                      <label for="menu_manajemen" class="col-md-6">Status :</label>
-                      <div class="col-md-4">
-                        <label>
-                          <input type="radio" class='form-control' name='status' value="Aktif">
-                          Aktif
-                        </label>
-                        <label>
-                          <input type="radio" class='form-control' name='status' value="Tidak Aktif">
-                          Tidak Aktif
-                        </label>
+                      <label for="menu_manajemen" class="col-md-2">Status :</label>
+                      <div class="col-md-8">
+                        <div class="radio-list">
+                          <label>
+                            <input type="radio" class='form-control' name='status' value="Aktif">
+                            Aktif
+                          </label>
+                          <label>
+                            <input type="radio" class='form-control' name='status' value="Tidak Aktif">
+                            Tidak Aktif
+                          </label>
+                        </div>
                       </div>
                   <!-- </div> -->
               
               </div>
               <div class='form-group row'>
                 <!-- <div class="row col-md-12"> -->
-                    <label for="menu_manajemen" class="col-md-6">URL :</label>
-                    <div class="col-md-4">
+                    <label for="menu_manajemen" class="col-md-2">URL :</label>
+                    <div class="col-md-8">
                       <textarea class='form-control' name='url' rows='2'></textarea>
                     </div>
                 <!-- </div> -->

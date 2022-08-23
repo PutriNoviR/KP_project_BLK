@@ -228,11 +228,13 @@ class TesTahapAwalController extends Controller
                 UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
               
             }
-            $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
-        
+            
             UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
             
+            $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
+        
             return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru'));
+     
         }
     
     }
