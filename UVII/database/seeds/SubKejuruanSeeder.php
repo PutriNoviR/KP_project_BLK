@@ -20,6 +20,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 1,
                 'kode_kategori'=> 1,
                 'kode_klaster'=> 1,
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Program Bahasa',
@@ -28,6 +29,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 1,
                 'kode_kategori'=>1,
                 'kode_klaster'=> 1, 
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Teknisi Akuntansi Junior',
@@ -36,6 +38,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 1,
                 'kode_kategori'=>2,
                 'kode_klaster'=> 1,
+                'aktivitas'=>''
              ],
              ['nama' => 'Pelayanan Pelanggan',
              'created_at' => Carbon::now()->format('Y-m-d H:i:m'),
@@ -43,6 +46,7 @@ class SubKejuruanSeeder extends Seeder
              'kejuruans_id'=> 1,
              'kode_kategori'=>3,
              'kode_klaster'=> 1,
+             'aktivitas'=>''
              ],
              [
                 'nama' => 'TIK Desain grafis Madya',
@@ -51,6 +55,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 6,
                 'kode_kategori'=>9,
                 'kode_klaster'=> 3,
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Budidaya',
@@ -59,6 +64,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 2,
                 'kode_kategori'=>4,
                 'kode_klaster'=> 2,
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Pengolahan Ikan',
@@ -67,6 +73,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 3,
                 'kode_kategori'=>5,
                 'kode_klaster'=> 2,
+                'aktivitas'=>''
              ],
              [
                 'nama' => ' Hidroponik',
@@ -75,6 +82,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 3,
                 'kode_kategori'=>6,
                 'kode_klaster'=> 2,
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Pembuatan Hiasan Busana Dengan Mesin Bordir Manual',
@@ -83,6 +91,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 4,
                 'kode_kategori'=>7,
                 'kode_klaster'=> 3,
+                'aktivitas'=>''
              ],
              [
                 'nama' => 'Asisten Junior Pattern Maker',
@@ -91,6 +100,7 @@ class SubKejuruanSeeder extends Seeder
                 'kejuruans_id'=> 5,
                 'kode_kategori'=>8,
                 'kode_klaster'=> 3,
+                'aktivitas'=>''
              ],
 
      ]);

@@ -21,4 +21,13 @@ class MenuManajemen extends Model
         }
         
     }
+    public static function deleteMenuRole($id){
+       DB::table('menu_manajemens_has_roles')
+                ->where('menu_manajemens_id', $id)
+                ->delete();
+
+        DB::table('menu_manajemens')
+            ->where('id', $id)
+            ->delete();
+    }
 }

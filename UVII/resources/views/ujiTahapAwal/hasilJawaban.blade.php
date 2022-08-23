@@ -88,14 +88,19 @@
                 @foreach($dataHasil->take(1) as $d) 
                     
                     <p>Kesimpulan Tes Minat Bakat: </p><br>
-                    @if($d->id == $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score)
-                        <p>Beikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
-                            sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah<b> {{$d->klaster}} </b>
+                    @if((($d->id == $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score) || ($d->id != $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score)) && $dataKlaster != null)
+                        
+                        <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
+                            sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah
+                            <b>
+                                @foreach($dataHasil->where('id',$tesTerbaru->klaster_id) as $d2)
+                                    {{$d2->klaster}}
+                                @endforeach
+                            </b>
                             dengan total score yang diperoleh sebesar {{ $tesTerbaru->score }} dari pengerjaan {{ $totalScore}} soal umum dan 1 soal tambahan dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
-                            
                         </p>
                     @else
-                        <p>Beikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
+                        <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
                             sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah<b> {{$d->klaster}} </b>
                             dengan total score yang diperoleh sebesar {{ $d->score }} dari pengerjaan {{ $totalScore}} soal dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
                             

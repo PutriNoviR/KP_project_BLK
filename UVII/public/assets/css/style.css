@@ -1431,10 +1431,6 @@ Portlets
   box-shadow:inset 0px 4px 4px 1px rgba(0,0,0,0.25);
 }
 
-.answered{
-  background: #D9D9D9;
-}
-
 .body_test{
 	width: 100%;
 	background: #FCFBFB;
@@ -1552,6 +1548,10 @@ Portlets
 .box:hover{
   background: #D9D9D9;
   opacity:0.18999999761581;
+}
+
+.answered{
+  background: #D9D9D9;
 }
 
 .box span{

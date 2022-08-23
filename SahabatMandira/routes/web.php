@@ -72,6 +72,12 @@ Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatih
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
+
+//Paket Program
+Route::view('/paketProgram','paketprogram.index');
+//Sesi Pelatihan
+
+
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
 });

@@ -247,7 +247,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                <a href="http://127.0.0.1:8000/paketProgram" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Paket Program Pelatihan</p>
                                     </a>

@@ -175,6 +175,10 @@
                                     SMA Sederajat
                                 </label>
                                 <label>
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" required autofocus> 
+                                    D3/D4 (Diplomat)
+                                </label>
+                                <label>
                                     <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" required autofocus> 
                                     S1
                                 </label>
