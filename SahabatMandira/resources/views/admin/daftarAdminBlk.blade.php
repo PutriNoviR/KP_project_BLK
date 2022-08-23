@@ -19,7 +19,7 @@ Admin BLK
             url: '{{ route("super.adminblk.getEditForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'id': email,
+                'email': email,
             },
             success: function (data) {
                 $("#modalContent").html(data.msg);
@@ -90,7 +90,7 @@ Admin BLK
                 <td>{{ $d->nomer_hp }}</td>
                 <td>
                     <a data-toggle="modal" data-target="#modalEditAdminBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$d->email}})">
+                        onclick="modalEdit('{{$d->email}}')">
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="{{ route('super.adminblk.destroy',$d->email) }}"
@@ -134,7 +134,8 @@ Admin BLK
                             <div class="col-md-12">
                                 <select name="blks_id" class="form-control">
                                     @foreach ($blks as $blk)
-                                    <option value="{{ $blk->id }}">{{ $blk->nama }}</option>
+                                    <option value="{{ $blk->id }}">
+                                        {{ $blk->nama }}</option>
                                     @endforeach
                                 </select>
 
@@ -144,7 +145,7 @@ Admin BLK
                             <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
 
                             <div class="col-md-12">
-                                <input id="email" type="ez" class="form-control" name="email" required
+                                <input id="email" type="email" class="form-control" name="email" required
                                     autocomplete="email" autofocus>
 
                             </div>

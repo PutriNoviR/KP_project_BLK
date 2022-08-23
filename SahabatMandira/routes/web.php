@@ -46,7 +46,7 @@ Route::middleware('super.admin')->group(function(){
     Route::resource('menu/subkejuruan','Pelatihan\SubkejuruanController');
     Route::post('menu/subkejuruan/getEditForm','Pelatihan\SubkejuruanController@getEditForm')->name('subkejuruan.getEditForm');
     Route::post('menu/subkejuruan/getDetail','Pelatihan\SubkejuruanController@getDetail')->name('subkejuruan.getDetail');
-    // Data Pegawai
+     // Data Pegawai
     Route::get('datapegawai/adminblk','UserController@daftarAdminBlk')->name('super.adminblk');
     Route::post('datapegawai/adminblk/tambah','UserController@tambahAdminBlk')->name('super.adminblk.store');
     Route::post('datapegawai/adminblk/hapus','UserController@daftarAdminBlk')->name('super.adminblk.destroy');

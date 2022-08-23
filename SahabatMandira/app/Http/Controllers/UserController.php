@@ -130,18 +130,34 @@ class UserController extends Controller
         $adminblk->save();
         return redirect()->back()->with('success','Admin BLK berhasil ditambahkan!');
     }
-
+    
     public function editAdminBlk(Request $request)
     {
-        
+        $admin = User::where('email',$request->email)->first();
+        $admin->blks_id_admin = $request->blks_id;
+        $admin->save();
+        return redirect()->back()->with('success','Admin BLK berhasil diubah!');
+    }
+    
+    public function hapusAdminBlk(User $user)
+    {
+        try {
+            $user->delete();
+            return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
+        } catch (\PDOException $e) {
+            $msg="Data gagal dihapus";
+
+            return redirect()->route('super.adminblk')->with('error',$msg);
+        }
     }
 
     public function getEditFormAdminBlk(Request $request)
     {
+        $blks = Blk::all();
         $admin = User::where('email',$request->email)->first();
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('admin.editModalAdminBlk', compact('admin'))->render() 
+            'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render() 
         ), 200);
     }
 }
