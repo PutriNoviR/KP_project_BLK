@@ -13,17 +13,7 @@ Dashboard
 @section('contents')
 <div class="form-group mb-0 rata_tengah">
     <div class="col-md-12 offset-manual">
-        <a class="button btn btn-primary">
-            {{ __('BURSA KERJA') }}
-        </a>
-        <br>
-    </div>
-</div>
-
-<div class="form-group mb-0 rata_tengah">
-    <div class="col-md-12 offset-manual text-right">
-        <label for="daftar" class="col-md-12 col-form-label">{{ __('Daftar sebagai perusahaan!') }}</label>
-        <a href="{{url('menu/perusahaan/create')}}" class="button btn btn-primary">{{ __('DAFTAR') }}</a>
+        <a href="{{url('menu/bursa/listKerja')}}" class="button btn btn-primary">{{ __('BURSA KERJA') }}</a>
     </div>
 </div>
 

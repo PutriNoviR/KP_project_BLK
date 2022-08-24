@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Bursa;
 
 use App\Http\Controllers\Controller;
-use App\Lowongan;
+use App\ListKerja;
 use Illuminate\Http\Request;
+use App\Perusahaan;
 
-class LowonganController extends Controller
+class ListKerjaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +17,10 @@ class LowonganController extends Controller
     public function index()
     {
         //
+        // return view ("bursa.listKerja");
+        $data=Perusahaan::ListKerja();
+        // dd($data);
+        return view('bursa.listKerja', compact('data'));
     }
 
     /**
@@ -26,7 +31,7 @@ class LowonganController extends Controller
     public function create()
     {
         //
-        return view ("lowongan.create");
+        
     }
 
     /**
@@ -38,26 +43,15 @@ class LowonganController extends Controller
     public function store(Request $request)
     {
         //
-        $lowongan = new Lowongan();
-        $lowongan->nama=$request->nama;
-        $lowongan->pengalaman_kerja=$request->pengalaman_kerja;
-        $lowongan->lokasi_kerja=$request->lokasi_kerja;
-        $lowongan->gaji=$request->gaji;
-        $lowongan->pendidikan_terakhir=$request->nama;
-        $lowongan->jam_kerja=$request->jam_kerja;
-        $lowongan->deskripsi_kerja=$request->deskripsi_kerja;
-        $lowongan->profile_perusahaan=$request->profile_perusahaan;
-        $lowongan->save();
-        return redirect()->back()->with('success', 'Data lowongan berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Lowongan  $lowongan
+     * @param  \App\ListKerja  $listKerja
      * @return \Illuminate\Http\Response
      */
-    public function show(Lowongan $lowongan)
+    public function show(ListKerja $listKerja)
     {
         //
     }
@@ -65,10 +59,10 @@ class LowonganController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Lowongan  $lowongan
+     * @param  \App\ListKerja  $listKerja
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lowongan $lowongan)
+    public function edit(ListKerja $listKerja)
     {
         //
     }
@@ -77,10 +71,10 @@ class LowonganController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lowongan  $lowongan
+     * @param  \App\ListKerja  $listKerja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lowongan $lowongan)
+    public function update(Request $request, ListKerja $listKerja)
     {
         //
     }
@@ -88,11 +82,16 @@ class LowonganController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Lowongan  $lowongan
+     * @param  \App\ListKerja  $listKerja
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lowongan $lowongan)
+    public function destroy(ListKerja $listKerja)
     {
         //
     }
+
+    // public function posting(){
+    //     $data=Perusahaan::ListKerja();
+    //     return view('bursa.listKerja', compact('data'));
+    // }
 }

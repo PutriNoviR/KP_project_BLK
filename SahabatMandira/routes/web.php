@@ -75,6 +75,9 @@ Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
 
+//List Kerja
+Route::resource('menu/bursa/listKerja','Bursa\ListKerjaController');
+
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
 

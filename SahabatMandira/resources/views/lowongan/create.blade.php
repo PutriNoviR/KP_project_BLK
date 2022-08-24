@@ -71,7 +71,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="lokasi" type="text" class="form-control @error('lokasi') is-invalid @enderror"
-                                name="lokasi" value="{{ old('lokasi') }}" required autocomplete="lokasi" autofocus>
+                                name="lokasi_kerja" value="{{ old('lokasi') }}" required autocomplete="lokasi" autofocus>
 
                             @error('lokasi')
                             <span class="invalid-feedback" role="alert">
@@ -130,7 +130,7 @@ Lowongan
                         <label for="deskripsiPekerjaan" class="col-md-12 col-form-label">{{ __('Deskripsi Pekerjaan') }}</label>
 
                         <div class="col-md-12">
-                            <textarea name="deskripsi_pekerjaan" class="form-control" rows="3" required></textarea>
+                            <textarea name="deskripsi_kerja" class="form-control" rows="3" required></textarea>
 
                             @error('deskripsiPekerjaan')
                             <span class="invalid-feedback" role="alert">
@@ -144,7 +144,7 @@ Lowongan
                         <label for="profilPerusahaan" class="col-md-12 col-form-label">{{ __('Profil Perusahaan') }}</label>
 
                         <div class="col-md-12">
-                            <textarea name="profil_perusahaan" class="form-control" rows="3" required></textarea>
+                            <textarea name="profile_perusahaan" class="form-control" rows="3" required></textarea>
 
                             @error('profilPerusahaan')
                             <span class="invalid-feedback" role="alert">
@@ -154,7 +154,7 @@ Lowongan
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <p>
                             <span class="label label-danger">NOTE!</span>
                             Upload semua dokumen dalam bentuk .JPG, .PNG atau .PDF
@@ -171,7 +171,7 @@ Lowongan
                             
                             <input type="file" name='foto' class="defaults" value="{{ $data->foto ?? ''}}" required>
                         </div>
-                    </div>
+                    </div>--}}
 
                     <div class="form-group mb-0 rata_tengah">
                         <div class="col-md-12 offset-manual">
