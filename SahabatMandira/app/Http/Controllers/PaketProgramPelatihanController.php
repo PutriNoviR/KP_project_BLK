@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Blk;
+use App\Kejuruan;
+use App\SubKejuruan;
+use App\PaketProgram;
+
 
 class PaketProgramPelatihanController extends Controller
 {
@@ -14,6 +20,8 @@ class PaketProgramPelatihanController extends Controller
     public function index()
     {
         //
+        $data = PaketProgram::all();
+        return view('paketprogram.index', compact('data'));
     }
 
     /**
@@ -35,6 +43,12 @@ class PaketProgramPelatihanController extends Controller
     public function store(Request $request)
     {
         //
+        $paketprogram = new PaketProgram();
+        $paketprogram-> blks_id = $request->nama;
+        $paketprogram->kejuruans_id = $request->kejuruan;
+        $paketprogram->sub_kejuruans_id = $request->subKejuruan;
+        $paketprogram->save();
+        return redirect()->back()->with('success', 'Data paket program berhasil ditambahkan!');
     }
 
     /**
@@ -46,6 +60,7 @@ class PaketProgramPelatihanController extends Controller
     public function show($id)
     {
         //
+        return view('')
     }
 
     /**
