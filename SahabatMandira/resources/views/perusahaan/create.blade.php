@@ -11,7 +11,7 @@ Perusahaan
 <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard v1</li>
+        <li class="breadcrumb-item active">Perusahaan</li>
     </ol>
 </div><!-- /.col -->
 @endsection
@@ -140,7 +140,7 @@ Perusahaan
                         </div>
                     </div>
 
-                    {{--<div class="form-group">
+                    <div class="form-group">
                         <p>
                             <span class="col-md-12 label label-danger">NOTE!</span>
                             Upload semua dokumen dalam bentuk .JPG, .PNG atau .PDF
@@ -155,7 +155,7 @@ Perusahaan
                         <div class="form-group">
                             <label class="col-md-12" for="foto">Foto Perusahaan</label>
                             
-                            <input type="file" name='foto' class="col-md-12 defaults" required>
+                            <input type="file" name='images' class="col-md-12 defaults" required>
                         </div>
 
                         <div class="form-group">
@@ -169,7 +169,7 @@ Perusahaan
                             
                             <input type="file" name='npwp' class="col-md-12 defaults" required>
                         </div>
-                    </div>--}}
+                    </div>
 
                     <div class="form-group mb-0 rata_tengah">
                         <div class="col-md-12 offset-manual">

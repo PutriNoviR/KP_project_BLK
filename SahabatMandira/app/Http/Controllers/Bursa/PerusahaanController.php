@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bursa;
 use App\Perusahaan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PerusahaanController extends Controller
 {
@@ -45,7 +46,13 @@ class PerusahaanController extends Controller
         $perusahaan->kode_pos=$request->kode_pos;
         $perusahaan->no_telp=$request->no_telp;
         $perusahaan->email=$request->email;
+        $perusahaan->logo=$request->logo;
+        $perusahaan->images=$request->foto;
+        $perusahaan->siup=$request->siup;
+        $perusahaan->npwp=$request->npwp;
         $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
+        $perusahaan->created_at = carbon::now()->format('Y-m-d H:i:m');
+        $perusahaan->updated_at = carbon::now()->format('Y-m-d H:i:m');
         $perusahaan->save();
         return redirect()->back()->with('success', 'Data Perusahaan berhasil ditambahkan!');
     }
@@ -95,10 +102,10 @@ class PerusahaanController extends Controller
         //
     }
 
-    public function posting()
-    {
-        //compact untuk kirim data
-        $lowongan = Lowongan::all();
-        return view("welcome", compact("lowongan"));
-    }
+    // public function posting()
+    // {
+    //     //compact untuk kirim data
+    //     $lowongan = Lowongan::all();
+    //     return view("welcome", compact("lowongan"));
+    // }
 }
