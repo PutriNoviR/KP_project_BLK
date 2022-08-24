@@ -194,6 +194,7 @@ class TesTahapAwalController extends Controller
         }
         else{
             $dataHasil = UjiMinatAwal::HitungScore($tes->id);
+            
             $totalScore = $dataHasil->sum('score');
 
             // dd($totalScore);
@@ -211,16 +212,19 @@ class TesTahapAwalController extends Controller
            
             // dd($waktu1, $waktu2);
             $klasters = $klaster['jmlKlaster'];
-
+        
             //jika hasil score ada yang sama
             if($klasters > 1){
                 //Nama klaster yang sama
                 $dataKlaster = DB::table('klaster_psikometrik')->whereIn('nama', $klaster['namaKlaster'])->get();
                 
+
                 if($request->jawaban != null){
                     UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil, $request->jawaban);
                    
                     $klasters = 1;
+
+                    // dd($dataHasil);
                 }
             }
             else{
@@ -232,8 +236,10 @@ class TesTahapAwalController extends Controller
             UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
             
             $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
-        
-            return view('ujiTahapAwal.hasilJawaban', compact('dataHasil', 'totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru'));
+
+            $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil, $tesTerbaru->id);
+
+            return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru'));
      
         }
     

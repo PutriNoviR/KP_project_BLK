@@ -27,6 +27,5 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('admin-permission','App\Policies\AdminPolicy@access');
         Gate::define('peserta-permission','App\Policies\PesertaPolicy@access');
-        Gate::define('super.admin-permission', 'App\Policies\AdminPolicy@superadmin');
     }
 }

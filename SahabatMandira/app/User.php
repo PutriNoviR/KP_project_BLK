@@ -46,8 +46,16 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo('App\Role','roles_id');
     }
+<<<<<<< HEAD
+
+    public function Perusahaan(){
+        return $this->belongsTo('App\Perusahaan','verified_by');
+    }
+    
+=======
     public function blk()
     {
         return $this->belongsTo('App\Blk','blks_id_admin','id');
     }
+>>>>>>> 6b360de4825f86a5bc610d7d6e487dde97d6308d
 }
