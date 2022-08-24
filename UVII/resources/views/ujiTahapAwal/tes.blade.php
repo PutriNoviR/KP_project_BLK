@@ -94,6 +94,7 @@
         var idJawaban = $(this).val();
         var idx = $(this).attr('id_soal');
         var idSoal = $("input[name=soal_"+ idx +"]").val();
+        var no_soal = $(this).attr('no_soal');
 
         $.ajax({
             type:'post',
@@ -106,6 +107,7 @@
                 if(data.msg != ""){
                     $('#btnNext').css('pointer-events', 'true');
                     $('#btnSubmit').css('pointer-events', 'true');
+                    $('#box_' + no_soal).css('background', '#D9D9D9')
                 }
             }
         });
@@ -113,6 +115,7 @@
     });
 
 
+   
 </script>
 @endsection
 
@@ -142,8 +145,6 @@
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
                     <a class="btn btn-default" onclick="closeModal()">OK</a>
-                    
-                    
                 </div>
             </div>
         </div>
@@ -188,10 +189,10 @@
 
             @foreach($data->find($data->id)->jawaban->shuffle() as $pilihan)
             <div class="pilihan">
-    
+
                 <label>
                     
-                        <input type="radio" name="jawaban_{{ $data->id }}" id_soal="{{$data->id}}" value="{{ $pilihan->idanswers }}" {{ ($dataJawaban[$data->id] == $pilihan->idanswers) ? 'checked':'' }}> 
+                        <input type="radio" name="jawaban_{{ $data->id }}" id_soal="{{$data->id}}" no_soal="{{ $cornerData }}" value="{{ $pilihan->idanswers }}" {{ ($dataJawaban[$data->id] == $pilihan->idanswers) ? 'checked':'' }}> 
                         {{ $pilihan->jawaban }}
 
                 </label>

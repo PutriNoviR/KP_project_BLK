@@ -55,5 +55,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Blk','blks_id_admin','id');
     }
-
 }

@@ -49,7 +49,7 @@ Route::middleware('super.admin')->group(function(){
      // Data Pegawai
     Route::get('datapegawai/adminblk','UserController@daftarAdminBlk')->name('super.adminblk');
     Route::post('datapegawai/adminblk/tambah','UserController@tambahAdminBlk')->name('super.adminblk.store');
-    Route::post('datapegawai/adminblk/hapus','UserController@daftarAdminBlk')->name('super.adminblk.destroy');
+    Route::delete('datapegawai/adminblk/hapus/{email}','UserController@hapusAdminBlk')->name('super.adminblk.destroy');
     Route::put('datapegawai/adminblk/edit','UserController@editAdminBlk')->name('super.adminblk.update');
     Route::post('datapegawai/adminblk/getEditForm','UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
 });
@@ -78,10 +78,13 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 //List Kerja
 Route::resource('menu/bursa/listKerja','Bursa\ListKerjaController');
 
+//Lowongan
+Route::resource('menu/lowongan','Bursa\LowonganController');
+
 //Paket Program
 Route::view('/paketProgram','paketprogram.index');
-//Sesi Pelatihan
 
+//Sesi Pelatihan
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');

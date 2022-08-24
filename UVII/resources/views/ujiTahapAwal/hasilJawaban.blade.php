@@ -66,56 +66,63 @@
                     
                 </div>
 
-                @foreach($dataHasil as $key=>$data)
-                    
-                    <div class='row'>
-                        <div class='col-md-6'>
+                    @php 
+                        $no = 1;
+                    @endphp
+
+                    @foreach($dataHasilTerbaru as $key=>$data)
+                       
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                
+                                <p for="kejuruan">{{$no}}. {{ $data['klaster'] }}</p>
+                                
+                            </div>
+                            <div class="col-md-4">
                             
-                            <p for="kejuruan">{{++$key}}. {{ $data->klaster }}</p>
-                            
+                                <p for="score">{{$data['score']}}</p>
+                          
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            @if($data->id == $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score)
-                                <p for="score">{{$tesTerbaru->score}}</p>
-                            @else
-                                <p for="score">{{$data->score}}</p>
-                            @endif
-                        </div>
-                    </div>
-                   
-                @endforeach
+                        
+                        @php
+                            $no++;
+                        @endphp
+
+                    @endforeach
+                
+         
                 <br>
-                @foreach($dataHasil->take(1) as $d) 
+                @foreach(array_slice($dataHasilTerbaru, 0,1) as $d) 
                     
                     <p>Kesimpulan Tes Minat Bakat: </p><br>
-                    @if((($d->id == $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score) || ($d->id != $tesTerbaru->klaster_id && $data->score != $tesTerbaru->score)) && $dataKlaster != null)
-                        
+                                    
                         <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
                             sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah
                             <b>
-                                @foreach($dataHasil->where('id',$tesTerbaru->klaster_id) as $d2)
-                                    {{$d2->klaster}}
-                                @endforeach
+                            {{$d['klaster']}}
+                                
                             </b>
-                            dengan total score yang diperoleh sebesar {{ $tesTerbaru->score }} dari pengerjaan {{ $totalScore}} soal umum dan 1 soal tambahan dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
-                        </p>
-                    @else
-                        <p>Berikut kami sampaikan hasil tes dari peserta {{ Auth::user()->nama_depan.' '.Auth::user()->nama_belakang }}. Berdasarkan hasil tes minat Anda,
-                            sistem telah menentukan kejuruan yang cocok dengan minat bakat Anda. Kejuruan itu adalah<b> {{$d->klaster}} </b>
-                            dengan total score yang diperoleh sebesar {{ $d->score }} dari pengerjaan {{ $totalScore}} soal dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
+                            dengan total score yang diperoleh sebesar {{ $d['score'] }} dari pengerjaan {{ $totalScore}} soal umum
                             
+                            @if($dataKlaster != null)
+                                dan 1 soal tambahan 
+                            @endif
+
+                            dalam waktu {{ $waktu1 }} menit {{ $waktu2}} detik.
                         </p>
-                    @endif
+
                         <br>
-            
-                <div class="modal-body-icon" style="text-align: center;">
-                    <i class="glyphicon glyphicon-warning-sign"></i>
-                </div>
-                <p>Tahap ini belum selesai. Silahkan klik tombol <b>Lanjut Tes</b> untuk menentukan rekomendasi pelatihan yang sesuai minat Anda.</p>
-                
-                <div class="body-btn">
-                    <a href="{{$d->link}}" class="btn btn-primary button" >Lanjut</a>
-                </div>
+
+                        <div class="modal-body-icon" style="text-align: center;">
+                            <i class="glyphicon glyphicon-warning-sign"></i>
+                        </div>
+                        <p>Tahap ini belum selesai. Silahkan klik tombol <b>Lanjut Tes</b> untuk menentukan rekomendasi pelatihan yang sesuai minat Anda.</p>
+                        
+                        <div class="body-btn">
+                            <a href="{{$d['link']}}" class="btn btn-primary button" >Lanjut</a>
+                        </div>
+
                 @endforeach
             </div>
 
