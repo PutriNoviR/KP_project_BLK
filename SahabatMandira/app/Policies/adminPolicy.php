@@ -27,4 +27,9 @@ class AdminPolicy
     {
         return ($user->role->nama_role === 'superadmin' ? Response::allow() : Response::deny('You must be a super administrator'));
     }
+
+    public function adminblk(User $user)
+    {
+        return ($user->role->nama_role === 'adminblk' ? Response::allow() : Response::deny('You must be an Admin BLK'));
+    }
 }
