@@ -83,6 +83,7 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
+Route::post('menu/paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');
 
 //Sesi Pelatihan
 

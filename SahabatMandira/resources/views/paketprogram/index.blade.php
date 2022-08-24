@@ -4,6 +4,51 @@
 PAKET PROGRAM
 @endsection
 
+
+@section('javascript')
+<script>
+    $(function() {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+
+    function modalEdit(paketProgramId) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("paketProgram.getEditForm") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': paketProgramId,
+            },
+            success: function(data) {
+                $("#modalContent").html(data.msg);
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function submitFormDelete(form) {
+        swal({
+                title: "Peringatan!",
+                text: "Apakah anda yakin ingin menghapus data ini?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+        return false;
+    }
+</script>
+@endsection
+
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
@@ -30,27 +75,27 @@ PAKET PROGRAM
             </tr>
         </thead>
         <tbody id="myTable">
-            {{-- @foreach($data as $d)
+            @foreach($data as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-            <td>{{ $d->blks->nama }}</td>
+            <td>{{ $d->blk->nama }}</td> {{-- yang ada ->ambil dari function yang ada di modelnya --}}
             <td>{{ $d->kejuruan->nama }}</td>
-            <td>{{ $d->sub_kejuruans->nama }}</td>
+            <td>{{ $d->subkejuruan->nama }}</td>
             <td>
                 <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                     Tambah Sesi Pelatihan
                 </a>
-                <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                     <i class="fas fa-pen"></i>
                 </a>
-                <form method="POST" action="{{ route('blk.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                <form method="POST" action="{{ route('paketProgram.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger" data-toggle="modal" href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i class="fas fa-trash"></i></button>
                 </form>
             </td>
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
     </table>
 </div>
@@ -155,6 +200,16 @@ PAKET PROGRAM
         </div>
     </div>
 </div>
+
+
+{{-- BUAT PANGGIL MODAL YANG ADA DI MODAL.BLADE --}}
+<!-- Modal -->
+<div class="modal fade" id="modalEditPaketProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+
+    </div>
+</div>
+
 
 
 {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}

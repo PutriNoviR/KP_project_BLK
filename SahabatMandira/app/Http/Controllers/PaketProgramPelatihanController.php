@@ -101,7 +101,7 @@ class PaketProgramPelatihanController extends Controller
 
         $paketProgram->sub_kejuruans_id = $request->subKejuruan;
         $paketProgram->save();
-        return redirect()->route('paketprogram.index')->with('Success','Data paket program berhasil diubah!');
+        return redirect()->back()->with('Success','Data paket program berhasil diubah!');
     }
 
     /**
@@ -115,11 +115,11 @@ class PaketProgramPelatihanController extends Controller
         //
         try{
             $paketProgram->delete();
-            return redirect()->route('paketprogram.index')->with('success', 'Data paket program berhasil dihapus!');
+            return redirect()->route('paketProgram.index')->with('success', 'Data paket program berhasil dihapus!');
         } catch (\PDOException $e){
             $msg="Data gagal dihapus";
 
-            return redirect()->route('PaketProgram.index')->with('error',$msg);
+            return redirect()->route('paketProgram.index')->with('error',$msg);
         }
     }
 
@@ -130,8 +130,12 @@ class PaketProgramPelatihanController extends Controller
 
     public function getEditForm(Request $request){
         $paketProgram = PaketProgram::find($request->id);
+        $blk = Blk::all();
+        $kejuruan = Kejuruan::all();
+        $subKejuruan = SubKejuruan::all();
+        
         return response()->json(Array(
             'status'=>'oke',
-            'msg'=>view('paketprogram.modal',compact('paketprogram'))->render()),200);
+            'msg'=>view('paketprogram.modal',compact('paketProgram','blk','kejuruan','subKejuruan'))->render()),200);
     }
 }
