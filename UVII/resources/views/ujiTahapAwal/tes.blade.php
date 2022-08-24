@@ -187,12 +187,12 @@
 
         <div class="row_pilihan">
 
-            @foreach($data->find($data->id)->jawaban->shuffle() as $key=>$pilihan)
+            @foreach($data->find($data->id)->jawaban->shuffle() as $pilihan)
             <div class="pilihan">
-    
+
                 <label>
                     
-                        <input type="radio" name="jawaban_{{ $data->id }}" id_soal="{{$data->id}}" no_soal="{{ ++$key }}" value="{{ $pilihan->idanswers }}" {{ ($dataJawaban[$data->id] == $pilihan->idanswers) ? 'checked':'' }}> 
+                        <input type="radio" name="jawaban_{{ $data->id }}" id_soal="{{$data->id}}" no_soal="{{ $cornerData }}" value="{{ $pilihan->idanswers }}" {{ ($dataJawaban[$data->id] == $pilihan->idanswers) ? 'checked':'' }}> 
                         {{ $pilihan->jawaban }}
 
                 </label>

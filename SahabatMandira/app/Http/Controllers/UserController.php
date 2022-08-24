@@ -139,16 +139,16 @@ class UserController extends Controller
         return redirect()->back()->with('success','Admin BLK berhasil diubah!');
     }
     
-    public function hapusAdminBlk(User $user)
+    public function hapusAdminBlk($email)
     {
-        try {
-            $user->delete();
-            return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
-        } catch (\PDOException $e) {
-            $msg="Data gagal dihapus";
-
-            return redirect()->route('super.adminblk')->with('error',$msg);
-        }
+        $role = Role::where('nama_role','peserta')->first();
+        $user = User::where('email',$email)->first();
+        // dd($user);
+        $user->blks_id_admin = null;
+        $user->roles_id = $role->id;
+        $user->save();
+        
+        return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
     }
 
     public function getEditFormAdminBlk(Request $request)

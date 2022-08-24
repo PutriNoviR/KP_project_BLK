@@ -68,6 +68,7 @@ class UjiMinatAwal extends Model
                     inner join uvii_db.question_admins as qa on qa.id = hj.questions_id 
                     where hj.uji_minat_awals_id ='.$idSesi.' and k.id = kk.id
                     group by k.nama),0) as score'))
+            ->where('id', '!=' ,'0')
             ->orderBy('score','DESC')
             ->get();
 
@@ -186,23 +187,28 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
     public static function scoreTertinggi($dataHasil, $idSesi){
         $sesi = UjiMinatAwal::where('id', $idSesi)->orderBy('tanggal_selesai', 'DESC')->first();
         $klasterTerbaru = $sesi->klaster_id;
-        $scoreTerbaru = $sesi->score;
 
         $arr_data_akhir = [];
 
         foreach($dataHasil as $data){
-            if($data->id == $klasterTerbaru){
+            if($data->id != $klasterTerbaru){
+                $scoreTerbaru = $data->score;
+            }
+            else{
+                $scoreTerbaru = $sesi->score;
             }
 
                $arr_data = [
-                    "nama" => $data->klaster,
-                    "score" => $score,
+                    "klaster" => $data->klaster,
+                    "score" => $scoreTerbaru,
+                    "link" => $data->link,
                 ]; 
             
 
             array_push($arr_data_akhir, $arr_data);
         }
 
+        //return data array yang sudah tersorting berdasarkan scorenya;
         return collect($arr_data_akhir)->sortByDesc('score')->all();
     }
 
