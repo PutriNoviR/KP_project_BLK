@@ -21,8 +21,14 @@ class PaketProgramPelatihanController extends Controller
     public function index()
     {
         //
+        
         $data = PaketProgram::all();
-        return view('paketprogram.index', compact('data'));
+
+        $blk = Blk::all();
+        $kejuruan = Kejuruan::all();
+        $subKejuruan = SubKejuruan::all();
+        
+        return view('paketprogram.index', compact('data','blk','kejuruan','subKejuruan'));
     }
 
     /**
@@ -45,14 +51,11 @@ class PaketProgramPelatihanController extends Controller
     {
         $paketProgram = new PaketProgram();
         //
-        $blk = Blk::where('nama',$request->nama)->first();
-        $paketProgram->blks_id = $blk->id;
+        $paketProgram->blks_id = $request->namaBlk;
 
-        $kejuruan = Kejuruan::where('nama', $request->nama)->first();
-        $paketProgram->kejuruans_id = $kejuruan->id;
+        $paketProgram->kejuruans_id = $request->kejuruan;
 
-        $subKejuruan = Kejuruan::where('nama', $request->nama)->first();
-        $paketProgram->sub_kejuruans_id = $subKejuruan->id;
+        $paketProgram->sub_kejuruans_id = $request->subKejuruan;
 
         $paketProgram->save();
         return redirect()->back()->with('success', 'Data paket program berhasil ditambahkan!');
@@ -91,15 +94,12 @@ class PaketProgramPelatihanController extends Controller
      */
     public function update(Request $request, PaketProgram $paketProgram)
     {
-        //
-        $blk = Blk::where('nama',$request->nama)->first();
-        $paketProgram->blks_id = $blk->id;
+        
+        $paketProgram->blks_id = $request->namaBlk;
 
-        $kejuruan = Kejuruan::where('nama', $request->nama)->first();
-        $paketProgram->kejuruans_id = $kejuruan->id;
+        $paketProgram->kejuruans_id = $request->kejuruan;
 
-        $subKejuruan = Kejuruan::where('nama', $request->nama)->first();
-        $paketProgram->sub_kejuruans_id = $subKejuruan->id;
+        $paketProgram->sub_kejuruans_id = $request->subKejuruan;
         $paketProgram->save();
         return redirect()->route('paketprogram.index')->with('Success','Data paket program berhasil diubah!');
     }

@@ -79,7 +79,7 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 Route::resource('menu/lowongan','Bursa\LowonganController');
 
 //Paket Program
-Route::view('/paketProgram','paketprogram.index');
+Route::resource('paketProgram','PaketProgramPelatihanController');
 
 //Sesi Pelatihan
 

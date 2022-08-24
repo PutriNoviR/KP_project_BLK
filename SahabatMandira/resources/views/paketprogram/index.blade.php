@@ -66,7 +66,7 @@ PAKET PROGRAM
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('blk.store') }}">
+                    <form method="POST" action="{{ route('paketProgram.store') }}">
                         @csrf
 
                         <div class="form-group">
@@ -83,9 +83,11 @@ PAKET PROGRAM
 
                             <div class="col-md-12">
 
-                                <select class="form-control" aria-label="Default select example" name="name">
-                                    <option value="1">BLK satu</option>
-                                    <option value="0">BLK dua</option>
+                                <select class="form-control" aria-label="Default select example" name="namaBlk">
+                                
+                                @foreach($blk as $d)    
+                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
                                 </select>
 
                                 @error('website')
@@ -111,8 +113,9 @@ PAKET PROGRAM
                             <div class="col-md-12">
 
                                 <select class="form-control" aria-label="Default select example" name="kejuruan">
-                                    <option value="1">kejuruan satu</option>
-                                    <option value="0">kejuruan dua</option>
+                                @foreach($kejuruan as $d)    
+                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
                                 </select>
 
                                 @error('website')
@@ -129,8 +132,9 @@ PAKET PROGRAM
                             <div class="col-md-12">
 
                                 <select class="form-control" aria-label="Default select example" name="subKejuruan">
-                                    <option value="1">Sub kejuruan satu</option>
-                                    <option value="0">Sub kejuruan dua</option>
+                                @foreach($subKejuruan as $d)    
+                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
                                 </select>
 
                                 @error('website')
