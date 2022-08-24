@@ -80,6 +80,7 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 
 //Paket Program
 Route::view('/paketProgram','paketprogram.index');
+
 //Sesi Pelatihan
 
 Route::get('/helloworld', function () {
