@@ -75,16 +75,12 @@ Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
 
-<<<<<<< HEAD
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
-=======
 
 //Paket Program
 Route::view('/paketProgram','paketprogram.index');
 //Sesi Pelatihan
-
->>>>>>> 9c3a74d4602069d85e4d69d0b4eee68e48564439
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
