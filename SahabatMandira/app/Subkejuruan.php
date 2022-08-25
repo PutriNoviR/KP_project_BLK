@@ -14,7 +14,7 @@ class Subkejuruan extends Model
 
     public function paketprogram()
     {
-        return $this->hasMany('App\PaketProgram','subkejuruans_id','id');
+        return $this->hasMany('App\PaketProgram','sub_kejuruans_id','id');
 
     }
 

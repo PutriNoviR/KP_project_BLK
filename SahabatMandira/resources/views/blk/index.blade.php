@@ -4,8 +4,6 @@
 BLK
 @endsection
 
-
-
 @section('javascript')
 <script>
     $(function() {

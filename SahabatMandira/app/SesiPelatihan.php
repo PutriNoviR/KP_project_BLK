@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SesiPelatihan extends Model
 {
     protected $table='sesi_pelatihans';
+    protected $connection='mandira'; //koneksi apababila tabel berada pada database yang berbeda
+
     public function paketprogram()
     {
         return $this->belongsTo('App\PaketProgram','paket_program_id','id');
@@ -21,4 +23,7 @@ class SesiPelatihan extends Model
     {
         return $this->hasMany('App/PelatihanPeserta','sesi_pelatihans_id','id');
     }
+
+    public $timestamps=false;
+
 }

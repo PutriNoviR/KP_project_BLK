@@ -83,9 +83,15 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
-Route::post('menu/paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');
+Route::post('paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');
+route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSubkejuruan')->name('paketProgram.getSubKejuruan');
 
 //Sesi Pelatihan
+Route::resource('menu/sesiPelatihan','sesiPelatihanController');
+
+//User
+Route::resource('menu/User','UserController');
+Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
