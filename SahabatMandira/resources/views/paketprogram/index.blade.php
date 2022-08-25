@@ -321,9 +321,4 @@ PAKET PROGRAM
 
     </div>
 </div>
-
-
-
-
-
 @endsection
