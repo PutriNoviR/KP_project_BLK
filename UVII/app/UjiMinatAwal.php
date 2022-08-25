@@ -212,4 +212,11 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
         return collect($arr_data_akhir)->sortByDesc('score')->all();
     }
 
+    public static function insertHasilRekomendasi($idSesi){
+        DB::connection('uvii')->table('hasil_rekomendasi_tes_tahap_2')
+                ->insert([
+                    'uji_minat_awals_id' => $idSesi,
+                ]);
+    }
+
 }

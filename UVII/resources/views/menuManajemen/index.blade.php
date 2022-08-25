@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.index',['menu' => $menu_role])
 
 @section('title')
     Menu Manajemen
@@ -21,6 +21,27 @@
       }
     });
   }
+
+  $('#menu_manajemen').on('change', function() {
+    var idrole = $(this).find(":selected").val();
+   
+    $.ajax({
+      type:'POST',
+      url:'{{ route("menu.getDataMenu")}}',
+      data:{'_token':'<?php echo csrf_token() ?>',
+            'id':idrole
+          },
+      dataType:'json',
+      success: function(data){
+        alert(data.msg);
+       
+        $.each(data.msg, function(i, value){
+          alert($('#menu_'+value).val());
+        });
+        
+      }
+    });
+  });
 </script>
 
 @endsection
@@ -34,7 +55,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="http://127.0.0.1:8000/menu/tes">Tes Tahap 1</a>
+            <a href="http://127.0.0.1:8000/manajemen">Menu Manajemen</a>
             <i class="fa fa-angle-right"></i>
         </li>
     </ul>
@@ -178,6 +199,8 @@
                         <div class="form-group">
                             <label for="role" class=" form-control-label">Role</label>
                             <select class="form-control" name="role_user" required>
+                              <option value=''>--Pilih Role--</option>
+                               
                                 @foreach($role as $r)
                                   <option value='{{ $r->id }}'>{{ $r->nama_role }}</option>
                                
@@ -190,10 +213,11 @@
                             <div class="checkbox-menus">
                                 @foreach($menu as $m)
                                   <label>
-                                    <input type="checkbox" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
+                                    <input type="checkbox" class='menu' id="menu_{{$m->id}}" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
                                     {{ $m->nama }}
                                   </label>
                                 @endforeach
+                               
                                
                             </div>
                         </div>

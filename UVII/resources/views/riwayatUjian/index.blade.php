@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.index',['menu' => $menu_role])
 
 @section('title')
     Riwayat Tes

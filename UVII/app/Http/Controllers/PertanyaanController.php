@@ -28,7 +28,17 @@ class PertanyaanController extends Controller
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
         // return view('soal.index',['data'=>$list_pertanyaan,'jawaban'=>$jawaban]);
-        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster, 'durasi'=>$settingDurasi, 'soal'=>$settingSoal, 'halaman'=>$settingHalaman]);
+        
+        //--menu manajemen--
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+        
+        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster, 'durasi'=>$settingDurasi, 'soal'=>$settingSoal, 'halaman'=>$settingHalaman, 'menu_role'=>$menu_role]);
     }
 
     /**
@@ -40,9 +50,17 @@ class PertanyaanController extends Controller
     {
         $namaKlaster= DB::table('klaster_psikometrik')->get();
         
+         //--menu manajemen--
+         $role_user = Auth::user()->roles_id;
+         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                     ->select('mm.nama', 'mm.url')
+                     ->where('roles_id', $role_user)
+                     ->where('mm.status','Aktif')
+                     ->get();
         // $jawaban= Jawaban::all();
         // return view('soal.create',['jawaban'=>$jawaban]);
-        return view('soal.create', compact('namaKlaster'));
+        return view('soal.create', compact('namaKlaster', 'menu_role'));
     }
 
     /**

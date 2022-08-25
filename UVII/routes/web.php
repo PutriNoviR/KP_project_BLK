@@ -25,6 +25,7 @@ Route::post('menu/role/edit', 'RoleController@getEditForm')->name('role.edit');
 Route::resource('manajemen', "MenuManajemenController");
 Route::post('manajemen/edit', "MenuManajemenController@getEditForm")->name('menu.edit');
 Route::post('manajemen/role/save', "MenuManajemenController@menuRole")->name('manajemen.role');
+Route::post('manajemen/getDataMenu', 'MenuManajemenController@getDataMenu')->name('menu.getDataMenu');
 
 //Peserta
 Route::resource('menu/peserta','PesertaController');
