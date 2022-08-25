@@ -22,7 +22,8 @@
     });
   }
 
-  $('#menu_manajemen').on('change', function() {
+  $('#role_user').on('change', function() {
+    
     var idrole = $(this).find(":selected").val();
    
     $.ajax({
@@ -33,11 +34,11 @@
           },
       dataType:'json',
       success: function(data){
-        alert(data.msg);
-       
-        $.each(data.msg, function(i, value){
-          alert($('#menu_'+value).val());
-        });
+        // alert(data.msg);
+        $('#modalContent').html(data.msg)
+        //$.each(data.msg, function(i, value){
+         //alert($('#menu_'+value).val());
+        // });
         
       }
     });
@@ -64,6 +65,11 @@
 
 @if($message = Session::get('status'))
   <div class="alert alert-success">
+    <li>{{$message}}</li>
+  </div>
+@endif
+@if($message = Session::get('error'))
+  <div class="alert alert-danger">
     <li>{{$message}}</li>
   </div>
 @endif
@@ -183,7 +189,7 @@
 
 {{-- Setting Menu --}}
 <div class="modal fade" tabindex="-1" role="dialog" id="settingModal" aria-labelledby="mediumModalLabel" style="display: none; padding-right: 17px;">
-        <div class="modal-dialog" role="document">
+        <div id="modalContent" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -198,7 +204,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="role" class=" form-control-label">Role</label>
-                            <select class="form-control" name="role_user" required>
+                            <select id="role_user" class="form-control" name="role_user" required>
                               <option value=''>--Pilih Role--</option>
                                
                                 @foreach($role as $r)
@@ -212,10 +218,12 @@
                             <label for="role" class=" form-control-label">Menu</label>
                             <div class="checkbox-menus">
                                 @foreach($menu as $m)
+                                
                                   <label>
-                                    <input type="checkbox" class='menu' id="menu_{{$m->id}}" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
+                                    <input type="checkbox" class='menu' class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
                                     {{ $m->nama }}
                                   </label>
+                                
                                 @endforeach
                                
                                
@@ -228,6 +236,7 @@
                         Simpan <i class="m-icon-swapright m-icon-white"></i>
                         </button>
                     </div>
+
                 </form>
                 
             </div>
@@ -310,4 +319,5 @@
       </div>
     </div>
   </div>
+  
 @endsection
