@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Blk;
 use App\Kejuruan;
-use App\SubKejuruan;
+use App\Subkejuruan;
 use App\PaketProgram;
 use Dotenv\Result\Success;
 use Illuminate\Support\Arr;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class PaketProgramPelatihanController extends Controller
 {
@@ -22,13 +23,13 @@ class PaketProgramPelatihanController extends Controller
     {
         //
         
-        $data = PaketProgram::all();
+        $paketprograms = PaketProgram::all();
 
         $blk = Blk::all();
         $kejuruan = Kejuruan::all();
-        $subKejuruan = SubKejuruan::all();
+        $subKejuruan = Subkejuruan::all();
         
-        return view('paketprogram.index', compact('data','blk','kejuruan','subKejuruan'));
+        return view('paketprogram.index', compact('paketprograms','blk','kejuruan','subKejuruan'));
     }
 
     /**
@@ -137,5 +138,23 @@ class PaketProgramPelatihanController extends Controller
         return response()->json(Array(
             'status'=>'oke',
             'msg'=>view('paketprogram.modal',compact('paketProgram','blk','kejuruan','subKejuruan'))->render()),200);
+    }
+
+    public function getSubkejuruan(Request $request )
+    {
+        $idkejuruan = $request->idkejuruan;
+        // $idkejuruan = 1;
+        $subkejuruan = Subkejuruan::where('kejuruans_id',$idkejuruan)->get();
+        // dd('oi');
+        $arr_subkejuruan = [];
+        $arr = [];
+
+        foreach ($subkejuruan as $sub ) {
+            $arr['id'] = $sub->id;
+            $arr['nama'] = $sub->nama;
+            $arr_subkejuruan[] = $arr;
+        }
+        // return view('paketprogram.index');
+        return response()->json($arr_subkejuruan);
     }
 }

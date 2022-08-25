@@ -7,7 +7,7 @@ PAKET PROGRAM
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -22,10 +22,10 @@ PAKET PROGRAM
                 '_token': '<?php echo csrf_token() ?>',
                 'id': paketProgramId,
             },
-            success: function(data) {
+            success: function (data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
@@ -46,6 +46,30 @@ PAKET PROGRAM
             });
         return false;
     }
+
+    $('#selectKejuruan').on('change', function () {
+        const idkejuruan = $('#selectKejuruan').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("paketProgram.getSubKejuruan") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'idkejuruan': idkejuruan,
+            },
+            success: function (data) {
+                // $("#modalContent").html(data.msg);
+                data.forEach(e => {
+                    $('#selectSubKejuruan').append(
+                        `<option value="${e['id']}">${e['nama']}</option>`);
+                });
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        })
+    })
+
 </script>
 @endsection
 
@@ -64,7 +88,8 @@ PAKET PROGRAM
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -75,32 +100,39 @@ PAKET PROGRAM
             </tr>
         </thead>
         <tbody id="myTable">
-            @foreach($data as $d)
+            @foreach($paketprograms as $paketprogram)
+            {{-- @dd($paketprogram->subkejuruan) --}}
             <tr>
                 <td>{{ $loop->iteration }}</td>
-            <td>{{ $d->blk->nama }}</td> {{-- yang ada ->ambil dari function yang ada di modelnya --}}
-            <td>{{ $d->kejuruan->nama }}</td>
-            <td>{{ $d->subkejuruan->nama }}</td>
-            <td>
-                <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
-                    Tambah Sesi Pelatihan
-                </a>
-                <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
-                    <i class="fas fa-pen"></i>
-                </a>
-                <form method="POST" action="{{ route('paketProgram.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger" data-toggle="modal" href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i class="fas fa-trash"></i></button>
-                </form>
-            </td>
+                <td>{{ $paketprogram->blk->nama }}</td> {{-- yang ada ->ambil dari function yang ada di modelnya --}}
+                <td>{{ $paketprogram->kejuruan->nama }}</td>
+                <td>{{ $paketprogram->subkejuruan->nama }}</td>
+                <td>
+                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
+                        onclick="modalEdit({{$paketprogram->id}})">
+                        Tambah Sesi Pelatihan
+                    </a>
+                    <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning'
+                        onclick="modalEdit({{$paketprogram->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('paketProgram.destroy',$paketprogram->id) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"
+                            href="{{route('blk.show',$paketprogram->id)}}" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
 
-<div class="modal fade" id="modalTambahPaketProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahPaketProgram" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,7 +147,8 @@ PAKET PROGRAM
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                            <label for="nama"
+                                class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
 
                             <div class="col-md-12">
 
@@ -129,9 +162,9 @@ PAKET PROGRAM
                             <div class="col-md-12">
 
                                 <select class="form-control" aria-label="Default select example" name="namaBlk">
-                                
-                                @foreach($blk as $d)    
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    <option selected>Pilih BLK</option>
+                                    @foreach($blk as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
                                     @endforeach
                                 </select>
 
@@ -157,9 +190,11 @@ PAKET PROGRAM
 
                             <div class="col-md-12">
 
-                                <select class="form-control" aria-label="Default select example" name="kejuruan">
-                                @foreach($kejuruan as $d)    
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
+                                <select class="form-control" aria-label="Default select example" name="kejuruan"
+                                    id="selectKejuruan">
+                                    <option selected>Pilih Kejuruan</option>
+                                    @foreach($kejuruan as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
                                     @endforeach
                                 </select>
 
@@ -176,10 +211,12 @@ PAKET PROGRAM
 
                             <div class="col-md-12">
 
-                                <select class="form-control" aria-label="Default select example" name="subKejuruan">
-                                @foreach($subKejuruan as $d)    
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
-                                    @endforeach
+                                <select class="form-control" aria-label="Default select example" name="sub_kejuruans_id"
+                                    id="selectSubKejuruan" disabled>
+                                    {{-- <option selected>Pilih Subkejuruan</option>
+                                    @foreach($subKejuruan as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach --}}
                                 </select>
 
                                 @error('website')
