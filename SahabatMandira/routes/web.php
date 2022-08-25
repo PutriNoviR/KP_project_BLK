@@ -86,6 +86,7 @@ Route::resource('paketProgram','PaketProgramPelatihanController');
 Route::post('menu/paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');
 
 //Sesi Pelatihan
+Route::resource('menu/sesiPelatihan','sesiPelatihanController');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
