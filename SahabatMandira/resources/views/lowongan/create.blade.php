@@ -11,7 +11,7 @@ Lowongan
 <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard v1</li>
+        <li class="breadcrumb-item active">Lowongan</li>
     </ol>
 </div><!-- /.col -->
 @endsection
@@ -37,13 +37,13 @@ Lowongan
                     @csrf
 
                     <div class="form-group">
-                        <label for="jabatan" class="col-md-12 col-form-label">{{ __('Jabatan atau Posisi') }}</label>
+                        <label for="posisi" class="col-md-12 col-form-label">{{ __('Jabatan atau Posisi') }}</label>
 
                         <div class="col-md-12">
-                            <input id="jabatan" type="text" class="form-control @error('jabatan') is-invalid @enderror"
-                                name="jabatan" value="{{ old('jabatan') }}" required autocomplete="nama" autofocus>
+                            <input id="posisi" type="text" class="form-control @error('posisi') is-invalid @enderror"
+                                name="posisi" required autocomplete="posisi" autofocus>
 
-                            @error('jabatan')
+                            @error('posisi')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -56,7 +56,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="pengalamanKerja" type="text" class="form-control @error('pengalamanKerja') is-invalid @enderror"
-                                name="pengalaman_kerja" value="{{ old('pengalamanKerja') }}" required autocomplete="pengalamanKerja" autofocus>
+                                name="pengalaman_kerja" required autocomplete="pengalamanKerja" autofocus>
 
                             @error('pengalamanKerja')
                             <span class="invalid-feedback" role="alert">
@@ -71,7 +71,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="lokasi" type="text" class="form-control @error('lokasi') is-invalid @enderror"
-                                name="lokasi_kerja" value="{{ old('lokasi') }}" required autocomplete="lokasi" autofocus>
+                                name="lokasi_kerja" required autocomplete="lokasi" autofocus>
 
                             @error('lokasi')
                             <span class="invalid-feedback" role="alert">
@@ -86,7 +86,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="gaji" type="number" class="form-control @error('gaji') is-invalid @enderror"
-                                name="gaji" value="{{ old('gaji') }}" required autocomplete="gaji" autofocus>
+                                name="gaji" required autocomplete="gaji" autofocus>
 
                             @error('gaji')
                             <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="pendidikanTerakhir" type="text" class="form-control @error('pendidikanTerakhir') is-invalid @enderror"
-                                name="pendidikan_terakhir" value="{{ old('pendidikanTerakhir') }}" required autocomplete="pendidikanTerakhir" autofocus>
+                                name="pendidikan_terakhir" required autocomplete="pendidikanTerakhir" autofocus>
 
                             @error('pendidikanTerakhir')
                             <span class="invalid-feedback" role="alert">
@@ -116,7 +116,7 @@ Lowongan
 
                         <div class="col-md-12">
                             <input id="jamKerja" type="time" class="form-control @error('jamKerja') is-invalid @enderror"
-                                name="jam_kerja" value="{{ old('jamKerja') }}" required autocomplete="jamKerja" autofocus>
+                                name="jam_kerja" required autocomplete="jamKerja" autofocus>
 
                             @error('jamKerja')
                             <span class="invalid-feedback" role="alert">
@@ -156,20 +156,20 @@ Lowongan
 
                     {{--<div class="form-group">
                         <p>
-                            <span class="label label-danger">NOTE!</span>
+                            <span class="col-md-12 label label-danger">NOTE!</span>
                             Upload semua dokumen dalam bentuk .JPG, .PNG atau .PDF
                         </p>
 
                         <div class="form-group">
-                            <label for="pas_foto">Logo Perusahaan</label>
+                            <label class="col-md-12" for="pas_foto">Logo Perusahaan</label>
                             
-                            <input type="file" name='logo' class="defaults" value="{{ $data->logo ?? ''}}" required>
+                            <input type="file" name='logo' class="col-md-12 defaults" value="{{ $data->logo ?? ''}}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="foto">Foto Perusahaan</label>
+                            <label class="col-md-12" for="foto">Foto Perusahaan</label>
                             
-                            <input type="file" name='foto' class="defaults" value="{{ $data->foto ?? ''}}" required>
+                            <input type="file" name='foto' class="col-md-12 defaults" value="{{ $data->foto ?? ''}}" required>
                         </div>
                     </div>--}}
 

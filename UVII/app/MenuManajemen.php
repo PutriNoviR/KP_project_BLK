@@ -13,11 +13,24 @@ class MenuManajemen extends Model
     }
 
     public static function insertMenuRole($idRole, $arr_menu){
+        $data_lama=DB::table('menu_manajemens_has_roles')->where(
+            'roles_id',$idRole)->get()->toArray();
         foreach($arr_menu as $menu){
-            DB::table('menu_manajemens_has_roles')->insert([
-                'menu_manajemens_id' => $menu,
-                'roles_id' => $idRole,
-            ]);
+            if(in_array($menu,$data_lama)){
+                DB::table('menu_manajemens_has_roles')->insert([
+                    'menu_manajemens_id' => $menu,
+                    'roles_id' => $idRole,
+                ]);
+                $pesan=null;
+        
+            }
+            else{
+                $pesan="Data sudah terisi!";
+                
+            }
+            return $pesan;
+           
+
         }
         
     }
@@ -30,4 +43,6 @@ class MenuManajemen extends Model
             ->where('id', $id)
             ->delete();
     }
+
+   
 }

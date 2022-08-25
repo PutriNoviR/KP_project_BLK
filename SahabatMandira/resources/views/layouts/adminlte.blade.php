@@ -40,7 +40,15 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        @if (auth()->check())
+            @if (auth()->user()->hasRole('1'))
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            @elseif (auth()->user()->hasRole('2'))
+            <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+            @else
+            <nav class="main-header navbar navbar-expand navbar-primary navbar-light">
+            @endif
+        @endif
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -314,6 +322,13 @@
                                         class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin Bursa</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('User.index') }}"
+                                        class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Daftar User</p>
                                     </a>
                                 </li>
                             </ul>
