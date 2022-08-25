@@ -17,7 +17,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view();
+        $data = User::all();
+        // dd($data);
+        return view('user.index', compact('data'));
     }
 
     /**
@@ -149,6 +151,15 @@ class UserController extends Controller
         $user->save();
         
         return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
+    }
+
+    public function getEditForm(Request $request)
+    {
+        $user = User::find($request->id);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('user.modal', compact('user'))->render() 
+        ), 200);
     }
 
     public function getEditFormAdminBlk(Request $request)

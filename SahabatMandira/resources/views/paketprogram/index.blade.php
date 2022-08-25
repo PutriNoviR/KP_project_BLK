@@ -52,7 +52,17 @@ PAKET PROGRAM
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Paket Program</h2>
+        <h2>Daftar Paket Program dari BLK
+        <div class="form-group">
+            <div class="col-md-12 float-left">
+                <select class="form-control" aria-label="Default select example" name="kode_kategori">
+                    @foreach ($blk as $b)
+                    <option value="{{ $b->id }}">{{ $b->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        </h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahPaketProgram">
             Tambah Paket Program Baru
         </button>
