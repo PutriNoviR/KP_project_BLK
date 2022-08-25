@@ -38,9 +38,10 @@ class SesiPelatihanController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
         $sesi = new SesiPelatihan();
         $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
-        $sesi->	tanggal_tutup = $request->	tanggal_tutup;
+        $sesi->tanggal_tutup = $request->tanggal_tutup;
         $sesi->lokasi = $request->lokasi;
         $sesi->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
         $sesi->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;

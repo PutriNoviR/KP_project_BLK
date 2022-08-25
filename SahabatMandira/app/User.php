@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Blk','blks_id_admin','id');
     }
+
+    public function hasRole($roleName)
+    {
+        return $this->roles_id ==$roleName;
+    }
 }
