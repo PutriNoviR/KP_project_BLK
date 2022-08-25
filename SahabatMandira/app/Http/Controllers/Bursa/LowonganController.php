@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Bursa;
 use App\Http\Controllers\Controller;
 use App\Lowongan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LowonganController extends Controller
 {
@@ -15,7 +16,8 @@ class LowonganController extends Controller
      */
     public function index()
     {
-        //
+        $data_lowongan= DB::Lowongan()->get();
+        return redirect()->back()->compact('data_lowongan');
     }
 
     /**
@@ -39,14 +41,17 @@ class LowonganController extends Controller
     {
         //
         $lowongan = new Lowongan();
-        $lowongan->nama=$request->nama;
+        $lowongan->posisi=$request->posisi;
         $lowongan->pengalaman_kerja=$request->pengalaman_kerja;
         $lowongan->lokasi_kerja=$request->lokasi_kerja;
         $lowongan->gaji=$request->gaji;
-        $lowongan->pendidikan_terakhir=$request->nama;
+        $lowongan->pendidikan_terakhir=$request->pendidikan_terakhir;
         $lowongan->jam_kerja=$request->jam_kerja;
         $lowongan->deskripsi_kerja=$request->deskripsi_kerja;
         $lowongan->profile_perusahaan=$request->profile_perusahaan;
+        $lowongan->tanggal_pemasangan = carbon::now()->format('Y-m-d H:i:m');
+        $lowongan->created_at = carbon::now()->format('Y-m-d H:i:m');
+        $lowongan->updated_at = carbon::now()->format('Y-m-d H:i:m');
         $lowongan->save();
         return redirect()->back()->with('success', 'Data lowongan berhasil ditambahkan!');
     }
