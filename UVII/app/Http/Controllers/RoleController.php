@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -16,7 +18,16 @@ class RoleController extends Controller
     public function index()
     {
         $data = Role::all();
-        return view('role.index', compact('data'));
+         // -- menu manajemen --
+         $role_user = Auth::user()->roles_id;
+         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                         ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                         ->select('mm.nama', 'mm.url')
+                         ->where('roles_id', $role_user)
+                         ->where('mm.status','Aktif')
+                         ->get();
+ 
+         return view('role.index', compact('data','menu_role'));
     }
 
     /**

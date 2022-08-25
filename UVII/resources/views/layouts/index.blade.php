@@ -135,14 +135,16 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 					</form>
 				</li>
+				@foreach($menu as $m)
 				<li>
-					<a href="http://127.0.0.1:8000">
+					<a href="{{route($m->url)}}">
 					<i class="icon-home"></i>
-					<span class="title">Dashboard</span>
+					<span class="title">{{$m->nama}}</span>
 					<span class="selected"></span>
 					</a>
 				</li>
-				<li>
+				@endforeach
+			{{--	<li>
 					<a>
 						<i class="icon-user"></i>
 						<span class="title">Admin</span>
@@ -200,7 +202,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<i class="fa fa-file-text"></i>
 							<span class="title">Riwayat Ujian</span>
 					</a>
-				</li>
+				</li>--}}
 				
 				
 			</ul>

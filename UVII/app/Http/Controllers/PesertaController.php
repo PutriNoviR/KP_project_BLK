@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PesertaController extends Controller
 {
@@ -20,7 +21,15 @@ class PesertaController extends Controller
         $idRole = Role::where('nama_role', 'Peserta')->first();
         $data = User::where('roles_id', $idRole->id)->get();
 
-        return view('admin.daftarPeserta', compact('data'));
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+
+        return view('admin.daftarPeserta', compact('data', 'menu_role'));
     }
 
     /**

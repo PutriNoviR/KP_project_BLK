@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MenuManajemenController extends Controller
 {
@@ -19,7 +20,17 @@ class MenuManajemenController extends Controller
     {
         $role = Role::all();
         $menu = MenuManajemen::all();
-        return view('menuManajemen.index',compact('menu', 'role'));
+        
+        // --menu manajemen--
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+
+        return view('menuManajemen.index',compact('menu', 'role', 'menu_role'));
     }
 
     /**
@@ -140,5 +151,29 @@ class MenuManajemenController extends Controller
         $role= MenuManajemen::insertMenuRole($request->role_user, $request->menu);
         // dd($role);
         return redirect()->back()->with('status','Setting menu berhasil ditambahkan');
+    }
+
+    
+    public function getDataMenu(Request $request){
+        $idrole =$request->id;
+      
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.id')
+                    ->where('roles_id', $idrole)
+                    ->where('mm.status','Aktif')
+                    ->get();
+        
+        $arr_data = [];
+
+        foreach($menu_role as $m){
+            array_push($arr_data, $m->id);
+        }
+
+        return response()->json(array(
+            'status'=>'oke',
+            // 'msg'=>'success'
+            'msg'=>$arr_data
+        ),200);
     }
 }

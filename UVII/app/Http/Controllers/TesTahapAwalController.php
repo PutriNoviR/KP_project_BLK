@@ -92,8 +92,16 @@ class TesTahapAwalController extends Controller
     public function menuTesHome(){
         $email = Auth::user()->email;
         $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
-
-        return view('ujiTahapAwal.index', compact('tes'));
+        // --menu manajemen --
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+        
+        return view('ujiTahapAwal.index', compact('tes', 'menu_role'));
     }
 
     public function test(){
@@ -182,6 +190,15 @@ class TesTahapAwalController extends Controller
     }
 
     public function hasilTes(Request $request){
+         // --menu manajemen --
+         $role_user = Auth::user()->roles_id;
+         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                     ->select('mm.nama', 'mm.url')
+                     ->where('roles_id', $role_user)
+                     ->where('mm.status','Aktif')
+                     ->get();
+        
         $user = Auth::user()->email;
         
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first() ?? UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
@@ -239,8 +256,10 @@ class TesTahapAwalController extends Controller
 
             $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil, $tesTerbaru->id);
 
-            return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru'));
-     
+            // Untuk Insert ke michael
+            UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
+
+            return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru', 'menu_role'));
         }
     
     }
@@ -260,15 +279,29 @@ class TesTahapAwalController extends Controller
     public function riwayatTes(){
         $user = Auth::user()->email;
         $riwayat= UjiMinatAwal::riwayatTes($user);
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
 
-        return view('riwayatUjian.index', compact('riwayat'));
+        return view('riwayatUjian.index', compact('riwayat','menu_role'));
 
     }
     public function riwayatTesGlobal(){
         
         $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes'));
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role'));
 
     }
 }
