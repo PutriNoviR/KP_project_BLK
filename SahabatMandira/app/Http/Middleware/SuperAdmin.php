@@ -16,6 +16,7 @@ class SuperAdmin
      */
     public function handle($request, Closure $next)
     {
+        // dd(Auth::user()->role->nama_role);
         if (!auth()->check() || Auth::user()->role->nama_role !== 'superadmin') {
             abort(403);
         }

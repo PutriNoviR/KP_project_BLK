@@ -48,6 +48,7 @@ PAKET PROGRAM
     }
 
     $('#selectKejuruan').on('change', function () {
+
         const idkejuruan = $('#selectKejuruan').val();
 
         $.ajax({
@@ -58,11 +59,12 @@ PAKET PROGRAM
                 'idkejuruan': idkejuruan,
             },
             success: function (data) {
-                // $("#modalContent").html(data.msg);
+                $('#selectSubKejuruan').empty();
                 data.forEach(e => {
                     $('#selectSubKejuruan').append(
                         `<option value="${e['id']}">${e['nama']}</option>`);
                 });
+                $('#selectSubKejuruan').removeAttr('disabled')
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -77,19 +79,11 @@ PAKET PROGRAM
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Paket Program dari BLK
-            <div class="form-group">
-                <div class="col-md-12 float-left">
-                    <select class="form-control" aria-label="Default select example" name="kode_kategori">
-                        @foreach ($blk as $b)
-                        <option value="{{ $b->id }}">{{ $b->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
         </h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahPaketProgram">
             Tambah Paket Program Baru
         </button>
+
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -118,8 +112,8 @@ PAKET PROGRAM
                 <td>{{ $paketprogram->kejuruan->nama }}</td>
                 <td>{{ $paketprogram->subkejuruan->nama }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$paketprogram->id}})">
+                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}"
+                        class='btn btn-warning'>
                         Tambah Sesi Pelatihan
                     </a>
                     <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning'
@@ -133,33 +127,14 @@ PAKET PROGRAM
                         <button type="submit" class="btn btn-danger" data-toggle="modal"
                             href="{{route('blk.show',$paketprogram->id)}}" data-toggle="modal"><i
                                 class="fas fa-trash"></i></button>
-                <td>{{ $d->blk->nama }}</td> {{-- yang ada ->ambil dari function yang ada di modelnya --}}
-                <td>{{ $d->kejuruan->nama }}</td>
-                <td>{{ $d->subkejuruan->nama }}</td>
-                <td>
-                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$d->id}}" class='btn btn-warning'
-                        onclick="modalEdit({{$d->id}})">
-                        Tambah Sesi Pelatihan
-                    </a>
-                    <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning'
-                        onclick="modalEdit({{$d->id}})">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                    <form method="POST" action="{{ route('paketProgram.destroy',$d->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"
-                            href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i
-                                class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
 
             {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}
-            <div class="modal fade" id="modalTambahSesiPelatihan{{$d->id}}" tabindex="-1"
+            <div class="modal fade" id="modalTambahSesiPelatihan{{$paketprogram->id}}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Sesi Pelatihan</h5>
@@ -267,9 +242,9 @@ PAKET PROGRAM
                                     <label for="aktivitas"
                                         class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
                                     <textarea class="col-md-12 col-form-label" rows="3"
-                                        name="aktivitas">{{$d->subkejuruan->aktivitas}}</textarea>
+                                        name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
                                     <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label"
-                                        value="{{$d->id}}"> {{--untk mengecek dan menampung id paket progam--}}
+                                        value="{{$paketprogram->id}}">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -299,107 +274,47 @@ PAKET PROGRAM
                 <div class="card-body">
                     <form method="POST" action="{{ route('paketProgram.store') }}">
                         @csrf
-
                         <div class="form-group">
                             <label for="nama"
                                 class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
-
                             <div class="col-md-12">
-
-                                @error('nama')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-12">
-
-                                <select class="form-control" aria-label="Default select example" name="namaBlk">
-                                    <<<<<<< HEAD <option selected>Pilih BLK</option>
-                                        =======
-
-                                        >>>>>>> bb3c8b485e09ee94db8f7b1f8313fcc9eca45fa8
-                                        @foreach($blk as $d)
-                                        <option value="{{$d->id}}">{{$d->nama}}</option>
-                                        @endforeach
+                                <select class="form-control" aria-label="Default select example" name="blks_id">
+                                    <option selected>Pilih BLK</option>
+                                    @foreach($blk as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
                                 </select>
-
-                                @error('website')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="kejuruan" class="col-md-12 col-form-label">{{ __('Kejuruan') }}</label>
-
                             <div class="col-md-12">
-
-                                @error('kejuruan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-12">
-
-                                <<<<<<< HEAD <select class="form-control" aria-label="Default select example"
-                                    name="kejuruan" id="selectKejuruan">
+                                <select class="form-control" aria-label="Default select example" name="kejuruans_id"
+                                    id="selectKejuruan">
                                     <option selected>Pilih Kejuruan</option>
-                                    =======
-                                    <select class="form-control" aria-label="Default select example" name="kejuruan">
-                                        >>>>>>> bb3c8b485e09ee94db8f7b1f8313fcc9eca45fa8
-                                        @foreach($kejuruan as $d)
-                                        <option value="{{$d->id}}">{{$d->nama}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('website')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @foreach($kejuruan as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="subKejuruan" class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
-
+                            <label class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
                             <div class="col-md-12">
-
-                                <<<<<<< HEAD <select class="form-control" aria-label="Default select example"
-                                    name="sub_kejuruans_id" id="selectSubKejuruan" disabled>
-                                    {{-- <option selected>Pilih Subkejuruan</option>
-                                    @foreach($subKejuruan as $d)
-                                    <option value="{{$d->id}}">{{$d->nama}}</option>
-                                    @endforeach --}}
-                                    =======
-                                    <select class="form-control" aria-label="Default select example" name="subKejuruan">
-                                        @foreach($subKejuruan as $d)
-                                        <option value="{{$d->id}}">{{$d->nama}}</option>
-                                        @endforeach
-                                        >>>>>>> bb3c8b485e09ee94db8f7b1f8313fcc9eca45fa8
-                                    </select>
-
-                                    @error('website')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                <select class="form-control" aria-label="Default select example" name="sub_kejuruans_id"
+                                    id="selectSubKejuruan" disabled>
+                                </select>
                             </div>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">SIMPAN</button>
-                        </div>
-                    </form>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -412,9 +327,6 @@ PAKET PROGRAM
 
     </div>
 </div>
-
-
-
 
 
 @endsection

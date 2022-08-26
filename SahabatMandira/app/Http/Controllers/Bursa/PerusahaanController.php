@@ -17,6 +17,8 @@ class PerusahaanController extends Controller
     public function index()
     {
         //
+        $data = Perusahaan::all();
+        return view('perusahaan.index', compact('data'));
     }
 
     /**
@@ -39,21 +41,25 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         //
-        $perusahaan = new Perusahaan();
-        $perusahaan->nama=$request->nama;
-        $perusahaan->bidang=$request->bidang;
-        $perusahaan->alamat=$request->alamat;
-        $perusahaan->kode_pos=$request->kode_pos;
-        $perusahaan->no_telp=$request->no_telp;
-        $perusahaan->email=$request->email;
-        $perusahaan->logo=$request->logo;
-        $perusahaan->images=$request->foto;
-        $perusahaan->siup=$request->siup;
-        $perusahaan->npwp=$request->npwp;
-        $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
-        $perusahaan->created_at = carbon::now()->format('Y-m-d H:i:m');
-        $perusahaan->updated_at = carbon::now()->format('Y-m-d H:i:m');
-        $perusahaan->save();
+        dd($request);
+        $validatedData = $request->validate([
+            'email' => 'required|unique:users|max:255',
+            'firstname' => 'required|unique:users|max:255',
+            'body' => 'required',
+        ]);
+        // $perusahaan = new Perusahaan();
+        // $perusahaan->nama=$request->nama;
+        // $perusahaan->bidang=$request->bidang;
+        // $perusahaan->alamat=$request->alamat;
+        // $perusahaan->kode_pos=$request->kode_pos;
+        // $perusahaan->no_telp=$request->no_telp;
+        // $perusahaan->email=$request->email;
+        // $perusahaan->logo=$request->logo;
+        // $perusahaan->images=$request->foto;
+        // $perusahaan->siup=$request->siup;
+        // $perusahaan->npwp=$request->npwp;
+        // $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
+        // $perusahaan->save();
         return redirect()->back()->with('success', 'Data Perusahaan berhasil ditambahkan!');
     }
 
@@ -74,9 +80,10 @@ class PerusahaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Perusahaan $perusahaan)
     {
         //
+        return view('perusahaan.update',compact('perusahaan'));
     }
 
     /**
@@ -86,9 +93,22 @@ class PerusahaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Perusahaan $perusahaan)
     {
         //
+        $perusahaan->nama=$request->nama;
+        $perusahaan->bidang=$request->bidang;
+        $perusahaan->alamat=$request->alamat;
+        $perusahaan->kode_pos=$request->kode_pos;
+        $perusahaan->no_telp=$request->no_telp;
+        $perusahaan->email=$request->email;
+        $perusahaan->logo=$request->logo;
+        $perusahaan->images=$request->foto;
+        $perusahaan->siup=$request->siup;
+        $perusahaan->npwp=$request->npwp;
+        $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
+        $perusahaan->save();
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diubah!');
     }
 
     /**
@@ -97,9 +117,27 @@ class PerusahaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Perusahaan $perusahaan)
     {
         //
+        try {
+            $perusahaan->delete(); 
+            return redirect()->route('perusahaan.index')->with('success','Data Perusahaan berhasil dihapus!');
+        } catch (\PDOException $e) {
+            $msg="Data gagal dihapus";
+
+            return redirect()->route('perusahaan.index')->with('error',$msg);
+        }
+    }
+
+    public function getEdit(Request $request)
+    {
+        $perusahaan = Perusahaan::find($request->id);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('perusahaan.modal', compact('perusahaan'))->render() 
+        ), 200);
+        // return view('blk.update',compact('blk'));
     }
 
     // public function posting()

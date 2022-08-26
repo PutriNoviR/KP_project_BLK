@@ -35,34 +35,34 @@ Bursa Kerja
                     </div>
                 </div>
 
-                <div class="form-group">
+                {{--<div class="form-group">
                     @foreach($data_lowongan as $dl)
                     <div class="col-md-12">
                         <label for="label" class="col-md-12 col-form-label">{{__('Posisi')}}</label>
-                        <p class="col-md-12">{{$dl->posisi}}</p>
-                        <label for="label" class="col-md-12 col-form-label">{{__('Alamat')}}</label>
-                        <p class="col-md-12">{{$dl->alamat}}</p>
-                        <label for="label" class="col-md-12 col-form-label">{{__('Gaji')}}</label>
-                        <p class="col-md-12">{{$dl->gaji}}</p>
-                        <label for="label" class="col-md-12 col-form-label">{{__('Jam Kerja')}}</label>
-                        <p class="col-md-12">{{$dl->jam_kerja}}</p>
-                        <label for="label" class="col-md-12 col-form-label">{{__('Deskripsi Pekerjaan')}}</label>
-                        <p class="col-md-12">{{$dl->deskripsi_kerja}}</p>
-                        <label for="label" class="col-md-12 col-form-label">{{__('Profile Perusahaan')}}</label>
-                        <p class="col-md-12">{{$dl->profile_perusahaan}}</p>
-                    </div>
-                    @endforeach
-                </div>
+                <p class="col-md-12">{{$dl->posisi}}</p>
+                <label for="label" class="col-md-12 col-form-label">{{__('Alamat')}}</label>
+                <p class="col-md-12">{{$dl->alamat}}</p>
+                <label for="label" class="col-md-12 col-form-label">{{__('Gaji')}}</label>
+                <p class="col-md-12">{{$dl->gaji}}</p>
+                <label for="label" class="col-md-12 col-form-label">{{__('Jam Kerja')}}</label>
+                <p class="col-md-12">{{$dl->jam_kerja}}</p>
+                <label for="label" class="col-md-12 col-form-label">{{__('Deskripsi Pekerjaan')}}</label>
+                <p class="col-md-12">{{$dl->deskripsi_kerja}}</p>
+                <label for="label" class="col-md-12 col-form-label">{{__('Profile Perusahaan')}}</label>
+                <p class="col-md-12">{{$dl->profile_perusahaan}}</p>
+            </div>
+            @endforeach
+        </div>--}}
 
-                <div class="form-group">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Daftar</button>
-                    </div>
-                </div>
+        <div class="form-group">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Daftar</button>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <div class="card-deck">

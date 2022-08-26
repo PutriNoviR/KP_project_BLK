@@ -1,35 +1,19 @@
-@extends('layouts.adminlte')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('title')
-Dashboard
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
 
-@section('page-bar')
-<div class="col-sm-6">
-    <h1 class="m-0 text-dark">Dashboard</h1>
-</div><!-- /.col -->
-@endsection
-
-@section('contents')
-<div class="form-group mb-0 rata_tengah">
-    <div class="col-md-12 offset-manual">
-        <a href="{{url('menu/bursa/listKerja')}}" class="button btn btn-primary">{{ __('BURSA KERJA') }}</a>
+<body>
+    <div class="d-flex">
+        <a href="{{ route('register') }}">Daftar Peserta</a>
+        <a href="{{ route('register') }}">Daftar Mentor</a>
+        <a href="{{ route('perusahaan.create') }}">Daftar Perusahaan</a>
     </div>
-</div>
+</body>
 
-{{--<div class="card-deck">
-    @foreach($lowongan as $data)
-  <div class="card">
-    <img src="gambar4.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{$data->posisi}}</h5>
-      @foreach($lowongan->find($data->id)->perusahaan() as $data1)
-      <p class="card-text">{{$data1->nama}}</p>
-      @endforeach
-      <p class="card-text"><small class="text-muted">{{$data->tanggal_pemasangan}}</small></p>
-    </div>
-  </div>
-  @endforeach
-</div>--}}      
-
-@endsection
+</html>

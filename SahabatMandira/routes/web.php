@@ -26,7 +26,8 @@ Route::get('/testingDir', function () {
 Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 // TESTING SECTION ENDS HERE
 
-Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 // Role
 Route::resource('menu/role','RoleController');
@@ -54,6 +55,8 @@ Route::middleware('super.admin')->group(function(){
     Route::post('datapegawai/adminblk/getEditForm','UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
 });
 
+// Dashboard
+
 
 //Peserta
 Route::resource('menu/peserta','PesertaController');
@@ -68,7 +71,6 @@ Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name(
 //REPORT
 Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatihan');
 
-
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
@@ -78,16 +80,13 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 //List Kerja
 Route::resource('menu/bursa/listKerja','Bursa\ListKerjaController');
 
-//Lowongan
-Route::resource('menu/lowongan','Bursa\LowonganController');
-
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
 Route::post('paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');
 route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSubkejuruan')->name('paketProgram.getSubKejuruan');
 
 //Sesi Pelatihan
-Route::resource('menu/sesiPelatihan','sesiPelatihanController');
+Route::resource('/sesiPelatihan','sesiPelatihanController');
 
 //User
 Route::resource('menu/User','UserController');
