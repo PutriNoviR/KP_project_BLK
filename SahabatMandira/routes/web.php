@@ -87,7 +87,7 @@ Route::post('paketProgram/getEditForm','PaketProgramPelatihanController@getEditF
 route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSubkejuruan')->name('paketProgram.getSubKejuruan');
 
 //Sesi Pelatihan
-Route::resource('menu/sesiPelatihan','sesiPelatihanController');
+Route::resource('/sesiPelatihan','sesiPelatihanController');
 
 //User
 Route::resource('menu/User','UserController');

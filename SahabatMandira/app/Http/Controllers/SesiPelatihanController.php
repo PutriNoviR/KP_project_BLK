@@ -16,7 +16,8 @@ class SesiPelatihanController extends Controller
     {
         //
         $data = SesiPelatihan::all();
-        return view('', compact('data'));
+        // dd($data);
+        return view('sesipelatihan.index', compact('data'));
     }
 
     /**

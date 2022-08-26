@@ -52,11 +52,11 @@ class PaketProgramPelatihanController extends Controller
     {
         $paketProgram = new PaketProgram();
         //
-        $paketProgram->blks_id = $request->namaBlk;
+        $paketProgram->blks_id = $request->blks_id;
 
-        $paketProgram->kejuruans_id = $request->kejuruan;
+        $paketProgram->kejuruans_id = $request->kejuruans_id;
 
-        $paketProgram->sub_kejuruans_id = $request->subKejuruan;
+        $paketProgram->sub_kejuruans_id = $request->sub_kejuruans_id;
 
         $paketProgram->save();
         return redirect()->back()->with('success', 'Data paket program berhasil ditambahkan!');
