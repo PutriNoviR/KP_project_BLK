@@ -25,7 +25,7 @@ class SesiPelatihanController extends Controller
         ->join('masterblk_db.kejuruans AS K', 'P.kejuruans_id', '=', 'K.id')
         ->join('masterblk_db.sub_kejuruans AS S', 'P.sub_kejuruans_id', '=', 'S.id')
         ->select('B.nama as blk','K.nama as kejuruan','S.nama as subkejuruan','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas',
-                DB::raw('CONCAT( DATE_FORMAT (sesi_pelatihans.tanggal_pendaftaran,"%d-%m-%Y"), " - ", DATE_FORMAT (sesi_pelatihans.tanggal_tutup,"%d-%m-%Y")) AS pendaftaran'))
+                DB::raw('CONCAT( DATE_FORMAT(sesi_pelatihans.tanggal_pendaftaran,"%d-%m-%Y"), " - ", DATE_FORMAT(sesi_pelatihans.tanggal_tutup,"%d-%m-%Y")) AS pendaftaran'))
         ->groupBy('B.nama','K.nama','S.nama','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas','pendaftaran')
         ->get();
         return view('sesipelatihan.index', compact('data','data2','user'));
@@ -131,5 +131,15 @@ class SesiPelatihanController extends Controller
 
             return redirect()->route('')->with('error',$msg);
         }
+    }
+
+    public function paketProgramPeserta()
+    {
+        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup >= CURDATE()');
+
+        $disarankan = SesiPelatihan::join('pelatihan_pesertas as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+        ->WHERE('P.is_sesuai_minat', '=', '1' )
+        ->get();
+        return view('',compact('ditawarkan','disarankan'));
     }
 }
