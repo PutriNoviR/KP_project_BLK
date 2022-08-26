@@ -23,7 +23,7 @@ class PertanyaanController extends Controller
         $settingSoal = Setting::where('key', 'jmlSoal')->first()->value;
         $settingHalaman = Setting::where('key', 'soal_perHalaman')->first()->value;
         
-        $list_klaster = DB::table('klaster_psikometrik')->get();
+        $list_klaster = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
         $list_pertanyaan = Pertanyaan::all();
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
@@ -48,7 +48,7 @@ class PertanyaanController extends Controller
      */
     public function create()
     {
-        $namaKlaster= DB::table('klaster_psikometrik')->get();
+        $namaKlaster= DB::table('klaster_psikometrik')->where('id','!=',0)->get();
         
          //--menu manajemen--
          $role_user = Auth::user()->roles_id;
@@ -182,7 +182,7 @@ class PertanyaanController extends Controller
         }
     }
     public function getEditForm(Request $request){
-        $namaKlaster= DB::table('klaster_psikometrik')->get();
+        $namaKlaster= DB::table('klaster_psikometrik')->where('id','!=',0)->get();
 
         $id=$request->get('id');
         $data= Pertanyaan::where('id',$id)->first();

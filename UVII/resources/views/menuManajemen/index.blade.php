@@ -23,7 +23,11 @@
   }
 
   $('#role_user').on('change', function() {
+    $('input[type=checkbox]').each(function(){
+      $(this).parent().removeClass('checked');
     
+    });
+
     var idrole = $(this).find(":selected").val();
    
     $.ajax({
@@ -32,17 +36,19 @@
       data:{'_token':'<?php echo csrf_token() ?>',
             'id':idrole
           },
-      dataType:'json',
       success: function(data){
-        // alert(data.msg);
-        $('#modalContent').html(data.msg)
-        //$.each(data.msg, function(i, value){
-         //alert($('#menu_'+value).val());
-        // });
+        for(var i = 0; i < data.msg.length; i++){
         
+          $('#menu_'+data.msg[i]).parent().addClass('checked');
+          $('#menu_'+data.msg[i]).prop('checked', true);
+        
+        }
+
       }
     });
+   
   });
+ 
 </script>
 
 @endsection
@@ -220,7 +226,7 @@
                                 @foreach($menu as $m)
                                 
                                   <label>
-                                    <input type="checkbox" class='menu' class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
+                                    <input type="checkbox" id='menu_{{$m->id}}' class='menu' class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
                                     {{ $m->nama }}
                                   </label>
                                 

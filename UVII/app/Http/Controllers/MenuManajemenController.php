@@ -147,44 +147,37 @@ class MenuManajemenController extends Controller
     }
 
     public function menuRole(Request $request){
-        // dd($request->menu);
-        $role= MenuManajemen::insertMenuRole($request->role_user, $request->menu);
-        // dd($role);
-        if($role==null){
-            return redirect()->back()->with('status','Setting menu berhasil ditambahkan');
+        try{
+          
+            MenuManajemen::insertMenuRole($request->role_user, $request->menu);
 
+            return redirect()->back()->with('status','Setting menu berhasil ditambahkan');
         }
-        else{
-            return redirect()->back()->with('error',$role);
-        }
-       
+       catch(\Exception  $e){
+            return redirect()->back()->with('error','Data sudah ada gagal terisi!');
+       }
     }
 
-    
     public function getDataMenu(Request $request){
         $idrole =$request->id;
-        $role = Role::all();
-        $menu = MenuManajemen::all();
-      
+  
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
                     ->select('mm.id')
                     ->where('mmhs.roles_id',$idrole)
                     ->where('mm.status','Aktif')
-                    ->get();
+                    ->get()->toArray();
         
-        // $arr_data = [];
-        //dd($menu_role);
-        // foreach($menu_role as $m){
-        //array_push($arr_data, $m->id);
-        //}
-            // dd($menu_role);
-        return response()->json(array(
-            'status'=>'oke',
-            // 'msg'=>'success'
-            'msg'=>view('menuManajemen.setting',compact('menu_role','role','menu'))->render()
-            // 'msg'=>view('menuManajemen.setting')->render()
+       $arr_data = [];
+        
+        foreach($menu_role as $m){
+            array_push($arr_data, $m->id);
+        }
 
+        return response()->json(array(
+            'status'=>'oke',    
+            'msg'=>$arr_data
         ),200);
     }
+  
 }
