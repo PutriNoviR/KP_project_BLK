@@ -257,7 +257,7 @@ class TesTahapAwalController extends Controller
             $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil, $tesTerbaru->id);
 
             // Untuk Insert ke michael
-            UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
+            // UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
 
             return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru', 'menu_role'));
         }
