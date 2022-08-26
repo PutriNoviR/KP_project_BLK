@@ -114,7 +114,23 @@
 
     });
 
-
+    // function getSelectedQuestion(no){
+    //     $.ajax({
+    //         type:'post',
+    //         url:'{{ route("peserta.save.jawaban")}}',
+    //         data:{'_token':'<?php echo csrf_token() ?>',
+    //             'soal':no,
+    //         },
+    //         success: function(data){
+    //             // if(data.msg != ""){
+    //             //     $('#btnNext').css('pointer-events', 'true');
+    //             //     $('#btnSubmit').css('pointer-events', 'true');
+    //             //     $('#box_' + no_soal).css('background', '#D9D9D9')
+    //             // }
+    //             alert('soal success');
+    //         }
+    //     });
+    // }
    
 </script>
 @endsection
@@ -240,7 +256,7 @@
                 $no = 1;
             @endphp
             @foreach($dataJawaban as $data)
-                <div id="box_{{ $no }}" class="{{ $data != 0 ? 'box answered':'box' }}" onclick="getSoalAt($no)">
+                <div id="box_{{ $no }}" class="{{ $data != 0 ? 'box answered':'box' }}" onclick="getSelectedQuestion(no)">
                     <span>{{ $no }}</span>
                 </div>
               @php

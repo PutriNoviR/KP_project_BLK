@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jawaban;
+use App\Pertanyaan;
 use Illuminate\Support\Facades\Auth;
 use App\UjiMinatAwal;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +41,11 @@ class HomeController extends Controller
                    ->where('mm.status','Aktif')
                    ->get();
        
-        return view('welcome', compact('tes','menu_role'));
+        $data = Pertanyaan::all();
+        $data2 = Jawaban::all();
+        $data3 = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
+
+        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3'));
        
     }
 

@@ -58,11 +58,11 @@
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="http://127.0.0.1:8000/">Dashboard</a>
+            <a href="{{route('home')}}">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="http://127.0.0.1:8000/manajemen">Menu Manajemen</a>
+            <a href="{{route('manajemen.index')}}">Menu Manajemen</a>
             <i class="fa fa-angle-right"></i>
         </li>
     </ul>
