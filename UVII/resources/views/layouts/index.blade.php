@@ -135,10 +135,22 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 					</form>
 				</li>
+				@php
+					$arr_icon=[
+						'Dashboard'=>'fa fa-home',
+						'Daftar Peserta'=>'icon-list',
+						'Menu Manajemen'=>'fa fa-group',
+						'Role'=>'fa fa-users',
+						'Riwayat Tes Peserta'=>'fa fa-file-text',
+						'Riwayat Ujian'=>'fa fa-list-alt',
+						'Mulai Tes'=>'fa fa-play',
+						'Bank Soal'=>'icon-book-open'];
+				@endphp
 				@foreach($menu as $m)
 				<li>
 					<a href="{{route($m->url)}}">
-					<i class="icon-home"></i>
+					
+					<i class='@php echo $arr_icon[$m->nama] @endphp'></i>
 					<span class="title">{{$m->nama}}</span>
 					<span class="selected"></span>
 					</a>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\SesiPelatihan;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SesiPelatihanController extends Controller
 {
@@ -15,9 +17,18 @@ class SesiPelatihanController extends Controller
     public function index()
     {
         //
-        $data = SesiPelatihan::all();
+        $data2 = SesiPelatihan::all();
+        $user = User::all()->where('roles_id', '=', '4');
         // dd($data);
-        return view('sesipelatihan.index', compact('data'));
+        $data = SesiPelatihan::join('masterblk_db.paket_program as P', 'sesi_pelatihans.paket_program_id', '=', 'P.id')
+        ->join('masterblk_db.blks as B', 'P.blks_id', '=', 'B.id')
+        ->join('masterblk_db.kejuruans AS K', 'P.kejuruans_id', '=', 'K.id')
+        ->join('masterblk_db.sub_kejuruans AS S', 'P.sub_kejuruans_id', '=', 'S.id')
+        ->select('B.nama as blk','K.nama as kejuruan','S.nama as subkejuruan','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas',
+                DB::raw('CONCAT( DATE_FORMAT (sesi_pelatihans.tanggal_pendaftaran,"%d-%m-%Y"), " - ", DATE_FORMAT (sesi_pelatihans.tanggal_tutup,"%d-%m-%Y")) AS pendaftaran'))
+        ->groupBy('B.nama','K.nama','S.nama','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas','pendaftaran')
+        ->get();
+        return view('sesipelatihan.index', compact('data','data2','user'));
     }
 
     /**

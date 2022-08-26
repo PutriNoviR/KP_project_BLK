@@ -1,41 +1,145 @@
-@extends('layouts.adminlte')
+@extends('layouts.app')
 
-@section('title')
-Perusahaan
+@section('javascript')
+<script>
+    $(function () {
+        $('#perusahaan').hide();
+
+        $('#tombolnext').click(function () {
+            $('#user').hide();
+            $('#perusahaan').show();
+        });
+    });
+
+</script>
 @endsection
 
-@section('page-bar')
-<div class="col-sm-6">
-    <h1 class="m-0 text-dark">Dashboard</h1>
-</div><!-- /.col -->
-<div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Perusahaan</li>
-    </ol>
-</div><!-- /.col -->
-@endsection
+@section('content')
+<div class="container">
+    @if(count($errors) > 0)
+    @foreach($errors->all() as $error)
+    <div class="alert alert-danger">
+        <li>{{$error}}</li>
+    </div>
+    @endforeach
+    @endif
 
-@section('contents')
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
-    <div class="col-md-8">
-        <div class="card-register">
-            <div class="card-header">
-                <h4>Profil Perusahaan</h4>
-            </div>
-            @if (\Session::has('success'))
-            <div class="alert alert-success">
-                <ul>
-                    <li>{!! \Session::get('success') !!}</li>
-                </ul>
-            </div>
-            @endif
+        <div class="col-md-8">
+            <div class="card-register">
+                <div class="card-header">
+                    <h4>Daftar Perusahaan</h4>
+                </div>
 
-            <div class="card-body">
-                <form method="POST" enctype="multipart/form-data" action="{{ route('perusahaan.store') }}">
-                    @csrf
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('perusahaan.store') }}">
+                        @csrf
+                        <div id="user"></div>
+                        <div class="form-group">
+                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
 
+                            <div class="col-md-12">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label for="firstname" class="col-md-12 col-form-label">Nama Depan</label>
+
+                                    <div class="col-md-12">
+                                        <input id="firstname" type="text"
+                                            class="form-control @error('firstname') is-invalid @enderror"
+                                            name="firstname" value="{{ old('firstname') }}" required
+                                            autocomplete="firstname">
+
+                                        @error('firstname')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="lastname" class="col-md-12 col-form-label">Nama Belakang</label>
+
+                                    <div class="col-md-12">
+                                        <input id="lastname" type="text"
+                                            class="form-control @error('lastname') is-invalid @enderror" name="lastname"
+                                            value="{{ old('lastname') }}" required autocomplete="lastname">
+
+                                        @error('lastname')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-md-12 col-form-label">{{ __('Username') }}</label>
+
+                            <div class="col-md-12">
+                                <input id="username" type="text"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    value="{{ old('username') }}" required autocomplete="username" autofocus>
+
+                                @error('username')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
+
+                            <div class="col-md-12">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="new-password">
+
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm"
+                                class="col-md-12 col-form-label">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-12">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="peran" value="adminperusahaan">
+                        <div class="form-group">
+                            <div class="col-md-12 offset-manual">
+                                <button type="button" id="tombolnext" class="btn btn-primary">
+                                    {{ __('Selanjutnya') }}
+                                </button>
+                            </div>
+                        </div>
+                </div>
+                <div id="perusahaan">
                     <div class="form-group">
                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Perusahaan') }}</label>
 
@@ -100,8 +204,9 @@ Perusahaan
                         <label for="nomorTelp" class="col-md-12 col-form-label">{{ __('Nomor Telepon') }}</label>
 
                         <div class="col-md-12">
-                            <input id="nomorTelp" type="text" class="form-control @error('nomorTelp') is-invalid @enderror"
-                                name="no_telp" value="{{ old('nomorTelp') }}" required autocomplete="nomorTelp" autofocus>
+                            <input id="nomorTelp" type="text"
+                                class="form-control @error('nomorTelp') is-invalid @enderror" name="no_telp"
+                                value="{{ old('nomorTelp') }}" required autocomplete="nomorTelp" autofocus>
 
                             @error('nomorTelp')
                             <span class="invalid-feedback" role="alert">
@@ -127,7 +232,8 @@ Perusahaan
                     </div>
 
                     <div class="form-group">
-                        <label for="tentangPerusahaan" class="col-md-12 col-form-label">{{ __('Tentang Perusahaan') }}</label>
+                        <label for="tentangPerusahaan"
+                            class="col-md-12 col-form-label">{{ __('Tentang Perusahaan') }}</label>
 
                         <div class="col-md-12">
                             <textarea name="tentang_perusahaan" class="form-control" rows="3" required></textarea>
@@ -148,25 +254,25 @@ Perusahaan
 
                         <div class="form-group">
                             <label class="col-md-12" for="pas_foto">Logo Perusahaan</label>
-                            
+
                             <input type="file" name='logo' class="col-md-12 defaults" required>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-12" for="foto">Foto Perusahaan</label>
-                            
+
                             <input type="file" name='images' class="col-md-12 defaults" required>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-12" for="siup">SIUP</label>
-                            
+
                             <input type="file" name='siup' class="col-md-12 defaults" required>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-12" for="npwp">NPWP</label>
-                            
+
                             <input type="file" name='npwp' class="col-md-12 defaults" required>
                         </div>
                     </div>
@@ -179,8 +285,12 @@ Perusahaan
                             <br>
                         </div>
                     </div>
+                </div>
+
                 </form>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+</div>
+@endsection

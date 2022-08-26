@@ -147,33 +147,37 @@ class MenuManajemenController extends Controller
     }
 
     public function menuRole(Request $request){
-        // dd($request->menu);
-        $role= MenuManajemen::insertMenuRole($request->role_user, $request->menu);
-        // dd($role);
-        return redirect()->back()->with('status','Setting menu berhasil ditambahkan');
+        try{
+          
+            MenuManajemen::insertMenuRole($request->role_user, $request->menu);
+
+            return redirect()->back()->with('status','Setting menu berhasil ditambahkan');
+        }
+       catch(\Exception  $e){
+            return redirect()->back()->with('error','Data sudah ada gagal terisi!');
+       }
     }
 
-    
     public function getDataMenu(Request $request){
         $idrole =$request->id;
-      
+  
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
                     ->select('mm.id')
-                    ->where('roles_id', $idrole)
+                    ->where('mmhs.roles_id',$idrole)
                     ->where('mm.status','Aktif')
-                    ->get();
+                    ->get()->toArray();
         
-        $arr_data = [];
-
+       $arr_data = [];
+        
         foreach($menu_role as $m){
             array_push($arr_data, $m->id);
         }
 
         return response()->json(array(
-            'status'=>'oke',
-            // 'msg'=>'success'
+            'status'=>'oke',    
             'msg'=>$arr_data
         ),200);
     }
+  
 }

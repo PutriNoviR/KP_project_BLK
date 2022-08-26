@@ -8,6 +8,7 @@ use App\Blk;
 use App\Kejuruan;
 use App\Subkejuruan;
 use App\PaketProgram;
+use App\SesiPelatihan;
 use Dotenv\Result\Success;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -60,6 +61,10 @@ class PaketProgramPelatihanController extends Controller
 
         $paketProgram->save();
         return redirect()->back()->with('success', 'Data paket program berhasil ditambahkan!');
+
+        // $sesi = new SesiPelatihan();
+        // $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
+
     }
 
     /**

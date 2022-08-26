@@ -99,46 +99,84 @@ PELATIHAN
                 <th>BLK</th>
                 <th>Kejuruan</th>
                 <th>Sub Kejuruan</th>
-                <th>Tanggal Buka Pendaftaran</th>
-                <th>Tanggal Tutup Pendaftaran</th>
+                <th>Periode Pendaftaran</th>
                 <th>Lokasi</th>
                 <th>Kuota</th>
                 <th>Tanggal Seleksi</th>
                 <th>Aktivitas</th>
-
                 <th>Aksi</th>
+                <th>Verifikator</th>
             </tr>
         </thead>
         <tbody id="myTable">
             @foreach($data as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $d->paketprogram->blk->nama }}</td>
-                <td>{{ $d->paketprogram->kejuruan->nama }}</td>
-                <td>{{ $d->paketprogram->subk->nama }}</td>
-                <td>{{ $d->tanggal_pendaftaran }}</td>
-                <td>{{ $d->tanggal_tutup }}</td>
+                <td>{{ $d->blk }}</td>
+                <td>{{ $d->kejuruan }}</td>
+                <td>{{ $d->subkejuruan }}</td>
+                <td>{{ $d->pendaftaran }}</td>
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
                 <td>{{ $d->tanggal_seleksi }}</td>
                 <td>{{ $d->aktivitas }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditBlk" class='btn btn-warning'
-                        onclick="modalEdit({{$d->id}})">
+                    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'>
+                        Tambah Instruktur
+                    </a>
+                    <a data-toggle="modal" data-target="" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('blk.destroy',$d->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"
-                            href="{{route('blk.show',$d->id)}}" data-toggle="modal"><i
-                                class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
+                                class="fas fa-trash"></i>
+                        </button>
                     </form>
-                </td>
+
             </tr>
             @endforeach
         </tbody>
     </table>
+</div>
+
+
+{{-- Modal tambah Instruktur --}}
+
+<div class="modal fade" id="modalTambahInstruktur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Email Instruktur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <form method="POST" action="">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Instruktur') }}</label>
+                            <div class="col-md-12">
+                                <select class="form-control" aria-label="Default select example" name="blks_id">
+                                    <option selected>Nama Instruktur</option>
+                                    @foreach($user as $d)
+                                    <option value="{{$d->email}}">{{$d->username}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

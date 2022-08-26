@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,22 +23,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {       
-        $data = $request->session()->get('kelengkapanData');
-       
-        return view('welcome', compact('data'));
-       
+        return view('welcome');
     }
 
-    // public function dashboardPage (Request $request)
-    // {
-    //     $user = $request->user();
-    //     if ($user->hasRole('Admin'))
-    //     {
-    //         return redirect('/admin');
-    //     }
-    //     else if ($user->hasRole('Peserta'))
-    //     {
-    //         return redirect('/');
-    //     }
-    // }
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
 }

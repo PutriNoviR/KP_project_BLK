@@ -210,7 +210,7 @@
                                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                                 <li class="nav-item has-treeview">
-                                    <a href="http://127.0.0.1:8000" class="nav-link ">
+                                    <a href="http://127.0.0.1:8000/dashboard" class="nav-link ">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Dashboard
