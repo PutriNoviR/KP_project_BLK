@@ -54,6 +54,9 @@ Route::get('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.has
 Route::get('riwayat/tes/peserta', 'TesTahapAwalController@riwayatTes')->name('riwayat_tes.user');
 Route::get('riwayat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal')->name('riwayat_tes_global.user');
 
+//import
+Route::get('importView','ImportController@importView');
+Route::post('import','ImportController@import')->name('import');
 
 
 Route::get('/helloworld', function () {

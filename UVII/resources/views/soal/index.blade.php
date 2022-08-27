@@ -60,7 +60,7 @@
 <h4 class="text-center">List Soal</h4>
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
-<a class='btn btn-info'> Import Soal </a><br><br>
+<a href="#modalImport" data-toggle='modal' class='btn btn-info'> Import Soal </a><br><br>
 
 
 <div class="portlet">
@@ -285,5 +285,21 @@
       </div>
     </div>
   </div>
+  {{-- Import--}}
+<div class="modal fade" id="modalImport" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Import Soal</h4>  
+        </div>
+        <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file" class="form-control">
+                <br>
+            <button class="btn btn-success">Import Soal</button>
+        </form>
+</div>
+</div>
+</div>
 
 @endsection
