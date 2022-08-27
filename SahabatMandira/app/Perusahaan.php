@@ -8,14 +8,14 @@ class Perusahaan extends Model
 {
     //
     public $connection = "mandira";
-    public function User()
-    {
-        return $this->hasMany('App\User','verified_by','id');
-    }
+    // public function User()
+    // {
+    //     return $this->hasMany('App\User','verified_by','id');
+    // }
 
     public function Lowongan()
     {
-        return $this->belongsTo('App\Lowongan','perusahaans_id');
+        return $this->hasMany('App\Lowongan','perusahaans_id');
     }
 
     public static function ListKerja()

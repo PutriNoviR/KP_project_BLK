@@ -1,12 +1,12 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="modalEditBlk">EDIT STATUS PESERTA</h5>
+        <h5 class="modal-title" id="modalEditPelatihanPeserta">EDIT STATUS PESERTA</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <form method="post" action="{{ route('blk.update',$blk->id) }}">
+        <form method="post" action="">
             @csrf
             @method('PUT')
 
@@ -21,7 +21,8 @@
                         <option value="ditolak">Ditolak</option>
                         <option value="sedang proses pelatihan">Sedang Proses Pelatihan</option>
                         <option value="lulus pelatihan">Lulus Pelatihan</option>
-                        <option value="direkomendasi untuk uji kompetensi">Direkomendasikan Untuk Uji Kompetensi</option>
+                        <option value="direkomendasi untuk uji kompetensi">Direkomendasikan Untuk Uji Kompetensi
+                        </option>
                     </select>
 
                     @error('nama')
@@ -35,7 +36,8 @@
             <div class="form-group">
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Rekomendasi catatan') }}</label>
                 <div class="col-md-12">
-                    <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                    <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama"
+                        value="" required autocomplete="nama" autofocus>
 
                     @error('nama')
                     <span class="invalid-feedback" role="alert">
@@ -46,11 +48,12 @@
             </div>
 
 
-            <div class="form-group">
+            <div class=" form-group">
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Rekomendasi Nilai TPA') }}</label>
 
                 <div class="col-md-12">
-                    <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                    <input id="nama" type="nama" class="form-control @error('email') is-invalid @enderror" name="nama"
+                        value="{{ old('nama') }}" required autocomplete="nama" autofocus>
 
                     @error('nama')
                     <span class="invalid-feedback" role="alert">
@@ -104,3 +107,4 @@
             <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
     </div>
+</div>

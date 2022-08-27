@@ -65,33 +65,41 @@ Bursa Kerja
 </div>
 </div>
 
-<div class="card-deck">
-    @foreach($data as $d)
-    <div class="card">
-        <img src="gambar4.jpg" class="card-img-top">
-        <div class="card-body">
-            <h5 class="card-title">{{$d->posisi}}</h5>
-            <p class="card-text">{{$d->nama}}</p>
-            <p class="card-text"><small class="text-muted">{{$d->tanggal_pemasangan}}</small></p>
-            <div class="form-group mb-0 rata_tengah">
-                <div class="col-md-12 offset-manual text-right">
-                    <a data-toggle="modal" data-target="#modalDetailKerja" class='btn btn-primary'>Detail</a>
-                    <br>
-                </div>
-            </div>
-        </div>
-        {{--<a data-toggle="modal" data-target="#modalDetailKerja" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
-        <i class="fas fa-pen"></i></a>--}}
-    </div>
-    @endforeach
+@if(Auth::user()->role->nama_role == 'peserta')
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">BURSA KERJA</h1><br>
+    <h5>Bursa kerja untuk para pencari kerja</h5>
 </div>
 
-<div class="form-group mb-0 rata_tengah">
-    <div class="col-md-12 offset-manual text-right">
-        <label for="daftar" class="col-md-12 col-form-label">{{ __('Daftar sebagai perusahaan!') }}</label>
-        <a href="{{url('menu/perusahaan/create')}}" class="button btn btn-primary">{{ __('DAFTAR') }}</a>
+<div class="col-sm-3 float-left">
+    <div class="card card-primary ">
+        <div class="card-header">
+            <h3 class="card-title">Nama Perusahaan</h3>
+        </div>
+        <div class="card-body">
+            <h1>LOGO</h1>
+        </div>
+        <div class="card-body">
+            <h5>Posisi</h5>
+        </div>
+        <div class="card-body">
+            <small>Tanggal Pemasangan</small>
+        </div>
+        <div class="card-footer">
+            <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
+                detail
+            </a>
+        </div>
     </div>
 </div>
+@endif
+
+{{--<div class="form-group mb-0 rata_tengah">
+    <div class="col-md-12 offset-manual text-right">
+        <label for="daftar" class="col-md-12 col-form-label">{{ __('Daftar sebagai perusahaan!') }}</label>
+<a href="{{url('menu/perusahaan/create')}}" class="button btn btn-primary">{{ __('DAFTAR') }}</a>
+</div>
+</div>--}}
 
 
 @endsection

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\SesiPelatihan;
+use App\PelatihanPeserta;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,20 +19,31 @@ class SesiPelatihanController extends Controller
     public function index()
     {
         //
-        $data2 = SesiPelatihan::all();
+        $data = SesiPelatihan::all();
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator' )
         ->get();
         // dd($data);
-        $data = SesiPelatihan::join('masterblk_db.paket_program as P', 'sesi_pelatihans.paket_program_id', '=', 'P.id')
-        ->join('masterblk_db.blks as B', 'P.blks_id', '=', 'B.id')
-        ->join('masterblk_db.kejuruans AS K', 'P.kejuruans_id', '=', 'K.id')
-        ->join('masterblk_db.sub_kejuruans AS S', 'P.sub_kejuruans_id', '=', 'S.id')
-        ->select('B.nama as blk','K.nama as kejuruan','S.nama as subkejuruan','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas',
-                DB::raw('CONCAT( DATE_FORMAT(sesi_pelatihans.tanggal_pendaftaran,"%d-%m-%Y"), " - ", DATE_FORMAT(sesi_pelatihans.tanggal_tutup,"%d-%m-%Y")) AS pendaftaran'))
-        ->groupBy('B.nama','K.nama','S.nama','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas','pendaftaran')
+        // $data = SesiPelatihan::join('masterblk_db.paket_program as P', 'sesi_pelatihans.paket_program_id', '=', 'P.id')
+        // ->join('masterblk_db.blks as B', 'P.blks_id', '=', 'B.id')
+        // ->join('masterblk_db.kejuruans AS K', 'P.kejuruans_id', '=', 'K.id')
+        // ->join('masterblk_db.sub_kejuruans AS S', 'P.sub_kejuruans_id', '=', 'S.id')
+        // ->select('B.nama as blk','K.nama as kejuruan','S.nama as subkejuruan','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas',
+        //         DB::raw('CONCAT( DATE_FORMAT(sesi_pelatihans.tanggal_pendaftaran,"%d-%m-%Y"), " - ", DATE_FORMAT(sesi_pelatihans.tanggal_tutup,"%d-%m-%Y")) AS pendaftaran'))
+        // ->groupBy('B.nama','K.nama','S.nama','sesi_pelatihans.lokasi','sesi_pelatihans.kuota','sesi_pelatihans.tanggal_seleksi','sesi_pelatihans.aktivitas','pendaftaran')
+        // ->get();
+
+        $userLogin = auth()->user()->email;
+
+        $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+        ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
         ->get();
-        return view('sesipelatihan.index', compact('data','data2','user'));
+
+        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+        ->WHERE('P.mentors_email', '=', $userLogin )
+        ->get();
+
+        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta'));
     }
 
     /**
@@ -74,10 +87,13 @@ class SesiPelatihanController extends Controller
      * @param  \App\SesiPelatihan  $sesiPelatihan
      * @return \Illuminate\Http\Response
      */
-    public function show(SesiPelatihan $sesiPelatihan)
+    public function show($id)
     {
         //
-        return view('',compact('sesiPelatihan'));
+        $data = SesiPelatihan::all();
+        // $datas = $data->paketprogram;
+        // dd($data);
+        return view('sesipelatihan.detailPelatihan',compact('data'));
     }
 
     /**
@@ -144,4 +160,22 @@ class SesiPelatihanController extends Controller
     //     ->get();
     //     return view('',compact('ditawarkan','disarankan'));
     // }
+
+    public function getDetailPeserta(Request $request)
+    {
+        $sesi = SesiPelatihan::all()->where($request->id);
+        // dd($sesi);
+        // $lokasi = $sesi->;
+        // $lokasi = $sesi->lokasi;
+        return response()->json(array(
+            'status'=>'oke',
+            'data'=> $sesi
+        ), 200);
+    }
+
+    public function pelatihanYangDiikuti(){
+
+        $data = SesiPelatihan::all();
+        return view('sesipelatihan.detailPelatihanYangDibuka',compact('data'));
+    }
 }

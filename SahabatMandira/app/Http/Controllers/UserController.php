@@ -50,6 +50,17 @@ class UserController extends Controller
         $User->password = bcrypt($request->password);
         $User->countries_id = $request->countries_id;
         $User->roles_id = $request->roles_id;
+        $User->jenis_identitas = $request->jenis_identitas;
+        $User->pas_foto = $request->pas_foto;
+        $User->nomor_identitas = $request->nomor_identitas;
+        $User->nomer_hp = $request->nomer_hp;
+        $User->kota = $request->kota;
+        $User->alamat = $request->alamat;
+        $User->ktp = $request->ktp;
+        $User->ksk = $request->ksk;
+        $User->ijazah = $request->ijazah;
+        $User->jenis_kelamin = $request->jenis_kelamin;
+        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->save();
         return view();
     }
@@ -88,13 +99,17 @@ class UserController extends Controller
     public function update(Request $request, User $User)
     {
         //
-        $User->email = $request->email;
-        $User->nama_depan = $request->nama_depan;
-        $User->nama_belakang = $request->nama_belakang;
-        $User->username = $request->username;
-        $User->password = bcrypt($request->password);
-        $User->countries_id = $request->countries_id;
-        $User->roles_id = $request->roles_id;
+        $User->jenis_identitas = $request->jenis_identitas;
+        $User->pas_foto = $request->pas_foto;
+        $User->nomor_identitas = $request->nomor_identitas;
+        $User->nomer_hp = $request->nomer_hp;
+        $User->kota = $request->kota;
+        $User->alamat = $request->alamat;
+        $User->ktp = $request->ktp;
+        $User->ksk = $request->ksk;
+        $User->ijazah = $request->ijazah;
+        $User->jenis_kelamin = $request->jenis_kelamin;
+        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->save();
         return view();
     }

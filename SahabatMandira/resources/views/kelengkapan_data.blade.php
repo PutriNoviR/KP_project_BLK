@@ -1,17 +1,17 @@
 @extends('layouts.index')
 
 @section('title')
-    Dashboard
+Dashboard
 @endsection
 
 @section('page-bar')
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="http://127.0.0.1:8000/">Dashboard</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-    </ul>
+<ul class="page-breadcrumb">
+    <li>
+        <i class="fa fa-home"></i>
+        <a href="http://127.0.0.1:8000/">Dashboard</a>
+        <i class="fa fa-angle-right"></i>
+    </li>
+</ul>
 @endsection
 
 @section('contents')
@@ -28,25 +28,25 @@
             <div class="form-body">
                 <div class="form-group">
                     <label for="pas_foto">Pas Foto</label>
-                    
+
                     <input type="file" name='pas_foto' class="defaults" value="{{ $data->pas_foto ?? ''}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="ktp">Dokumen KTP</label>
-                    
+
                     <input type="file" name='no_ktp' class="defaults" value="{{ $data->ktp ?? ''}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="ksk">Dokumen KSK</label>
-                    
-                    <input type="file" name='ksk' class="defaults" value="{{ $data->ksk ?? ''}}" required> 
+
+                    <input type="file" name='ksk' class="defaults" value="{{ $data->ksk ?? ''}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="ijazah">Dokumen Ijazah</label>
-                    
+
                     <input type="file" name='ijazah' class="defaults" value="{{ $data->ijazah ?? ''}}" required>
                 </div>
 
@@ -65,9 +65,9 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-        
+
         </form>
     </div>
 

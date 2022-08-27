@@ -124,7 +124,7 @@ Perusahaan
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="{{ route('perusahaan.destroy',$d->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                        onsubmit="return submitDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
 

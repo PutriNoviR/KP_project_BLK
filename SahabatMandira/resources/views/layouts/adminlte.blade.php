@@ -193,7 +193,7 @@
                     <!-- Sidebar -->
                     <div class="sidebar">
                         <!-- Sidebar user panel (optional) -->
-                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class=" user-panel mt-3 pb-3 mb-3 d-flex">
                             <div class="image">
                                 <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg')}}"
                                     class="img-circle elevation-2" alt="User Image">
@@ -221,10 +221,12 @@
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
-                                            Pelatihan (Admin BLK)
+                                            Pelatihan
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
+                                    @if(Auth::user()->role->nama_role == 'verifikator' || Auth::user()->role->nama_role
+                                    == 'superadmin' || Auth::user()->role->nama_role == 'admin')
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
@@ -233,12 +235,23 @@
                                             </a>
                                         </li>
                                     </ul>
+                                    @endif
+                                    @if(Auth::user()->role->nama_role == 'peserta')
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{url('sesiPelatihan/pelatihanYangDiikuti')}}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Pelatihan Yang Pernah Diikuti</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    @endif
                                 </li>
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
-                                            Bursa Kerja (Admin BLK)
+                                            Bursa Kerja
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>

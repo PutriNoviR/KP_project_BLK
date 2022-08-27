@@ -62,7 +62,7 @@ Route::middleware('super.admin')->group(function(){
 Route::resource('menu/peserta','PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
 Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('pengguna.data.pribadi');
-Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
+Route::post('/kelengkapandokumen', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
 
 //CRUD
 Route::resource('soal', "PertanyaanController");
@@ -76,6 +76,7 @@ Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
+Route::post('menu/lowongan/getEdit','Bursa\LowonganController@getEdit')->name('lowongan.getEdit');
 
 //List Kerja
 Route::resource('menu/bursa/listKerja','Bursa\ListKerjaController');
@@ -87,14 +88,28 @@ route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSu
 
 //Sesi Pelatihan
 Route::resource('/sesiPelatihan','sesiPelatihanController');
+Route::post('sesiPelatihan/getDetail','sesiPelatihanController@getDetailPeserta')->name('sesiPelatihan.getDetailPeserta');
+Route::get('sesiPelatihan/{id}','sesiPelatihanController@show')->name('sesiPelatihan.detail');
+Route::get('sesiPelatihan/pelatihanYangDiikuti','sesiPelatihanController@pelatihanYangDiikuti')->name('sesiPelatihan.peserta');
 
 //User
 Route::resource('menu/User','UserController');
 Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
+Route::post('User/{id}','UserController@update')->name('User.update');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
 });
+
+//PelatihanMentors
+Route::resource('/pelatihanMentors','PelatihanMentorController');
+
+//PelatihanPeserta
+Route::resource('/pelatihanPesertas','PelatihanPesertaController');
+Route::get('pelatihanPeserta/lengkapiBerkas','PelatihanPesertaController@lengkapiBerkas')->name('pelatihanPeserta.lengkapiBerkas');
+Route::get('pelatihanPeserta/pendaftaran','PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
+Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
+Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 
 Route::view('/selamatdatang','welcome');
 

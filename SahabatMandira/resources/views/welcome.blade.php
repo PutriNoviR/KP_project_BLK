@@ -13,6 +13,7 @@
         <a href="{{ route('register') }}">Daftar Peserta</a>
         <a href="{{ route('register') }}">Daftar Mentor</a>
         <a href="{{ route('perusahaan.create') }}">Daftar Perusahaan</a>
+        <a href="{{ route('login') }}">Login</a>
     </div>
 </body>
 
