@@ -11,7 +11,7 @@ class SesiPelatihan extends Model
 
     public function paketprogram()
     {
-        return $this->belongsTo('App\PaketProgram','paket_program_id','id');
+        return $this->setConnection('mysql')->belongsTo('App\PaketProgram','paket_program_id','id');
     }
 
     public function statuspelatihanpeserta()

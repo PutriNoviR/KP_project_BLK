@@ -18,7 +18,9 @@ class SesiPelatihanController extends Controller
     {
         //
         $data2 = SesiPelatihan::all();
-        $user = User::all()->where('roles_id', '=', '4');
+        $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
+        ->WHERE('R.nama_role', '=', 'verifikator' )
+        ->get();
         // dd($data);
         $data = SesiPelatihan::join('masterblk_db.paket_program as P', 'sesi_pelatihans.paket_program_id', '=', 'P.id')
         ->join('masterblk_db.blks as B', 'P.blks_id', '=', 'B.id')
@@ -133,13 +135,13 @@ class SesiPelatihanController extends Controller
         }
     }
 
-    public function paketProgramPeserta()
-    {
-        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup >= CURDATE()');
+    // public function paketProgramPeserta()
+    // {
+    //     $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup >= CURDATE()');
 
-        $disarankan = SesiPelatihan::join('pelatihan_pesertas as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-        ->WHERE('P.is_sesuai_minat', '=', '1' )
-        ->get();
-        return view('',compact('ditawarkan','disarankan'));
-    }
+    //     $disarankan = SesiPelatihan::join('status_pelatihan_pesertas as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+    //     ->WHERE('P.is_sesuai_minat', '=', '1' )
+    //     ->get();
+    //     return view('',compact('ditawarkan','disarankan'));
+    // }
 }

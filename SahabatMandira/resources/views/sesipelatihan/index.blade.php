@@ -109,13 +109,13 @@ PELATIHAN
             </tr>
         </thead>
         <tbody id="myTable">
-            @foreach($data as $d)
+            @foreach($data2 as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $d->blk }}</td>
-                <td>{{ $d->kejuruan }}</td>
-                <td>{{ $d->subkejuruan }}</td>
-                <td>{{ $d->pendaftaran }}</td>
+                <td>{{ $d->paketprogram->blk->nama }}</td>
+                <td>{{ $d->paketprogram->kejuruan->nama }}</td>
+                <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
+                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} - {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}</td>
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
                 <td>{{ $d->tanggal_seleksi }}</td>
