@@ -99,6 +99,7 @@ class UserController extends Controller
     public function update(Request $request, User $User)
     {
         //
+        dd($User);
         $User->jenis_identitas = $request->jenis_identitas;
         $User->pas_foto = $request->pas_foto;
         $User->nomor_identitas = $request->nomor_identitas;
