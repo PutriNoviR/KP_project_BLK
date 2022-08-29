@@ -5,7 +5,6 @@ PELATIHAN
 @endsection
 
 @section('contents')
-@if(Auth::user()->role->nama_role == 'peserta')
 <div class="col-sm-6">
     <h2 class="m-0 text-dark">Detail Pelatihan</h2><br>
 </div>
@@ -40,5 +39,4 @@ PELATIHAN
     </div>
 </div>
 @endforeach
-@endif
 @endsection

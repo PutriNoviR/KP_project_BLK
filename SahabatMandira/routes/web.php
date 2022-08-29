@@ -110,6 +110,8 @@ Route::get('pelatihanPeserta/lengkapiBerkas','PelatihanPesertaController@lengkap
 Route::get('pelatihanPeserta/pendaftaran','PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
 Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
+Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
+Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updatePermanen')->name('pelatihanPesertas.updatePermanen');
 
 Route::view('/selamatdatang','welcome');
 

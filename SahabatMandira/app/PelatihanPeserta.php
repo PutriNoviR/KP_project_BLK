@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class PelatihanPeserta extends Model
 {
@@ -20,6 +21,14 @@ class PelatihanPeserta extends Model
     {
         return $this->belongsTo('App\SesiPelatihan','sesi_pelatihans_id','id');
     }
+
+    protected $primaryKey = ['sesi_pelatihans_id','email_peserta'];
+
+    // protected function setKeysForSaveQuery(Builder $query)
+    // {
+    //     return $query->where('sesi_pelatihans_id', $this->getAttribute('sesi_pelatihans_id'))
+    //         ->where('email_peserta', $this->getAttribute('email_peserta'));
+    // }
 
     public $timestamps = false;
 }

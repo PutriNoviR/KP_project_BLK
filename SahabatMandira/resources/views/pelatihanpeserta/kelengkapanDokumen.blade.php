@@ -13,8 +13,8 @@ Pelatihan Peserta
     </div>
 
     <div class="portlet-body form">
-
-        <form role='form' method="POST" enctype="multipart/form-data" action="{{url('user/'.$data->email)}}">
+        @foreach($data as $d )
+        <form role='form' method="POST" enctype="multipart/form-data" action="{{url('user/'.$d->email)}}">
             @csrf
             <div class="form-body">
                 <div class="form-group">
@@ -115,6 +115,7 @@ Pelatihan Peserta
                 </div>
             </div>
         </form>
+        @endforeach
     </div>
 
 </div>

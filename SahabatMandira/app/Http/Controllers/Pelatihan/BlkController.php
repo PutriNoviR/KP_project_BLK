@@ -85,6 +85,8 @@ class BlkController extends Controller
     public function update(Request $request, Blk $blk)
     {
         //
+        
+        // dd($blk);
         $blk->nama = $request->nama;
         $blk->alamat = $request->alamat;
         $blk->website_portfolio = $request->website_portfolio;

@@ -90,7 +90,9 @@ class SesiPelatihanController extends Controller
     public function show($id)
     {
         //
-        $data = SesiPelatihan::all();
+        // return $id;
+        $data = SesiPelatihan::where('id','=',$id)
+        ->get();
         // $datas = $data->paketprogram;
         // dd($data);
         return view('sesipelatihan.detailPelatihan',compact('data'));
@@ -150,16 +152,6 @@ class SesiPelatihanController extends Controller
             return redirect()->route('')->with('error',$msg);
         }
     }
-
-    // public function paketProgramPeserta()
-    // {
-    //     $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup >= CURDATE()');
-
-    //     $disarankan = SesiPelatihan::join('status_pelatihan_pesertas as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-    //     ->WHERE('P.is_sesuai_minat', '=', '1' )
-    //     ->get();
-    //     return view('',compact('ditawarkan','disarankan'));
-    // }
 
     public function getDetailPeserta(Request $request)
     {
