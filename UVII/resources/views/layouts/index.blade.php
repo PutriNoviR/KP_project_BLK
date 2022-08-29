@@ -148,7 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				@endphp
 				@foreach($menu as $m)
 				<li>
-					<a href="{{route($m->url)}}">
+					<a href="{{route($m->url)}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'>
 					
 					<i class='@php echo $arr_icon[$m->nama] @endphp'></i>
 					<span class="title">{{$m->nama}}</span>

@@ -31,7 +31,7 @@
         </li>
 
         <li>
-            <a href="{{role.index}}">Role</a>
+            <a href="{{route('role.index')}}">Role</a>
             <i class="fa fa-angle-right"></i>
         </li> 
     </ul>
