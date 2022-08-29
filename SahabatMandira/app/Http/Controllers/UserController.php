@@ -187,4 +187,11 @@ class UserController extends Controller
             'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render() 
         ), 200);
     }
+
+    public function kelengkapanDokumen(Request $request){
+        $user = new User();
+        $user->nomor_identitas=$request->jenis_identitas;
+        $user->nomor_identitas=$request->nomorIdentitas;
+
+    }
 }

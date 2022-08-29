@@ -4,16 +4,189 @@
 Bursa Kerja
 @endsection
 
-@section('page-bar')
-<div class="col-sm-6">
-    <h1 class="m-0 text-dark">Dashboard</h1>
-</div><!-- /.col -->
-<div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Bursa Kerja</li>
-    </ol>
-</div><!-- /.col -->
+@section('style')
+<style>
+    @media (min-width: 768px) and (max-width: 991px) {
+
+        /* Show 4th slide on md if col-md-4*/
+        .carousel-inner .active.col-md-4.carousel-item+.carousel-item+.carousel-item+.carousel-item {
+            position: absolute;
+            top: 0;
+            right: -33.3333%;
+            /*change this with javascript in the future*/
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 768px) {
+
+        /* Show 3rd slide on sm if col-sm-6*/
+        .carousel-inner .active.col-sm-6.carousel-item+.carousel-item+.carousel-item {
+            position: absolute;
+            top: 0;
+            right: -50%;
+            /*change this with javascript in the future*/
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+    }
+
+    @media (min-width: 576px) {
+        .carousel-item {
+            margin-right: 0;
+        }
+
+        /* show 2 items */
+        .carousel-inner .active+.carousel-item {
+            display: block;
+        }
+
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item {
+            transition: none;
+        }
+
+        .carousel-inner .carousel-item-next {
+            position: relative;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* left or forward direction */
+        .active.carousel-item-left+.carousel-item-next.carousel-item-left,
+        .carousel-item-next.carousel-item-left+.carousel-item,
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+
+        /* farthest right hidden item must be also positioned for animations */
+        .carousel-inner .carousel-item-prev.carousel-item-right {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+
+        /* right or prev direction */
+        .active.carousel-item-right+.carousel-item-prev.carousel-item-right,
+        .carousel-item-prev.carousel-item-right+.carousel-item,
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+            display: block;
+            visibility: visible;
+        }
+    }
+
+    /* MD */
+    @media (min-width: 768px) {
+
+        /* show 3rd of 3 item slide */
+        .carousel-inner .active+.carousel-item+.carousel-item {
+            display: block;
+        }
+
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item {
+            transition: none;
+        }
+
+        .carousel-inner .carousel-item-next {
+            position: relative;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* left or forward direction */
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+
+        /* right or prev direction */
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+            display: block;
+            visibility: visible;
+        }
+    }
+
+    /* LG */
+    @media (min-width: 991px) {
+
+        /* show 4th item */
+        .carousel-inner .active+.carousel-item+.carousel-item+.carousel-item {
+            display: block;
+        }
+
+        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item+.carousel-item {
+            transition: none;
+        }
+
+        /* Show 5th slide on lg if col-lg-3 */
+        .carousel-inner .active.col-lg-3.carousel-item+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
+            position: absolute;
+            top: 0;
+            right: -25%;
+            /*change this with javascript in the future*/
+            z-index: -1;
+            display: block;
+            visibility: visible;
+        }
+
+        /* left or forward direction */
+        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+
+        /* right or prev direction //t - previous slide direction last item animation fix */
+        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
+            position: relative;
+            transform: translate3d(100%, 0, 0);
+            visibility: visible;
+            display: block;
+            visibility: visible;
+        }
+    }
+
+</style>
+@endsection
+
+@section('javascript')
+<script>
+    $('#carousel-example').on('slide.bs.carousel', function (e) {
+        /*
+            CC 2.0 License Iatek LLC 2018 - Attribution required
+        */
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 5;
+        var totalItems = $('.carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                } else {
+                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        }
+    });
+
+</script>
 @endsection
 
 @section('contents')
@@ -27,42 +200,14 @@ Bursa Kerja
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="col-md-12 text-center">
-                        <img src="gambar4.jpg" class="col-md-12 card-img-top">
-                        <label for="nama" class="col-md-12 col-form-label">{{__('Nama Perusahaan')}}</label>
-                    </div>
+            <div class="form-group">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Daftar</button>
                 </div>
-
-                {{--<div class="form-group">
-                    @foreach($data_lowongan as $dl)
-                    <div class="col-md-12">
-                        <label for="label" class="col-md-12 col-form-label">{{__('Posisi')}}</label>
-                <p class="col-md-12">{{$dl->posisi}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Alamat')}}</label>
-                <p class="col-md-12">{{$dl->alamat}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Gaji')}}</label>
-                <p class="col-md-12">{{$dl->gaji}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Jam Kerja')}}</label>
-                <p class="col-md-12">{{$dl->jam_kerja}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Deskripsi Pekerjaan')}}</label>
-                <p class="col-md-12">{{$dl->deskripsi_kerja}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Profile Perusahaan')}}</label>
-                <p class="col-md-12">{{$dl->profile_perusahaan}}</p>
-            </div>
-            @endforeach
-        </div>--}}
-
-        <div class="form-group">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Daftar</button>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 
 @if(Auth::user()->role->nama_role == 'peserta')
@@ -71,16 +216,17 @@ Bursa Kerja
     <h5>Bursa kerja untuk para pencari kerja</h5>
 </div>
 
+@foreach ($data as $d)
 <div class="col-sm-3 float-left">
     <div class="card card-primary ">
         <div class="card-header">
-            <h3 class="card-title">Nama Perusahaan</h3>
+            <h3 class="card-title">{{ $d->nama}}</h3>
         </div>
         <div class="card-body">
-            <h1>LOGO</h1>
+            <h1><img src="{{ asset('$d->logo') }}" alt=""></h1>
         </div>
         <div class="card-body">
-            <h5>Posisi</h5>
+            <h5>{{ $d->posisi}}</h5>
         </div>
         <div class="card-body">
             <small>Tanggal Pemasangan</small>
@@ -92,14 +238,7 @@ Bursa Kerja
         </div>
     </div>
 </div>
+@endforeach
+
 @endif
-
-{{--<div class="form-group mb-0 rata_tengah">
-    <div class="col-md-12 offset-manual text-right">
-        <label for="daftar" class="col-md-12 col-form-label">{{ __('Daftar sebagai perusahaan!') }}</label>
-<a href="{{url('menu/perusahaan/create')}}" class="button btn btn-primary">{{ __('DAFTAR') }}</a>
-</div>
-</div>--}}
-
-
 @endsection

@@ -148,7 +148,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="">
+                        <a class="text-decoration-none text-dark" href="{{ route('register') }}">
                             <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/1.jpg')}}"
                                 alt="..." />
                             <h4>Pekerjaan</h4>
@@ -158,7 +158,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="">
+                        <a class="text-decoration-none text-dark" href="{{ route('registerMentor') }}">
                             <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/2.jpg')}}"
                                 alt="..." />
                             <h4>Mentor</h4>
@@ -193,7 +193,7 @@
                         meningkatkan kompetensi dengan dibimbing oleh Mentor yang berpengalaman dari Disnaker, Dunia
                         Akademis dan Industri."
                     </p>
-                    <button type="button" class="btn btn-info btn-lg mx-auto">Daftar Sekarang!</button>
+                    <a href="{{ route('register') }}" class="btn btn-info btn-lg mx-auto">Daftar Sekarang!</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('landingpage/assets/img/pelatihan.jpg')}}" class="rounded w-100" alt="...">

@@ -6,7 +6,7 @@ PELATIHAN
 
 @section('contents')
 <div class="col-sm-6">
-    <h2 class="m-0 text-dark">Detail Pelatihan</h2><br>
+    <h2 class="m-0 text-dark">Detail Program Pelatihan</h2><br>
 </div>
 @foreach($data as $d)
 <div class="col-sm-3">
@@ -33,10 +33,12 @@ PELATIHAN
             @if(Auth::user()->nomor_identitas == null)
             <a href="{{url('pelatihanPeserta/lengkapiBerkas')}}" class="button btn btn-warning">{{ __('DAFTAR')}}</a>
             @else
-            <form method="POST" action="{{ route('pelatihanPesertas.store',$d->id) }}">
+            <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
+                @csrf
                 <input type="hidden" name="status" class="col-md-12 col-form-label" value="terdaftar">
                 <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label"
                     value="{{ $d->tanggal_seleksi }}">
+
                 <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
             </form>
             @endif

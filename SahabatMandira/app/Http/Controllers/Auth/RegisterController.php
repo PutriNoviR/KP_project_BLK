@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +46,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('guest');
     }
 
@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'firstname' => ['required', 'string', 'max:250'],
             'lastname' => ['required', 'string', 'max:250'],
             'username' => ['required', 'string', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email:dns', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');
@@ -90,11 +90,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $role = Role::where('nama_role', $data['peran'])->first();
+        
+        $role = Role::where('nama_role', $data['role'])->first();
         // $role = Role::all();
         // dd($role);
         // $idRole = $role->id;
-        $idRole = 1;
+        $idRole = $role->id;
+        // dd($idRole);
 
         // $identitas = "";
         $idCountry = 1;
@@ -123,5 +125,8 @@ class RegisterController extends Controller
             'countries_id' => $idCountry,
         ]);
     }
-
+    public function regisMentor()
+    {
+        return view('auth.register');
+    }
 }

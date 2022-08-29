@@ -19,7 +19,6 @@ class ListKerjaController extends Controller
         //
         // return view ("bursa.listKerja");
         $data=Perusahaan::ListKerja();
-        // dd($data);
         return view('bursa.listKerja', compact('data'));
     }
 

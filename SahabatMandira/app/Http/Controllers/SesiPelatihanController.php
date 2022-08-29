@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SesiPelatihan;
 use App\PelatihanPeserta;
+use App\PelatihanMentor;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -93,9 +94,21 @@ class SesiPelatihanController extends Controller
         // return $id;
         $data = SesiPelatihan::where('id','=',$id)
         ->get();
+
+        // $data = DB::connection('mandira')
+        //         ->table('pelatihan_mentors as pm')
+        //         ->join('masterblk_db.paket_program as s', 'pm.sesi_pelatihans_id', '=', 's.id')
+        //         ->join('sesi_pelatihans as s', 'pm.sesi_pelatihans_id', '=', 's.id')
+        //         ->where('sesi_pelatihans_id',$id)
+        //         ->get();
+
+        // dd($data);
+        $mentor = PelatihanMentor::where('sesi_pelatihans_id','=',$id)
+        ->get();
+
         // $datas = $data->paketprogram;
         // dd($data);
-        return view('sesipelatihan.detailPelatihan',compact('data'));
+        return view('sesipelatihan.detailPelatihan',compact('data','mentor'));
     }
 
     /**

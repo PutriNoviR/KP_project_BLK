@@ -23,6 +23,8 @@ Route::get('/testingDir', function () {
         return view('dummy-testing.dummy');
     });
 
+Route::get('register/mentor', 'Auth\RegisterController@regisMentor')->name('registerMentor');
+
 Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 // TESTING SECTION ENDS HERE
 
@@ -79,7 +81,7 @@ Route::resource('menu/lowongan','Bursa\LowonganController');
 Route::post('menu/lowongan/getEdit','Bursa\LowonganController@getEdit')->name('lowongan.getEdit');
 
 //List Kerja
-Route::resource('menu/bursa/listKerja','Bursa\ListKerjaController');
+Route::resource('bursa/listKerja','Bursa\ListKerjaController');
 
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
@@ -112,6 +114,7 @@ Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pel
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updatePermanen')->name('pelatihanPesertas.updatePermanen');
+Route::post('pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
 
 Route::view('/selamatdatang','welcome');
 
