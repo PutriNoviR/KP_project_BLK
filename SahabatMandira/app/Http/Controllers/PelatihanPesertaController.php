@@ -45,9 +45,23 @@ class PelatihanPesertaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         //
+        $email = auth()->user()->email;
+        $insert = array(
+            'email' => $email,
+            'sesi_pelatihans_id' => $id,
+            'status' => $request->get('status'),
+            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+        );
+
+        DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->insert($insert);
+
+            
+        return redirect()->back()->with('success', 'Data Peserta berhasil diubah!');
     }
 
     /**

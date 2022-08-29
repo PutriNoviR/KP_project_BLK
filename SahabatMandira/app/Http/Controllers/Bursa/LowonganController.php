@@ -96,6 +96,7 @@ class LowonganController extends Controller
     {
         //
         $lowongan = new Lowongan();
+        $lowongan->nama = $request->nama;
         $lowongan->posisi=$request->posisi;
         $lowongan->pengalaman_kerja=$request->pengalaman_kerja;
         $lowongan->lokasi_kerja=$request->lokasi_kerja;

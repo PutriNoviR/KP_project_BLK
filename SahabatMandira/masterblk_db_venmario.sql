@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2022 at 09:21 AM
+-- Generation Time: Aug 29, 2022 at 06:00 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -44,7 +44,7 @@ CREATE TABLE `blks` (
 --
 
 INSERT INTO `blks` (`id`, `nama`, `alamat`, `website_portfolio`, `is_punyasistem`, `link_pendaftaran`, `created_at`, `updated_at`) VALUES
-(8, 'UPT Bojonegoro', 'Bojonegoro', 'www.com', 1, 'www.com', '2022-08-18 13:09:30', '2022-08-18 13:09:30'),
+(8, 'UPT Bojonegoro', 'Bojonegoro', 'www.com', 1, 'www.com', '2022-08-18 13:09:30', '2022-08-27 07:55:42'),
 (9, 'UPT Surabaya', 'surabaya', 'www.com', 1, 'www.com', '2022-08-18 13:10:31', '2022-08-18 13:10:31'),
 (10, 'UPT JEMBER', 'Jember', 'www.com', 1, 'www.com', '2022-08-18 13:10:48', '2022-08-18 13:10:48');
 
@@ -200,17 +200,8 @@ CREATE TABLE `paket_program` (
 --
 
 INSERT INTO `paket_program` (`id`, `sub_kejuruans_id`, `blks_id`, `kejuruans_id`, `created_at`, `updated_at`) VALUES
-(4, 10, 8, 1, '2022-08-18 14:44:17', '2022-08-18 17:58:27'),
-(5, NULL, 8, 2, '2022-08-18 14:44:27', '2022-08-18 14:44:27'),
-(6, 13, 9, 1, '2022-08-18 14:44:47', '2022-08-19 07:46:51'),
-(7, NULL, 9, 2, '2022-08-18 14:45:21', '2022-08-18 14:45:21'),
-(8, NULL, 10, 4, '2022-08-18 14:47:02', '2022-08-18 14:47:02'),
-(9, 14, 9, 1, '2022-08-18 16:59:14', '2022-08-19 07:47:43'),
-(10, 11, 8, 1, '2022-08-18 17:58:50', '2022-08-18 17:58:50'),
-(11, 12, 8, 1, '2022-08-18 18:05:07', '2022-08-18 18:05:07'),
-(12, 15, 9, 1, '2022-08-19 07:48:00', '2022-08-19 07:48:00'),
-(13, 16, 9, 1, '2022-08-19 11:50:03', '2022-08-19 11:50:03'),
-(14, 17, 8, 1, '2022-08-19 11:50:20', '2022-08-19 11:50:20');
+(16, 8, 8, 1, '2022-08-25 08:47:43', '2022-08-25 08:47:43'),
+(17, 2, 9, 1, '2022-08-26 04:53:32', '2022-08-26 04:53:32');
 
 -- --------------------------------------------------------
 
@@ -233,7 +224,9 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `nama_role`, `deskripsi`, `created_at`, `updated_at`) VALUES
 (1, 'peserta', 'role peserta', NULL, NULL),
 (2, 'adminblk', 'adminblk', NULL, NULL),
-(3, 'superadmin', 'superadmin', NULL, NULL);
+(3, 'superadmin', 'superadmin', NULL, NULL),
+(4, 'verifikator', 'Mentor', NULL, NULL),
+(5, 'adminperusahaan', 'admin perusahaan', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -270,7 +263,8 @@ INSERT INTO `sub_kejuruans` (`id`, `nama`, `created_at`, `updated_at`, `kejuruan
 (16, 'GD', '2022-08-19 11:50:03', '2022-08-19 11:50:03', 1, 6, 4, ''),
 (17, 'GD', '2022-08-19 11:50:20', '2022-08-19 11:50:20', 1, 7, 3, ''),
 (18, 'Machine Learning', '2022-08-19 15:10:01', '2022-08-19 15:10:01', 1, 3, 4, 'Data Preprocessing\r\nModel\r\nDeploy'),
-(19, 'Machine Learning', '2022-08-22 04:20:53', '2022-08-22 04:20:53', 6, 2, 3, 'zxczxczxc');
+(19, 'Machine Learning', '2022-08-22 04:20:53', '2022-08-22 04:20:53', 6, 2, 3, 'zxczxczxc'),
+(20, 'Asede', '2022-08-25 08:26:28', '2022-08-25 08:26:28', 2, 1, 1, 'Bercocok tanam');
 
 -- --------------------------------------------------------
 
@@ -309,17 +303,29 @@ CREATE TABLE `users` (
   `tanggal_suspend` datetime DEFAULT NULL,
   `roles_id` int(11) NOT NULL,
   `suspended_by` varchar(25) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `blks_id_admin` int(11) DEFAULT NULL
+  `blks_id_admin` int(11) DEFAULT NULL,
+  `perusahaans_id_admin` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`email`, `nomor_identitas`, `jenis_identitas`, `nama_depan`, `nama_belakang`, `nomer_hp`, `kota`, `alamat`, `username`, `password`, `ktp`, `pas_foto`, `ijazah`, `ksk`, `is_verified`, `verified_by`, `verified_at`, `remember_token`, `created_at`, `updated_at`, `tanggal_lahir`, `jenis_kelamin`, `pendidikan_terakhir`, `hobi`, `countries_id`, `is_buta_warna`, `is_suspend`, `tanggal_suspend`, `roles_id`, `suspended_by`, `blks_id_admin`) VALUES
-('mario@gmail.com', NULL, NULL, 'venansius', 'mario', NULL, NULL, NULL, 'venmario', '$2y$10$H78LQfnaGYBobSSnhjzkxOinZ8wnPWuc8YKMbJn4i0xsGtNdYzMR.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-12 17:25:44', '2022-08-12 17:25:44', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 3, NULL, NULL),
-('peserta@gmail.com', NULL, NULL, 'depan', 'belakang', '123456789', NULL, NULL, 'peserta', '$2y$10$nRrc/vmPe9uWRwqDvf2uOu3i3GbU9kKF980.vZKMrFk/Llsdq6ZvW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-18 09:13:49', '2022-08-20 13:20:14', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, NULL, 8),
-('weley@gmail.com', NULL, NULL, 'weley', 'juga', NULL, NULL, NULL, 'weley', '$2y$10$ENq6Wm7tVnjZQfotP67QKOlsXM..ZYosDdOclHECxPKqnCe8/q9La', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-22 06:54:05', '2022-08-22 07:16:51', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, NULL, 8);
+INSERT INTO `users` (`email`, `nomor_identitas`, `jenis_identitas`, `nama_depan`, `nama_belakang`, `nomer_hp`, `kota`, `alamat`, `username`, `password`, `ktp`, `pas_foto`, `ijazah`, `ksk`, `is_verified`, `verified_by`, `verified_at`, `remember_token`, `created_at`, `updated_at`, `tanggal_lahir`, `jenis_kelamin`, `pendidikan_terakhir`, `hobi`, `countries_id`, `is_buta_warna`, `is_suspend`, `tanggal_suspend`, `roles_id`, `suspended_by`, `blks_id_admin`, `perusahaans_id_admin`) VALUES
+('budi@gmail.com', NULL, NULL, 'budi', 'yanto', NULL, NULL, NULL, 'budi', '$2y$10$UzvcCAWnHvAQtTk5yan25ORz..RFvFW0Msp6a3t9Ro0aDp5mXRwVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-24 06:25:11', '2022-08-24 07:10:22', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL),
+('elsky@gmail.com', NULL, NULL, 'Elsky', 'Lucksy', NULL, NULL, NULL, 'elsky', '$2y$10$mapPYMyQXk4RJIB0fCZ8OOO4JZDnr9Yja..l1IZAqChDNVLMQAK8m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 11:47:00', '2022-08-27 11:47:00', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, NULL, NULL),
+('kuky@gmail.com', NULL, NULL, 'kuky', 'loky', NULL, NULL, NULL, 'kuky', '$2y$10$zHwoUsvSGZklbqnjhyrRyuAc8Ftylh8GcEdekst1bHjZXZHwQOgby', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 06:55:38', '2022-08-27 06:55:38', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, NULL, NULL),
+('mario123@gmail.com', NULL, NULL, 'mariopeserta', 'tando', NULL, NULL, NULL, 'mariopeserta', '$2y$10$xAL5Q3.kz3C0h8ibj/hrAezM7TqyHo2cuotnQ94mh3v4zCZ.HBW12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 04:46:25', '2022-08-27 04:46:25', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL),
+('mario@gmail.com', NULL, NULL, 'venansius', 'mario', NULL, NULL, NULL, 'venmario', '$2y$10$H78LQfnaGYBobSSnhjzkxOinZ8wnPWuc8YKMbJn4i0xsGtNdYzMR.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-12 17:25:44', '2022-08-24 07:11:04', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 3, NULL, 8, NULL),
+('melky@gmail.com', NULL, NULL, 'Melky', 'Stars', NULL, NULL, NULL, 'melky', '$2y$10$8FWrtrRUbA8x0LPzxPYlXON2uGAhYjCyDhspi9ZPV.ji137Y/CeC.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 13:06:19', '2022-08-27 13:06:19', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL),
+('mika@gmail.com', NULL, NULL, 'mika', 'belakang', NULL, NULL, NULL, 'mika', '$2y$10$e9wcgFzR0GO59EQHmlBVwOWft/K0ueq1uj2LhpQKzm61dhajn8I1u', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-23 07:39:26', '2022-08-23 08:12:28', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, NULL, 10, NULL),
+('penpos1@gmail.com', NULL, NULL, 'penjaga', 'pos1', NULL, NULL, NULL, 'penpos1', '$2y$10$vopy4l85x.nxkrAVb2pe0erjSSfcosNECZWEoO8uD3OO4RM8E3MRy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 10:36:23', '2022-08-27 10:36:23', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 5, NULL, NULL, 2),
+('penpos2@gmail.com', NULL, NULL, 'penjaga', 'pos2', NULL, NULL, NULL, 'penpos2', '$2y$10$mcI9lCmll9Mdt9Qf2b6FK.439OxtC8EfHeKgThxUGHqylQtb2IXZ2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 11:42:03', '2022-08-27 11:42:03', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 5, NULL, NULL, 3),
+('peserta@gmail.com', NULL, NULL, 'depan', 'belakang', '123456789', NULL, NULL, 'peserta', '$2y$10$nRrc/vmPe9uWRwqDvf2uOu3i3GbU9kKF980.vZKMrFk/Llsdq6ZvW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-18 09:13:49', '2022-08-24 05:20:46', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, NULL, 8, NULL),
+('weley@gmail.com', NULL, NULL, 'weley', 'juga', NULL, NULL, NULL, 'weley', '$2y$10$ENq6Wm7tVnjZQfotP67QKOlsXM..ZYosDdOclHECxPKqnCe8/q9La', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-22 06:54:05', '2022-08-24 05:19:13', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 2, NULL, 9, NULL),
+('wily@gmail.com', NULL, NULL, 'willy', 'willy', NULL, NULL, NULL, 'willy2', '$2y$10$QKf5z4ovcJr2IneAn2n6i.TitWdRDNezKZ6UjZTMkDrsl0twYqHQm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, NULL, NULL),
+('www@gmail.com', NULL, NULL, 'willi', 't', NULL, NULL, NULL, 'willi', '$2y$10$QKf5z4ovcJr2IneAn2n6i.TitWdRDNezKZ6UjZTMkDrsl0twYqHQm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-27 05:02:27', '2022-08-27 05:02:27', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL),
+('yobong@gmail.com', '03210391841845', NULL, 'Yobong', 'Gaul', NULL, NULL, NULL, 'yobong', '$2y$10$OQuI4azam6F47zykE3.UE.ImpG8v83lVVsJiyxmvlAcGf4OxRuPNC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-29 03:09:01', '2022-08-29 03:09:01', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -454,19 +460,19 @@ ALTER TABLE `menu_manajemens`
 -- AUTO_INCREMENT for table `paket_program`
 --
 ALTER TABLE `paket_program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sub_kejuruans`
 --
 ALTER TABLE `sub_kejuruans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

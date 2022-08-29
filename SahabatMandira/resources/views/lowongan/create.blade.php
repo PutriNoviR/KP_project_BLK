@@ -37,6 +37,21 @@ Lowongan
                     @csrf
 
                     <div class="form-group">
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama') }}</label>
+
+                        <div class="col-md-12">
+                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
+                                name="nama" required autocomplete="nama" autofocus>
+
+                            @error('nama')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="posisi" class="col-md-12 col-form-label">{{ __('Posisi') }}</label>
 
                         <div class="col-md-12">

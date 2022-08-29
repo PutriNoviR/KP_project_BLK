@@ -33,7 +33,12 @@ PELATIHAN
             @if(Auth::user()->nomor_identitas == null)
             <a href="{{url('pelatihanPeserta/lengkapiBerkas')}}" class="button btn btn-warning">{{ __('DAFTAR')}}</a>
             @else
-            <a href="{{url('pelatihanPeserta/pendaftaran')}}" class="button btn btn-warning">{{ __('DAFTAR')}}</a>
+            <form method="POST" action="{{ route('pelatihanPesertas.store',$d->id) }}">
+                <input type="hidden" name="status" class="col-md-12 col-form-label" value="terdaftar">
+                <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label"
+                    value="{{ $d->tanggal_seleksi }}">
+                <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+            </form>
             @endif
         </div>
     </div>

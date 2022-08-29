@@ -87,7 +87,7 @@ Bursa Kerja
         </div>
         <div class="card-footer">
             <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
-                detail
+                Detail
             </a>
         </div>
     </div>

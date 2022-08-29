@@ -226,7 +226,7 @@
                                         </p>
                                     </a>
                                     @if(Auth::user()->role->nama_role == 'verifikator' || Auth::user()->role->nama_role
-                                    == 'superadmin' || Auth::user()->role->nama_role == 'admin')
+                                    == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
