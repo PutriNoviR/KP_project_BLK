@@ -105,7 +105,6 @@ class SesiPelatihanController extends Controller
         // dd($data);
         $mentor = PelatihanMentor::where('sesi_pelatihans_id','=',$id)
         ->get();
-
         // $datas = $data->paketprogram;
         // dd($data);
         return view('sesipelatihan.detailPelatihan',compact('data','mentor'));

@@ -48,30 +48,30 @@ class PelatihanPesertaController extends Controller
     public function store(Request $request, $id)
     {
         //
-        $email = auth()->user()->email;
-        $insert = array(
-            'email' => $email,
-            'sesi_pelatihans_id' => $id,
-            'status' => $request->get('status'),
-            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
-        );
+        // $email = auth()->user()->email;
+        // $insert = array(
+        //     'email' => $email,
+        //     'sesi_pelatihans_id' => $id,
+        //     'status' => $request->get('status'),
+        //     'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+        // );
 
-        DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->insert($insert);
+        // DB::connection('mandira')
+        //     ->table('pelatihan_pesertas')
+        //     ->insert($insert);
 
             
-        //
+        // //
 
-        $data = DB::connection('mandira')
-                ->table('pelatihan_pesertas as pp')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-                ->where('sesi_pelatihans_id',$id)
-                ->get();
-        //
-        dd($data);
-        return redirect()->route('pelatihanpeserta.jadwalSeleksi', compact('data'))->with('success', 'Berhasil Mendaftar');
+        // $data = DB::connection('mandira')
+        //         ->table('pelatihan_pesertas as pp')
+        //         ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+        //         ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+        //         ->where('sesi_pelatihans_id',$id)
+        //         ->get();
+        // //
+        // // dd($data);
+        // return redirect()->route('pelatihanpeserta.jadwalSeleksi', compact('data'))->with('success', 'Berhasil Mendaftar');
     }
 
     /**
@@ -152,13 +152,14 @@ class PelatihanPesertaController extends Controller
         //
     }
 
-    public function lengkapiBerkas()
+    public function lengkapiBerkas($idpelatihan)
     {
+        // dd($idpelatihan);
         $userLogin = auth()->user()->email;
         $data = User::all()->where('email','=',$userLogin);
         // $datas = $data->email;
         // dd($data);
-        return view('pelatihanpeserta.kelengkapanDokumen',compact('data'));
+        return view('pelatihanpeserta.kelengkapanDokumen',compact('data','idpelatihan'));
     }
 
     public function pendaftaran()
@@ -201,15 +202,22 @@ class PelatihanPesertaController extends Controller
 
         //
 
+        
+        //
+        // dd($data);
+        return redirect()->route('pelatihanpeserta.jadwal', $id)->with('success', 'Berhasil Mendaftar');
+    }
+
+    public function urutan($id)
+    {
         $data = DB::connection('mandira')
                 ->table('pelatihan_pesertas as pp')
                 ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
                 ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
                 ->where('sesi_pelatihans_id',$id)
                 ->get();
-        //
-        // dd($data);
-        return redirect()->route('pelatihanpeserta.jadwalSeleksi', compact('data'))->with('success', 'Berhasil Mendaftar');
-    }
+        view('pelatihanpeserta.jadwalSeleksi',compact('data'));
+    } 
+
 
 }

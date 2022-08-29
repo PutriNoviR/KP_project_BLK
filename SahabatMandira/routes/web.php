@@ -64,7 +64,7 @@ Route::middleware('super.admin')->group(function(){
 Route::resource('menu/peserta','PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
 Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('pengguna.data.pribadi');
-Route::post('/kelengkapandokumen', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
+Route::post('/kelengkapandokumen/', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
 
 //CRUD
 Route::resource('soal', "PertanyaanController");
@@ -108,13 +108,14 @@ Route::resource('/pelatihanMentors','PelatihanMentorController');
 
 //PelatihanPeserta
 Route::resource('/pelatihanPesertas','PelatihanPesertaController');
-Route::get('pelatihanPeserta/lengkapiBerkas','PelatihanPesertaController@lengkapiBerkas')->name('pelatihanPeserta.lengkapiBerkas');
+Route::get('pelatihanPeserta/lengkapiBerkas/{idpelatihan}','PelatihanPesertaController@lengkapiBerkas')->name('pelatihanPeserta.lengkapiBerkas');
 Route::get('pelatihanPeserta/pendaftaran','PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
 Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updatePermanen')->name('pelatihanPesertas.updatePermanen');
 Route::post('pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
+Route::get('/pelatihanPeserta/jadwalSeleksi/{id}','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 
 Route::view('/selamatdatang','welcome');
 

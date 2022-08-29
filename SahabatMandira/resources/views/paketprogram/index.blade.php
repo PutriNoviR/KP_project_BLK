@@ -23,6 +23,7 @@ PAKET PROGRAM
                 'id': paketProgramId,
             },
             success: function (data) {
+                // console.log(data.msg);
                 $("#modalContent").html(data.msg);
             },
             error: function (xhr) {
@@ -134,7 +135,7 @@ PAKET PROGRAM
             {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}
             <div class="modal fade" id="modalTambahSesiPelatihan{{$paketprogram->id}}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Sesi Pelatihan</h5>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Blk;
+use App\PaketProgram;
 use App\Role;
+use App\SesiPelatihan;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -99,20 +101,24 @@ class UserController extends Controller
     public function update(Request $request, User $User)
     {
         //
-        dd($User);
+        // dd($User, $request->id);
+        $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
+        // dd($data->paketprogram);
+        $User =User::find($request->id);
+        // dd($request);
         $User->jenis_identitas = $request->jenis_identitas;
         $User->pas_foto = $request->pas_foto;
-        $User->nomor_identitas = $request->nomor_identitas;
-        $User->nomer_hp = $request->nomer_hp;
+        $User->nomor_identitas = $request->nomorIdentitas;
+        $User->nomer_hp = $request->nomorHp;
         $User->kota = $request->kota;
         $User->alamat = $request->alamat;
-        $User->ktp = $request->ktp;
+        $User->ktp = $request->fotoKtp;
         $User->ksk = $request->ksk;
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->save();
-        return view();
+        return view('sesipelatihan.detailPelatihan',compact('data'));
     }
 
     /**
@@ -190,8 +196,16 @@ class UserController extends Controller
 
     public function kelengkapanDokumen(Request $request){
         $user = new User();
-        $user->nomor_identitas=$request->jenis_identitas;
+        $user->jenis_identitas=$request->jenis_identitas;
         $user->nomor_identitas=$request->nomorIdentitas;
-
+        $user->nomer_hp=$request->nomorHp;
+        $user->kota=$request->kota;
+        $user->alamat=$request->alamat;
+        $user->pas_foto=$request->pas_foto;
+        $user->ktp=$request->fotoKtp;
+        $user->ksk=$request->ksk;
+        $user->ijazah=$request->ijazah;
+        $user->jenis_kelamin=$request->jenis_kelamin;
+        $user->pendidikan_terakhir=$request->pendidikan_terakhir;
     }
 }

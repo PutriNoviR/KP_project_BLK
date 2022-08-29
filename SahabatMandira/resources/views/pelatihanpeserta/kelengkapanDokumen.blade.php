@@ -15,7 +15,7 @@ Pelatihan Peserta
 
             <div class="portlet-body form">
                 @foreach($data as $d )
-                <form role='form' method="POST" enctype="multipart/form-data" action="{{url('user/'.$d->email)}}">
+                <form role='form' method="POST" enctype="multipart/form-data" action="{{url('User/'.$d->email)}}">
                     @csrf
                     <div class="form-body">
 
@@ -100,9 +100,9 @@ Pelatihan Peserta
                         </div>
 
                         <div class="form-group">
-                            <label for="ktp" class="col-md-12 col-form-label">{{ __('Dokumen KTP') }}</label>
+                            <label for="fotoKtp" class="col-md-12 col-form-label">{{ __('Dokumen KTP') }}</label>
 
-                            <input type="file" name='no_ktp' class="defaults" value="" required>
+                            <input type="file" name='fotoKtp' class="defaults" value="" required>
                         </div>
 
                         <div class="form-group">
@@ -141,7 +141,7 @@ Pelatihan Peserta
                                 </select>
                             </div>
                         </div>
-
+                        <input type="hidden" name="idPelatihan" value="{{ $idpelatihan }}">
                         <div class="form-group form-button">
                             <div class="row">
                                 <div class="col-md-6 pull-right">

@@ -24,17 +24,17 @@ Dashboard
     <div class="card card-primary">
         <div class="ribbon-wrapper">
             <div class="ribbon bg-primary">
-                {{ $d->paketProgram->blk->nama }}
+                {{ $d->paketprogram->blk->nama }}
             </div>
         </div>
         <div class="card-header">
-            <h3 class="card-title">{{ $d->paketProgram->kejuruan->nama }}</h3>
+            <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
         </div>
         <div class="card-body">
             <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}}
         </div>
         <div class="card-body">
-            {{ $d->paketProgram->subkejuruan->nama }}
+            {{ $d->paketprogram->subkejuruan->nama }}
         </div>
         <div class="card-body">
             <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
@@ -64,17 +64,17 @@ Dashboard
         <div class="card card-primary ">
             <div class="ribbon-wrapper">
                 <div class="ribbon bg-primary">
-                    {{ $d->paketProgram->blk->nama }}
+                    {{ $d->paketprogram->blk->nama }}
                 </div>
             </div>
             <div class="card-header">
-                <h3 class="card-title">{{ $d->paketProgram->kejuruan->nama }}</h3>
+                <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
             </div>
             <div class="card-body">
                 <h1>GAMBAR KEJURUAN</h1>
             </div>
             <div class="card-body">
-                {{ $d->paketProgram->subkejuruan->nama }}
+                {{ $d->paketprogram->subkejuruan->nama }}
             </div>
             <div class="card-body">
                 <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
