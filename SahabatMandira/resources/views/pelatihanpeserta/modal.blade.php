@@ -121,8 +121,9 @@
     }
 
     function submitFormSimpanPermanen(form) {
-        // var permanent = document.getElementById('permanent');
-        swal({
+        var permanent = document.getElementById('permanent');
+        if(permanent.onclick){
+            swal({
                 title: "Peringatan!",
                 text: "Apakah anda yakin ingin Menyimpan Permanen data ini?",
                 icon: "warning",
@@ -134,7 +135,7 @@
                     form.submit();
                 }
             });
-
+        }
         return false;
     }
 </script>

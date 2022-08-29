@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class PelatihanPeserta extends Model
 {
@@ -19,7 +18,7 @@ class PelatihanPeserta extends Model
 
     public function sesipelatihan()
     {
-        return $this->belongsTo('App\SesiPelatihan','sesi_pelatihans_id','id');
+        return $this->belongsTo('App\SesiPelatihan','id','sesi_pelatihans_id');
     }
 
     protected $primaryKey = ['sesi_pelatihans_id','email_peserta'];

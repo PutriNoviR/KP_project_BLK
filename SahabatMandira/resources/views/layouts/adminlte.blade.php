@@ -226,8 +226,6 @@
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
-                                    @if(Auth::user()->role->nama_role == 'verifikator' || Auth::user()->role->nama_role
-                                    == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
@@ -236,17 +234,6 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    @endif
-                                    @if(Auth::user()->role->nama_role == 'peserta')
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{url('sesiPelatihan/pelatihanYangDiikuti')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Pelatihan Yang Pernah Diikuti</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    @endif
                                 </li>
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('listKerja.index') }}" class="nav-link">

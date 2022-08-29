@@ -92,7 +92,7 @@ route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSu
 Route::resource('/sesiPelatihan','sesiPelatihanController');
 Route::post('sesiPelatihan/getDetail','sesiPelatihanController@getDetailPeserta')->name('sesiPelatihan.getDetailPeserta');
 Route::get('sesiPelatihan/{id}','sesiPelatihanController@show')->name('sesiPelatihan.detail');
-Route::get('sesiPelatihan/pelatihanYangDiikuti','sesiPelatihanController@pelatihanYangDiikuti')->name('sesiPelatihan.peserta');
+Route::get('sesiPelatihan/riwayat','sesiPelatihanController@riwayatPelatihan')->name('sesiPelatihan.peserta');
 
 //User
 Route::resource('menu/User','UserController');
@@ -114,8 +114,8 @@ Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pel
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updatePermanen')->name('pelatihanPesertas.updatePermanen');
-Route::post('pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
-Route::get('/pelatihanPeserta/jadwalSeleksi/{id}','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
+Route::post('pelatihanPeserta/pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
+Route::get('/pelatihanPeserta/jadwalSeleksi','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 
 Route::view('/selamatdatang','welcome');
 

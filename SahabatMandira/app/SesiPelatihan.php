@@ -16,12 +16,12 @@ class SesiPelatihan extends Model
 
     public function statuspelatihanpeserta()
     {
-        return $this->hasMany('App/StatusPelatihanPeserta','sesi_pelatihans_id','id');
+        return $this->hasMany('App\StatusPelatihanPeserta','sesi_pelatihans_id','id');
     }
 
     public function pelatihanpeserta()
     {
-        return $this->hasMany('App/PelatihanPeserta','sesi_pelatihans_id','id');
+        return $this->hasMany('App\PelatihanPeserta','sesi_pelatihans_id','id');
     }
 
     public $timestamps=false;

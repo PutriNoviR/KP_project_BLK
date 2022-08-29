@@ -201,11 +201,16 @@ class PelatihanPesertaController extends Controller
             ->insert($insert);
 
         //
-
+        $data = DB::connection('mandira')
+                ->table('pelatihan_pesertas as pp')
+                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+                ->where('sesi_pelatihans_id',$id)
+                ->get();
         
         //
         // dd($data);
-        return redirect()->route('pelatihanpeserta.jadwal', $id)->with('success', 'Berhasil Mendaftar');
+        return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
     }
 
     public function urutan($id)

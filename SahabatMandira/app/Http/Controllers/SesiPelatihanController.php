@@ -21,6 +21,7 @@ class SesiPelatihanController extends Controller
     {
         //
         $data = SesiPelatihan::all();
+        
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator' )
         ->get();
@@ -44,7 +45,11 @@ class SesiPelatihanController extends Controller
         ->WHERE('P.mentors_email', '=', $userLogin )
         ->get();
 
-        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta'));
+        $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
+        ->WHERE('p.email_peserta', '=', $userLogin )
+        ->get();
+
+        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta','dataPeserta'));
     }
 
     /**
@@ -177,9 +182,11 @@ class SesiPelatihanController extends Controller
         ), 200);
     }
 
-    public function pelatihanYangDiikuti(){
+    public function riwayatPelatihan()
+    {
 
         $data = SesiPelatihan::all();
-        return view('sesipelatihan.detailPelatihanYangDibuka',compact('data'));
+        dd($data);
+        return view('pelatihanPeserta.pelatihanYangDiikuti',compact('data'));
     }
 }
