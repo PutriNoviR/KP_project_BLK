@@ -120,7 +120,7 @@ class UserController extends Controller
         $User =User::find($request->id);
         $validator = $request->validate([
             'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
-            'nomorHp' => ['required', 'string', 'min:12', 'max:12']
+            'nomorHp' => ['required', 'string', 'min:12']
         ]);
         // dd($request);
         $User->jenis_identitas = $request->jenis_identitas;
