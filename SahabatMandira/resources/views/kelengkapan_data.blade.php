@@ -1,3 +1,5 @@
+{{-- INI GA DIPAKE --}}
+
 @extends('layouts.index')
 
 @section('title')

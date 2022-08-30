@@ -6,187 +6,115 @@ Bursa Kerja
 
 @section('style')
 <style>
-    @media (min-width: 768px) and (max-width: 991px) {
-
-        /* Show 4th slide on md if col-md-4*/
-        .carousel-inner .active.col-md-4.carousel-item+.carousel-item+.carousel-item+.carousel-item {
-            position: absolute;
-            top: 0;
-            right: -33.3333%;
-            /*change this with javascript in the future*/
-            z-index: -1;
-            display: block;
-            visibility: visible;
-        }
+    .carousel {
+        margin: 30px auto 60px !important;
+        padding: 0 80px !important;
     }
 
-    @media (min-width: 576px) and (max-width: 768px) {
-
-        /* Show 3rd slide on sm if col-sm-6*/
-        .carousel-inner .active.col-sm-6.carousel-item+.carousel-item+.carousel-item {
-            position: absolute;
-            top: 0;
-            right: -50%;
-            /*change this with javascript in the future*/
-            z-index: -1;
-            display: block;
-            visibility: visible;
-        }
+    .carousel .carousel-item {
+        text-align: center !important;
+        overflow: hidden !important;
     }
 
-    @media (min-width: 576px) {
-        .carousel-item {
-            margin-right: 0;
-        }
-
-        /* show 2 items */
-        .carousel-inner .active+.carousel-item {
-            display: block;
-        }
-
-        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item {
-            transition: none;
-        }
-
-        .carousel-inner .carousel-item-next {
-            position: relative;
-            transform: translate3d(0, 0, 0);
-        }
-
-        /* left or forward direction */
-        .active.carousel-item-left+.carousel-item-next.carousel-item-left,
-        .carousel-item-next.carousel-item-left+.carousel-item,
-        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(-100%, 0, 0);
-            visibility: visible;
-        }
-
-        /* farthest right hidden item must be also positioned for animations */
-        .carousel-inner .carousel-item-prev.carousel-item-right {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            display: block;
-            visibility: visible;
-        }
-
-        /* right or prev direction */
-        .active.carousel-item-right+.carousel-item-prev.carousel-item-right,
-        .carousel-item-prev.carousel-item-right+.carousel-item,
-        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(100%, 0, 0);
-            visibility: visible;
-            display: block;
-            visibility: visible;
-        }
+    .carousel .carousel-item h4 {
+        font-family: 'Varela Round', sans-serif !important;
     }
 
-    /* MD */
-    @media (min-width: 768px) {
-
-        /* show 3rd of 3 item slide */
-        .carousel-inner .active+.carousel-item+.carousel-item {
-            display: block;
-        }
-
-        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item {
-            transition: none;
-        }
-
-        .carousel-inner .carousel-item-next {
-            position: relative;
-            transform: translate3d(0, 0, 0);
-        }
-
-        /* left or forward direction */
-        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(-100%, 0, 0);
-            visibility: visible;
-        }
-
-        /* right or prev direction */
-        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(100%, 0, 0);
-            visibility: visible;
-            display: block;
-            visibility: visible;
-        }
+    .carousel .carousel-item img {
+        max-width: 100% !important;
+        display: inline-block !important;
     }
 
-    /* LG */
-    @media (min-width: 991px) {
+    .carousel .carousel-item .btn {
+        border-radius: 0 !important;
+        font-size: 12px !important;
+        text-transform: uppercase !important;
+        font-weight: bold !important;
+        border: none !important;
+        padding: 6px 15px !important;
+        margin-top: 5px !important;
+    }
 
-        /* show 4th item */
-        .carousel-inner .active+.carousel-item+.carousel-item+.carousel-item {
-            display: block;
-        }
+    .carousel .carousel-item .btn:hover {
+        /* background: #8c5bff !important; */
+    }
 
-        .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)+.carousel-item+.carousel-item+.carousel-item {
-            transition: none;
-        }
+    .carousel .carousel-item .btn i {
+        font-size: 14px !important;
+        font-weight: bold !important;
+        margin-left: 5px !important;
+    }
 
-        /* Show 5th slide on lg if col-lg-3 */
-        .carousel-inner .active.col-lg-3.carousel-item+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
-            position: absolute;
-            top: 0;
-            right: -25%;
-            /*change this with javascript in the future*/
-            z-index: -1;
-            display: block;
-            visibility: visible;
-        }
+    .carousel .thumb-wrapper {
+        margin: 5px !important;
+        text-align: left !important;
+        background: #fff !important;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1) !important;
+    }
 
-        /* left or forward direction */
-        .carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(-100%, 0, 0);
-            visibility: visible;
-        }
+    .carousel .thumb-content {
+        padding: 15px !important;
+        font-size: 13px !important;
+    }
 
-        /* right or prev direction //t - previous slide direction last item animation fix */
-        .carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item+.carousel-item {
-            position: relative;
-            transform: translate3d(100%, 0, 0);
-            visibility: visible;
-            display: block;
-            visibility: visible;
-        }
+    .carousel-control-prev,
+    .carousel-control-next {
+        height: 44px !important;
+        width: 44px !important;
+        background: none !important;
+        margin: auto 0 !important;
+        border-radius: 50% !important;
+        border: 3px solid rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .carousel-control-prev i,
+    .carousel-control-next i {
+        font-size: 36px !important;
+        position: absolute !important;
+        top: 50% !important;
+        display: inline-block !important;
+        margin: -19px 0 0 0 !important;
+        z-index: 5 !important;
+        left: 0 !important;
+        right: 0 !important;
+        color: rgba(0, 0, 0, 0.8) !important;
+        text-shadow: none !important;
+        font-weight: bold !important;
+    }
+
+    .carousel-control-prev i {
+        margin-left: -3px !important;
+    }
+
+    .carousel-control-next i {
+        margin-right: -3px !important;
+    }
+
+    .carousel-indicators {
+        bottom: -50px !important;
+    }
+
+    .carousel-indicators li,
+    .carousel-indicators li.active {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        margin: 4px !important;
+        border: none !important;
+    }
+
+    .carousel-indicators li {
+        background: #ababab !important;
+    }
+
+    .carousel-indicators li.active {
+        background: #555 !important;
     }
 
 </style>
 @endsection
 
 @section('javascript')
-<script>
-    $('#carousel-example').on('slide.bs.carousel', function (e) {
-        /*
-            CC 2.0 License Iatek LLC 2018 - Attribution required
-        */
-        var $e = $(e.relatedTarget);
-        var idx = $e.index();
-        var itemsPerSlide = 5;
-        var totalItems = $('.carousel-item').length;
-
-        if (idx >= totalItems - (itemsPerSlide - 1)) {
-            var it = itemsPerSlide - (totalItems - idx);
-            for (var i = 0; i < it; i++) {
-                // append slides to end
-                if (e.direction == "left") {
-                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
-                } else {
-                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
-                }
-            }
-        }
-    });
-
-</script>
 @endsection
 
 @section('contents')
@@ -215,30 +143,105 @@ Bursa Kerja
     <h1 class="m-0 text-dark">BURSA KERJA</h1><br>
     <h5>Bursa kerja untuk para pencari kerja</h5>
 </div>
-
-@foreach ($data as $d)
+<div class="container-xl">
+    <div class="row">
+        <div class="col mx-auto">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    @php
+                    $itemke = 0;
+                    @endphp
+                    @for ($i = 0; $i < 2; $i++) <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @php
+                            $count = 1;
+                            @endphp
+                            @for ($j = $itemke; $j < count($data); $j++) <div
+                                class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0">
+                                        {{ $data[$j]->nama }}
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                                <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic
+                                                    Artist / Coffee Lover </p>
+                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <li class="small"><span class="fa-li"><i
+                                                                class="fas fa-lg fa-building"></i></span> Address: Demo
+                                                        Street 123, Demo City 04312, NJ</li>
+                                                    <li class="small"><span class="fa-li"><i
+                                                                class="fas fa-lg fa-phone"></i></span> Phone #: + 800 -
+                                                        12 12 23 52</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-5 text-center">
+                                                <img src="../../dist/img/user1-128x128.jpg" alt=""
+                                                    class="img-circle img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="#" class="btn btn-sm bg-teal">
+                                                <i class="fas fa-comments"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user"></i> View Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        @php
+                        if ($count == 3) {
+                        break;
+                        }
+                        $count+=1;
+                        $itemke+=1;
+                        @endphp
+                        @endfor
+                </div>
+            </div>
+            @endfor
+        </div>
+        <!-- Carousel controls -->
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div>
+</div>
+</div>
+{{-- @foreach ($data as $d)
 <div class="col-sm-3 float-left">
     <div class="card card-primary ">
         <div class="card-header">
             <h3 class="card-title">{{ $d->nama}}</h3>
-        </div>
-        <div class="card-body">
-            <h1><img src="{{ asset('$d->logo') }}" alt=""></h1>
-        </div>
-        <div class="card-body">
-            <h5>{{ $d->posisi}}</h5>
-        </div>
-        <div class="card-body">
-            <small>Tanggal Pemasangan</small>
-        </div>
-        <div class="card-footer">
-            <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
-                Detail
-            </a>
-        </div>
-    </div>
 </div>
-@endforeach
+<div class="card-body">
+    <h1><img src="{{ asset('$d->logo') }}" alt=""></h1>
+</div>
+<div class="card-body">
+    <h5>{{ $d->posisi}}</h5>
+</div>
+<div class="card-body">
+    <small>Tanggal Pemasangan</small>
+</div>
+<div class="card-footer">
+    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
+        Detail
+    </a>
+</div>
+</div>
+</div>
+@endforeach --}}
 
 @endif
 @endsection

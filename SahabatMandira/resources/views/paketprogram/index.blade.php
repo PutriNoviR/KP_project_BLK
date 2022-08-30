@@ -146,7 +146,17 @@ PAKET PROGRAM
                         <div class="modal-body">
                             <form method="POST" action="{{ route('sesiPelatihan.store') }}">
                                 @csrf
+                                <div class="form-group">
+                                    <label for="deskripsi"
+                                        class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="deskripsi">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoPelatihan"
+                                        class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
 
+                                    <input type="file" name='fotoPelatihan' class="defaults" value="" required>
+                                </div>
                                 <div class="form-group">
                                     <label for="tanggalBukaPendaftaran"
                                         class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
