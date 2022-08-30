@@ -10,7 +10,7 @@ PELATIHAN
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -25,10 +25,10 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': paketProgramId,
             },
-            success: function(data) {
+            success: function (data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
@@ -50,7 +50,7 @@ PELATIHAN
         return false;
     }
 
-    $('#selectKejuruan').on('change', function() {
+    $('#selectKejuruan').on('change', function () {
 
         const idkejuruan = $('#selectKejuruan').val();
 
@@ -61,7 +61,7 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'idkejuruan': idkejuruan,
             },
-            success: function(data) {
+            success: function (data) {
                 $('#selectSubKejuruan').empty();
                 data.forEach(e => {
                     $('#selectSubKejuruan').append(
@@ -69,7 +69,7 @@ PELATIHAN
                 });
                 $('#selectSubKejuruan').removeAttr('disabled')
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         })
@@ -83,17 +83,18 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function(data) {
+            success: function (data) {
                 swal({
                     title: "Data Peserta",
                     text: data.data,
                 })
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
     }
+
 </script>
 @endsection
 
@@ -114,7 +115,8 @@ PELATIHAN
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -158,7 +160,8 @@ PELATIHAN
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
     </div>
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -205,7 +208,7 @@ PELATIHAN
 
 {{--SISI SUPER ADMIN--}}
 
-@if(Auth::user()->role->nama_role == 'superadmin')
+@if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
@@ -217,7 +220,8 @@ PELATIHAN
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -256,7 +260,8 @@ PELATIHAN
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
+                                class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -268,7 +273,8 @@ PELATIHAN
 
 {{-- Modal tambah Instruktur --}}
 @foreach($data as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -292,7 +298,8 @@ PELATIHAN
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
+                                value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">

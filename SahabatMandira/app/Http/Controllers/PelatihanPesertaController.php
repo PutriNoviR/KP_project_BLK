@@ -84,8 +84,9 @@ class PelatihanPesertaController extends Controller
     {
         // return $id;
         //
-        $periode = SesiPelatihan::JOIN('mandira_db.pelatihan_pesertas as P', 'P.sesi_pelatihans_id', '=', 'id')
-        ->get();
+        // $periode = SesiPelatihan::JOIN('mandira_db.pelatihan_pesertas as P', 'P.sesi_pelatihans_id', '=', 'id')
+        // ->get();
+        $periode = SesiPelatihan::find($id);
         // dd($periode);
         $data = DB::connection('mandira')
                 ->table('pelatihan_pesertas as pp')
@@ -96,7 +97,6 @@ class PelatihanPesertaController extends Controller
         // dd($data);
         // $data = PelatihanPeserta::all()->where('sesi_pelatihans_id','=',$id);
         // $data = PelatihanPeserta::find($id);
-        // dd($data);
         return view('pelatihanpeserta.index',compact('data','periode'));
     }
 

@@ -289,12 +289,27 @@ PAKET PROGRAM
                             <label for="nama"
                                 class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
                             <div class="col-md-12">
+
+                                @if (Auth::user()->role->nama_role == 'superadmin')
                                 <select class="form-control" aria-label="Default select example" name="blks_id">
-                                    <option selected>Pilih BLK</option>
                                     @foreach($blk as $d)
-                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    <option value="{{$d->id}}" {{$d->id==$paketProgram->blks_id ? 'selected':''}}>
+                                        {{$d->nama}}
+                                    </option>
+                                    {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
                                     @endforeach
                                 </select>
+                                @else
+                                <select class="form-control" aria-label="Default select example" name="blks_id"
+                                    readonly>
+                                    @foreach($blk as $d)
+                                    <option value="{{$d->id}}" {{$d->id==Auth::user()->blks_id_admin ? 'selected':''}}>
+                                        {{$d->nama}}
+                                    </option>
+                                    {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
+                                    @endforeach
+                                </select>
+                                @endif
                             </div>
                         </div>
 

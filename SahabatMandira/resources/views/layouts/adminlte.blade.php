@@ -218,6 +218,17 @@
                                         </p>
                                     </a>
                                 </li>
+                                @if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role ==
+                                'superadmin')
+                                <li class="nav-item">
+                                    <a href="{{ route('User.peserta') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Daftar Peserta
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -235,6 +246,8 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('listKerja.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -243,6 +256,7 @@
                                         </p>
                                     </a>
                                 </li>
+                                @endif
                                 {{-- Admin BLK --}}
                                 @can('adminblk-permission')
                                 <li class="nav-item has-treeview">

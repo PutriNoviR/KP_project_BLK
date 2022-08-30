@@ -16,7 +16,9 @@
                 <div class="col-md-12">
                     <select class="form-control" aria-label="Default select example" name="namaBlk">
                         @foreach($blk as $d)
-                        <option value="{{$d->id}}" {{$d->id==$paketProgram->blks_id ? 'selected':''}}>{{$d->nama}}</option> {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
+                        <option value="{{$d->id}}" {{$d->id==$paketProgram->blks_id ? 'selected':''}}>{{$d->nama}}
+                        </option>
+                        {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
                         @endforeach
                     </select>
 
@@ -34,7 +36,9 @@
                 <div class="col-md-12">
                     <select class="form-control" aria-label="Default select example" name="kejuruan">
                         @foreach($kejuruan as $d)
-                        <option value="{{$d->id}}" {{$d->id==$paketProgram->kejuruans_id ? 'selected':''}}>{{$d->nama}}</option> {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id kejuruan yang ada di foreach ?--}}
+                        <option value="{{$d->id}}" {{$d->id==$paketProgram->kejuruans_id ? 'selected':''}}>{{$d->nama}}
+                        </option>
+                        {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id kejuruan yang ada di foreach ?--}}
                         @endforeach
                     </select>
 
@@ -53,7 +57,9 @@
 
                     <select class="form-control" aria-label="Default select example" name="subKejuruan">
                         @foreach($subKejuruan as $d)
-                        <option value="{{$d->id}}" {{$d->id==$paketProgram->sub_kejuruans_id ? 'selected':''}}>{{$d->nama}}</option> {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id kejuruan yang ada di foreach ?--}}
+                        <option value="{{$d->id}}" {{$d->id==$paketProgram->sub_kejuruans_id ? 'selected':''}}>
+                            {{$d->nama}}</option>
+                        {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id kejuruan yang ada di foreach ?--}}
                         @endforeach
                     </select>
 

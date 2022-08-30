@@ -60,10 +60,8 @@ Pelatihan Peserta
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        @foreach($periode as $d)
-        <h2>Daftar Peserta Dari {{ date('M y', strtotime($d->tanggal_pendaftaran)) }} -
-            {{ date('M y', strtotime($d->tanggal_tutup)) }} </h2>
-        @endforeach
+        <h2>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
+            {{ date('M y', strtotime($periode->tanggal_tutup)) }} </h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">

@@ -12,7 +12,7 @@ PELATIHAN PESERTA
 <div class="col-sm-3">
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">{Success</h3>
+            <h3 class="card-title">SUKSES</h3>
         </div>
 
         <div class="card-body">

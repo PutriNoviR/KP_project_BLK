@@ -98,6 +98,7 @@ Route::get('sesiPelatihan/riwayat','sesiPelatihanController@riwayatPelatihan')->
 Route::resource('menu/User','UserController');
 Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 Route::post('User/{id}','UserController@update')->name('User.update');
+Route::get('User/peserta','UserController@daftarPeserta')->name('User.peserta');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');

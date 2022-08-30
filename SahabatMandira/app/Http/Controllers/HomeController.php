@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
+use App\User;
 use App\PelatihanPeserta;
 
 class HomeController extends Controller
@@ -43,7 +44,20 @@ class HomeController extends Controller
         ->WHERE('p.is_sesuai_minat', '=', '1' )
         ->get();
         // dd($disarankan);
-        return view('dashboard',compact('ditawarkan','disarankan'));
+
+        $adminBlk = auth()->user()->blks_id_admin;
+
+        $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
+        ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
+        ->WHERE('b.id','=',$adminBlk)
+        ->get();
+
+        
+        $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
+        ->WHERE('R.nama_role', '=', 'verifikator' )
+        ->get();
+
+        return view('dashboard',compact('ditawarkan','disarankan', 'adminDashboard','user'));
 
         // return view('dashboard');
     }

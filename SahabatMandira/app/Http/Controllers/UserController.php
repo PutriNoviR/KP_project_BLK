@@ -208,4 +208,12 @@ class UserController extends Controller
         $user->jenis_kelamin=$request->jenis_kelamin;
         $user->pendidikan_terakhir=$request->pendidikan_terakhir;
     }
+
+    public function daftarPeserta()
+    {
+        $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
+        ->where('r.nama_role','=','peserta')->get();
+        // dd($data);
+        return view('user.peserta', compact('data'));
+    }
 }

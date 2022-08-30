@@ -148,39 +148,39 @@ Bursa Kerja
         <div class="col mx-auto">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Wrapper for carousel items -->
+                @php
+                $itemku = 0;
+                @endphp
                 <div class="carousel-inner">
-                    @php
-                    $itemke = 0;
-                    @endphp
                     @for ($i = 0; $i < 2; $i++) <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                         <div class="row">
                             @php
                             $count = 1;
                             @endphp
-                            @for ($j = $itemke; $j < count($data); $j++) <div
+                            @while ($itemku < count($data)) <div
                                 class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                                 <div class="card bg-light">
                                     <div class="card-header text-muted border-bottom-0">
-                                        {{ $data[$j]->nama }}
+                                        {{ $data[$itemku]->perusahaan->nama }}
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
                                             <div class="col-7">
-                                                <h2 class="lead"><b>Nicole Pearson</b></h2>
-                                                <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic
-                                                    Artist / Coffee Lover </p>
+                                                <h2 class="lead"><b>{{ $data[$itemku]->posisi }}</b></h2>
+                                                <p class="text-muted text-sm"><b>About: </b> {{ $data[$itemku]->nama }}
+                                                </p>
                                                 <ul class="ml-4 mb-0 fa-ul text-muted">
                                                     <li class="small"><span class="fa-li"><i
-                                                                class="fas fa-lg fa-building"></i></span> Address: Demo
-                                                        Street 123, Demo City 04312, NJ</li>
+                                                                class="fas fa-lg fa-building"></i></span> Address:
+                                                        {{ $data[$itemku]->perusahaan->alamat }}</li>
                                                     <li class="small"><span class="fa-li"><i
-                                                                class="fas fa-lg fa-phone"></i></span> Phone #: + 800 -
-                                                        12 12 23 52</li>
+                                                                class="fas fa-lg fa-phone"></i></span> Phone #:
+                                                        {{ $data[$itemku]->perusahaan->no_telp }}</li>
                                                 </ul>
                                             </div>
                                             <div class="col-5 text-center">
-                                                <img src="../../dist/img/user1-128x128.jpg" alt=""
-                                                    class="img-circle img-fluid">
+                                                <img src="{{ asset('storage/'.$data[$itemku]->perusahaan->logo) }}"
+                                                    alt="" class="img-circle img-fluid">
                                             </div>
                                         </div>
                                     </div>
@@ -197,13 +197,13 @@ Bursa Kerja
                                 </div>
                         </div>
                         @php
-                        if ($count == 3) {
-                        break;
-                        }
-                        $count+=1;
-                        $itemke+=1;
+                        $count += 1;
+                        $itemku += 1;
                         @endphp
-                        @endfor
+                        @if ($count == 4)
+                        @break
+                        @endif
+                        @endwhile
                 </div>
             </div>
             @endfor
