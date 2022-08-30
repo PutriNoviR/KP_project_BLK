@@ -298,7 +298,7 @@ PAKET PROGRAM
                                 @if (Auth::user()->role->nama_role == 'superadmin')
                                 <select class="form-control" aria-label="Default select example" name="blks_id">
                                     @foreach($blk as $d)
-                                    <option value="{{$d->id}}" {{$d->id==$paketProgram->blks_id ? 'selected':''}}>
+                                    <option value="{{$d->id}}" {{$d->id==$paketprogram->blks_id ? 'selected':''}}>
                                         {{$d->nama}}
                                     </option>
                                     {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}

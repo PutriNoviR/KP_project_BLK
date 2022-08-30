@@ -31,17 +31,14 @@ Dashboard
             <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
         </div>
         <div class="card-body">
-            <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}}
+            <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
+            <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
         </div>
         <div class="card-body">
             {{ $d->paketprogram->subkejuruan->nama }}
         </div>
         <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip
-                ex ea commodo consequat.</p> {{--ini belum ambil dari db--}}
+            <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
         </div>
         <div class="card-footer">
             <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -73,18 +70,14 @@ Dashboard
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
                 <div class="card-body">
-                    <h1>GAMBAR KEJURUAN</h1>
+                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip
-                        ex ea commodo consequat.</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>

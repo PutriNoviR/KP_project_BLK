@@ -105,7 +105,7 @@ class SesiPelatihanController extends Controller
 
         $sesi->gambar_pelatihan = $name;
         $sesi->save();
-        // return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
     }
 
     /**

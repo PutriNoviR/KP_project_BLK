@@ -25,7 +25,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
-    {       
+    {
         return view('welcome');
     }
 
@@ -52,7 +52,7 @@ class HomeController extends Controller
         ->WHERE('b.id','=',$adminBlk)
         ->get();
 
-        
+
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator' )
         ->get();
