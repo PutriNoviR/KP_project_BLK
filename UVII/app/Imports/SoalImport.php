@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SoalImport implements ToModel,WithHeadingRow
 {
@@ -22,6 +23,7 @@ class SoalImport implements ToModel,WithHeadingRow
         //     //
         // ]);
         $user = Auth::user()->email;
+        $tanggal=Carbon::now()->format('Y-m-d H:i:m');
         $arr_data=[];
         array_push($arr_data,$row);
         // dd($arr_data);
@@ -30,6 +32,8 @@ class SoalImport implements ToModel,WithHeadingRow
 
         $pertanyaan=[
             'pertanyaan' =>$row['pertanyaan'],
+            'created_at'=>$tanggal,
+            'updated_at'=>$tanggal,
             'created_by' =>$user, 
             'updated_by'=>$user,
         ];
