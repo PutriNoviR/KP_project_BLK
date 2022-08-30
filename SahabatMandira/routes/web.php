@@ -83,6 +83,9 @@ Route::post('menu/lowongan/getEdit','Bursa\LowonganController@getEdit')->name('l
 //List Kerja
 Route::resource('bursa/listKerja','Bursa\ListKerjaController');
 
+//Lamaran
+Route::resource('lamaran','LamaranController');
+
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
 Route::post('paketProgram/getEditForm','PaketProgramPelatihanController@getEditForm')->name('paketProgram.getEditForm');

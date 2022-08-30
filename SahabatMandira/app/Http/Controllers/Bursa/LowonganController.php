@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bursa;
 
 use App\Http\Controllers\Controller;
+use App\Lamaran;
 use App\Lowongan;
 use App\Perusahaan;
 use Illuminate\Http\Request;
@@ -72,6 +73,8 @@ class LowonganController extends Controller
     public function show(Lowongan $lowongan)
     {
         //
+        $lamaran = Lamaran::where('lowongans_id',$lowongan->id)->where('users_email', Auth::user()->email)->first();
+        return view('lowongan.detaillowongan',compact('lowongan','lamaran'));
     }
 
     /**

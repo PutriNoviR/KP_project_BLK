@@ -1,7 +1,7 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Bursa Kerja
+Detail Kerja
 @endsection
 
 @section('content')
