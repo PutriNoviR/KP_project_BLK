@@ -138,7 +138,6 @@ Bursa Kerja
     </div>
 </div>
 
-@if(Auth::user()->role->nama_role == 'peserta')
 <div class="col-sm-6">
     <h1 class="m-0 text-dark">BURSA KERJA</h1><br>
     <h5>Bursa kerja untuk para pencari kerja</h5>
@@ -148,57 +147,55 @@ Bursa Kerja
         <div class="col mx-auto">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Wrapper for carousel items -->
-                @php
-                $itemku = 0;
-                @endphp
                 <div class="carousel-inner">
+                    @php
+                    $itemke = 0;
+                    @endphp
                     @for ($i = 0; $i < 2; $i++) <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                         <div class="row">
                             @php
                             $count = 1;
                             @endphp
-                            @while ($itemku < count($data)) <div
+
+                            @while ($itemke < count($data)) <div
                                 class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                                 <div class="card bg-light">
-                                    <div class="card-header text-muted border-bottom-0">
-                                        {{ $data[$itemku]->perusahaan->nama }}
+                                    <div class="card-header border-bottom-0 text-primary">
+                                        {{$data[$itemke]->nama}}
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
                                             <div class="col-7">
-                                                <h2 class="lead"><b>{{ $data[$itemku]->posisi }}</b></h2>
-                                                <p class="text-muted text-sm"><b>About: </b> {{ $data[$itemku]->nama }}
-                                                </p>
+                                                <h1 class="lead"><b>{{ $data[$itemke]->perusahaan->nama }}</b></h1>
+                                                {{-- <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic
+                                                    Artist
+                                                    /
+                                                    Coffee Lover </p> --}}
                                                 <ul class="ml-4 mb-0 fa-ul text-muted">
                                                     <li class="small"><span class="fa-li"><i
-                                                                class="fas fa-lg fa-building"></i></span> Address:
-                                                        {{ $data[$itemku]->perusahaan->alamat }}</li>
-                                                    <li class="small"><span class="fa-li"><i
-                                                                class="fas fa-lg fa-phone"></i></span> Phone #:
-                                                        {{ $data[$itemku]->perusahaan->no_telp }}</li>
+                                                                class="fas fa-lg fa-building"></i></span> Alamat:
+                                                        {{ $data[$itemke]->perusahaan->alamat }}</li>
                                                 </ul>
                                             </div>
                                             <div class="col-5 text-center">
-                                                <img src="{{ asset('storage/'.$data[$itemku]->perusahaan->logo) }}"
+                                                <img src="{{ asset('storage/'.$data[$itemke]->perusahaan->logo) }} "
                                                     alt="" class="img-circle img-fluid">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
                                         <div class="text-right">
-                                            <a href="#" class="btn btn-sm bg-teal">
-                                                <i class="fas fa-comments"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-user"></i> View Profile
+                                            <a href="{{ route('lowongan.show',$data[$itemke]->id) }}"
+                                                class="btn btn-sm btn-primary">
+                                                Apply
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                         </div>
                         @php
-                        $count += 1;
-                        $itemku += 1;
+                        $itemke +=1;
+                        $count+=1;
                         @endphp
                         @if ($count == 4)
                         @break
@@ -208,6 +205,7 @@ Bursa Kerja
             </div>
             @endfor
         </div>
+
         <!-- Carousel controls -->
         <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
             <i class="fa fa-angle-left"></i>
@@ -219,29 +217,5 @@ Bursa Kerja
 </div>
 </div>
 </div>
-{{-- @foreach ($data as $d)
-<div class="col-sm-3 float-left">
-    <div class="card card-primary ">
-        <div class="card-header">
-            <h3 class="card-title">{{ $d->nama}}</h3>
-</div>
-<div class="card-body">
-    <h1><img src="{{ asset('$d->logo') }}" alt=""></h1>
-</div>
-<div class="card-body">
-    <h5>{{ $d->posisi}}</h5>
-</div>
-<div class="card-body">
-    <small>Tanggal Pemasangan</small>
-</div>
-<div class="card-footer">
-    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
-        Detail
-    </a>
-</div>
-</div>
-</div>
-@endforeach --}}
 
-@endif
 @endsection

@@ -13,4 +13,9 @@ class Lowongan extends Model
     {
         return $this->belongsTo('App\Perusahaan','perusahaans_id','id');
     }
+
+    public function lamaran()
+    {
+        return $this->hasMany('App\Lamaran', 'lowongans_id');
+    }
 }
