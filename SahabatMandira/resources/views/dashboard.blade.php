@@ -55,7 +55,13 @@ Dashboard
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG DITAWARKAN</h4><br>
         <h6>Berikut adalah program pelatihan yang ditawarkan</h6>
+
+        <div class="card-footer">
+            <a href="" class="button btn btn-primary">{{ __('SHOW MORE') }}</a>
+        </div>
     </div>
+
+
 
     <div class="row ">
 

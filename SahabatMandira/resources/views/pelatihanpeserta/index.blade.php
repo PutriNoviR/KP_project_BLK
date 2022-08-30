@@ -29,6 +29,23 @@ Pelatihan Peserta
         });
     }
 
+    function modalKompetensi(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("pelatihanPesertas.getKompetensiForm") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'email_peserta': id,
+            },
+            success: function (data) {
+                $("#modalContent").html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
     function alertShow($id) {
         $.ajax({
             type: 'POST',
@@ -82,6 +99,7 @@ Pelatihan Peserta
                 <th>Daftar Ulang</th>
                 <th>Rekomendasi</th>
                 <th>Aksi</th>
+                <th>Kompetensi</th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -111,6 +129,13 @@ Pelatihan Peserta
                         Update Hasil Seleksi
                     </button>
                 </td>
+                <td>
+                    <button data-toggle="modal" data-target="#modalEditRekomendasi" class='btn btn-warning'
+                        onclick="modalKompetensi('{{$d->email_peserta}}')"
+                        empty({{ $d->hasil_kompetensi }}) ? 'disabled' : '' >
+                        Update Kompetensi
+                    </button>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -118,11 +143,22 @@ Pelatihan Peserta
 </div>
 
 <!-- Modal -->
+@foreach($data as $d)
 <div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
 </div>
+@endforeach
+
+@foreach($data as $d)
+<div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
+    <div class="modal-dialog" id="modalContent">
+
+    </div>
+</div>
+@endforeach
 
 @endsection

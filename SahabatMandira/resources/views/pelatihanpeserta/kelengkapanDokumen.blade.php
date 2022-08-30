@@ -20,11 +20,9 @@ Pelatihan Peserta
                     <div class="form-body">
 
                         <div class="form-group">
-                            <label for="jenisIdentitas"
-                                class="col-md-12 col-form-label">{{ __('Jenis Identitas') }}</label>
+                            <label for="jenisIdentitas" class="col-md-12 col-form-label">{{ __('Jenis Identitas') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="jenis_identitas"
-                                    required>
+                                <select class="form-control" aria-label="Default select example" name="jenis_identitas" required>
                                     <option value="KTP">KTP</option>
                                     <option value="Pasport">Pasport</option>
                                 </select>
@@ -32,13 +30,10 @@ Pelatihan Peserta
                         </div>
 
                         <div class="form-group">
-                            <label for="nomorIdentitas"
-                                class="col-md-12 col-form-label">{{ __('Nomor Identitas') }}</label>
+                            <label for="nomorIdentitas" class="col-md-12 col-form-label">{{ __('Nomor Identitas') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nomorIdentitas" type="text"
-                                    class="form-control @error('nomorIdentitas') is-invalid @enderror"
-                                    name="nomorIdentitas" required autocomplete="nomorIdentitas" autofocus>
+                                <input id="nomorIdentitas" type="text" class="form-control @error('nomorIdentitas') is-invalid @enderror" name="nomorIdentitas" required autocomplete="nomorIdentitas" autofocus>
 
                                 @error('nomorIdentitas')
                                 <span class="invalid-feedback" role="alert">
@@ -50,9 +45,7 @@ Pelatihan Peserta
                         <div class="form-group">
                             <label for="nomorHp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
                             <div class="col-md-12">
-                                <input id="nomorHp" type="text"
-                                    class="form-control @error('nomorHp') is-invalid @enderror" name="nomorHp" required
-                                    autocomplete="nomorHp" autofocus>
+                                <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" name="nomorHp" required autocomplete="nomorHp" autofocus>
 
                                 @error('nomorHp')
                                 <span class="invalid-feedback" role="alert">
@@ -66,8 +59,7 @@ Pelatihan Peserta
                             <label for="kota" class="col-md-12 col-form-label">{{ __('Kota') }}</label>
 
                             <div class="col-md-12">
-                                <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror"
-                                    name="kota" required autocomplete="kota" autofocus>
+                                <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" required autocomplete="kota" autofocus>
 
                                 @error('kota')
                                 <span class="invalid-feedback" role="alert">
@@ -81,9 +73,7 @@ Pelatihan Peserta
                             <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                             <div class="col-md-12">
-                                <input id="alamat" type="text"
-                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat" required
-                                    autocomplete="alamat" autofocus>
+                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" autofocus>
 
                                 @error('alamat')
                                 <span class="invalid-feedback" role="alert">
@@ -120,8 +110,7 @@ Pelatihan Peserta
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="jenis_kelamin"
-                                    required>
+                                <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
                                     <option value="Laki-Laki">Laki-Laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
@@ -131,8 +120,7 @@ Pelatihan Peserta
                         <div class="form-group">
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example"
-                                    name="pendidikan_terakhir" required>
+                                <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
                                     <option value="SD Sederajat">SD Sederajat</option>
                                     <option value="SMP Sederajat">SMP Sederajat</option>
                                     <option value="SMA Sederajat">SMA Sederajat</option>
