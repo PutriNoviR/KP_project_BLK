@@ -78,6 +78,7 @@ class PertanyaanController extends Controller
             $pertanyaan->pertanyaan= $request->get('pertanyaan');
             $pertanyaan->created_by = $user;
             $pertanyaan->updated_by = $user;
+            
     
             $pertanyaan->save();
     
@@ -220,6 +221,23 @@ class PertanyaanController extends Controller
             return redirect()->back()->with('error', 'data gagal diubah');
         }
     
+    }
+
+    public function updateEnable(Request $request){
+        
+        // $dataEnable=[
+        //     'is_enable'=>$request->get('value')
+        // ];
+        // return $request->value;
+
+        DB::connection('uvii')->table('question_admins')->where('id',$request->id)->update(['is_enable'=>$request->value]);
+
+        // Pertanyaan::find($request->id)->update(['is_enable'=>$request->value]);
+        
+        return response()->json(array(
+            'status'=>'Aktif',
+            // 'msg'=>'success'
+        ),200);
     }
 
     

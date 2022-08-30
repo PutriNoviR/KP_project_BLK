@@ -22,6 +22,38 @@
       }
     });
   }
+  
+  $('input[type=checkbox]').change(function(){
+    //if(this.checked)
+    // alert(this.value);
+   // alert('dar');
+    var old_id = $(this).attr('soal_id');
+    var value = '0';
+
+    if(this.checked){
+      value ='1';
+    }
+
+    $.ajax({
+      type:'POST',
+      url:'{{ route("update.enable")}}',
+      data:{'_token':'<?php echo csrf_token() ?>',
+            'id':old_id,
+            'value':value
+          },
+      success: function(data){
+ 
+        if(value == 1){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      
+      }
+    });
+  });
+
 </script>
 
 @endsection
@@ -60,7 +92,7 @@
 <h4 class="text-center">List Soal</h4>
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
-<a class='btn btn-info'> Import Soal </a><br><br>
+<a href="#modalImport" data-toggle='modal' class='btn btn-info'> Import Soal </a><br><br>
 
 
 <div class="portlet">
@@ -76,6 +108,10 @@
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
               aria-label="Browser: activate to sort column ascending" style="width: 250px;">
                       Pertanyaan
+            </th>
+            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                      Soal Aktif
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                 aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
@@ -101,7 +137,20 @@
                 {{ $no }}
             </td>
             <td>
+
                 {{ $item->pertanyaan }}
+               
+            </td>
+            <td>
+                {{--{{ $item->is_enable }}--}}
+                {{--<input type='checkbox' name='is_enable' value='Tidak Aktif'/>--}}
+
+                @if($item->is_enable == 0)
+                  <input type='checkbox' name='is_enable' soal_id='{{$item->id}}'/>
+                @elseif($item->is_enable == 1)
+                  <input type='checkbox' name='is_enable' soal_id='{{$item->id}}' checked/>
+                @endif
+    
             </td>
             
             <td>
@@ -187,8 +236,7 @@
                       </div>
                       <div class="col-md-4">
                           <select class="form-control" name="kejuruan[{{ $i }}]" disabled required>
-                          {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-  
+                       
                            @foreach($data3 as $e)
                               @if($e->id == $d->klaster_id)
                                 <option value='{{ $d->klaster_id }}'>{{ $e->nama }}</option>
@@ -285,5 +333,25 @@
       </div>
     </div>
   </div>
+  {{-- Import--}}
+<div class="modal fade" id="modalImport" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Import Soal</h4>  
+        </div>
+        <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file" class="form-control">
+                <br>
+                <p>Ketentuan:</p>
+                <li>Data Pertanyaan Tidak Boleh sama</li>
+                <li>Berikut adalah contoh format excel<a href="https://docs.google.com/spreadsheets/d/1r7dULIlybheTXoe-WzzEDqr5WUpCJ3diMcZ46fSgOuc/edit?usp=sharing"> contoh.xlsx</a></li>
+
+            <button class="btn btn-success">Import Soal</button>
+        </form>
+</div>
+</div>
+</div>
 
 @endsection

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Blk;
+use App\PaketProgram;
 use App\Role;
+use App\SesiPelatihan;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -50,6 +52,17 @@ class UserController extends Controller
         $User->password = bcrypt($request->password);
         $User->countries_id = $request->countries_id;
         $User->roles_id = $request->roles_id;
+        $User->jenis_identitas = $request->jenis_identitas;
+        $User->pas_foto = $request->pas_foto;
+        $User->nomor_identitas = $request->nomor_identitas;
+        $User->nomer_hp = $request->nomer_hp;
+        $User->kota = $request->kota;
+        $User->alamat = $request->alamat;
+        $User->ktp = $request->ktp;
+        $User->ksk = $request->ksk;
+        $User->ijazah = $request->ijazah;
+        $User->jenis_kelamin = $request->jenis_kelamin;
+        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->save();
         return view();
     }
@@ -88,15 +101,24 @@ class UserController extends Controller
     public function update(Request $request, User $User)
     {
         //
-        $User->email = $request->email;
-        $User->nama_depan = $request->nama_depan;
-        $User->nama_belakang = $request->nama_belakang;
-        $User->username = $request->username;
-        $User->password = bcrypt($request->password);
-        $User->countries_id = $request->countries_id;
-        $User->roles_id = $request->roles_id;
+        // dd($User, $request->id);
+        $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
+        // dd($data->paketprogram);
+        $User =User::find($request->id);
+        // dd($request);
+        $User->jenis_identitas = $request->jenis_identitas;
+        $User->pas_foto = $request->pas_foto;
+        $User->nomor_identitas = $request->nomorIdentitas;
+        $User->nomer_hp = $request->nomorHp;
+        $User->kota = $request->kota;
+        $User->alamat = $request->alamat;
+        $User->ktp = $request->fotoKtp;
+        $User->ksk = $request->ksk;
+        $User->ijazah = $request->ijazah;
+        $User->jenis_kelamin = $request->jenis_kelamin;
+        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->save();
-        return view();
+        return view('sesipelatihan.detailPelatihan',compact('data'));
     }
 
     /**
@@ -170,5 +192,28 @@ class UserController extends Controller
             'status'=>'oke',
             'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render() 
         ), 200);
+    }
+
+    public function kelengkapanDokumen(Request $request){
+        $user = new User();
+        $user->jenis_identitas=$request->jenis_identitas;
+        $user->nomor_identitas=$request->nomorIdentitas;
+        $user->nomer_hp=$request->nomorHp;
+        $user->kota=$request->kota;
+        $user->alamat=$request->alamat;
+        $user->pas_foto=$request->pas_foto;
+        $user->ktp=$request->fotoKtp;
+        $user->ksk=$request->ksk;
+        $user->ijazah=$request->ijazah;
+        $user->jenis_kelamin=$request->jenis_kelamin;
+        $user->pendidikan_terakhir=$request->pendidikan_terakhir;
+    }
+
+    public function daftarPeserta()
+    {
+        $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
+        ->where('r.nama_role','=','peserta')->get();
+        // dd($data);
+        return view('user.peserta', compact('data'));
     }
 }

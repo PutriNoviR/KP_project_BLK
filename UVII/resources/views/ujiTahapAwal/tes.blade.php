@@ -114,23 +114,19 @@
 
     });
 
-    // function getSelectedQuestion(no){
-    //     $.ajax({
-    //         type:'post',
-    //         url:'{{ route("peserta.save.jawaban")}}',
-    //         data:{'_token':'<?php echo csrf_token() ?>',
-    //             'soal':no,
-    //         },
-    //         success: function(data){
-    //             // if(data.msg != ""){
-    //             //     $('#btnNext').css('pointer-events', 'true');
-    //             //     $('#btnSubmit').css('pointer-events', 'true');
-    //             //     $('#box_' + no_soal).css('background', '#D9D9D9')
-    //             // }
-    //             alert('soal success');
-    //         }
-    //     });
-    // }
+    function getSelectedQuestion(no, perPage){
+        var page = Math.floor(((no-1)/perPage)+1);
+       
+        // get current url browser
+        var url = new URLSearchParams(window.location.search);
+        // set new parameter
+        url.set('page', page);
+       
+        // replace url browser with new parameter
+        history.replaceState(null, null, "?"+url.toString()); 
+        // reload page with new parameter
+        document.location.href="?"+url.toString();
+    }
    
 </script>
 @endsection
@@ -256,7 +252,7 @@
                 $no = 1;
             @endphp
             @foreach($dataJawaban as $data)
-                <div id="box_{{ $no }}" class="{{ $data != 0 ? 'box answered':'box' }}" onclick="getSelectedQuestion(no)">
+                <div id="box_{{ $no }}" class="{{ $data != 0 ? 'box answered':'box' }}" onclick="getSelectedQuestion({{$no}},{{$perPage}})">
                     <span>{{ $no }}</span>
                 </div>
               @php

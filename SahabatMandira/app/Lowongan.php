@@ -11,6 +11,6 @@ class Lowongan extends Model
     public $connection = "mandira";
     public function perusahaan()
     {
-        return $this->hasMany('App\Perusahaan','perusahaans_id','id');
+        return $this->belongsTo('App\Perusahaan','perusahaans_id','id');
     }
 }

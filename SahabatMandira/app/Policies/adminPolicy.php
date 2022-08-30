@@ -22,7 +22,10 @@ class AdminPolicy
     public function access(User $user){
         return ($user->peran == "Admin" ? Response::allow() : Response::deny("You must be a super administrator")); 
     }
-
+    public function peserta(User $user)
+    {
+        return ($user->role->nama_role == 'peserta' ? Response::allow(): Response::deny('You must be a super administrator'));
+    }
     public function superadmin(User $user)
     {
         return ($user->role->nama_role === 'superadmin' ? Response::allow() : Response::deny('You must be a super administrator'));
@@ -30,6 +33,6 @@ class AdminPolicy
 
     public function adminblk(User $user)
     {
-        return ($user->role->nama_role === 'adminblk' ? Response::allow() : Response::deny('You must be an Admin BLK'));
+        return ($user->role->nama_role === 'adminblk' || $user->role->nama_role === 'superadmin' ? Response::allow() : Response::deny('You must be an Admin BLK'));
     }
 }

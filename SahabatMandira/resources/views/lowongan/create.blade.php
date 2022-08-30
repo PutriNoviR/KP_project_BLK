@@ -37,13 +37,13 @@ Lowongan
                     @csrf
 
                     <div class="form-group">
-                        <label for="posisi" class="col-md-12 col-form-label">{{ __('Jabatan atau Posisi') }}</label>
+                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama') }}</label>
 
                         <div class="col-md-12">
-                            <input id="posisi" type="text" class="form-control @error('posisi') is-invalid @enderror"
-                                name="posisi" required autocomplete="posisi" autofocus>
+                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
+                                name="nama" required autocomplete="nama" autofocus>
 
-                            @error('posisi')
+                            @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -52,13 +52,13 @@ Lowongan
                     </div>
 
                     <div class="form-group">
-                        <label for="pengalamanKerja" class="col-md-12 col-form-label">{{ __('Pengalaman Kerja') }}</label>
+                        <label for="posisi" class="col-md-12 col-form-label">{{ __('Posisi') }}</label>
 
                         <div class="col-md-12">
-                            <input id="pengalamanKerja" type="text" class="form-control @error('pengalamanKerja') is-invalid @enderror"
-                                name="pengalaman_kerja" required autocomplete="pengalamanKerja" autofocus>
+                            <input id="posisi" type="text" class="form-control @error('posisi') is-invalid @enderror"
+                                name="posisi" required autocomplete="posisi" autofocus>
 
-                            @error('pengalamanKerja')
+                            @error('posisi')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -82,6 +82,22 @@ Lowongan
                     </div>
 
                     <div class="form-group">
+                        <label for="jamKerja" class="col-md-12 col-form-label">{{ __('Jam Kerja') }}</label>
+
+                        <div class="col-md-12">
+                            <input id="jamKerja" type="text"
+                                class="form-control @error('jamKerja') is-invalid @enderror" name="jam_kerja" required
+                                autocomplete="jamKerja" autofocus>
+
+                            @error('jamKerja')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="gaji" class="col-md-12 col-form-label">{{ __('Gaji') }}</label>
 
                         <div class="col-md-12">
@@ -97,10 +113,29 @@ Lowongan
                     </div>
 
                     <div class="form-group">
-                        <label for="pendidikanTerakhir" class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
+                        <label for="pengalamanKerja"
+                            class="col-md-12 col-form-label">{{ __('Pengalaman Kerja') }}</label>
 
                         <div class="col-md-12">
-                            <input id="pendidikanTerakhir" type="text" class="form-control @error('pendidikanTerakhir') is-invalid @enderror"
+                            <input id="pengalamanKerja" type="text"
+                                class="form-control @error('pengalamanKerja') is-invalid @enderror"
+                                name="pengalaman_kerja" required autocomplete="pengalamanKerja" autofocus>
+
+                            @error('pengalamanKerja')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pendidikanTerakhir"
+                            class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
+
+                        <div class="col-md-12">
+                            <input id="pendidikanTerakhir" type="text"
+                                class="form-control @error('pendidikanTerakhir') is-invalid @enderror"
                                 name="pendidikan_terakhir" required autocomplete="pendidikanTerakhir" autofocus>
 
                             @error('pendidikanTerakhir')
@@ -112,22 +147,8 @@ Lowongan
                     </div>
 
                     <div class="form-group">
-                        <label for="jamKerja" class="col-md-12 col-form-label">{{ __('Jam Kerja') }}</label>
-
-                        <div class="col-md-12">
-                            <input id="jamKerja" type="time" class="form-control @error('jamKerja') is-invalid @enderror"
-                                name="jam_kerja" required autocomplete="jamKerja" autofocus>
-
-                            @error('jamKerja')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="deskripsiPekerjaan" class="col-md-12 col-form-label">{{ __('Deskripsi Pekerjaan') }}</label>
+                        <label for="deskripsiPekerjaan"
+                            class="col-md-12 col-form-label">{{ __('Deskripsi Pekerjaan') }}</label>
 
                         <div class="col-md-12">
                             <textarea name="deskripsi_kerja" class="form-control" rows="3" required></textarea>
@@ -141,7 +162,8 @@ Lowongan
                     </div>
 
                     <div class="form-group">
-                        <label for="profilPerusahaan" class="col-md-12 col-form-label">{{ __('Profil Perusahaan') }}</label>
+                        <label for="profilPerusahaan"
+                            class="col-md-12 col-form-label">{{ __('Profil Perusahaan') }}</label>
 
                         <div class="col-md-12">
                             <textarea name="profile_perusahaan" class="form-control" rows="3" required></textarea>
@@ -163,26 +185,27 @@ Lowongan
                         <div class="form-group">
                             <label class="col-md-12" for="pas_foto">Logo Perusahaan</label>
                             
-                            <input type="file" name='logo' class="col-md-12 defaults" value="{{ $data->logo ?? ''}}" required>
-                        </div>
+                            <input type="file" name='logo' class="col-md-12 defaults" value="{{ $data->logo ?? ''}}"
+                    required>
+            </div>
 
-                        <div class="form-group">
-                            <label class="col-md-12" for="foto">Foto Perusahaan</label>
-                            
-                            <input type="file" name='foto' class="col-md-12 defaults" value="{{ $data->foto ?? ''}}" required>
-                        </div>
-                    </div>--}}
+            <div class="form-group">
+                <label class="col-md-12" for="foto">Foto Perusahaan</label>
 
-                    <div class="form-group mb-0 rata_tengah">
-                        <div class="col-md-12 offset-manual">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('SIMPAN') }}
-                            </button>
-                            <br>
-                        </div>
-                    </div>
-                </form>
+                <input type="file" name='foto' class="col-md-12 defaults" value="{{ $data->foto ?? ''}}" required>
+            </div>
+        </div>--}}
+
+        <div class="form-group mb-0 rata_tengah">
+            <div class="col-md-12 offset-manual">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('SIMPAN') }}
+                </button>
+                <br>
             </div>
         </div>
+        </form>
     </div>
-    @endsection
+</div>
+</div>
+@endsection

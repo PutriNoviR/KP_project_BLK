@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
+    @yield('style')
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -193,7 +194,7 @@
                     <!-- Sidebar -->
                     <div class="sidebar">
                         <!-- Sidebar user panel (optional) -->
-                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class=" user-panel mt-3 pb-3 mb-3 d-flex">
                             <div class="image">
                                 <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg')}}"
                                     class="img-circle elevation-2" alt="User Image">
@@ -217,11 +218,22 @@
                                         </p>
                                     </a>
                                 </li>
+                                @if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role ==
+                                'superadmin')
+                                <li class="nav-item">
+                                    <a href="{{ route('User.peserta') }}" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Daftar Peserta
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
-                                            Pelatihan (Admin BLK)
+                                            Pelatihan
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
@@ -234,23 +246,19 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('listKerja.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
-                                            Bursa Kerja (Admin BLK)
-                                            <i class="fas fa-angle-left right"></i>
+                                            Bursa Kerja
                                         </p>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Manage Pembukaan Bursa</p>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
+                                @endif
+                                {{-- Admin BLK --}}
+                                @can('adminblk-permission')
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -274,6 +282,7 @@
                                         </li>
                                     </ul>
                                 </li>
+                                @endcan
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')
                                 <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
@@ -338,7 +347,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                @endcan
+
                                 {{-- End Super Admin --}}
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
@@ -429,7 +438,7 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                @endcan
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('logout') }}" class="nav-link " onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

@@ -133,6 +133,7 @@ class SubkejuruanController extends Controller
     public function getDetail(Request $request)
     {
         $sub = Subkejuruan::find($request->id);
+        // dd($sub);
         $aktivitas = $sub->aktivitas;
         return response()->json(array(
             'status'=>'oke',

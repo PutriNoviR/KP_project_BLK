@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Bursa;
 
 use App\Http\Controllers\Controller;
 use App\ListKerja;
+use App\Lowongan;
 use Illuminate\Http\Request;
 use App\Perusahaan;
 
@@ -18,8 +19,8 @@ class ListKerjaController extends Controller
     {
         //
         // return view ("bursa.listKerja");
-        $data=Perusahaan::ListKerja();
-        // dd($data);
+        // $data=Perusahaan::ListKerja();
+        $data = Lowongan::all();
         return view('bursa.listKerja', compact('data'));
     }
 
