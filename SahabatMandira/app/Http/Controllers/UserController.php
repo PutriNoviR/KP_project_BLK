@@ -113,11 +113,15 @@ class UserController extends Controller
         //     'ksk' => ['requied'],
         //     'ijazah' => ['required'],
         //     'jenis_kelamin' => ['required']
-        
+
         // ]);
         $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
         // dd($data->paketprogram);
         $User =User::find($request->id);
+        $validator = $request->validate([
+            'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
+            'nomorHp' => ['required', 'string', 'min:12', 'max:12']
+        ]);
         // dd($request);
         $User->jenis_identitas = $request->jenis_identitas;
         $User->pas_foto = $request->pas_foto;
@@ -130,7 +134,7 @@ class UserController extends Controller
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
-        $User->save();
+        // $User->save();
         return view('sesipelatihan.detailPelatihan',compact('data'));
     }
 
@@ -150,7 +154,7 @@ class UserController extends Controller
     public function daftarAdminBlk()
     {
         $blks = Blk::all();
-        $adminblks = User::whereNotNull('blks_id_admin')->get(); 
+        $adminblks = User::whereNotNull('blks_id_admin')->get();
         return view('admin.daftarAdminBlk', compact('adminblks','blks'));
     }
 
@@ -163,11 +167,11 @@ class UserController extends Controller
         $role = Role::where('nama_role','adminblk')->first();
 
         $adminblk->blks_id_admin = $request->blks_id;
-        $adminblk->roles_id = $role->id; 
+        $adminblk->roles_id = $role->id;
         $adminblk->save();
         return redirect()->back()->with('success','Admin BLK berhasil ditambahkan!');
     }
-    
+
     public function editAdminBlk(Request $request)
     {
         $admin = User::where('email',$request->email)->first();
@@ -175,7 +179,7 @@ class UserController extends Controller
         $admin->save();
         return redirect()->back()->with('success','Admin BLK berhasil diubah!');
     }
-    
+
     public function hapusAdminBlk($email)
     {
         $role = Role::where('nama_role','peserta')->first();
@@ -184,7 +188,7 @@ class UserController extends Controller
         $user->blks_id_admin = null;
         $user->roles_id = $role->id;
         $user->save();
-        
+
         return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
     }
 
@@ -193,7 +197,7 @@ class UserController extends Controller
         $user = User::find($request->id);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('user.modal', compact('user'))->render() 
+            'msg'=>view('user.modal', compact('user'))->render()
         ), 200);
     }
 
@@ -203,7 +207,7 @@ class UserController extends Controller
         $admin = User::where('email',$request->email)->first();
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render() 
+            'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render()
         ), 200);
     }
 
