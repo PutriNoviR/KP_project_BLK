@@ -30,7 +30,7 @@
         </div>
         <div class="card-footer">
             <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning '>
-                DAFTAR PELATIHA
+                DAFTAR PELATIHAN
             </a>
         </div>
     </div>

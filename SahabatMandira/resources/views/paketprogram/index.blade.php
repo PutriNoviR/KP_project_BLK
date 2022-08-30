@@ -23,6 +23,7 @@ PAKET PROGRAM
                 'id': paketProgramId,
             },
             success: function (data) {
+                // console.log(data.msg);
                 $("#modalContent").html(data.msg);
             },
             error: function (xhr) {
@@ -91,6 +92,12 @@ PAKET PROGRAM
             <li>{!! \Session::get('success') !!}</li>
         </ul>
     </div>
+    @else
+    <div class="alert alert-error">
+        <ul>
+            <li>{!! \Session::get('error') !!}</li>
+        </ul>
+    </div>
     @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
         aria-describedby="sample_1_info">
@@ -134,7 +141,7 @@ PAKET PROGRAM
             {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}
             <div class="modal fade" id="modalTambahSesiPelatihan{{$paketprogram->id}}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Sesi Pelatihan</h5>
@@ -143,9 +150,18 @@ PAKET PROGRAM
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('sesiPelatihan.store') }}">
+                            <form method="POST" action="{{ route('sesiPelatihan.store') }}" enctype="multipart/form-data">
                                 @csrf
-
+                                <div class="form-group">
+                                    <label for="deskripsi"
+                                        class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="deskripsi">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoPelatihan"
+                                        class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
+                                    <input type="file" name='fotoPelatihan' class="defaults"  accept="image/png, image/gif, image/jpeg">
+                                </div>
                                 <div class="form-group">
                                     <label for="tanggalBukaPendaftaran"
                                         class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>

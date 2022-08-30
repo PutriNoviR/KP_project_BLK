@@ -148,21 +148,21 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="">
+                        <a class="text-decoration-none text-dark" href="{{ route('register') }}">
                             <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/1.jpg')}}"
                                 alt="..." />
-                            <h4>Pekerjaan</h4>
-                            <p class="text-muted">Daftar sebagai pencari kerja</p>
+                            <h4></h4>
+                            <p class="">Daftar sebagai pencari kerja</p>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="">
+                        <a class="text-decoration-none text-dark" href="{{ route('registerMentor') }}">
                             <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/2.jpg')}}"
                                 alt="..." />
-                            <h4>Mentor</h4>
-                            <p class="text-muted">Daftar sebagai mentor pelatihan</p>
+                            <h4></h4>
+                            <p class="">Daftar sebagai mentor pelatihan</p>
                         </a>
                     </div>
                 </div>
@@ -171,8 +171,8 @@
                         <a class="text-decoration-none text-dark" href="{{ route('perusahaan.create') }}">
                             <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/3.jpg')}}"
                                 alt="..." />
-                            <h4>Mitra</h4>
-                            <p class="text-muted">Daftar sebagi mitra</p>
+                            <h4></h4>
+                            <p class="">Daftar sebagi mitra</p>
                         </a>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                         meningkatkan kompetensi dengan dibimbing oleh Mentor yang berpengalaman dari Disnaker, Dunia
                         Akademis dan Industri."
                     </p>
-                    <button type="button" class="btn btn-info btn-lg mx-auto">Daftar Sekarang!</button>
+                    <a href="{{ route('register') }}" class="btn btn-info btn-lg mx-auto">Daftar Sekarang!</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('landingpage/assets/img/pelatihan.jpg')}}" class="rounded w-100" alt="...">

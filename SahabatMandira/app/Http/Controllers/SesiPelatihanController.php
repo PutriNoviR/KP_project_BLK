@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\SesiPelatihan;
 use App\PelatihanPeserta;
+use App\PelatihanMentor;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use File;
+use App\Http\Controllers\Controller;
+
+
 
 class SesiPelatihanController extends Controller
 {
@@ -20,6 +26,7 @@ class SesiPelatihanController extends Controller
     {
         //
         $data = SesiPelatihan::all();
+
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator' )
         ->get();
@@ -43,7 +50,11 @@ class SesiPelatihanController extends Controller
         ->WHERE('P.mentors_email', '=', $userLogin )
         ->get();
 
-        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta'));
+        $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
+        ->WHERE('p.email_peserta', '=', $userLogin )
+        ->get();
+
+        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta','dataPeserta'));
     }
 
     /**
@@ -65,7 +76,14 @@ class SesiPelatihanController extends Controller
     public function store(Request $request)
     {
         //
-        //dd($request);
+        // return($request);
+        if(!$request->hasFile('fotoPelatihan')){
+            return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
+        }
+        // else{
+        //     return 'dor';
+        // }
+
         $sesi = new SesiPelatihan();
         $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesi->tanggal_tutup = $request->tanggal_tutup;
@@ -77,8 +95,17 @@ class SesiPelatihanController extends Controller
         $sesi->tanggal_seleksi = $request->tanggal_seleksi;
         $sesi->paket_program_id = $request->paket_program_id;
         $sesi->aktivitas = $request->aktivitas;
+        $sesi->deskripsi = $request->deskripsi;
+
+        //insert foto (maaf gk bisa elequent [yobong])
+        $foto = $request->file('fotoPelatihan');
+        $name = $foto->getClientOriginalName();
+        $foto->move('images/programPelatihan',$name);
+
+
+        $sesi->gambar_pelatihan = $name;
         $sesi->save();
-        return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+        // return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
     }
 
     /**
@@ -93,9 +120,20 @@ class SesiPelatihanController extends Controller
         // return $id;
         $data = SesiPelatihan::where('id','=',$id)
         ->get();
+
+        // $data = DB::connection('mandira')
+        //         ->table('pelatihan_mentors as pm')
+        //         ->join('masterblk_db.paket_program as s', 'pm.sesi_pelatihans_id', '=', 's.id')
+        //         ->join('sesi_pelatihans as s', 'pm.sesi_pelatihans_id', '=', 's.id')
+        //         ->where('sesi_pelatihans_id',$id)
+        //         ->get();
+
+        // dd($data);
+        $mentor = PelatihanMentor::where('sesi_pelatihans_id','=',$id)
+        ->get();
         // $datas = $data->paketprogram;
         // dd($data);
-        return view('sesipelatihan.detailPelatihan',compact('data'));
+        return view('sesipelatihan.detailPelatihan',compact('data','mentor'));
     }
 
     /**
@@ -144,7 +182,7 @@ class SesiPelatihanController extends Controller
     {
         //
         try {
-            $sesiPelatihan->delete(); 
+            $sesiPelatihan->delete();
             return redirect()->route('')->with('success','Data BLK berhasil dihapus!');
         } catch (\PDOException $e) {
             $msg="Data gagal dihapus";
@@ -165,9 +203,11 @@ class SesiPelatihanController extends Controller
         ), 200);
     }
 
-    public function pelatihanYangDiikuti(){
+    public function riwayatPelatihan()
+    {
 
         $data = SesiPelatihan::all();
-        return view('sesipelatihan.detailPelatihanYangDibuka',compact('data'));
+        dd($data);
+        return view('pelatihanPeserta.pelatihanYangDiikuti',compact('data'));
     }
 }

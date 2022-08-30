@@ -4,16 +4,117 @@
 Bursa Kerja
 @endsection
 
-@section('page-bar')
-<div class="col-sm-6">
-    <h1 class="m-0 text-dark">Dashboard</h1>
-</div><!-- /.col -->
-<div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Bursa Kerja</li>
-    </ol>
-</div><!-- /.col -->
+@section('style')
+<style>
+    .carousel {
+        margin: 30px auto 60px !important;
+        padding: 0 80px !important;
+    }
+
+    .carousel .carousel-item {
+        text-align: center !important;
+        overflow: hidden !important;
+    }
+
+    .carousel .carousel-item h4 {
+        font-family: 'Varela Round', sans-serif !important;
+    }
+
+    .carousel .carousel-item img {
+        max-width: 100% !important;
+        display: inline-block !important;
+    }
+
+    .carousel .carousel-item .btn {
+        border-radius: 0 !important;
+        font-size: 12px !important;
+        text-transform: uppercase !important;
+        font-weight: bold !important;
+        border: none !important;
+        padding: 6px 15px !important;
+        margin-top: 5px !important;
+    }
+
+    .carousel .carousel-item .btn:hover {
+        /* background: #8c5bff !important; */
+    }
+
+    .carousel .carousel-item .btn i {
+        font-size: 14px !important;
+        font-weight: bold !important;
+        margin-left: 5px !important;
+    }
+
+    .carousel .thumb-wrapper {
+        margin: 5px !important;
+        text-align: left !important;
+        background: #fff !important;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .carousel .thumb-content {
+        padding: 15px !important;
+        font-size: 13px !important;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        height: 44px !important;
+        width: 44px !important;
+        background: none !important;
+        margin: auto 0 !important;
+        border-radius: 50% !important;
+        border: 3px solid rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .carousel-control-prev i,
+    .carousel-control-next i {
+        font-size: 36px !important;
+        position: absolute !important;
+        top: 50% !important;
+        display: inline-block !important;
+        margin: -19px 0 0 0 !important;
+        z-index: 5 !important;
+        left: 0 !important;
+        right: 0 !important;
+        color: rgba(0, 0, 0, 0.8) !important;
+        text-shadow: none !important;
+        font-weight: bold !important;
+    }
+
+    .carousel-control-prev i {
+        margin-left: -3px !important;
+    }
+
+    .carousel-control-next i {
+        margin-right: -3px !important;
+    }
+
+    .carousel-indicators {
+        bottom: -50px !important;
+    }
+
+    .carousel-indicators li,
+    .carousel-indicators li.active {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        margin: 4px !important;
+        border: none !important;
+    }
+
+    .carousel-indicators li {
+        background: #ababab !important;
+    }
+
+    .carousel-indicators li.active {
+        background: #555 !important;
+    }
+
+</style>
+@endsection
+
+@section('javascript')
 @endsection
 
 @section('contents')
@@ -27,42 +128,14 @@ Bursa Kerja
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="col-md-12 text-center">
-                        <img src="gambar4.jpg" class="col-md-12 card-img-top">
-                        <label for="nama" class="col-md-12 col-form-label">{{__('Nama Perusahaan')}}</label>
-                    </div>
+            <div class="form-group">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Daftar</button>
                 </div>
-
-                {{--<div class="form-group">
-                    @foreach($data_lowongan as $dl)
-                    <div class="col-md-12">
-                        <label for="label" class="col-md-12 col-form-label">{{__('Posisi')}}</label>
-                <p class="col-md-12">{{$dl->posisi}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Alamat')}}</label>
-                <p class="col-md-12">{{$dl->alamat}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Gaji')}}</label>
-                <p class="col-md-12">{{$dl->gaji}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Jam Kerja')}}</label>
-                <p class="col-md-12">{{$dl->jam_kerja}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Deskripsi Pekerjaan')}}</label>
-                <p class="col-md-12">{{$dl->deskripsi_kerja}}</p>
-                <label for="label" class="col-md-12 col-form-label">{{__('Profile Perusahaan')}}</label>
-                <p class="col-md-12">{{$dl->profile_perusahaan}}</p>
-            </div>
-            @endforeach
-        </div>--}}
-
-        <div class="form-group">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Daftar</button>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 
 @if(Auth::user()->role->nama_role == 'peserta')
@@ -70,36 +143,105 @@ Bursa Kerja
     <h1 class="m-0 text-dark">BURSA KERJA</h1><br>
     <h5>Bursa kerja untuk para pencari kerja</h5>
 </div>
-
+<div class="container-xl">
+    <div class="row">
+        <div class="col mx-auto">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    @php
+                    $itemke = 0;
+                    @endphp
+                    @for ($i = 0; $i < 2; $i++) <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @php
+                            $count = 1;
+                            @endphp
+                            @for ($j = $itemke; $j < count($data); $j++) <div
+                                class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0">
+                                        {{ $data[$j]->nama }}
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h2 class="lead"><b>Nicole Pearson</b></h2>
+                                                <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic
+                                                    Artist / Coffee Lover </p>
+                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <li class="small"><span class="fa-li"><i
+                                                                class="fas fa-lg fa-building"></i></span> Address: Demo
+                                                        Street 123, Demo City 04312, NJ</li>
+                                                    <li class="small"><span class="fa-li"><i
+                                                                class="fas fa-lg fa-phone"></i></span> Phone #: + 800 -
+                                                        12 12 23 52</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-5 text-center">
+                                                <img src="../../dist/img/user1-128x128.jpg" alt=""
+                                                    class="img-circle img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="#" class="btn btn-sm bg-teal">
+                                                <i class="fas fa-comments"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user"></i> View Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        @php
+                        if ($count == 3) {
+                        break;
+                        }
+                        $count+=1;
+                        $itemke+=1;
+                        @endphp
+                        @endfor
+                </div>
+            </div>
+            @endfor
+        </div>
+        <!-- Carousel controls -->
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div>
+</div>
+</div>
+{{-- @foreach ($data as $d)
 <div class="col-sm-3 float-left">
     <div class="card card-primary ">
         <div class="card-header">
-            <h3 class="card-title">Nama Perusahaan</h3>
-        </div>
-        <div class="card-body">
-            <h1>LOGO</h1>
-        </div>
-        <div class="card-body">
-            <h5>Posisi</h5>
-        </div>
-        <div class="card-body">
-            <small>Tanggal Pemasangan</small>
-        </div>
-        <div class="card-footer">
-            <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
-                Detail
-            </a>
-        </div>
-    </div>
+            <h3 class="card-title">{{ $d->nama}}</h3>
 </div>
+<div class="card-body">
+    <h1><img src="{{ asset('$d->logo') }}" alt=""></h1>
+</div>
+<div class="card-body">
+    <h5>{{ $d->posisi}}</h5>
+</div>
+<div class="card-body">
+    <small>Tanggal Pemasangan</small>
+</div>
+<div class="card-footer">
+    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-primary '>
+        Detail
+    </a>
+</div>
+</div>
+</div>
+@endforeach --}}
+
 @endif
-
-{{--<div class="form-group mb-0 rata_tengah">
-    <div class="col-md-12 offset-manual text-right">
-        <label for="daftar" class="col-md-12 col-form-label">{{ __('Daftar sebagai perusahaan!') }}</label>
-<a href="{{url('menu/perusahaan/create')}}" class="button btn btn-primary">{{ __('DAFTAR') }}</a>
-</div>
-</div>--}}
-
-
 @endsection

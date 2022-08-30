@@ -25,7 +25,7 @@ class PelatihanPesertaController extends Controller
         ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
         ->get();
 
-        
+        // dd($data);
         return view('pelatihanpeserta.index', compact('data','peserta'));
     }
 
@@ -48,20 +48,30 @@ class PelatihanPesertaController extends Controller
     public function store(Request $request, $id)
     {
         //
-        $email = auth()->user()->email;
-        $insert = array(
-            'email' => $email,
-            'sesi_pelatihans_id' => $id,
-            'status' => $request->get('status'),
-            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
-        );
+        // $email = auth()->user()->email;
+        // $insert = array(
+        //     'email' => $email,
+        //     'sesi_pelatihans_id' => $id,
+        //     'status' => $request->get('status'),
+        //     'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+        // );
 
-        DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->insert($insert);
+        // DB::connection('mandira')
+        //     ->table('pelatihan_pesertas')
+        //     ->insert($insert);
 
             
-        return redirect()->back()->with('success', 'Data Peserta berhasil diubah!');
+        // //
+
+        // $data = DB::connection('mandira')
+        //         ->table('pelatihan_pesertas as pp')
+        //         ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+        //         ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+        //         ->where('sesi_pelatihans_id',$id)
+        //         ->get();
+        // //
+        // // dd($data);
+        // return redirect()->route('pelatihanpeserta.jadwalSeleksi', compact('data'))->with('success', 'Berhasil Mendaftar');
     }
 
     /**
@@ -128,7 +138,7 @@ class PelatihanPesertaController extends Controller
             ->where('email_peserta', $email)
             ->update($update);
 
-        return redirect()->back()->with('success', 'Data Peserta berhasil diubah!');
+        return redirect()->back()->with('success', 'Berhasil Mendaftar');
     }
 
     /**
@@ -142,13 +152,14 @@ class PelatihanPesertaController extends Controller
         //
     }
 
-    public function lengkapiBerkas()
+    public function lengkapiBerkas($idpelatihan)
     {
+        // dd($idpelatihan);
         $userLogin = auth()->user()->email;
         $data = User::all()->where('email','=',$userLogin);
         // $datas = $data->email;
         // dd($data);
-        return view('pelatihanpeserta.kelengkapanDokumen',compact('data'));
+        return view('pelatihanpeserta.kelengkapanDokumen',compact('data','idpelatihan'));
     }
 
     public function pendaftaran()
@@ -171,5 +182,47 @@ class PelatihanPesertaController extends Controller
             'msg'=>view('pelatihanpeserta.modal', compact('data'))->render() 
         ), 200);
     }
+
+    public function storePendaftar(Request $request, $id)
+    {
+        //
+        // $mentor = S
+        
+        $email = auth()->user()->email;
+        $insert = array(
+            'email_peserta' => $email,
+            'sesi_pelatihans_id' => $id,
+            'status' => $request->get('status'),
+            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+        );
+
+        DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->insert($insert);
+
+        //
+        $data = DB::connection('mandira')
+                ->table('pelatihan_pesertas as pp')
+                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+                ->where('sesi_pelatihans_id',$id)
+                ->get();
+        
+        //
+        // dd($data);
+        return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+    }
+
+    public function urutan($id)
+    {
+        $data = DB::connection('mandira')
+                ->table('pelatihan_pesertas as pp')
+                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+                ->where('sesi_pelatihans_id',$id)
+                ->get();
+        view('pelatihanpeserta.jadwalSeleksi',compact('data'));
+    } 
+
 
 }

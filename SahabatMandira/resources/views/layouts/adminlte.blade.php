@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
+    @yield('style')
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -225,8 +226,6 @@
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
-                                    @if(Auth::user()->role->nama_role == 'verifikator' || Auth::user()->role->nama_role
-                                    == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
@@ -235,35 +234,17 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    @endif
-                                    @if(Auth::user()->role->nama_role == 'peserta')
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{url('sesiPelatihan/pelatihanYangDiikuti')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Pelatihan Yang Pernah Diikuti</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    @endif
                                 </li>
                                 <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('listKerja.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
                                             Bursa Kerja
-                                            <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Manage Pembukaan Bursa</p>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
+                                {{-- Admin BLK --}}
+                                @can('adminblk-permission')
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -287,6 +268,7 @@
                                         </li>
                                     </ul>
                                 </li>
+                                @endcan
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')
                                 <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
@@ -351,7 +333,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                @endcan
+
                                 {{-- End Super Admin --}}
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
@@ -442,7 +424,7 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                @endcan
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('logout') }}" class="nav-link " onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
