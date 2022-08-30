@@ -85,6 +85,7 @@ Route::resource('bursa/listKerja','Bursa\ListKerjaController');
 
 //Lamaran
 Route::resource('lamaran','LamaranController');
+Route::post('lamaran/getEditForm','LamaranController@getEditForm')->name('lamaran.getEditForm');
 
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');

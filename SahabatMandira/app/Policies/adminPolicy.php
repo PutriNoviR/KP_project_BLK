@@ -35,4 +35,9 @@ class AdminPolicy
     {
         return ($user->role->nama_role === 'adminblk' || $user->role->nama_role === 'superadmin' ? Response::allow() : Response::deny('You must be an Admin BLK'));
     }
+
+    public function adminperusahaan(User $user)
+    {
+        return ($user->role->nama_role === 'adminperusahaan' || $user->role->nama_role === 'superadmin' ? Response::allow() : Response::deny('You must be an Admin Perusahaan'));
+    }
 }

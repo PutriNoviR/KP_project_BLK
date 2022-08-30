@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lamaran;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +58,13 @@ class LamaranController extends Controller
     {
         //
         $lamarans = Lamaran::where('lowongans_id', $id)->get();
-        return view('lamaran.showpelamar',compact('lamarans'));
+        $users = [];
+        foreach ($lamarans as $lamaran ) {
+            $email = $lamaran->users_email;
+            $user = User::where('email',$email)->first();
+            $users[] = $user;
+        }
+        return view('lamaran.showpelamar',compact('lamarans','users'));
     }
 
     /**
@@ -81,6 +88,9 @@ class LamaranController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$id)->update(['status'=> $request->status]);
+        // dd($lamaran);
+        return redirect()->back()->with('success','Data pelamar berhasil dibuah!');
     }
 
     /**
@@ -92,5 +102,15 @@ class LamaranController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getEditForm(Request $request)
+    {
+        $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$request->lowongans_id)->first();
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('lamaran.modalpelamar', compact('lamaran'))->render() 
+        ), 200);
+        // return view('blk.update',compact('blk'));
     }
 }

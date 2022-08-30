@@ -31,7 +31,16 @@
                             $lamaran->lowongans_id ==
                             $lowongan->id)
                             <div>
-                                <button type="button" class="btn btn-outline-success btn-lg disabled">Terdaftar</button>
+                                @if ($lamaran->status == 'Terdaftar')
+                                <button type="button"
+                                    class="btn btn-outline-success btn-lg disabled">{{ $lamaran->status }}</button>
+                                @elseif ($lamaran->status == 'Tahap Seleksi')
+                                <button type="button"
+                                    class="btn btn-outline-warning btn-lg disabled">{{ $lamaran->status }}</button>
+                                @else
+                                <button type="button"
+                                    class="btn btn-outline-danger btn-lg disabled">{{ $lamaran->status }}</button>
+                                @endif
                             </div>
                             @else
                             <form method="POST" action="{{ route('lamaran.store') }}">

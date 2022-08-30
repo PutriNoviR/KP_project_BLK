@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Lamaran extends Model
 {
     //
+    public $incrementing = false;
     public $timestamps = false;
     protected $connection = 'mandira';
 

@@ -32,7 +32,8 @@ Dashboard
         </div>
         <div class="card-body">
             <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-            <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+            <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
+                style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
         </div>
         <div class="card-body">
             {{ $d->paketprogram->subkejuruan->nama }}
@@ -71,7 +72,8 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
+                        style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
@@ -199,5 +201,9 @@ Dashboard
 @endforeach
 
 @endif
+
+@can('adminperusahaan-permission')
+
+@endcan
 
 @endsection
