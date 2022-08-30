@@ -54,7 +54,13 @@ Dashboard
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG DITAWARKAN</h4><br>
         <h6>Berikut adalah program pelatihan yang ditawarkan</h6>
+
+        <div class="card-footer">
+            <a href="" class="button btn btn-primary">{{ __('SHOW MORE') }}</a>
+        </div>
     </div>
+
+
 
     <div class="row ">
 
@@ -104,8 +110,7 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -144,8 +149,7 @@ Dashboard
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
-                                class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -157,8 +161,7 @@ Dashboard
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -182,8 +185,7 @@ Dashboard
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
-                                value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">

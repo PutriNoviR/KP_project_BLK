@@ -97,6 +97,7 @@ class PelatihanPesertaController extends Controller
         // dd($data);
         // $data = PelatihanPeserta::all()->where('sesi_pelatihans_id','=',$id);
         // $data = PelatihanPeserta::find($id);
+
         return view('pelatihanpeserta.index',compact('data','periode'));
     }
 
@@ -124,7 +125,7 @@ class PelatihanPesertaController extends Controller
 
         //yobong
         $update = array(
-            'status' => $request->get('status'),
+            'status' => 'dalam seleksi',
             'rekom_catatan' => $request->get('rekom_catatan'),
             'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
             'rekom_keputusan' => $request->get('rekom_keputusan'),
@@ -183,6 +184,23 @@ class PelatihanPesertaController extends Controller
         ), 200);
     }
 
+    public function getKompetensiForm(Request $request)
+    {
+        $email = $request->email_peserta;
+        // $data = PelatihanPeserta::all()->WHERE('email_peserta','=', $email);
+        $data = DB::connection('mandira')
+            ->table('pelatihan_pesertas as pp')
+            ->where('email_peserta',$email)
+            ->get();
+    
+        // $data = PelatihanPeserta::find($request->id);
+        // dd($email);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('pelatihanpeserta.modalKompetensi', compact('data'))->render() 
+        ), 200);
+    }
+
     public function storePendaftar(Request $request, $id)
     {
         //
@@ -224,5 +242,22 @@ class PelatihanPesertaController extends Controller
         view('pelatihanpeserta.jadwalSeleksi',compact('data'));
     } 
 
+    public function updateKompetensi(Request $request, $email)
+    {
+        // return $email;
 
+        //yobong
+        $update = array(
+            'status' => $request->get('status'),
+            'hasil_kompetensi' => $request->get('hasil_kompetensi'),
+        );
+
+        DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->where('email_peserta', $email)
+            ->update($update);
+
+        return redirect()->back()->with('success', 'Berhasil Mendaftar');
+    }
 }

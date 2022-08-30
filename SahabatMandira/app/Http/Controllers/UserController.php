@@ -8,6 +8,7 @@ use App\Role;
 use App\SesiPelatihan;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -102,6 +103,18 @@ class UserController extends Controller
     {
         //
         // dd($User, $request->id);
+        // $this->validate($request, [
+        //     'pas_foto' => ['required'],
+        //     'nomorIdentitas' => ['required','numeric', 'digits:16'],
+        //     'nomorHp' => ['required','numeric','digits:12'],
+        //     'kota' => ['required', 'string'],
+        //     'alamat' => ['required','string'],
+        //     'fotoKtp' => ['required'],
+        //     'ksk' => ['requied'],
+        //     'ijazah' => ['required'],
+        //     'jenis_kelamin' => ['required']
+        
+        // ]);
         $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
         // dd($data->paketprogram);
         $User =User::find($request->id);

@@ -113,8 +113,9 @@ Route::get('pelatihanPeserta/lengkapiBerkas/{idpelatihan}','PelatihanPesertaCont
 Route::get('pelatihanPeserta/pendaftaran','PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
 Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
+Route::post('pelatihanPeserta/getKompetensiForm','PelatihanPesertaController@getKompetensiForm')->name('pelatihanPesertas.getKompetensiForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
-Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updatePermanen')->name('pelatihanPesertas.updatePermanen');
+Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
 Route::post('pelatihanPeserta/pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 
