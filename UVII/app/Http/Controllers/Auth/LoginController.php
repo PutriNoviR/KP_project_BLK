@@ -61,4 +61,9 @@ class LoginController extends Controller
     public function username(){
         return 'username';
     }
+
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
+    }
 }

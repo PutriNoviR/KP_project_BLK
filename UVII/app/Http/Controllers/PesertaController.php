@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class PesertaController extends Controller
@@ -265,5 +266,20 @@ class PesertaController extends Controller
         // }  
         
         return redirect()->route('home');
+    }
+
+    public function forgotPasswords(Request $request){
+        if($request->password == $request->password_confirmation){
+            User::where('email',$request->email)->update(['password'=>Hash::make($request->password)]);
+            return redirect()->route('login')->with('succsess','Password Berhasil dirubah');
+        }
+        else{
+            return redirect()->back()->with('error','password gagal terganti');
+        }
+
+    }
+    public function getForgotPasswords(){
+        return view('auth.passwords.reset');
+
     }
 }

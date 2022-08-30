@@ -141,7 +141,7 @@ class TesTahapAwalController extends Controller
             $uji_minat->save();
             // membuat soal random dan dikunci
 
-            $dataSoal = Pertanyaan::inRandomOrder()->take($dataJmlSoal->value)->get();
+            $dataSoal = Pertanyaan::where('is_enable', 1)->inRandomOrder()->take($dataJmlSoal->value)->get();
        
             UjiMinatAwal::insertPertanyaanPerSesi($uji_minat->id, $dataSoal);
         }

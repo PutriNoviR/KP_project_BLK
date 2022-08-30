@@ -19,7 +19,8 @@ class AdminPolicy
     {
         //
     }
+
     public function access(User $user){
-        return ($user->peran == "Admin" ? Response::allow() : Response::deny("You must be a super administrator")); 
+        return ($user->role->nama_role == "Admin" ? Response::allow() : Response::deny("You must be a super administrator")); 
     }
 }
