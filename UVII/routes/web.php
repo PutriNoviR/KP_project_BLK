@@ -46,7 +46,7 @@ Route::middleware(['can:admin-permission'])->group(function(){
     Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
     Route::get('soal_setting','PertanyaanController@setting')->name('soal.setting');
     Route::post('soal_setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
-   
+
     //Peserta
     Route::resource('menu/peserta','PesertaController');
     Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
@@ -83,6 +83,11 @@ Route::middleware(['can:peserta-permission'])->group(function(){
     Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
     Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('peserta.data.pribadi');
     Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('peserta.data.dokumen');
+
+    //halaman camera
+    Route::get('menu/tes/camera', 'CameraController@camera')->name('peserta.camera');
+    Route::post('/capture', 'CameraController@capture')->name('capture');
+
 
 });
 
