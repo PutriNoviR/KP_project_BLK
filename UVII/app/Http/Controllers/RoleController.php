@@ -183,40 +183,48 @@ class RoleController extends Controller
 
     public function getEditAdmin(Request $request){
         $email = $request->email;
-        $dataAdmin = User::where('email',$email)->first();
+        $data = User::where('email',$email)->first();
 
         return response()->json(array(
             'status'=>'oke',
-            // 'msg'=>$dataAdmin->email
-            'msg'=>view('admin.editAdmin', compact('dataAdmin'))->render() 
+            //  'msg'=>$data->username
+            'msg'=>view('admin.editAdmin', compact('data'))->render() 
         ), 200);
     }
 
     public function updateAdmin(Request $request){
        
         $this->validate($request, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->email, 'email')],
             'no_hp' => ['required', 'numeric', 'digits:12'],
-            'username' => ['required', 'string', 'unique:users'],
-            'password' => ['required', 'string', 'confirmed', 'min:8']
+            'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($request->email, 'email')],
         ]);
 
-        $admin = new User();
-        $admin->email = $request->email;
-        $admin->nama_depan = $request->nama_depan;
-        $admin->nama_belakang = $request->nama_belakang;
-        $admin->nomer_hp = $request->no_hp;
-        $admin->username = $request->username;
-        $admin->password = Hash::make($request->password);
+        $admin=[
+            'email' => $request->email,
+            'nama_depan' => $request->nama_depan,
+            'nama_belakang' => $request->nama_belakang,
+            'nomer_hp' => $request->no_hp,
+            'username' => $request->username,
+            'kota' => $request->kota,
+            'alamat' => $request->alamat
+        ];
 
-        $role = Role::where('nama_role','Admin')->first();
+        User::where('email', $request->email)->update($admin);
 
-        $admin->roles_id = $role->id;
-        $admin->countries_id = 1;
-
-        $admin->save();
-
-        return redirect()->back()->with('success','admin berhasil ditambah!');
+        return redirect()->back()->with('success','admin berhasil diubah!');
        
+    }
+
+    public function deleteAdmin(Request $request){
+        try{
+            User::where('email', $request->email)->delete();
+          
+            return redirect()->back()->with('status','admin berhasil dihapus');
+        }catch (\PDOException $e) {
+            $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
+
+            return redirect()->back()->with('error',$msg);
+        }
     }
 }

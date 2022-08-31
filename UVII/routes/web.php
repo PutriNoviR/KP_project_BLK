@@ -64,6 +64,7 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::post('admin/tambah','RoleController@tambahAdmin')->name('admin.tambah');
     Route::post('admin/edit', 'RoleController@getEditAdmin')->name('admin.edit');
     Route::post('admin/update', 'RoleController@updateAdmin')->name('admin.update');
+    Route::post('admin/delete', 'RoleController@deleteAdmin')->name('admin.delete');
 
     //Soal Aktif
     Route::post('aktif','PertanyaanController@updateEnable')->name('update.enable');

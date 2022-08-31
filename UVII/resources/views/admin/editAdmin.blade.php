@@ -13,38 +13,38 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="nama_depan" class=" form-control-label">Nama Depan</label>
-                <input type="text" name="nama_depan" placeholder="Enter your firstname" class="form-control" value="{{dataAdmin->nama_depan}}" required>
+                <input type="text" name="nama_depan" placeholder="Enter your firstname" class="form-control" value="{{ $data->nama_depan }}" required>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="nama_belakang" class=" form-control-label">Nama Belakang</label>
-                <input type="text" name="nama_belakang" placeholder="Enter your lastname" class="form-control" value="{{dataAdmin->nama_belakang}}" required>
+                <input type="text" name="nama_belakang" placeholder="Enter your lastname" class="form-control" value="{{$data->nama_belakang}}" required>
             </div>
         </div>
 
         <div class="form-group">
             <label>No.Handphone</label>
-            <input name="no_hp" class="form-control" rows="3" value="{{dataAdmin->nomer_hp}}" required></input>
+            <input name="no_hp" class="form-control" value="{{$data->nomer_hp}}" required>
         </div>
 
         <div class="form-group">
             <label>Email</label>
-            <input name="email" class="form-control" rows="3" required value="{{dataAdmin->email}}" required></input>
+            <input name="email" class="form-control" value="{{$data->email}}" required>
         </div>
 
         <div class="form-group">
             <label>Username</label>
-            <input name="username" class="form-control" rows="3" value="{{dataAdmin->username}}" required></input>
+            <input name="username" class="form-control" value="{{$data->username}}" required>
         </div>
         
         <div class="form-group">
             <label>Kota</label>
-            <input name="kota" class="form-control" rows="3" required value="{{dataAdmin->kota ?? '' }}" required></input>
+            <input name="kota" class="form-control" value="{{$data->kota}}" required>
         </div>
 
         <div class="form-group">
             <label>Alamat</label>
-            <input name="alamat" class="form-control" rows="3" required value="{{dataAdmin->alamat ?? '' }}" required></input>
+            <input name="alamat" class="form-control" value="{{$data->alamat}}" required>
         </div>
     </div>
 

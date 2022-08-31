@@ -114,9 +114,8 @@
                                 <i class="fa fa-trash-o"></i> Hapus
                             </a>
                             
-                            <form method='POST' action="{{ url('admin/tambah'.$d->email) }}">
+                            <form method='POST' action="{{ route('admin.delete') }}">
                                 @csrf
-                                @method('DELETE')
                                 <div id="deleteModal_{{$d->username}}" class="modal fade" tabindex="-1" role="basic">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -125,7 +124,7 @@
                                                     <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
                                                 </div>
                                                 <p>
-                                                    Apakah Anda yakin ingin menghapus data <b>{{$d->nama}}</b>?
+                                                    Apakah Anda yakin ingin menghapus data ?
                                                 </p>
                                                 <input type='hidden' name='email' value='{{ $d->email }}'>
                                             </div>
