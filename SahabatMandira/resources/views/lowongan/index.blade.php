@@ -159,16 +159,21 @@ Lowongan
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="gaji" class="col-md-12 col-form-label">{{ __('Gaji') }}</label>
+                        <div class="col-md-12">
+                            <input id="gaji" type="text" class="form-control" name="gaji">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="pengalaman_kerja"
                             class="col-md-12 col-form-label">{{ __('Pengalaman Kerja') }}</label>
                         <div class="col-md-12">
-                            <textarea id="pengalaman_kerja" type="text" class="form-control" name="pengalaman_kerja"
-                                rows="10"></textarea>
+                            <input id="pengalaman_kerja" type="text" class="form-control" name="pengalaman_kerja">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pendidikan_terakhir"
-                            class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
+                            class="col-md-12 col-form-label">{{ __('Kualifikasi Pendidikan') }}</label>
                         <div class="col-md-12">
                             <input id="pendidikan_terakhir" type="text" class="form-control" name="pendidikan_terakhir">
                         </div>
@@ -177,7 +182,8 @@ Lowongan
                         <label for="deskripsi_kerja"
                             class="col-md-12 col-form-label">{{ __('Deskripsi Kerja') }}</label>
                         <div class="col-md-12">
-                            <input id="deskripsi_kerja" type="text" class="form-control" name="deskripsi_kerja">
+                            <textarea id="deskripsi_kerja" type="text" class="form-control" name="deskripsi_kerja"
+                                rows="10"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -195,12 +201,7 @@ Lowongan
                             <input id="tanggal_pemasangan" type="date" class="form-control" name="tanggal_pemasangan">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="gaji" class="col-md-12 col-form-label">{{ __('Gaji') }}</label>
-                        <div class="col-md-12">
-                            <input id="gaji" type="text" class="form-control" name="gaji">
-                        </div>
-                    </div>
+
                     <input type="hidden" name="perusahaans_id" value="{{ Auth::user()->perusahaans_id_admin }}">
 
             </div>

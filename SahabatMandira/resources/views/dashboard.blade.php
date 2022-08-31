@@ -35,7 +35,8 @@ Dashboard
             </div>
             <div class="card-body">
                 <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
+                    style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
             </div>
             <div class="card-body">
                 {{ $d->paketprogram->subkejuruan->nama }}
@@ -76,7 +77,8 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
+                        style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
@@ -103,106 +105,30 @@ Dashboard
         <h6>Berikut adalah program pelatihan Terbaik</h6>
     </div>
     <div class="row ">
+        @foreach($other as $d)
         <div class="col-sm-3 ">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
+                    <div class="ribbon bg-info">
+                        BEST
                     </div>
                 </div>
                 <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
+                    <h3 class="card-title">{{ $d->nama }}</h3>
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 
@@ -221,7 +147,8 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -260,7 +187,8 @@ Dashboard
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
+                                class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -272,7 +200,8 @@ Dashboard
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -296,7 +225,8 @@ Dashboard
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
+                                value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">
@@ -313,8 +243,6 @@ Dashboard
 
 @endif
 
-@can('adminperusahaan-permission')
 
-@endcan
 
 @endsection

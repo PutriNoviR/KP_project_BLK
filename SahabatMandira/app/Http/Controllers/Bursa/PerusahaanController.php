@@ -8,6 +8,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class PerusahaanController extends Controller
@@ -175,6 +176,13 @@ class PerusahaanController extends Controller
             'status'=>'oke',
             'msg'=>view('perusahaan.modal', compact('perusahaan'))->render() 
         ), 200);
+    }
+
+    public function profile()
+    {
+        $perusahaan = Perusahaan::where('id', Auth::user()->perusahaans_id_admin)->first();
+        // dd($perusahaan);
+        return view('perusahaan.profile',compact('perusahaan'));
     }
 
     // public function posting()

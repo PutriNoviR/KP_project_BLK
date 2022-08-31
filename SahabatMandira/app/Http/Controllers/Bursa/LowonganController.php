@@ -140,4 +140,10 @@ class LowonganController extends Controller
             'msg'=>view('lowongan.modal', compact('lowongan'))->render() 
         ), 200);
     }
+
+    public function semuaLowongan()
+    {
+        $lowongans = Lowongan::all();
+        return view('lowongan.semualowongan', compact('lowongans'));
+    }
 }

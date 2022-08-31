@@ -75,10 +75,12 @@ Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatih
 
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
+Route::get('profile/perusahaan','Bursa\PerusahaanController@profile')->name('perusahaan.profile');
 
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');
 Route::post('menu/lowongan/getEdit','Bursa\LowonganController@getEdit')->name('lowongan.getEdit');
+Route::get('semua-lowongan','Bursa\LowonganController@semuaLowongan')->name('lowongan.semua');
 
 //List Kerja
 Route::resource('bursa/listKerja','Bursa\ListKerjaController');
