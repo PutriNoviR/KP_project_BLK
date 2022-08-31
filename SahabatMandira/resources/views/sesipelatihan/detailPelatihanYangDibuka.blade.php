@@ -62,9 +62,7 @@ PELATIHAN
                 <td>{{ $d->tanggal_seleksi }}</td>
                 <td>{{ $d->aktivitas }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#DaftarPelatihan" class='btn btn-warning'>
-                        Daftar Pelatihan
-                    </a>
+                <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning">{{ __('DAFTAR') }}</a>
                 </td>
             </tr>
             @endforeach

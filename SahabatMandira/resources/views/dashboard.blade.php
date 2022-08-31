@@ -13,58 +13,56 @@ Dashboard
 @section('contents')
 
 @if(Auth::user()->role->nama_role == 'peserta')
-<div></div>
-<div class="col-sm-6">
-    <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>
-    <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti</h6>
-</div>
-<div class="col-sm-3">
-    @foreach($disarankan as $d)
-    @if($d != null)
-    <div class="card card-primary">
-        <div class="ribbon-wrapper">
-            <div class="ribbon bg-primary">
-                {{ $d->paketprogram->blk->nama }}
+<div class="container">
+    <a href="{{ url('sesiPelatihan/showMore/2') }}" class="button btn btn-primary float-right">
+        {{ __('SHOW MORE') }}
+    </a>
+    <div class="col-sm-6">
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>
+        <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti</h6>
+    </div>
+    <div class="col-sm-3">
+        @foreach($disarankan as $d)
+        @if($d != null)
+        <div class="card card-primary">
+            <div class="ribbon-wrapper">
+                <div class="ribbon bg-primary">
+                    {{ $d->paketprogram->blk->nama }}
+                </div>
+            </div>
+            <div class="card-header">
+                <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
+            </div>
+            <div class="card-body">
+                <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
+                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+            </div>
+            <div class="card-body">
+                {{ $d->paketprogram->subkejuruan->nama }}
+            </div>
+            <div class="card-body">
+                <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
+            </div>
+            <div class="card-footer">
+                <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
             </div>
         </div>
-        <div class="card-header">
-            <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
-        </div>
-        <div class="card-body">
-            <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-            <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
-                style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-        </div>
-        <div class="card-body">
-            {{ $d->paketprogram->subkejuruan->nama }}
-        </div>
-        <div class="card-body">
-            <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
-        </div>
-        <div class="card-footer">
-            <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-        </div>
+        @endif
+        @endforeach
     </div>
-    @endif
-    @endforeach
 </div>
 
 <br>
 
-<div class="">
+<div class="container">
+    <a href="{{ url('sesiPelatihan/showMore/1') }}" class="button btn btn-primary float-right">
+        {{ __('SHOW MORE') }}
+    </a>
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG DITAWARKAN</h4><br>
         <h6>Berikut adalah program pelatihan yang ditawarkan</h6>
-
-        <div class="card-footer">
-            <a href="" class="button btn btn-primary">{{ __('SHOW MORE') }}</a>
-        </div>
     </div>
-
-
-
     <div class="row ">
-
         @foreach($ditawarkan as $d)
         <div class="col-sm-3 ">
             <div class="card card-primary ">
@@ -78,8 +76,7 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
-                        style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
@@ -94,6 +91,118 @@ Dashboard
         </div>
 
         @endforeach
+    </div>
+</div>
+
+<div class="container">
+    <a href="{{ url('sesiPelatihan/showMore/3') }}" class="button btn btn-primary float-right">
+        {{ __('SHOW MORE') }}
+    </a>
+    <div class="col-sm-6">
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK</h4><br>
+        <h6>Berikut adalah program pelatihan Terbaik</h6>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 ">
+            <div class="card card-primary ">
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-primary">
+                        Nama BLK
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3 class="card-title">Nama Kejuruan</h3>
+                </div>
+                <div class="card-body">
+                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
+                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                </div>
+                <div class="card-body">
+                    Nama Sub Kejuruan
+                </div>
+                <div class="card-body">
+                    <p>Deskripsi</p>
+                </div>
+                <div class="card-footer">
+                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            <div class="card card-primary ">
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-primary">
+                        Nama BLK
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3 class="card-title">Nama Kejuruan</h3>
+                </div>
+                <div class="card-body">
+                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
+                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                </div>
+                <div class="card-body">
+                    Nama Sub Kejuruan
+                </div>
+                <div class="card-body">
+                    <p>Deskripsi</p>
+                </div>
+                <div class="card-footer">
+                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            <div class="card card-primary ">
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-primary">
+                        Nama BLK
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3 class="card-title">Nama Kejuruan</h3>
+                </div>
+                <div class="card-body">
+                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
+                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                </div>
+                <div class="card-body">
+                    Nama Sub Kejuruan
+                </div>
+                <div class="card-body">
+                    <p>Deskripsi</p>
+                </div>
+                <div class="card-footer">
+                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            <div class="card card-primary ">
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-primary">
+                        Nama BLK
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3 class="card-title">Nama Kejuruan</h3>
+                </div>
+                <div class="card-body">
+                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
+                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                </div>
+                <div class="card-body">
+                    Nama Sub Kejuruan
+                </div>
+                <div class="card-body">
+                    <p>Deskripsi</p>
+                </div>
+                <div class="card-footer">
+                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -112,8 +221,7 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -152,8 +260,7 @@ Dashboard
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
-                                class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -165,8 +272,7 @@ Dashboard
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -190,8 +296,7 @@ Dashboard
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
-                                value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">

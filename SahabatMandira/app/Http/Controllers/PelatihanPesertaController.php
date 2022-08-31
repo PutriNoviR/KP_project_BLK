@@ -175,12 +175,13 @@ class PelatihanPesertaController extends Controller
             ->table('pelatihan_pesertas as pp')
             ->where('email_peserta',$email)
             ->get();
-    
+        
+        $check = '1';
         // $data = PelatihanPeserta::find($request->id);
         // dd($email);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('pelatihanpeserta.modal', compact('data'))->render() 
+            'msg'=>view('pelatihanpeserta.modal', compact('data','check'))->render() 
         ), 200);
     }
 
@@ -192,12 +193,13 @@ class PelatihanPesertaController extends Controller
             ->table('pelatihan_pesertas as pp')
             ->where('email_peserta',$email)
             ->get();
-    
+        
+        $check = '0';
         // $data = PelatihanPeserta::find($request->id);
         // dd($email);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('pelatihanpeserta.modalKompetensi', compact('data'))->render() 
+            'msg'=>view('pelatihanpeserta.modal', compact('data','check'))->render() 
         ), 200);
     }
 

@@ -97,6 +97,7 @@ Route::resource('/sesiPelatihan','sesiPelatihanController');
 Route::post('sesiPelatihan/getDetail','sesiPelatihanController@getDetailPeserta')->name('sesiPelatihan.getDetailPeserta');
 Route::get('sesiPelatihan/{id}','sesiPelatihanController@show')->name('sesiPelatihan.detail');
 Route::get('sesiPelatihan/riwayat','sesiPelatihanController@riwayatPelatihan')->name('sesiPelatihan.peserta');
+Route::get('sesiPelatihan/showMore/{id}','sesiPelatihanController@showMore')->name('sesiPelatihan.showMore');
 
 //User
 Route::resource('menu/User','UserController');

@@ -130,9 +130,9 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditRekomendasi" class='btn btn-warning'
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning'
                         onclick="modalKompetensi('{{$d->email_peserta}}')"
-                        empty({{ $d->hasil_kompetensi }}) ? 'disabled' : '' >
+                        {{ $d->hasil_kompetensi  != 'null' ? 'disabled' : ''}} >
                         Update Kompetensi
                     </button>
                 </td>

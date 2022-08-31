@@ -32,7 +32,9 @@ class HomeController extends Controller
     public function dashboard()
     {
         $userLogin = auth()->user()->email;
-        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
+        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()')
+        ->skip(0)
+        ->take(4);
         // dd($ditawarkan);
         // $disarankan = PelatihanPeserta::join('sesi_pelatihans as P', 'pelatihan_pesertas.sesi_pelatihans_id', '=', 'P.id')
         // ->join('masterblk_db.users as u', 'u.email', '=', $userLogin)
@@ -42,6 +44,8 @@ class HomeController extends Controller
         $disarankan = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
         ->WHERE('p.email_peserta', '=', $userLogin)
         ->WHERE('p.is_sesuai_minat', '=', '1' )
+        ->skip(0)
+        ->take(4)
         ->get();
         // dd($disarankan);
 

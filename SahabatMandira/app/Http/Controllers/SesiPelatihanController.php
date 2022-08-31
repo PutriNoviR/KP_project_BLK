@@ -28,8 +28,8 @@ class SesiPelatihanController extends Controller
         $data = SesiPelatihan::all();
 
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
-        ->WHERE('R.nama_role', '=', 'verifikator' )
-        ->get();
+            ->WHERE('R.nama_role', '=', 'verifikator')
+            ->get();
         // dd($data);
         // $data = SesiPelatihan::join('masterblk_db.paket_program as P', 'sesi_pelatihans.paket_program_id', '=', 'P.id')
         // ->join('masterblk_db.blks as B', 'P.blks_id', '=', 'B.id')
@@ -43,18 +43,18 @@ class SesiPelatihanController extends Controller
         $userLogin = auth()->user()->email;
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
-        ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
-        ->get();
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->get();
 
         $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-        ->WHERE('P.mentors_email', '=', $userLogin )
-        ->get();
+            ->WHERE('P.mentors_email', '=', $userLogin)
+            ->get();
 
         $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
-        ->WHERE('p.email_peserta', '=', $userLogin )
-        ->get();
+            ->WHERE('p.email_peserta', '=', $userLogin)
+            ->get();
 
-        return view('sesipelatihan.index', compact('dataInstruktur','data','user','peserta','dataPeserta'));
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta'));
     }
 
     /**
@@ -77,7 +77,7 @@ class SesiPelatihanController extends Controller
     {
         //
         // return($request);
-        if(!$request->hasFile('fotoPelatihan')){
+        if (!$request->hasFile('fotoPelatihan')) {
             return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
         }
         // else{
@@ -100,7 +100,7 @@ class SesiPelatihanController extends Controller
         //insert foto (maaf gk bisa elequent [yobong])
         $foto = $request->file('fotoPelatihan');
         $name = $foto->getClientOriginalName();
-        $foto->move('images/programPelatihan',$name);
+        $foto->move('images/programPelatihan', $name);
 
 
         $sesi->gambar_pelatihan = $name;
@@ -118,8 +118,8 @@ class SesiPelatihanController extends Controller
     {
         //
         // return $id;
-        $data = SesiPelatihan::where('id','=',$id)
-        ->get();
+        $data = SesiPelatihan::where('id', '=', $id)
+            ->get();
 
         // $data = DB::connection('mandira')
         //         ->table('pelatihan_mentors as pm')
@@ -129,11 +129,11 @@ class SesiPelatihanController extends Controller
         //         ->get();
 
         // dd($data);
-        $mentor = PelatihanMentor::where('sesi_pelatihans_id','=',$id)
-        ->get();
+        $mentor = PelatihanMentor::where('sesi_pelatihans_id', '=', $id)
+            ->get();
         // $datas = $data->paketprogram;
         // dd($data);
-        return view('sesipelatihan.detailPelatihan',compact('data','mentor'));
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor'));
     }
 
     /**
@@ -145,7 +145,7 @@ class SesiPelatihanController extends Controller
     public function edit(SesiPelatihan $sesiPelatihan)
     {
         //
-        return view('',compact('sesiPelatihan'));
+        return view('', compact('sesiPelatihan'));
     }
 
     /**
@@ -159,7 +159,7 @@ class SesiPelatihanController extends Controller
     {
         //
         $sesiPelatihan->tanggal_pendaftaran = $request->tanggal_pendaftaran;
-        $sesiPelatihan->	tanggal_tutup = $request->	tanggal_tutup;
+        $sesiPelatihan->tanggal_tutup = $request->tanggal_tutup;
         $sesiPelatihan->lokasi = $request->lokasi;
         $sesiPelatihan->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
         $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
@@ -183,11 +183,11 @@ class SesiPelatihanController extends Controller
         //
         try {
             $sesiPelatihan->delete();
-            return redirect()->route('')->with('success','Data BLK berhasil dihapus!');
+            return redirect()->route('')->with('success', 'Data BLK berhasil dihapus!');
         } catch (\PDOException $e) {
-            $msg="Data gagal dihapus";
+            $msg = "Data gagal dihapus";
 
-            return redirect()->route('')->with('error',$msg);
+            return redirect()->route('')->with('error', $msg);
         }
     }
 
@@ -198,8 +198,8 @@ class SesiPelatihanController extends Controller
         // $lokasi = $sesi->;
         // $lokasi = $sesi->lokasi;
         return response()->json(array(
-            'status'=>'oke',
-            'data'=> $sesi
+            'status' => 'oke',
+            'data' => $sesi
         ), 200);
     }
 
@@ -208,6 +208,25 @@ class SesiPelatihanController extends Controller
 
         $data = SesiPelatihan::all();
         dd($data);
-        return view('pelatihanPeserta.pelatihanYangDiikuti',compact('data'));
+        return view('pelatihanPeserta.pelatihanYangDiikuti', compact('data'));
+    }
+
+    public function showMore($id)
+    {
+        $userLogin = auth()->user()->email;
+        if ($id == '1') {
+            $data = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
+        } elseif ($id == '2') {
+            $data = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
+                ->WHERE('p.email_peserta', '=', $userLogin)
+                ->WHERE('p.is_sesuai_minat', '=', '1')
+                ->get();
+        } else{
+            $data = SesiPelatihan::all();
+        }
+
+        // 
+        // dd($data);
+        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data'));
     }
 }
