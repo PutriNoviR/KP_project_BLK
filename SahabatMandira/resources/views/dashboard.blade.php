@@ -14,7 +14,7 @@ Dashboard
 
 @if(Auth::user()->role->nama_role == 'peserta')
 <div class="container">
-    <a href="{{ url('sesiPelatihan/showMore/2') }}" class="button btn btn-primary float-right">
+    <a href="{{ url('sesiPelatihan/showMore/2') }}" class="button btn btn-outline-primary float-right">
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
@@ -55,7 +55,7 @@ Dashboard
 <br>
 
 <div class="container">
-    <a href="{{ url('sesiPelatihan/showMore/1') }}" class="button btn btn-primary float-right">
+    <a href="{{ url('sesiPelatihan/showMore/1') }}" class="button btn btn-outline-primary float-right">
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
@@ -95,7 +95,7 @@ Dashboard
 </div>
 
 <div class="container">
-    <a href="{{ url('sesiPelatihan/showMore/3') }}" class="button btn btn-primary float-right">
+    <a href="{{ url('sesiPelatihan/showMore/3') }}" class="button btn btn-outline-primary float-right">
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
