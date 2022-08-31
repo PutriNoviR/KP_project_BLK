@@ -87,6 +87,7 @@ Route::middleware(['can:peserta-permission'])->group(function(){
     //halaman camera
     Route::get('menu/tes/camera', 'CameraController@camera')->name('peserta.camera');
     Route::post('/capture', 'CameraController@capture')->name('capture');
+    Route::post('/capture/akhir', 'CameraController@captureAkhir')->name('capture.akhir');
 
 
 });
