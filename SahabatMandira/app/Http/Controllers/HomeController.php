@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
 use App\User;
+use App\PelatihanOther;
 use App\PelatihanPeserta;
 
 class HomeController extends Controller
@@ -56,12 +57,16 @@ class HomeController extends Controller
         ->WHERE('b.id','=',$adminBlk)
         ->get();
 
+        $other = PelatihanOther::all()
+        ->skip(0)
+        ->take(4);
+
 
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator' )
         ->get();
 
-        return view('dashboard',compact('ditawarkan','disarankan', 'adminDashboard','user'));
+        return view('dashboard',compact('ditawarkan','disarankan', 'adminDashboard','user','other'));
 
         // return view('dashboard');
     }

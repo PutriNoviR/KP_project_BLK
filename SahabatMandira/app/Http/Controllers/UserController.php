@@ -134,7 +134,7 @@ class UserController extends Controller
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
-        // $User->save();
+        $User->save();
         return view('sesipelatihan.detailPelatihan',compact('data'));
     }
 
