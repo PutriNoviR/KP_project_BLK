@@ -103,106 +103,30 @@ Dashboard
         <h6>Berikut adalah program pelatihan Terbaik</h6>
     </div>
     <div class="row ">
+        @foreach($other as $d)
         <div class="col-sm-3 ">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
+                    <div class="ribbon bg-info">
+                        BEST
                     </div>
                 </div>
                 <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
+                    <h3 class="card-title">{{ $d->nama }}</h3>
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 ">
-            <div class="card card-primary ">
-                <div class="ribbon-wrapper">
-                    <div class="ribbon bg-primary">
-                        Nama BLK
-                    </div>
-                </div>
-                <div class="card-header">
-                    <h3 class="card-title">Nama Kejuruan</h3>
-                </div>
-                <div class="card-body">
-                    <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
-                </div>
-                <div class="card-body">
-                    Nama Sub Kejuruan
-                </div>
-                <div class="card-body">
-                    <p>Deskripsi</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 

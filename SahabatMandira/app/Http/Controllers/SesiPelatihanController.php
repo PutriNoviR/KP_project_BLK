@@ -6,6 +6,7 @@ use App\SesiPelatihan;
 use App\PelatihanPeserta;
 use App\PelatihanMentor;
 use App\User;
+use App\PelatihanOther;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -216,17 +217,21 @@ class SesiPelatihanController extends Controller
         $userLogin = auth()->user()->email;
         if ($id == '1') {
             $data = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
+            $sesi = '0';
         } elseif ($id == '2') {
             $data = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
                 ->WHERE('p.email_peserta', '=', $userLogin)
                 ->WHERE('p.is_sesuai_minat', '=', '1')
                 ->get();
+                //
+                $sesi = '0';
         } else{
-            $data = SesiPelatihan::all();
+            $data = PelatihanOther::all();
+            $sesi = '1';
         }
 
         // 
         // dd($data);
-        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data'));
+        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi'));
     }
 }
