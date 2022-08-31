@@ -193,17 +193,39 @@
                                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                                 <li class="nav-item has-treeview">
-                                    <a href="http://127.0.0.1:8000/dashboard" class="nav-link ">
+                                    @can('adminperusahaan-permission')
+                                    <a href="{{ route('perusahaan.profile') }}"
+                                        class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-home"></i>
+                                        <p>
+                                            Profile Perusahaan
+                                        </p>
+                                    </a>
+                                    @else
+                                    <a href="{{ route('dashboard') }}"
+                                        class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Dashboard
                                         </p>
                                     </a>
+                                    @endcan
                                 </li>
+                                @can('adminperusahaan-permission')
+                                <li class="nav-item has-treeview">
+                                    <a href="{{ route('lowongan.index') }}"
+                                        class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-home"></i>
+                                        <p>
+                                            List Lowongan
+                                        </p>
+                                    </a>
+                                </li>
+                                @endcan
                                 @if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role ==
                                 'superadmin')
                                 <li class="nav-item">
-                                    <a href="{{ route('User.peserta') }}" class="nav-link">
+                                    <a href="{{ route('User.peserta') }}" class="nav-link ">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
                                             Daftar Peserta

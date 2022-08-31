@@ -139,8 +139,7 @@ Bursa Kerja
 </div>
 
 <div class="col-sm-6">
-    <h1 class="m-0 text-dark">BURSA KERJA</h1><br>
-    <h5>Bursa kerja untuk para pencari kerja</h5>
+    <h1 class="m-0 text-dark">BURSA KERJA</h1>
 </div>
 <div class="container-xl">
     <div class="row">
@@ -216,6 +215,7 @@ Bursa Kerja
     </div>
 </div>
 </div>
+<p class="text-center"><a href="{{ route('lowongan.semua') }}">Tampilkan semua lowongan</a></p>
 </div>
 
 @endsection

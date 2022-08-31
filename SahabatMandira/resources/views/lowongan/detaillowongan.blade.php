@@ -26,7 +26,6 @@
                                 <p class="FontComic display-5 text-primary">{{ $lowongan->perusahaan->nama }}</p>
                                 <p class="display-5">{{ $lowongan->perusahaan->alamat }}</p>
                             </div>
-                            {{-- @dd($lamaran) --}}
                             @if ($lamaran != null && $lamaran->users_email == Auth::user()->email &&
                             $lamaran->lowongans_id ==
                             $lowongan->id)
@@ -49,7 +48,42 @@
                                 <button type="submit" class="btn btn-primary btn-lg px-5 ">Daftar</button>
                             </form>
                             @endif
+
                         </div>
+                    </div>
+                    <div class="post clearfix">
+                        <div class="user-block">
+                            <b>Gaji</b>
+                            <p>{{$lowongan->gaji}}</p>
+                        </div>
+                        <div class="user-block">
+                            <b>Lokasi Kerja</b>
+                            <p>{{$lowongan->lokasi_kerja}}</p>
+                        </div>
+                        <div class="user-block">
+                            <b>Pengalaman Kerja</b>
+                            <p>{{$lowongan->pengalaman_kerja}} Tahun</p>
+                        </div>
+                        <div class="user-block">
+                            <b>Kualifikasi pendidikan</b>
+                            <p>{{$lowongan->pendidikan_terakhir}}</p>
+                        </div>
+                    </div>
+                    <div class="post clearfix">
+                        <div class="user-block">
+                            <b>Deskripsi Pekerjaan</b>
+                        </div>
+                        <p>
+                            {{$lowongan->deskripsi_kerja}}
+                        </p>
+                    </div>
+                    <div class="post clearfix">
+                        <div class="user-block">
+                            <b>Tentang Perusahaan</b>
+                        </div>
+                        <p>
+                            {{$lowongan->perusahaan->tentang_perusahaan}}
+                        </p>
                     </div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
