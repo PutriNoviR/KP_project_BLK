@@ -8,6 +8,7 @@ use App\Pertanyaan;
 use Illuminate\Support\Facades\Auth;
 use App\UjiMinatAwal;
 use Illuminate\Support\Facades\DB;
+use App\KlasterPsikometrik;
 
 class HomeController extends Controller
 {
@@ -45,8 +46,27 @@ class HomeController extends Controller
         $data2 = Jawaban::all();
         $data3 = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
 
-        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3'));
-       
+        $riwayatTes1 = UjiMinatAwal::where('users_email',$email)
+                        ->orderBy('tanggal_selesai','DESC')
+                        ->first();
+
+        $riwayatTes2 = DB::table('minat_user as mu')
+                ->join('kategori_psikometrik as kp','kp.id','=','mu.kategori_psikometrik_id')
+                ->select('kp.kode as nama_klaster')
+                ->where('users_email', $email)
+                ->orderBy('peringkat','ASC')
+                ->get();
+
+        if($riwayatTes1){
+            $linkTes2 = KlasterPsikometrik::where('id', $riwayatTes1->klaster_id)
+                    ->first();
+            $linkTes2 = $linkTes2->link_kejuruan_tes_2;
+        }
+        else{
+            $linkTes2 = '#';
+        }
+
+        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2'));
     }
 
     public function menuFilter(){

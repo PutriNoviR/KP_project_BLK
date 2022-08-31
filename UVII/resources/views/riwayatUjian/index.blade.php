@@ -51,7 +51,7 @@
             @php 
                 $no = 1;
             @endphp
-            @foreach($riwayat as $key=>$data)
+            @foreach($daftarRiwayat as $key=>$data)
             <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                 <td class="">
                     {{ $no }}
@@ -63,11 +63,13 @@
                     {{$data->tanggal_selesai }}
                 </td>
                 <td>
-                    {{$data->rekomendasi_klaster }}
+                    {{$data->klaster->nama }}
                 </td>
-            {{-- <td>
-                    {{ }}
-                </td> --}}
+                <td>
+                    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
+                        {{$d->kode}},
+                    @endforeach                
+                </td>
             </tr>
             @php
                 $no++;

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class RoleController extends Controller
 {
@@ -134,5 +136,87 @@ class RoleController extends Controller
             'status'=>'oke',
             'msg'=>view('role.edit', compact('data'))->render() 
         ), 200);
+    }
+    
+    public function showAdmin(){
+        // -- menu manajemen --
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                        ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                        ->select('mm.nama', 'mm.url')
+                        ->where('roles_id', $role_user)
+                        ->where('mm.status','Aktif')
+                        ->get();
+
+        $idRole = Role::where('nama_role', 'Admin')->first();
+        $data = User::where('roles_id', $idRole->id)->get();
+
+        return view('admin.tambahAdmin', compact('data','menu_role'));
+    }
+
+    public function tambahAdmin(Request $request){
+
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'no_hp' => ['required', 'numeric', 'digits:12'],
+            'username' => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed', 'min:8']
+        ]);
+
+        $admin = new User();
+        $admin->email = $request->email;
+        $admin->nama_depan = $request->nama_depan;
+        $admin->nama_belakang = $request->nama_belakang;
+        $admin->nomer_hp = $request->no_hp;
+        $admin->username = $request->username;
+        $admin->password = Hash::make($request->password);
+
+        $role = Role::where('nama_role','Admin')->first();
+
+        $admin->roles_id = $role->id;
+        $admin->countries_id = 1;
+
+        $admin->save();
+
+        return redirect()->back()->with('success','admin berhasil ditambah!');
+    }
+
+    public function getEditAdmin(Request $request){
+        $email = $request->email;
+        $dataAdmin = User::where('email',$email)->first();
+
+        return response()->json(array(
+            'status'=>'oke',
+            // 'msg'=>$dataAdmin->email
+            'msg'=>view('admin.editAdmin', compact('dataAdmin'))->render() 
+        ), 200);
+    }
+
+    public function updateAdmin(Request $request){
+       
+        $this->validate($request, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'no_hp' => ['required', 'numeric', 'digits:12'],
+            'username' => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed', 'min:8']
+        ]);
+
+        $admin = new User();
+        $admin->email = $request->email;
+        $admin->nama_depan = $request->nama_depan;
+        $admin->nama_belakang = $request->nama_belakang;
+        $admin->nomer_hp = $request->no_hp;
+        $admin->username = $request->username;
+        $admin->password = Hash::make($request->password);
+
+        $role = Role::where('nama_role','Admin')->first();
+
+        $admin->roles_id = $role->id;
+        $admin->countries_id = 1;
+
+        $admin->save();
+
+        return redirect()->back()->with('success','admin berhasil ditambah!');
+       
     }
 }

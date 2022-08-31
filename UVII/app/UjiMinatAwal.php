@@ -24,6 +24,14 @@ class UjiMinatAwal extends Model
         'questions_id')->withPivot('jawaban','urutan');
     }
 
+    public function klaster(){
+        return $this->belongsTo('App\KlasterPsikometrik','klaster_id','id');
+    }
+
+    public function hasilRekomAkhir(){
+        return $this->belongsToMany('App\KategoriPsikometrik', 'uvii_db.hasil_rekomendasi_tes_tahap_2','uji_minat_awals_id','kategori_id')
+            ->withPivot('peringkat','tanggal_mulai','tanggal_selesai','score');
+    }
     
     public $timestamps = false;
 
@@ -114,12 +122,14 @@ class UjiMinatAwal extends Model
    }
 
    public static function riwayatTes($user){
-     $data= DB::connection('uvii')->table('uji_minat_awals as um')
-        ->select('um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster')
-        ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
-        ->where('um.users_email',$user)
-        ->orderBy('um.tanggal_selesai','DESC')
-        ->get();
+        $data= DB::connection('uvii')->table('uji_minat_awals as um')
+                ->select('um.id','um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster')
+                ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
+                ->where('um.users_email',$user)
+                ->orderBy('um.tanggal_selesai','DESC')
+                ->get();
+
+        $idSesi = UjiMinatAwal::where('users_email',$user)->get();
 
         return $data;
    }
@@ -128,7 +138,7 @@ class UjiMinatAwal extends Model
        ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster')
        ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
        //->groupBy('um.users_email')
-       ->orderBy('um.tanggal_selesai','DESC')
+       ->orderBy('.tanggal_selesai','DESC')
        ->get();
 
        return $data;
