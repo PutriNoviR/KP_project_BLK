@@ -24,9 +24,7 @@ class SoalImport implements ToModel,WithHeadingRow
         // ]);
         $user = Auth::user()->email;
         $tanggal=Carbon::now()->format('Y-m-d H:i:m');
-        $arr_data=[];
-        array_push($arr_data,$row);
-        // dd($arr_data);
+       
         $data_klaster= DB::table('klaster_psikometrik')
         ->where('nama',$row['klaster'])->first();
 
@@ -37,21 +35,28 @@ class SoalImport implements ToModel,WithHeadingRow
             'created_by' =>$user, 
             'updated_by'=>$user,
         ];
-        $count_pertanyaan = Pertanyaan::where("pertanyaan",$row['pertanyaan'])->get();
-        // dd($count_pertanyaan);
-        if(count($count_pertanyaan) == 0){
+        // $count_pertanyaan = Pertanyaan::where("pertanyaan",$row['pertanyaan'])->get();
+        // // dd($count_pertanyaan);
+        // if(count($count_pertanyaan) == 0){
+        //     Pertanyaan::insert($pertanyaan);
+        // }
+        $idSoal = Pertanyaan::orderBy('id','DESC')->first()->id ?? '1';
+        $dataSoal = Pertanyaan::where('id', $idSoal)->first();
+        //pengecekan 2 jika soal kembar
+        if(!$dataSoal || $dataSoal->jawaban->count() == 4){
+           
             Pertanyaan::insert($pertanyaan);
         }
-        
+
        
-        $data_pertanyaan= Pertanyaan::where('pertanyaan',$row['pertanyaan'])->first();
+        // $data_pertanyaan= Pertanyaan::where('pertanyaan',$row['pertanyaan'])->first();
             // dd($data_pertanyaan);
         $jawaban=[
             'jawaban'=> $row['jawaban'],
             'klaster_id'=>$data_klaster->id,
-            'question_id'=> $data_pertanyaan->id,
+            'question_id'=>Pertanyaan::orderBy('id','DESC')->first()->id,
         ];
-        //for($i=0; $i<4; $i++){
+        
         Jawaban::insert($jawaban);
     }
 }
