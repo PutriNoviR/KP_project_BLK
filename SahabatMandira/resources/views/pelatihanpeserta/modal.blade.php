@@ -51,9 +51,10 @@
 
                 <div class="col-md-12">
                     <select class="form-control" aria-label="Default select example" name="rekom_keputusan" value="{{$d->rekom_keputusan}}">
-                        <option value="Lulus">Lulus</option>
-                        <option value="Tidak Lulus">Tidak Lulus</option>
+                        <option value="Lulus">Diterima</option>
+                        <option value="Tidak Lulus">Tidak Diterima</option>
                         <option value="Cadangan">Cadangan</option>
+                        <option value="Cadangan">Mengundurkan Diri</option>
                     </select>
 
                     @error('nama')
@@ -66,6 +67,7 @@
 
             <div class="form-group">
                 <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
+                <input type="hidden" id="permanent" name="status" class="col-md-12 col-form-label" value="Dalam Seleksi">
                 <div class="modal-footer">
                     <div>
                         <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
@@ -82,6 +84,7 @@
             @method('PUT')
             <div class="form-group">
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Hasil Kompetensi') }}</label>
+                <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->sesi_pelatihans_id}}">
 
                 <div class="col-md-12">
                     <select class="form-control" aria-label="Default select example" name="hasil_kompetensi" value="{{$d->hasil_kompetensi}}">
@@ -100,9 +103,9 @@
             <div class="form-group">
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Status') }}</label>
                 <div class="col-md-12">
-                    <select class="form-control" aria-label="Default select example" name="status" value="{{$d->status}}">
+                    <select class="form-control" aria-label="Default select example" name="status" value="">
                         <option value="ditolak">Ditolak</option>
-                        <option value="lulus pelatihan">Diterima</option>
+                        <option value="diterima">Diterima</option>
                         </option>
                     </select>
                     @error('nama')
@@ -113,11 +116,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                 <div class="modal-footer">
                     <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        <button type="submit" id="permanent" name="action" class="btn btn-primary">Simpan</button>
                     </div>
 
 

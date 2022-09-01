@@ -139,12 +139,12 @@ PELATIHAN
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}</td>
                 <td>{{ $d->status}}</td> {{-- lulus / tidak lulus--}}
                 <td>
-                    <a data-toggle="modal" data-target="" class='btn btn-warning'>
+                    <button data-toggle="modal" data-target="" class='btn btn-warning' disabled>
                         Daftar Ulang
-                    </a> {{-- kalau lolos di enable kalo ga lolos disable--}}
-                    <a data-toggle="modal" data-target="" class='btn btn-warning'>
+                    </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                    <button data-toggle="modal" data-target="" class='btn btn-warning' disabled>
                         Download Sertifikat
-                    </a> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                    </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                 </td>
             </tr>
             @endforeach

@@ -36,6 +36,9 @@
                                 @elseif ($lamaran->status == 'Tahap Seleksi')
                                 <button type="button"
                                     class="btn btn-outline-warning btn-lg disabled">{{ $lamaran->status }}</button>
+                                @elseif ($lamaran->status == 'Diterima')
+                                <button type="button"
+                                    class="btn btn-outline-success btn-lg disabled">{{ $lamaran->status }}</button>
                                 @else
                                 <button type="button"
                                     class="btn btn-outline-danger btn-lg disabled">{{ $lamaran->status }}</button>

@@ -98,6 +98,7 @@ Pelatihan Peserta
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
                 <th>Rekomendasi</th>
+                <th>Keputusan</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
             </tr>
@@ -123,6 +124,9 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
+                    {{ $d->rekom_keputusan  }}
+                </td>
+                <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning'
                         onclick="modalEdit('{{$d->email_peserta}}')"
                         {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
@@ -132,7 +136,7 @@ Pelatihan Peserta
                 <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning'
                         onclick="modalKompetensi('{{$d->email_peserta}}')"
-                        {{ $d->hasil_kompetensi  != 'null' ? 'disabled' : ''}} >
+                        {{ $d->hasil_kompetensi  == 'null' ? 'disabled' : ''}} >
                         Update Kompetensi
                     </button>
                 </td>

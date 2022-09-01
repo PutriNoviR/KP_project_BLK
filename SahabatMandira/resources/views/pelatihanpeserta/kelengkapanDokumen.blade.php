@@ -56,7 +56,7 @@ Pelatihan Peserta
 
                         </div>
                         <div class="form-group">
-                            <label for="kota" class="col-md-12 col-form-label">{{ __('Kota') }}</label>
+                            <label for="kota" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
 
                             <div class="col-md-12">
                                 <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" required autocomplete="kota" autofocus>

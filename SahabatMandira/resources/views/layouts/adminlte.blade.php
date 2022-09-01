@@ -232,6 +232,14 @@
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Daftar Pelatihan
+                                        </p>
+                                    </a>
+                                </li>
                                 @endif
                                 @if(Auth::user()->role->nama_role != 'adminperusahaan')
                                 <li class="nav-item treeview">

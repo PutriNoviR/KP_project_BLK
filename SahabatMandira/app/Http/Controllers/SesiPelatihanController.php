@@ -234,4 +234,13 @@ class SesiPelatihanController extends Controller
         // dd($data);
         return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi'));
     }
+
+    public function daftarPelatihan()
+    {
+        $userLogin = auth()->user()->email;
+        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->get();
+        //
+        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur'));
+    }
 }

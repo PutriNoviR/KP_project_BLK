@@ -14,6 +14,7 @@
                 <select class="form-control" name="status">
                     <option value="Terdaftar">Terdaftar</option>
                     <option value="Tahap Seleksi">Seleksi</option>
+                    <option value="Diterima">Terima</option>
                     <option value="Tidak Lolos Seleksi">Tolak</option>
                 </select>
             </div>
