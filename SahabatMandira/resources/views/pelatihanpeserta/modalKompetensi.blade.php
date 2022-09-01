@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="modalEditRekomendasi">EDIT STATUS PESERTA</h5>
+        <h5 class="modal-title" id="modalEditRekomendasi">EDIT HASIL SELEKSI</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -57,7 +57,6 @@
         @endforeach
     </div>
 </div>
-
 <script>
     function myFunction() {
         document.getElementById("permanent").value = 1

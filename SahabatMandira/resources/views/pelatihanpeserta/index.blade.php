@@ -97,7 +97,7 @@ Pelatihan Peserta
                 <th>Status</th>
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
-                <th>Rekomendasi</th>
+                
                 <th>Keputusan</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
