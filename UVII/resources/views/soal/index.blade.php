@@ -218,9 +218,6 @@
                       <div class='col-md-8'>
                         <label for="jawaban">Jawaban</label>
                       </div>
-                      <div class="col-md-4">
-                        <label for="kejuruan">Klaster</label>
-                      </div>
                     </div>
 
                     @php

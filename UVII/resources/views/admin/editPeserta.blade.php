@@ -23,11 +23,11 @@
                                 <span class="after">
                                 </span>
                             </li>
-                            <li class="" >
+                           {{-- <li class="" >
                                 <a data-toggle="tab" onclick="updateTabAt('tab_2')" href="#tab_2-2">
                                     <i class="fa fa-file"></i> Dokumen
                                 </a>
-                            </li>
+                            </li>--}}
                             <li class="">
                                 <a data-toggle="tab" onclick="updateTabAt('tab_3')" href="#tab_3-3">
                                     <i class="fa fa-file"></i> Informasi Tambahan

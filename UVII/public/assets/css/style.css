@@ -1279,6 +1279,10 @@ Portlets
 	-webkit-border-radius: 20px;
 }
 
+.card-page:nth-child(2){
+  margin-bottom: -5%;
+}
+
 .card-body{
   padding: 30px !important;
 }
