@@ -12,13 +12,14 @@ Pelatihan Peserta
         });
     });
 
-    function modalEdit(id) {
+    function modalEdit(email,id) {
         $.ajax({
             type: 'POST',
             url: '{{ route("pelatihanPesertas.getEditForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'email_peserta': id,
+                'email_peserta': email,
+                'sesi_pelatihans_id': id
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
@@ -96,8 +97,8 @@ Pelatihan Peserta
                 <th>Status</th>
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
-                <th>Rekomendasi</th>
                 <th>Keputusan</th>
+                <th>Rekomendasi</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
             </tr>
@@ -126,7 +127,7 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
                         Update Hasil Seleksi
                     </button>
                 </td>

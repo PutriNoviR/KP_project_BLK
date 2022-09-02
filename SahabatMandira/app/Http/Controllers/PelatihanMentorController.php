@@ -43,7 +43,7 @@ class PelatihanMentorController extends Controller
         
         $pelatihanMentor->save();
         
-        return redirect()->back()->with("success", "Role berhasil ditambah!");
+        return redirect()->back()->with("success", "Insturktur berhasil ditambah!");
     }
 
     /**

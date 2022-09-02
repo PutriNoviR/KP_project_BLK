@@ -122,19 +122,6 @@ class PelatihanPesertaController extends Controller
     public function update(Request $request, $email)
     {
         // return $request->get('sesi_pelatihans_id');
-        if ($request->get('rekom_keputusan') == 'LULUS') {
-            DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->update(['status_fase' => 'DITERIMA',]);
-        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
-            DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->update(['status_fase' => 'DITOLAK',]);
-        }
 
         //yobong
         $update = array(
@@ -150,6 +137,21 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
             ->where('email_peserta', $email)
             ->update($update);
+        //
+        
+        if ($request->get('rekom_keputusan') == 'LULUS') {
+            DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where('p.email_peserta', $request->get('email_peserta'))
+            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->update(['status_fase' => 'DITERIMA',]);
+        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
+            DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where('p.email_peserta', $request->get('email_peserta'))
+            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->update(['status_fase' => 'DITOLAK',]);
+        }
 
         return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
@@ -182,12 +184,14 @@ class PelatihanPesertaController extends Controller
     public function getEditForm(Request $request)
     {
         $email = $request->email_peserta;
+        $id = $request->sesi_pelatihans_id;
         // $data = PelatihanPeserta::all()->WHERE('email_peserta','=', $email);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->where('email_peserta', $email)
-            ->get()
+            ->where('sesi_pelatihans_id', $id)
             ->first();
+        //
         
         
         $check = '1';
@@ -219,21 +223,19 @@ class PelatihanPesertaController extends Controller
 
     public function storePendaftar(Request $request, $id)
     {
+        $emailValidator = DB::connection('mandira')
+        ->table('pelatihan_mentors')
+        ->where('sesi_pelatihans_id', $id)
+        ->value('mentors_email');
 
         $emailUser = auth()->user()->email;
-        //
-        DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->where('p.sesi_pelatihans_id', $id)
-            ->update(['status_fase' => 'DALAM SELEKSI',]);
-        // $mentor = S
-        // return $data;
+        // dd($emailValidator);
 
         $insert = array(
-            'email_peserta' => $request->get('email_peserta'),
+            'email_peserta' => $emailUser,
             'sesi_pelatihans_id' => $id,
             'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+            'rekom_validator' => $emailValidator,
         );
 
         DB::connection('mandira')
@@ -250,6 +252,14 @@ class PelatihanPesertaController extends Controller
 
         //
         // dd($data);
+        
+        $data2 = DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where('p.email_peserta', $emailUser)
+            ->where('p.sesi_pelatihans_id', $id)
+            ->update(['status_fase' => 'DALAM SELEKSI',]);
+        
+        // return $data2;
         return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
     }
 

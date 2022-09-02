@@ -41,6 +41,7 @@ class SesiPelatihanController extends Controller
         // ->get();
 
         $userLogin = auth()->user()->email;
+        // dd($userLogin);
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
