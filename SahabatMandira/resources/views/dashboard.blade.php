@@ -17,10 +17,12 @@ Dashboard
 
 
 {{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
+@if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes minat bakat, Ikuti tes untuk mengetahui minat bakat untuk mengetahui pelatihan yang cocok ! &nbsp;&nbsp;&nbsp;
     <a href="" class="button btn btn-primary">IKUTI TES SEKARANG !</a></center>
 </div>
+@endif
 
 <div class="container">
     <a href="{{ url('sesiPelatihan/showMore/2') }}" class="button btn btn-outline-primary float-right">

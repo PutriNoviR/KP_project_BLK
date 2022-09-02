@@ -51,10 +51,10 @@
 
                 <div class="col-md-12">
                     <select class="form-control" aria-label="Default select example" name="rekom_keputusan" value="{{$d->rekom_keputusan}}">
-                        <option value="Lulus">Diterima</option>
-                        <option value="Tidak Lulus">Tidak Diterima</option>
-                        <option value="Cadangan">Cadangan</option>
-                        <option value="Cadangan">Mengundurkan Diri</option>
+                        <option value="LULUS">Diterima</option>
+                        <option value="TIDAK LULUS">Tidak Diterima</option>
+                        <option value="CADANGAN">Cadangan</option>
+                        <option value="MENGUNDURKAN DIRI">Mengundurkan Diri</option>
                     </select>
 
                     @error('nama')
@@ -67,7 +67,6 @@
 
             <div class="form-group">
                 <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
-                <input type="hidden" id="permanent" name="status" class="col-md-12 col-form-label" value="Dalam Seleksi">
                 <div class="modal-footer">
                     <div>
                         <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
@@ -92,22 +91,6 @@
                         <option value="Belum Kompeten">Belum Kompeten</option>
                     </select>
 
-                    @error('nama')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="nama" class="col-md-12 col-form-label">{{ __('Status') }}</label>
-                <div class="col-md-12">
-                    <select class="form-control" aria-label="Default select example" name="status" value="">
-                        <option value="ditolak">Ditolak</option>
-                        <option value="diterima">Diterima</option>
-                        </option>
-                    </select>
                     @error('nama')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

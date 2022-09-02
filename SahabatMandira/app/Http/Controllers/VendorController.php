@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PelatihanOther;
+use App\Vendor;
 use Illuminate\Http\Request;
 
-class PelatihanOtherController extends Controller
+class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PelatihanOtherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function show(PelatihanOther $pelatihanOther)
+    public function show(Vendor $vendor)
     {
         //
     }
@@ -52,10 +52,10 @@ class PelatihanOtherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function edit(PelatihanOther $pelatihanOther)
+    public function edit(Vendor $vendor)
     {
         //
     }
@@ -64,10 +64,10 @@ class PelatihanOtherController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PelatihanOther $pelatihanOther)
+    public function update(Request $request, Vendor $vendor)
     {
         //
     }
@@ -75,10 +75,10 @@ class PelatihanOtherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PelatihanOther $pelatihanOther)
+    public function destroy(Vendor $vendor)
     {
         //
     }

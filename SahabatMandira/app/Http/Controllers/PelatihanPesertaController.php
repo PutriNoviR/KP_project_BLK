@@ -122,10 +122,22 @@ class PelatihanPesertaController extends Controller
     public function update(Request $request, $email)
     {
         // return $email;
+        if($request->get('rekom_keputusan') == 'LULUS')
+        {
+            DB::table('users')
+                ->where('email', $email)
+                ->update(['status_fase' => 'DITERIMA',]);
+
+        } elseif(($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI'))
+        {
+            DB::table('users')
+                ->where('email', $email)
+                ->update(['status_fase' => 'DITOLAK',]);
+
+        }
 
         //yobong
         $update = array(
-            'status' => $request->get('status'),
             'rekom_catatan' => $request->get('rekom_catatan'),
             'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
             'rekom_keputusan' => $request->get('rekom_keputusan'),
@@ -205,14 +217,17 @@ class PelatihanPesertaController extends Controller
 
     public function storePendaftar(Request $request, $id)
     {
+        
+        $emailUser = auth()->user()->email;
         //
+        DB::table('users')
+            ->where('email', $emailUser)
+            ->update(['status_fase' => 'DALAM SELEKSI',]);
         // $mentor = S
 
-        $email = auth()->user()->email;
         $insert = array(
-            'email_peserta' => $email,
+            'email_peserta' => $emailUser,
             'sesi_pelatihans_id' => $id,
-            'status' => $request->get('status'),
             'tanggal_seleksi' => $request->get('tanggal_seleksi'),
         );
 
