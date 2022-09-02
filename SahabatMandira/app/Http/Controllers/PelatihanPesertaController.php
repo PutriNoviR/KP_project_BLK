@@ -142,8 +142,7 @@ class PelatihanPesertaController extends Controller
         if ($request->get('rekom_keputusan') == 'LULUS') {
             DB::table('users')
             ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->where([['p.email_peserta', $request->get('email_peserta')],['p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id')]])
             ->update(['status_fase' => 'DITERIMA',]);
         } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
             DB::table('users')
