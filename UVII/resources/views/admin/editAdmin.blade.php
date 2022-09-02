@@ -5,7 +5,7 @@
             <span aria-hidden="true">×</span>
         </button>    
 
-        <h5 class="modal-title" id="mediumModalLabel"><strong>Edit Peserta</strong></h5>   
+        <h5 class="modal-title" id="mediumModalLabel"><strong>Edit Admin</strong></h5>   
     </div>
 
     <div class="modal-body">

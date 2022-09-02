@@ -93,7 +93,7 @@
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
 <a href="#modalImport" data-toggle='modal' class='btn btn-info'> Import Soal </a><br><br>
-
+<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
 
 <div class="portlet">
   <div class="portlet-body">
@@ -272,7 +272,6 @@
     
   </div>
 </div>
-<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
 
 {{--<a href="#" class='btn btn-info'> view Soal </a><br><br>--}}
 
