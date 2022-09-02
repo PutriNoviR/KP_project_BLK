@@ -137,7 +137,7 @@ PELATIHAN
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
                 <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}</td>
-                <td>{{ $d->status}}</td> {{-- lulus / tidak lulus--}}
+                <td>{{ $d->status_fase}}</td> {{-- lulus / tidak lulus--}}
                 <td>
                     <button data-toggle="modal" data-target="" class='btn btn-warning' disabled>
                         Daftar Ulang

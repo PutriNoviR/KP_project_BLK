@@ -5,7 +5,7 @@ Pelatihan Peserta
 @endsection
 @section('javascript')
 <script>
-    $(function () {
+    $(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -20,10 +20,10 @@ Pelatihan Peserta
                 '_token': '<?php echo csrf_token() ?>',
                 'email_peserta': id,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -37,10 +37,10 @@ Pelatihan Peserta
                 '_token': '<?php echo csrf_token() ?>',
                 'email_peserta': id,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -54,18 +54,17 @@ Pelatihan Peserta
                 '_token': '<?php echo csrf_token() ?>',
                 'id': $id,
             },
-            success: function (data) {
+            success: function(data) {
                 swal({
                     title: "Rekomendasi",
                     text: data.data,
                 })
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
     }
-
 </script>
 @endsection
 
@@ -78,7 +77,8 @@ Pelatihan Peserta
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
-            {{ date('M y', strtotime($periode->tanggal_tutup)) }} </h2>
+            {{ date('M y', strtotime($periode->tanggal_tutup)) }}
+        </h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -87,8 +87,7 @@ Pelatihan Peserta
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -97,7 +96,7 @@ Pelatihan Peserta
                 <th>Status</th>
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
-                
+                <th>Rekomendasi</th>
                 <th>Keputusan</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
@@ -109,7 +108,7 @@ Pelatihan Peserta
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
                 <td>{{ $d->email_peserta }}</td>
-                <td>{{ $d->status }}</td>
+                <td>{{ $d->status_fase }}</td>
                 @if( $d->is_sesuai_minat == 1 )
                 <td> Ya </td>
                 @elseif( $d->is_sesuai_minat == 0 )
@@ -119,24 +118,20 @@ Pelatihan Peserta
                 @endif
                 <td>{{ $d->is_daftar_ulang == 1 ? 'Ya' : 'Tidak'  }}</td>
                 <td>
+                    {{ $d->rekom_keputusan  }}
+                </td>
+                <td>
                     <button class='btn btn-info' onclick="alertShow({{$d->sesi_pelatihans_id}})">
                         <i class="fas fa-eye"></i>
                     </button>
                 </td>
                 <td>
-                    {{ $d->rekom_keputusan  }}
-                </td>
-                <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning'
-                        onclick="modalEdit('{{$d->email_peserta}}')"
-                        {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
                         Update Hasil Seleksi
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning'
-                        onclick="modalKompetensi('{{$d->email_peserta}}')"
-                        {{ $d->hasil_kompetensi  == 'null' ? 'disabled' : ''}} >
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}')" {{ $d->hasil_kompetensi  == 'null' ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
@@ -148,8 +143,7 @@ Pelatihan Peserta
 
 <!-- Modal -->
 @foreach($data as $d)
-<div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
+<div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
@@ -157,8 +151,7 @@ Pelatihan Peserta
 @endforeach
 
 @foreach($data as $d)
-<div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
+<div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
