@@ -222,8 +222,7 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role ==
-                                'superadmin')
+                                @can('adminblk-permission')
                                 <li class="nav-item">
                                     <a href="{{ route('User.peserta') }}" class="nav-link ">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -232,7 +231,7 @@
                                         </p>
                                     </a>
                                 </li>
-                                @endif
+                                @endcan
                                 @if(Auth::user()->role->nama_role != 'adminperusahaan')
                                 <li class="nav-item treeview">
                                     <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
