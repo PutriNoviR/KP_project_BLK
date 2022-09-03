@@ -125,6 +125,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'roles_id' => $idRole,
             'countries_id' => $idCountry,
+            'status_fase' => 'TERDAFTAR',
         ]);
     }
     public function regisMentor()

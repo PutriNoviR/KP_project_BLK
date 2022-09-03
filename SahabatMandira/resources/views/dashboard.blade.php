@@ -12,7 +12,18 @@ Dashboard
 
 @section('contents')
 
+
 @if(Auth::user()->role->nama_role == 'peserta')
+
+
+{{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
+@if(count($disarankan) === 0)
+<div class="alert alert-warning" role="alert">
+    <center>Anda belum mengikuti tes minat bakat, Ikuti tes untuk mengetahui minat bakat untuk mengetahui pelatihan yang cocok ! &nbsp;&nbsp;&nbsp;
+    <a href="" class="button btn btn-primary">IKUTI TES SEKARANG !</a></center>
+</div>
+@endif
+
 <div class="container">
     <a href="{{ url('sesiPelatihan/showMore/2') }}" class="button btn btn-outline-primary float-right">
         {{ __('SHOW MORE') }}
@@ -35,8 +46,7 @@ Dashboard
             </div>
             <div class="card-body">
                 <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
-                    style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
             </div>
             <div class="card-body">
                 {{ $d->paketprogram->subkejuruan->nama }}
@@ -50,8 +60,10 @@ Dashboard
         </div>
         @endif
         @endforeach
+
     </div>
 </div>
+<hr>
 
 <br>
 
@@ -77,8 +89,7 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}"
-                        style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
@@ -95,7 +106,8 @@ Dashboard
         @endforeach
     </div>
 </div>
-
+<hr>
+<br>
 <div class="container">
     <a href="{{ url('sesiPelatihan/showMore/3') }}" class="button btn btn-outline-primary float-right">
         {{ __('SHOW MORE') }}
@@ -147,8 +159,7 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -187,8 +198,7 @@ Dashboard
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
-                                class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -200,8 +210,7 @@ Dashboard
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -225,8 +234,7 @@ Dashboard
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
-                                value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PelatihanMentor;
+use App\Vendor;
 use Illuminate\Http\Request;
 
-class PelatihanMentorController extends Controller
+class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,23 +36,15 @@ class PelatihanMentorController extends Controller
     public function store(Request $request)
     {
         //
-        $pelatihanMentor = new PelatihanMentor();
-     
-        $pelatihanMentor->sesi_pelatihans_id = $request->sesi_pelatihans_id;
-        $pelatihanMentor->mentors_email = $request->mentors_email;
-        
-        $pelatihanMentor->save();
-        
-        return redirect()->back()->with("success", "Insturktur berhasil ditambah!");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\PelatihanMentor  $pelatihanMentor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function show(PelatihanMentor $pelatihanMentor)
+    public function show(Vendor $vendor)
     {
         //
     }
@@ -60,10 +52,10 @@ class PelatihanMentorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PelatihanMentor  $pelatihanMentor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function edit(PelatihanMentor $pelatihanMentor)
+    public function edit(Vendor $vendor)
     {
         //
     }
@@ -72,10 +64,10 @@ class PelatihanMentorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PelatihanMentor  $pelatihanMentor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PelatihanMentor $pelatihanMentor)
+    public function update(Request $request, Vendor $vendor)
     {
         //
     }
@@ -83,10 +75,10 @@ class PelatihanMentorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PelatihanMentor  $pelatihanMentor
+     * @param  \App\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PelatihanMentor $pelatihanMentor)
+    public function destroy(Vendor $vendor)
     {
         //
     }

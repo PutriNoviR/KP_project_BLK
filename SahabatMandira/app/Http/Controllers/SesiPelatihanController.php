@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use File;
 use App\Http\Controllers\Controller;
-
-
+use App\PelatihanVendor;
 
 class SesiPelatihanController extends Controller
 {
@@ -42,6 +41,7 @@ class SesiPelatihanController extends Controller
         // ->get();
 
         $userLogin = auth()->user()->email;
+        // dd($userLogin);
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
@@ -52,8 +52,15 @@ class SesiPelatihanController extends Controller
             ->get();
 
         $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
+            ->join('masterblk_db.users as u', 'u.email', '=', 'P.email_peserta')
             ->WHERE('p.email_peserta', '=', $userLogin)
             ->get();
+        //
+        // $dataPeserta = User::join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+        // ->where('p.email_peserta', 'peserta15@gmail.com')
+        // ->where('p.sesi_pelatihans_id', '2')
+        //     ->get();
+        // dd($dataPeserta);
 
         return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta'));
     }
@@ -223,15 +230,24 @@ class SesiPelatihanController extends Controller
                 ->WHERE('p.email_peserta', '=', $userLogin)
                 ->WHERE('p.is_sesuai_minat', '=', '1')
                 ->get();
-                //
-                $sesi = '0';
-        } else{
-            $data = PelatihanOther::all();
+            //
+            $sesi = '0';
+        } else {
+            $data = PelatihanVendor::all();
             $sesi = '1';
         }
 
         // 
         // dd($data);
         return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi'));
+    }
+
+    public function daftarPelatihan()
+    {
+        $userLogin = auth()->user()->email;
+        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->get();
+        //
+        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur'));
     }
 }

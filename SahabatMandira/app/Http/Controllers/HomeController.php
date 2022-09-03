@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\SesiPelatihan;
 use App\User;
 use App\PelatihanOther;
-use App\PelatihanPeserta;
+use App\PelatihanVendor;
 
 class HomeController extends Controller
 {
@@ -57,7 +57,7 @@ class HomeController extends Controller
         ->WHERE('b.id','=',$adminBlk)
         ->get();
 
-        $other = PelatihanOther::all()
+        $other = PelatihanVendor::all()
         ->skip(0)
         ->take(4);
 

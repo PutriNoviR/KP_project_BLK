@@ -93,7 +93,7 @@
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
 <a href="#modalImport" data-toggle='modal' class='btn btn-info'> Import Soal </a><br><br>
-
+<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
 
 <div class="portlet">
   <div class="portlet-body">
@@ -218,9 +218,6 @@
                       <div class='col-md-8'>
                         <label for="jawaban">Jawaban</label>
                       </div>
-                      <div class="col-md-4">
-                        <label for="kejuruan">Klaster</label>
-                      </div>
                     </div>
 
                     @php
@@ -275,7 +272,6 @@
     
   </div>
 </div>
-<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
 
 {{--<a href="#" class='btn btn-info'> view Soal </a><br><br>--}}
 
@@ -342,13 +338,18 @@
         </div>
         <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="file" class="form-control">
-                <br>
-                <p>Ketentuan:</p>
-                <li>Data Pertanyaan Tidak Boleh sama</li>
-                <li>Berikut adalah contoh format excel<a href="https://docs.google.com/spreadsheets/d/1r7dULIlybheTXoe-WzzEDqr5WUpCJ3diMcZ46fSgOuc/edit?usp=sharing"> contoh.xlsx</a></li>
-
-            <button class="btn btn-success">Import Soal</button>
+            <div class="modal-body">
+              <input type="file" name="file" class="form-control">
+              <br>
+              <p>Ketentuan:</p>
+              <li>Data Pertanyaan Tidak Boleh sama</li>
+              <li>Berikut adalah contoh format excel<a href="https://docs.google.com/spreadsheets/d/1r7dULIlybheTXoe-WzzEDqr5WUpCJ3diMcZ46fSgOuc/edit?usp=sharing"> contoh.xlsx</a></li>
+              <li>File yang diupload harus berupa Excel (.xlsx) dan (.csv)
+            </div>
+            
+            <div class="modal-footer">
+              <button class="btn btn-success pull-left">Import Soal</button>
+            </div>
         </form>
 </div>
 </div>

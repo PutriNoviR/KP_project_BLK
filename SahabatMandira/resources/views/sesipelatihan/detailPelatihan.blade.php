@@ -34,7 +34,6 @@ PELATIHAN
                 @else
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf
-                    <input type="hidden" name="status" class="col-md-12 col-form-label" value="terdaftar">
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
                     <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
                 </form>

@@ -32,7 +32,7 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['can:admin-permission'])->group(function(){
+Route::middleware(['can:admin-permission','auth'])->group(function(){
     //riwayat tes
     Route::get('riwayat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal')->name('riwayat_tes_global.user');
 
@@ -59,11 +59,18 @@ Route::middleware(['can:admin-permission'])->group(function(){
     Route::post('manajemen/role/save', "MenuManajemenController@menuRole")->name('manajemen.role');
     Route::post('manajemen/getDataMenu', 'MenuManajemenController@getDataMenu')->name('menu.getDataMenu');
 
+    //admin baru
+    Route::get('menu/admin', 'RoleController@showAdmin')->name('admin.show');
+    Route::post('admin/tambah','RoleController@tambahAdmin')->name('admin.tambah');
+    Route::post('admin/edit', 'RoleController@getEditAdmin')->name('admin.edit');
+    Route::post('admin/update', 'RoleController@updateAdmin')->name('admin.update');
+    Route::post('admin/delete', 'RoleController@deleteAdmin')->name('admin.delete');
+
     //Soal Aktif
     Route::post('aktif','PertanyaanController@updateEnable')->name('update.enable');
 });
 
-Route::middleware(['can:peserta-permission'])->group(function(){
+Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     //CRUD
     Route::get('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
 
@@ -79,11 +86,10 @@ Route::middleware(['can:peserta-permission'])->group(function(){
     Route::post('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.tambahan.score');
 
     //Peserta
-    Route::resource('menu/peserta','PesertaController');
-    Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
     Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('peserta.data.pribadi');
     Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('peserta.data.dokumen');
 
+    Route::get('tes_tahap2/hasil','TesTahapAkhirController@hasilTes2')->name('tes2.hasil');
 });
 
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\PelatihanOther;
+use App\TesTahapAkhir;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class PelatihanOtherController extends Controller
+
+class TesTahapAkhirController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +44,10 @@ class PelatihanOtherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\TesTahapAkhir  $tesTahapAkhir
      * @return \Illuminate\Http\Response
      */
-    public function show(PelatihanOther $pelatihanOther)
+    public function show(TesTahapAkhir $tesTahapAkhir)
     {
         //
     }
@@ -52,10 +55,10 @@ class PelatihanOtherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\TesTahapAkhir  $tesTahapAkhir
      * @return \Illuminate\Http\Response
      */
-    public function edit(PelatihanOther $pelatihanOther)
+    public function edit(TesTahapAkhir $tesTahapAkhir)
     {
         //
     }
@@ -64,10 +67,10 @@ class PelatihanOtherController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\TesTahapAkhir  $tesTahapAkhir
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PelatihanOther $pelatihanOther)
+    public function update(Request $request, TesTahapAkhir $tesTahapAkhir)
     {
         //
     }
@@ -75,11 +78,27 @@ class PelatihanOtherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PelatihanOther  $pelatihanOther
+     * @param  \App\TesTahapAkhir  $tesTahapAkhir
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PelatihanOther $pelatihanOther)
+    public function destroy(TesTahapAkhir $tesTahapAkhir)
     {
         //
     }
+    public function hasilTes2(Request $request){
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+        $user = Auth::user()->email;
+        $hasil_Tes_2 = TesTahapAkhir::getDataJawabanAkhir($user);
+
+        return view('hasilTesTahap2.index',compact('hasil_Tes_2','menu_role'));
+
+
+    }
+
 }

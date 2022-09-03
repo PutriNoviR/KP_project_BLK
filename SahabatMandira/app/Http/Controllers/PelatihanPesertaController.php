@@ -22,11 +22,11 @@ class PelatihanPesertaController extends Controller
         $data = PelatihanPeserta::all();
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
-        ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
-        ->get();
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->get();
 
         // dd($data);
-        return view('pelatihanpeserta.index', compact('data','peserta'));
+        return view('pelatihanpeserta.index', compact('data', 'peserta'));
     }
 
     /**
@@ -60,7 +60,7 @@ class PelatihanPesertaController extends Controller
         //     ->table('pelatihan_pesertas')
         //     ->insert($insert);
 
-            
+
         // //
 
         // $data = DB::connection('mandira')
@@ -89,16 +89,16 @@ class PelatihanPesertaController extends Controller
         $periode = SesiPelatihan::find($id);
         // dd($periode);
         $data = DB::connection('mandira')
-                ->table('pelatihan_pesertas as pp')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-                ->where('sesi_pelatihans_id',$id)
-                ->get();
+            ->table('pelatihan_pesertas as pp')
+            ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+            ->where('sesi_pelatihans_id', $id)
+            ->get();
 
-        // dd($data);
+        // dd($data2);
         // $data = PelatihanPeserta::all()->where('sesi_pelatihans_id','=',$id);
         // $data = PelatihanPeserta::find($id);
 
-        return view('pelatihanpeserta.index',compact('data','periode'));
+        return view('pelatihanpeserta.index', compact('data', 'periode'));
     }
 
     /**
@@ -121,11 +121,10 @@ class PelatihanPesertaController extends Controller
      */
     public function update(Request $request, $email)
     {
-        // return $email;
+        // return $request->get('sesi_pelatihans_id');
 
         //yobong
         $update = array(
-            'status' => 'dalam seleksi',
             'rekom_catatan' => $request->get('rekom_catatan'),
             'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
             'rekom_keputusan' => $request->get('rekom_keputusan'),
@@ -138,8 +137,22 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
             ->where('email_peserta', $email)
             ->update($update);
+        //
+        
+        if ($request->get('rekom_keputusan') == 'LULUS') {
+            DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where([['p.email_peserta', $request->get('email_peserta')],['p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id')]])
+            ->update(['status_fase' => 'DITERIMA',]);
+        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
+            DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where('p.email_peserta', $request->get('email_peserta'))
+            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->update(['status_fase' => 'DITOLAK',]);
+        }
 
-        return redirect()->back()->with('success', 'Berhasil Mendaftar');
+        return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
 
     /**
@@ -157,10 +170,10 @@ class PelatihanPesertaController extends Controller
     {
         // dd($idpelatihan);
         $userLogin = auth()->user()->email;
-        $data = User::all()->where('email','=',$userLogin);
+        $data = User::all()->where('email', '=', $userLogin);
         // $datas = $data->email;
         // dd($data);
-        return view('pelatihanpeserta.kelengkapanDokumen',compact('data','idpelatihan'));
+        return view('pelatihanpeserta.kelengkapanDokumen', compact('data', 'idpelatihan'));
     }
 
     public function pendaftaran()
@@ -170,18 +183,22 @@ class PelatihanPesertaController extends Controller
     public function getEditForm(Request $request)
     {
         $email = $request->email_peserta;
+        $id = $request->sesi_pelatihans_id;
         // $data = PelatihanPeserta::all()->WHERE('email_peserta','=', $email);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
-            ->where('email_peserta',$email)
-            ->get();
+            ->where('email_peserta', $email)
+            ->where('sesi_pelatihans_id', $id)
+            ->first();
+        //
+        
         
         $check = '1';
         // $data = PelatihanPeserta::find($request->id);
-        // dd($email);
+        // dd($data);
         return response()->json(array(
-            'status'=>'oke',
-            'msg'=>view('pelatihanpeserta.modal', compact('data','check'))->render() 
+            'status' => 'oke',
+            'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
         ), 200);
     }
 
@@ -191,29 +208,33 @@ class PelatihanPesertaController extends Controller
         // $data = PelatihanPeserta::all()->WHERE('email_peserta','=', $email);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
-            ->where('email_peserta',$email)
+            ->where('email_peserta', $email)
             ->get();
-        
+
         $check = '0';
         // $data = PelatihanPeserta::find($request->id);
         // dd($email);
         return response()->json(array(
-            'status'=>'oke',
-            'msg'=>view('pelatihanpeserta.modal', compact('data','check'))->render() 
+            'status' => 'oke',
+            'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
         ), 200);
     }
 
     public function storePendaftar(Request $request, $id)
     {
-        //
-        // $mentor = S
-        
-        $email = auth()->user()->email;
+        $emailValidator = DB::connection('mandira')
+        ->table('pelatihan_mentors')
+        ->where('sesi_pelatihans_id', $id)
+        ->value('mentors_email');
+
+        $emailUser = auth()->user()->email;
+        // dd($emailValidator);
+
         $insert = array(
-            'email_peserta' => $email,
+            'email_peserta' => $emailUser,
             'sesi_pelatihans_id' => $id,
-            'status' => $request->get('status'),
             'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+            'rekom_validator' => $emailValidator,
         );
 
         DB::connection('mandira')
@@ -222,35 +243,47 @@ class PelatihanPesertaController extends Controller
 
         //
         $data = DB::connection('mandira')
-                ->table('pelatihan_pesertas as pp')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-                ->where('sesi_pelatihans_id',$id)
-                ->get();
-        
+            ->table('pelatihan_pesertas as pp')
+            ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+            ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->get();
+
         //
         // dd($data);
+        
+        $data2 = DB::table('users')
+            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
+            ->where('p.email_peserta', $emailUser)
+            ->where('p.sesi_pelatihans_id', $id)
+            ->update(['status_fase' => 'DALAM SELEKSI',]);
+        
+        // return $data2;
         return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
     }
 
     public function urutan($id)
     {
-        $data = DB::connection('mandira')
-                ->table('pelatihan_pesertas as pp')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-                ->where('sesi_pelatihans_id',$id)
-                ->get();
-        view('pelatihanpeserta.jadwalSeleksi',compact('data'));
-    } 
+        $email = auth()->user()->email;
+        // $data = DB::connection('mandira')
+        //     ->table('pelatihan_pesertas as pp')
+        //     ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+        //     ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+        //     ->where('sesi_pelatihans_id', $id)
+        //     ->where('u.email', '=', $email)
+        //     ->first();
+        $data = PelatihanPeserta::where('sesi_pelatihans_id', $id)
+            ->where('u.email', '=', $email)
+            ->first();
+        // dd($data);
+        view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+    }
 
     public function updateKompetensi(Request $request, $email)
     {
         // return $email;
 
-        //yobong
         $update = array(
-            'status' => $request->get('status'),
             'hasil_kompetensi' => $request->get('hasil_kompetensi'),
         );
 
@@ -259,7 +292,14 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
             ->where('email_peserta', $email)
             ->update($update);
-
-        return redirect()->back()->with('success', 'Berhasil Mendaftar');
+        //
+        $data = DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->where('email_peserta', $email)
+            ->get();
+        //
+        // return $data;
+        return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
 }

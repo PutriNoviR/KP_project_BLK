@@ -278,7 +278,9 @@ class TesTahapAwalController extends Controller
 
     public function riwayatTes(){
         $user = Auth::user()->email;
-        $riwayat= UjiMinatAwal::riwayatTes($user);
+     //   $riwayat= UjiMinatAwal::riwayatTes($user);
+        $daftarRiwayat= UjiMinatAwal::where('users_email',$user)->get();
+
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
@@ -287,12 +289,14 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.index', compact('riwayat','menu_role'));
-
+      //  return view('riwayatUjian.index', compact('riwayat','menu_role', 'daftarRiwayat'));
+      return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat'));
     }
     public function riwayatTesGlobal(){
         
-        $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+        // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+        $riwayat_tes= UjiMinatAwal::all();
+
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')

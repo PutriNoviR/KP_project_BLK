@@ -70,11 +70,14 @@
                     {{$data->tanggal_selesai }}
                 </td>
                 <td>
-                    {{$data->rekomendasi_klaster }}
+                  {{--  {{$data->rekomendasi_klaster }} --}}
+                  {{$data->klaster->nama}}
                 </td>
-            {{-- <td>
-                    {{ }}
-                </td> --}}
+                <td>
+                    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
+                        {{$d->kode}},
+                    @endforeach   
+                </td>
             </tr>
             @php
                 $no++;
