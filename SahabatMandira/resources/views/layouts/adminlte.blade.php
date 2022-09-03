@@ -272,7 +272,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="http://127.0.0.1:8000/paketProgram" class="nav-link ">
+                                            <a href="{{ route('paketProgram.index') }}" class="nav-link ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
@@ -312,7 +312,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="http://127.0.0.1:8000/menu/subkejuruan" class="nav-link">
+                                            <a href="{{ route('subkejuruan.index') }}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>SubKejuruan</p>
                                             </a>
