@@ -8,7 +8,7 @@ PELATIHAN PESERTA
 <div class="col-sm-6">
     <h2 class="m-0 text-dark">Jadwal dan Lokasi Seleksi</h2><br>
 </div>
-@foreach($data as $d)
+
 <div class="col-sm-3">
     <div class="card card-primary">
         <div class="card-header">
@@ -17,13 +17,13 @@ PELATIHAN PESERTA
 
         <div class="card-body">
             <h2>Jadwal Seleksi :</h2>
-            {{ $d->tanggal_seleksi }}
+            {{ $data->tanggal_seleksi }}
         </div>
         <div class="card-body">
             <h2>Alamat Seleksi :</h2>
-            {{ $d->lokasi}}
+            {{ $data->lokasi}}
         </div>
     </div>
 </div>
-@endforeach
+
 @endsection

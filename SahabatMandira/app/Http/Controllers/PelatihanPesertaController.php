@@ -86,6 +86,7 @@ class PelatihanPesertaController extends Controller
         //
         // $periode = SesiPelatihan::JOIN('mandira_db.pelatihan_pesertas as P', 'P.sesi_pelatihans_id', '=', 'id')
         // ->get();
+        $userLogin = auth()->user()->email;
         $periode = SesiPelatihan::find($id);
         // dd($periode);
         $data = DB::connection('mandira')
@@ -142,9 +143,10 @@ class PelatihanPesertaController extends Controller
         if ($request->get('rekom_keputusan') == 'LULUS') {
             DB::table('users')
             ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
             ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->update(['status_fase' => 'DITERIMA',]);
+            ->where('p.email_peserta', $request->get('email_peserta'))
+            ->update(['status_fase' => 'EXPIRED',]);
+            //
         } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
             DB::table('users')
             ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
