@@ -41,13 +41,7 @@
                 aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                       Selesai Tes
             </th>
-
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
-                      <button>Foto awal</button>
-            </th>
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
-                <button>Foto akhir</button>
-            </th>
+            <th></th>
 
           </tr>
         </thead>
@@ -70,11 +64,8 @@
                     {{$data->tanggal_selesai }}
                 </td>
                 <td>
-                    {{$data->rekomendasi_klaster }}
+                    <button class='btn btn-primary btn-validate' value='{{$data->nama_depan}}'> validate</button>
                 </td>
-            {{-- <td>
-                    {{ }}
-                </td> --}}
             </tr>
             @php
                 $no++;
@@ -86,5 +77,37 @@
     </table>
  </div>
 </div>
+
+<!-- modal tampil foto:start -->
+    <div id='modalValidate' class="modal" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <div id='imgAwal' style="width: 60px; height: 60px; margin: auto;">
+                        <img  src="" alt="">
+                    </div>
+                    <div id='imgAkhir' style="width: 60px; height: 60px; margin: auto;">
+                        <img id='imgAkhir' src="" alt="">
+                    </div>
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal">Close</button>
+                    <button type='button' class="btn btn-primary" id='btn-validate'>Validate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- modal tampil foto:end -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $('.btn-validate').on('click', function(){
+        let nama = $(this).val();
+        $('#imgAwal').html(`<img  src="{{asset('camera/awal/`+nama+`.png')}}" alt="">`);
+        $('#imgAkhir').html(`<img  src="{{asset('camera/akhir/`+nama+`.png')}}" alt="">`);
+        // $('#imgAkhir').attr('src',"{{asset('camera/akhir"+nama+".png')}}");
+        $('#modalValidate').modal('toggle');
+    })
+</script>
 
 @endsection

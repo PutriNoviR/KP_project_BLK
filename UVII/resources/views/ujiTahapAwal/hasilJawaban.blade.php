@@ -6,6 +6,7 @@
 
 @section('contents')
 
+
     @if($klasters > 1 && $tesTerbaru->score == null)
         {{-- Munculkan soal lagi --}}
         <div class="card-page">
@@ -54,6 +55,8 @@
                 <p> <b>Hasil Tes Minat Peserta</b></p>
             </div>
             <div class="card-body">
+                <div id="my_camera"></div>
+                <br>
                 <p><b>Analisa Tes Minat Bakat:</b></p>
 
                 <div class='row'>
@@ -127,6 +130,7 @@
             </div>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script>
                  Webcam.set({
                     width: 490,
@@ -134,9 +138,13 @@
                     image_format: 'jpeg',
                     jpeg_quality: 90
                 });
+                Webcam.attach( '#my_camera' );
 
                 $(document).ready(function(){
-                    Webcam.snap( function(data_uri) {
+                    // alert('dor');
+                    setTimeout(function() {
+                        Webcam.snap( function(data_uri) {
+                        alert('dar');
                         let photo = data_uri;
                         console.log(photo)
                         $.ajax({
@@ -158,6 +166,7 @@
                             }
                         });
                     } );
+                }, 1000);
                 })
             </script>
         </div>
