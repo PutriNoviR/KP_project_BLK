@@ -52,7 +52,7 @@ class SesiPelatihanController extends Controller
             ->get();
 
         $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
-            ->join('masterblk_db.users as u', 'u.email', '=', 'P.email_peserta')
+            ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
             ->WHERE('p.email_peserta', '=', $userLogin)
             ->get();
         //
