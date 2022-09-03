@@ -32,9 +32,10 @@ class LoginController extends Controller
 
     public function redirectTo(){
         $role = Auth::user()->role->nama_role;
+        
         switch($role){
             case 'adminperusahaan':
-                return route('lowongan.index');
+                return route('perusahaan.profile');
                 break;
             default:
                 return '/dashboard';

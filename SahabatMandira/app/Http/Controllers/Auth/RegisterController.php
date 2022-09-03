@@ -62,6 +62,8 @@ class RegisterController extends Controller
             'firstname' => ['required', 'string', 'max:250'],
             'lastname' => ['required', 'string', 'max:250'],
             'username' => ['required', 'string', 'unique:users'],
+            'nomer_hp' => ['required','min:11', 'max:12'],
+            'role' => ['required'],
             'email' => ['required', 'string', 'email:dns', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
@@ -91,7 +93,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         
-        $role = Role::where('nama_role', $data['role'])->first();
+        $role = Role::where('nama_role', $data['nomer_hp'])->first();
         // $role = Role::all();
         // dd($role);
         // $idRole = $role->id;
@@ -116,7 +118,7 @@ class RegisterController extends Controller
             'nama_depan' => $data['firstname'],
             'nama_belakang' => $data['lastname'],
             'email' => $data['email'],
-            // 'nomer_hp'=>$data['nomer'],
+            'nomer_hp'=>$data['nomer_hp'],
             // 'alamat'=>$data['alamat'],
             // 'kota'=>$data['kota'],
             'username'=>$data['username'],
