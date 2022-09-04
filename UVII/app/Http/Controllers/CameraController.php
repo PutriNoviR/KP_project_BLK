@@ -61,6 +61,24 @@ class CameraController extends Controller
         ), 200);
     }
 
+    function validatePeserta (Request $request){
+        try {
+            $email = $request->get('email');
+            DB::table('users')->where('email',$email)->update(['is_validate'=>'1','validate_at'=>date("Y-m-d H:i:s"), 'validate_by'=>Auth::user()->email]);
+            return response()->json(array(
+                'info'=>'selamat peserta berhasil di validate',
+                'resCode'=> '200'
+            ),200);
+        } catch (\PDOException $e) {
+            //throw $th;
+            return response()->json(array(
+                'info'=>'maaf terjadi kesalahan dengan server, silahkan mencoba kembali',
+                'resCode'=> '500'
+            ),200);
+        }
+
+    }
+
     function adminValidate(){
 
         $role_user = Auth::user()->roles_id;
@@ -80,4 +98,5 @@ class CameraController extends Controller
             ->get();
         return view('validatePeserta.index', compact('riwayat_tes','menu_role'));
     }
+
 }

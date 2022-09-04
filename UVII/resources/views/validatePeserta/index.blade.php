@@ -64,7 +64,7 @@
                     {{$data->tanggal_selesai }}
                 </td>
                 <td>
-                    <button class='btn btn-primary btn-validate' value='{{$data->nama_depan}}'> validate</button>
+                    <button class='btn btn-primary btn-validate' email='{{$data->users_email }}' value='{{$data->nama_depan}}'> validate</button>
                 </td>
             </tr>
             @php
@@ -83,30 +83,88 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" style="text-align: center;">
-                    <div id='imgAwal' style="width: 60px; height: 60px; margin: auto;">
+                    <div class='container'>
+                        <div class='row align-items-start'>
+                            <div class='col'>
+                                <div id='imgAwal' style="width: 30%; height: 30%; ">
+                                </div>
+                                <p>Awal</p>
+                            </div>
+                            <div class='col'>
+                                <div id='imgAkhir' style="width: 30%; height: 30%;">
+                                </div>
+                                <p>Akhir</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div id='imgAwal' style="width: 60px; height: 60px; margin: auto;">
                         <img  src="" alt="">
                     </div>
                     <div id='imgAkhir' style="width: 60px; height: 60px; margin: auto;">
                         <img id='imgAkhir' src="" alt="">
-                    </div>
+                    </div> -->
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
                     <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal">Close</button>
-                    <button type='button' class="btn btn-primary" id='btn-validate'>Validate</button>
+                    <button type='button' class="btn btn-primary" value='' id='btn-validate'>Validate</button>
                 </div>
             </div>
         </div>
     </div>
 <!-- modal tampil foto:end -->
 
+<!-- modal info:start -->
+<div id='modalInfo' class="modal" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <div id='info'>
+
+                    </div>
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <button type="button" class="btn btn-secondary mdl-close" val='' id='btn-close-info' data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- modal info:end -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $('.btn-validate').on('click', function(){
         let nama = $(this).val();
+        let email = $(this).attr('email');
         $('#imgAwal').html(`<img  src="{{asset('camera/awal/`+nama+`.png')}}" alt="">`);
         $('#imgAkhir').html(`<img  src="{{asset('camera/akhir/`+nama+`.png')}}" alt="">`);
+        $('#btn-validate').val(email);
         // $('#imgAkhir').attr('src',"{{asset('camera/akhir"+nama+".png')}}");
         $('#modalValidate').modal('toggle');
+    })
+
+    $('#btn-validate').on('click',function(){
+        let email = $(this).val();
+        $.ajax({
+            type:'POST',
+            url:'{{route("validatePeserta")}}',
+            data:{
+                '_token': '<?php echo csrf_token() ?>',
+                'email': email
+            },
+            success:function(data){
+                $('#modalValidate').modal('hide');
+                $('#info').html(data.info);
+                $('#btn-close-info').val(data.resCode);
+                $('#modalInfo').modal('toggle');
+            }
+        });
+    })
+
+    $('#btn-close-info').on('click',function(){
+        let respond = $(this).val();
+        if(respond == '200'){
+            location.reload();
+        }
     })
 </script>
 
