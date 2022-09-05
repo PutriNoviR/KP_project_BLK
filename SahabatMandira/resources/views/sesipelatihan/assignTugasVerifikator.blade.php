@@ -11,14 +11,19 @@ Assign Tugas
 
 
 @if(Auth::user()->role->nama_role == 'adminblk')
-<div class="col-sm-6">
-    <h2 class="m-0 text-dark">Penugasan Admin</h2><br> {{--PER SESI --}}
-</div>
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card-tugas">
-            <div class="portlet-body form">
 
+
+{{-- MODAL UNTUK PENUGASAN ADMIN --}}
+<div class="modal fade" id="modalPenugasanAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Penugasan Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
                 <form role='form' method="POST" enctype="multipart/form-data" action="">
                     @csrf
                     <div class="form-body">

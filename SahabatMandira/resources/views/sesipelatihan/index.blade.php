@@ -158,9 +158,15 @@ PELATIHAN
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->sesi_pelatihans_id}}">
-                            <button data-toggle="modal" data-target="" class='btn btn-warning' {{ $d->status_fase  == 'DITOLAK' ? 'disabled' : ''}} {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
+                            @if($d->status_fase  == 'DITERIMA')
+                            <button data-toggle="modal" data-target="" class='btn btn-success' {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
                                 Daftar Ulang
                             </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                            @else
+                            <button data-toggle="modal" data-target="" class='btn btn-danger' disabled {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
+                                Daftar Ulang
+                            </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                            @endif
                         </div>
                     </form>
                 </td>
