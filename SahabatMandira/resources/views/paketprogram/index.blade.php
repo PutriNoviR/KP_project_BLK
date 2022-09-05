@@ -7,7 +7,7 @@ PAKET PROGRAM
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -22,11 +22,11 @@ PAKET PROGRAM
                 '_token': '<?php echo csrf_token() ?>',
                 'id': paketProgramId,
             },
-            success: function(data) {
+            success: function (data) {
                 // console.log(data.msg);
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
@@ -48,7 +48,7 @@ PAKET PROGRAM
         return false;
     }
 
-    $('#selectKejuruan').on('change', function() {
+    $('#selectKejuruan').on('change', function () {
 
         const idkejuruan = $('#selectKejuruan').val();
 
@@ -59,7 +59,7 @@ PAKET PROGRAM
                 '_token': '<?php echo csrf_token() ?>',
                 'idkejuruan': idkejuruan,
             },
-            success: function(data) {
+            success: function (data) {
                 $('#selectSubKejuruan').empty();
                 data.forEach(e => {
                     $('#selectSubKejuruan').append(
@@ -67,11 +67,12 @@ PAKET PROGRAM
                 });
                 $('#selectSubKejuruan').removeAttr('disabled')
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         })
     })
+
 </script>
 @endsection
 
@@ -98,7 +99,8 @@ PAKET PROGRAM
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -117,22 +119,28 @@ PAKET PROGRAM
                 <td>{{ $paketprogram->kejuruan->nama }}</td>
                 <td>{{ $paketprogram->subkejuruan->nama }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-warning'>
+                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}"
+                        class='btn btn-warning'>
                         Tambah Sesi Pelatihan
                     </a>
-                    <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$paketprogram->id}})">
+                    <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning'
+                        onclick="modalEdit({{$paketprogram->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('paketProgram.destroy',$paketprogram->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('paketProgram.destroy',$paketprogram->id) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="{{route('blk.show',$paketprogram->id)}}" data-toggle="modal"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"
+                            href="{{route('blk.show',$paketprogram->id)}}" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
 
             {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}
-            <div class="modal fade" id="modalTambahSesiPelatihan{{$paketprogram->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalTambahSesiPelatihan{{$paketprogram->id}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -145,16 +153,20 @@ PAKET PROGRAM
                             <form method="POST" action="{{ route('sesiPelatihan.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
+                                    <label for="deskripsi"
+                                        class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
                                     <input type="text" class="col-md-12 col-form-label" name="deskripsi">
                                 </div>
                                 <div class="form-group">
-                                    <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
-                                    <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg">
+                                    <label for="fotoPelatihan"
+                                        class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
+                                    <input type="file" name='fotoPelatihan' class="defaults"  accept="image/png, image/gif, image/jpeg">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
-                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_pendaftaran">
+                                    <label for="tanggalBukaPendaftaran"
+                                        class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label"
+                                        name="tanggal_pendaftaran">
 
                                     <div class="col-md-12">
 
@@ -166,7 +178,8 @@ PAKET PROGRAM
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tanggalTutupPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
+                                    <label for="tanggalTutupPendaftaran"
+                                        class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
                                     <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_tutup">
 
                                     <div class="col-md-12">
@@ -186,8 +199,10 @@ PAKET PROGRAM
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tanggalMulaiPelatihan" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Pelatihan') }}</label>
-                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_mulai_pelatihan">
+                                    <label for="tanggalMulaiPelatihan"
+                                        class="col-md-12 col-form-label">{{ __('Tanggal Mulai Pelatihan') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label"
+                                        name="tanggal_mulai_pelatihan">
 
                                     <div class="col-md-12">
 
@@ -199,8 +214,10 @@ PAKET PROGRAM
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tanggalSelesaiPelatihan" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Pelatihan') }}</label>
-                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_selesai_pelatihan">
+                                    <label for="tanggalSelesaiPelatihan"
+                                        class="col-md-12 col-form-label">{{ __('Tanggal Selesai Pelatihan') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label"
+                                        name="tanggal_selesai_pelatihan">
 
                                     <div class="col-md-12">
 
@@ -223,8 +240,10 @@ PAKET PROGRAM
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tanggalSeleksi" class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
-                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_seleksi">
+                                    <label for="tanggalSeleksi"
+                                        class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label"
+                                        name="tanggal_seleksi">
 
                                     <div class="col-md-12">
 
@@ -236,9 +255,12 @@ PAKET PROGRAM
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                                    <textarea class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
-                                    <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
+                                    <label for="aktivitas"
+                                        class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
+                                    <textarea class="col-md-12 col-form-label" rows="3"
+                                        name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+                                    <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label"
+                                        value="{{$paketprogram->id}}">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -254,7 +276,8 @@ PAKET PROGRAM
     </table>
 </div>
 
-<div class="modal fade" id="modalTambahPaketProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahPaketProgram" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,22 +291,22 @@ PAKET PROGRAM
                     <form method="POST" action="{{ route('paketProgram.store') }}">
                         @csrf
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
+                            <label for="nama"
+                                class="col-md-12 col-form-label">{{ __('Nama Balai Latihan Kerja') }}</label>
                             <div class="col-md-12">
 
                                 @if (Auth::user()->role->nama_role == 'superadmin')
                                 <select class="form-control" aria-label="Default select example" name="blks_id">
-                                    @foreach($paketprograms as $paketprogram)
-                                        @foreach($blk as $d)
-                                        <option value="{{$d->id}}" {{$d->id==$paketprogram->blks_id ? 'selected':''}}>
-                                            {{$d->nama}}
-                                        </option>
-                                        {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
-                                        @endforeach
+                                    @foreach($blk as $d)
+                                    <option value="{{$d->id}}">
+                                        {{$d->nama}}
+                                    </option>
+                                    {{-- untuk melakukan pengecekan seperti if apakah id blk yang ada di paket program sama dengan id blk yang ada di foreach ?--}}
                                     @endforeach
                                 </select>
                                 @else
-                                <select class="form-control" aria-label="Default select example" name="blks_id" readonly>
+                                <select class="form-control" aria-label="Default select example" name="blks_id"
+                                    readonly>
                                     @foreach($blk as $d)
                                     <option value="{{$d->id}}" {{$d->id==Auth::user()->blks_id_admin ? 'selected':''}}>
                                         {{$d->nama}}
@@ -298,7 +321,8 @@ PAKET PROGRAM
                         <div class="form-group">
                             <label for="kejuruan" class="col-md-12 col-form-label">{{ __('Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="kejuruans_id" id="selectKejuruan">
+                                <select class="form-control" aria-label="Default select example" name="kejuruans_id"
+                                    id="selectKejuruan">
                                     <option selected>Pilih Kejuruan</option>
                                     @foreach($kejuruan as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
@@ -310,7 +334,8 @@ PAKET PROGRAM
                         <div class="form-group">
                             <label class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="sub_kejuruans_id" id="selectSubKejuruan" disabled>
+                                <select class="form-control" aria-label="Default select example" name="sub_kejuruans_id"
+                                    id="selectSubKejuruan" disabled>
                                 </select>
                             </div>
                         </div>

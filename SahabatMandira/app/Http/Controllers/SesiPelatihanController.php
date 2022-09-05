@@ -215,7 +215,7 @@ class SesiPelatihanController extends Controller
     {
 
         $data = SesiPelatihan::all();
-        dd($data);
+        // dd($data);
         return view('pelatihanPeserta.pelatihanYangDiikuti', compact('data'));
     }
 
@@ -249,5 +249,28 @@ class SesiPelatihanController extends Controller
             ->get();
         //
         return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur'));
+    }
+
+    public function daftarUlang(Request $request)
+    {
+        $userLogin = auth()->user()->email;
+
+        $update = array(
+            'is_daftar_ulang' => 1,
+            'tanggal_daftar_ulang' => date('Y-m-d H:i:s'),
+        );
+
+        DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->where('email_peserta', $userLogin)
+            ->update($update);
+        //
+        $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
+            ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
+            ->WHERE('p.email_peserta', '=', $userLogin)
+            ->get();
+        //
+        return redirect()->back()->with('success', 'Berhasil Daftar Ulang');
     }
 }

@@ -42,9 +42,16 @@ PELATIHAN
                     <!-- <a data-toggle="modal" data-target="#modalDetailPeserta{{$d->id}}" class='btn btn-info' value>
                         <i class="fas fa-eye"></i>
                     </a> -->
+                    @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
+                    <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
+                        <i class="fas fa-plus"></i> {{--PINDAHIN KE UI  --}}
+                    </a>
+                    @else
                     <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
                         <i class="fas fa-eye"></i> {{--PINDAHIN KE UI  --}}
                     </a>
+                    @endif
+                    
                 </td>
             </tr>
             @endforeach

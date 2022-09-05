@@ -29,6 +29,7 @@ class PaketProgramPelatihanController extends Controller
         $blk = Blk::all();
         $kejuruan = Kejuruan::all();
         $subKejuruan = Subkejuruan::all();
+        // dd($blk);
         
         return view('paketprogram.index', compact('paketprograms','blk','kejuruan','subKejuruan'));
     }

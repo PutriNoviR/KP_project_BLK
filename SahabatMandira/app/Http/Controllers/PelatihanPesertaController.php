@@ -95,7 +95,7 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $id)
             ->get();
 
-        // dd($data2);
+        // dd($data);
         // $data = PelatihanPeserta::all()->where('sesi_pelatihans_id','=',$id);
         // $data = PelatihanPeserta::find($id);
 
@@ -124,14 +124,44 @@ class PelatihanPesertaController extends Controller
     {
         // return $request->get('sesi_pelatihans_id');
 
+
         //yobong
-        $update = array(
-            'rekom_catatan' => $request->get('rekom_catatan'),
-            'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-            'rekom_keputusan' => $request->get('rekom_keputusan'),
-            'hasil_kompetensi' => $request->get('hasil_kompetensi'),
-            'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-        );
+        // $update = array(
+        //     'rekom_catatan' => $request->get('rekom_catatan'),
+        //     'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+        //     'rekom_keputusan' => $request->get('rekom_keputusan'),
+        //     'hasil_kompetensi' => $request->get('hasil_kompetensi'),
+        //     'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+        // );
+
+        if ($request->get('rekom_keputusan') == 'LULUS') {
+            $update = array(
+                'rekom_catatan' => $request->get('rekom_catatan'),
+                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                'rekom_keputusan' => $request->get('rekom_keputusan'),
+                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
+                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                'status_fase' => 'DITERIMA',
+            );
+        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
+            $update = array(
+                'rekom_catatan' => $request->get('rekom_catatan'),
+                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                'rekom_keputusan' => $request->get('rekom_keputusan'),
+                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
+                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                'status_fase' => 'DITOLAK',
+            );
+        } else {
+            $update = array(
+                'rekom_catatan' => $request->get('rekom_catatan'),
+                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                'rekom_keputusan' => $request->get('rekom_keputusan'),
+                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
+                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                'status_fase' => 'DALAM SELEKSI',
+            );
+        }
 
         DB::connection('mandira')
             ->table('pelatihan_pesertas')
@@ -139,21 +169,8 @@ class PelatihanPesertaController extends Controller
             ->where('email_peserta', $email)
             ->update($update);
         //
-        
-        if ($request->get('rekom_keputusan') == 'LULUS') {
-            DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->update(['status_fase' => 'EXPIRED',]);
-            //
-        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
-            DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $request->get('email_peserta'))
-            ->where('p.sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->update(['status_fase' => 'DITOLAK',]);
-        }
+
+
 
         return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
@@ -194,8 +211,8 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $id)
             ->first();
         //
-        
-        
+
+
         $check = '1';
         // $data = PelatihanPeserta::find($request->id);
         // dd($data);
@@ -226,9 +243,9 @@ class PelatihanPesertaController extends Controller
     public function storePendaftar(Request $request, $id)
     {
         $emailValidator = DB::connection('mandira')
-        ->table('pelatihan_mentors')
-        ->where('sesi_pelatihans_id', $id)
-        ->value('mentors_email');
+            ->table('pelatihan_mentors')
+            ->where('sesi_pelatihans_id', $id)
+            ->value('mentors_email');
 
         $emailUser = auth()->user()->email;
         // dd($emailValidator);
@@ -254,13 +271,13 @@ class PelatihanPesertaController extends Controller
 
         //
         // dd($data);
-        
-        $data2 = DB::table('users')
-            ->join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-            ->where('p.email_peserta', $emailUser)
-            ->where('p.sesi_pelatihans_id', $id)
+
+        DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+            ->where('email_peserta', $emailUser)
             ->update(['status_fase' => 'DALAM SELEKSI',]);
-        
+
         // return $data2;
         return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
     }

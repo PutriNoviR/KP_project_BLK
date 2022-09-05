@@ -101,6 +101,7 @@ Route::get('sesiPelatihan/{id}','SesiPelatihanController@show')->name('sesiPelat
 Route::get('sesiPelatihan/riwayat','SesiPelatihanController@riwayatPelatihan')->name('sesiPelatihan.peserta');
 Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->name('sesiPelatihan.showMore');
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
+Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
 
 //User
 Route::resource('menu/User','UserController');
