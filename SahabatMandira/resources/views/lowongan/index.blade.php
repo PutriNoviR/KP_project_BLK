@@ -57,9 +57,12 @@ Lowongan
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Lowongan {{ $perusahaan->nama }}</h2>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahLowongan">
+        {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahLowongan">
             Tambah Lowongan
-        </button>
+        </button> --}}
+        <a class="btn btn-primary" href="{{ route('lowongan.create') }}">
+            Tambah Lowongan
+        </a>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
