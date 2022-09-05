@@ -163,8 +163,15 @@ class PesertaController extends Controller
             ];
         }
         
-        User::where('email', $request->email)->update($peserta);
+        User::where('email', $request->old_email)->update($peserta);
+  
+        $dataUjiMinat = User::find($request->old_email)->ujiMinatAwals()->get();
         
+       
+        if($dataUjiMinat){
+            User::find($request->old_email)->ujiMinatAwals()->update(['users_email'=>$request->email]);
+        }
+       
         return redirect()->back()->with("status", "data telah diubah!");
     }
 
@@ -176,10 +183,17 @@ class PesertaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $email = $request->email;
-        User::where('email',$email)->delete();
+        try{
+            $email = $request->email;
+            User::where('email',$email)->delete();
+    
+            return redirect()->back()->with("status", "data telah dihapus!");
+        }
+       catch(\PDOException $e){
+            $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
-        return redirect()->back()->with("status", "data telah dihapus!");
+            return redirect()->back()->with('error',$msg);
+       }
     }
 
     public function getEditForm(Request $request){
@@ -271,7 +285,7 @@ class PesertaController extends Controller
     public function forgotPasswords(Request $request){
         if($request->password == $request->password_confirmation){
             User::where('email',$request->email)->update(['password'=>Hash::make($request->password)]);
-            return redirect()->route('login')->with('succsess','Password Berhasil dirubah');
+            return redirect()->route('login')->with('success','Password Berhasil dirubah');
         }
         else{
             return redirect()->back()->with('error','password gagal terganti');
@@ -281,5 +295,19 @@ class PesertaController extends Controller
     public function getForgotPasswords(){
         return view('auth.passwords.reset');
 
+    }
+
+    public function getProfile(){
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+            
+        $data = Auth::user();
+    
+        return view('admin.profile', compact('data','menu_role'));
     }
 }

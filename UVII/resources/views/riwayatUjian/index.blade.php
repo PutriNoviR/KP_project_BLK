@@ -67,7 +67,11 @@
                 </td>
                 <td>
                     @foreach($data->find($data->id)->hasilRekomAkhir as $d)
-                        {{$d->kode}},
+                        {{$d->kode}}
+                        
+                        @if(!$loop->last)
+                            ,
+                        @endif
                     @endforeach                
                 </td>
             </tr>

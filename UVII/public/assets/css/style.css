@@ -1301,6 +1301,14 @@ Portlets
 	text-align: left;
 }
 
+.body-content-detail{
+	width: 100%;
+	overflow: hidden;
+	font-size: 14px;
+	text-align: center;
+  line-height: 25px;
+}
+
 .tulisan_rata{
   list-style-position: outside;
   margin-left: -25px;
@@ -1324,6 +1332,10 @@ Portlets
 .body-btn button, .button{
   background: #18A0FB;
   border-color: #3490dc;
+  width: 174.62px;
+}
+
+.body-btn a{
   width: 174.62px;
 }
 
@@ -1408,6 +1420,25 @@ Portlets
 
 /* end tes tahap 1 */
 
+/* Detail Jawaban */
+.detailJawabanActive{
+  background-color: #e9e9e9 !important;
+}
+
+.detailJawabanActive:hover{
+  background-color: #e1e1e1 !important;
+}
+
+.detailJawabanSuccess{
+  background-color: #dff0d8;
+}
+
+.detailJawabanSuccess:hover{
+  background-color: #d0e9c6;
+}
+
+/* End Detail Jawban */
+
 /* Form Tes Tahap 1 */
 .container{
   margin: 0;
@@ -1464,10 +1495,21 @@ Portlets
   margin-left: 3px;
 }
 
+.card-body .row-pad{
+  padding: 10px;
+}
+
  @media(min-width:650px){
   
   .card-body .col-md-4{
     margin-left: -200px;
+  }
+ }
+
+ @media(max-width:500px){
+  
+  .responsive-col .col-md-6{
+    width: 10%;
   }
  }
 
@@ -1504,12 +1546,16 @@ Portlets
     margin-bottom: 2px;
     float: left;
   }
-  
+
   .card-body .col-md-4{
     width: 30%;
     float: left;
   }
 
+  .card-body .col-md-3{
+    width: 30%;
+    float: left;
+  }
 
 .card-body .col-md-4:nth-of-type(2){
   text-align: center;

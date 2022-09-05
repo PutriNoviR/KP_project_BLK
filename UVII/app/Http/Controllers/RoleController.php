@@ -197,7 +197,7 @@ class RoleController extends Controller
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->email, 'email')],
             'no_hp' => ['required', 'numeric', 'digits:12'],
-            'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($request->email, 'email')],
+            'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($request->username, 'username')],
         ]);
 
         $admin=[
@@ -210,7 +210,7 @@ class RoleController extends Controller
             'alamat' => $request->alamat
         ];
 
-        User::where('email', $request->email)->update($admin);
+        User::where('email', $request->old_email)->update($admin);
 
         return redirect()->back()->with('success','admin berhasil diubah!');
        

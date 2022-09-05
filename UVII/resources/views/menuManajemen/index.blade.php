@@ -213,9 +213,8 @@
                             <select id="role_user" class="form-control" name="role_user" required>
                               <option value=''>--Pilih Role--</option>
                                
-                                @foreach($role as $r)
-                                  <option value='{{ $r->id }}'>{{ $r->nama_role }}</option>
-                               
+                                @foreach($role as $r) 
+                                    <option value='{{ $r->id }}'>{{ $r->nama_role }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -224,12 +223,12 @@
                             <label for="role" class=" form-control-label">Menu</label>
                             <div class="checkbox-menus">
                                 @foreach($menu as $m)
-                                
-                                  <label>
-                                    <input type="checkbox" id='menu_{{$m->id}}' class='menu' class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
-                                    {{ $m->nama }}
-                                  </label>
-                                
+                                  @if($m->status == 'Aktif')
+                                    <label>
+                                      <input type="checkbox" id='menu_{{$m->id}}' class='menu' class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="menu[]" value="{{ $m->id }}" autofocus>
+                                      {{ $m->nama }}
+                                    </label>
+                                  @endif
                                 @endforeach
                                
                                
@@ -288,7 +287,7 @@
                             Aktif
                           </label>
                           <label>
-                            <input type="radio" class='form-control' name='status' value="Tidak Aktif">
+                            <input type="radio" class='form-control' name='status' value="Tidak Aktif" checked>
                             Tidak Aktif
                           </label>
                         </div>
