@@ -1,15 +1,40 @@
-<form action="{{url('menu/peserta/'.$data->email)}}" method="post" enctype="multipart/form-data">
-    @csrf
-    @method("PUT")
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>    
+@extends('layouts.index',['menu'=>$menu_role])
 
-        <h5 class="modal-title" id="mediumModalLabel"><strong>Edit Peserta</strong></h5>   
+@section('title')
+    Profile Peserta
+@endsection
+
+@section('page-bar')
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="{{route('home')}}">Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+
+        <li>
+            <a href="{{route('profile')}}">Profile</a>
+            <i class="fa fa-angle-right"></i>
+        </li> 
+    </ul>
+@endsection
+
+@section('contents')
+@if($message = Session::get('status'))
+    <div class="alert alert-success">
+        <li>{{$message}}</li>
     </div>
-                
-    <div class="modal-body">
+@endif
+
+<div class="card-kelengkapan">
+
+    <div class="card-header">
+        <p>Profile Peserta</p>
+    </div>
+
+    <div class="portlet-body form">
+        <form action="{{route('profile.update')}}" method="post">
+        @csrf
         <div class="tab-content">
    
             <div class="tab-pane active" id="tab_1_3">
@@ -23,11 +48,6 @@
                                 <span class="after">
                                 </span>
                             </li>
-                           {{-- <li class="" >
-                                <a data-toggle="tab" onclick="updateTabAt('tab_2')" href="#tab_2-2">
-                                    <i class="fa fa-file"></i> Dokumen
-                                </a>
-                            </li>--}}
                             <li class="">
                                 <a data-toggle="tab" onclick="updateTabAt('tab_3')" href="#tab_3-3">
                                     <i class="fa fa-file"></i> Informasi Tambahan
@@ -62,60 +82,7 @@
                                 <div class="form-group"><label for="alamat" class="form-control-label">Alamat</label><input type="text" name="alamat" placeholder="Enter your address" class="form-control" value="{{$data->alamat}}" required></div>
                                 
                                 <div class="form-group"><label for="kota" class="form-control-label">Kota</label><input type="text" name="kota" placeholder="Enter your city" class="form-control" value="{{$data->kota}}" required></div>
-                            
-                                <div class="margiv-top-10 pull-right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                </div>
                           
-                            </div>
-
-                            <div id="tab_2-2" class="tab-pane"> 
-                         
-                                <p>
-                                    <span class="label label-danger">NOTE!</span>
-                                    Upload semua dokumen dalam bentuk .JPG, .PNG atau .PDF
-                                </p>
-                                
-                                <input type="hidden" name="old_email" value="{{$data->email}}">
-
-                                <div class="form-group">
-                                    <label for="pas_foto" class="form-control-label">Pas Foto</label>
-                                    
-                                    <span class="btn btn-default btn-file">
-                                        <input type="file" name='pas_foto' class="default">
-                                    </span> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ktp" class="form-control-label">KTP</label>
-                                    
-                                    <span class="btn btn-default btn-file">
-                                        <input type="file" name='no_ktp' class="default">
-                                    </span> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ksk" class="form-control-label">KSK</label>
-                                    
-                                    <span class="btn btn-default btn-file">
-                                        <input type="file" name='ksk' class="default">
-                                    </span> 
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ijazah" class="form-control-label">Ijazah</label>
-                                    
-                                    <span class="btn btn-default btn-file">
-                                        <input type="file" name='ijazah' class="default">
-                                    </span> 
-                                </div>
-
-                                <div class="margiv-top-10 pull-right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                </div>
-                        
                             </div>
 
                             <div id="tab_3-3" class="tab-pane">
@@ -136,16 +103,18 @@
 
                                 <div class="form-group"><label for="username" class="form-control-label">Username</label><input type="text" name="username" placeholder="Enter your username" class="form-control" value="{{$data->username}}" required></div>
 
-                               <div class="margiv-top-10 pull-right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                </div>
-                               
+                            
+                            </div>
+
+                            
+                            <div class="form-group form-button">
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
-</form
+@endsection

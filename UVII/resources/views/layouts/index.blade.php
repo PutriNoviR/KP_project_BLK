@@ -87,7 +87,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
+						<a href="{{route('profile')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
 					</li>
 					<div class="divider"></div>
 					<li>

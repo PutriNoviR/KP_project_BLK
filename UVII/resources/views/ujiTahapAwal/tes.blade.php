@@ -141,7 +141,7 @@
 
 @endphp
 
-@if(Session::has('error'))
+{{--@if(Session::has('error'))
    
     <div id='modalInfo' class="modal" tabindex="-1" role="basic">
         <div class="modal-dialog">
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-@endif
+@endif--}}
 
 <div class="container">
     <div class="timer" >
@@ -230,8 +230,8 @@
         <a href="{{ $dataSoal->previousPageUrl() }}" id='btnPrevious' class="button btn btn-primary" style="{{ $dataSoal->previousPageUrl() == null ? 'visibility:hidden;':''}}">Previous</a>
       
         @if($dataSoal->nextPageUrl() == null)
-            <a href="{{ route('soal.hasilJawaban.score') }}" id='btnSubmit' class="button btn btn-primary">SUBMIT</a>
-
+            {{--<a href="{{ route('soal.hasilJawaban.score') }}" id='btnSubmit' class="button btn btn-primary">SUBMIT</a>--}}
+            <a href="{{ route('soal.detail.jawaban') }}" id='btnSubmit' class="button btn btn-primary">SUBMIT</a>
         @else
             <a href="{{ $dataSoal->nextPageUrl()}}" id='btnNext' class="button btn btn-primary">NEXT</a>
         @endif
@@ -264,7 +264,8 @@
         </div>
 
         <div class="finish_attempt" >
-            <a href="{{ route('soal.hasilJawaban.score') }}">Finish Attempt...</a>
+            {{--<a href="{{ route('soal.hasilJawaban.score') }}">Finish Attempt...</a>--}}
+            <a href="{{ route('soal.detail.jawaban') }}">Finish Attempt...</a>
         </div>
     </div>
 

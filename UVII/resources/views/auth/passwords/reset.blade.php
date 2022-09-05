@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
+    @if($message = Session::get('error'))
+    <div class="alert alert-danger">
+        <li>{{$message}}</li>
+    </div>
+    @endif
+
     <div class="row justify-content-center">
         <div class="col-md-8">
 

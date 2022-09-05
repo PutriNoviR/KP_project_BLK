@@ -73,6 +73,7 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
 Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     //CRUD
     Route::get('soal_hasil/score','TesTahapAwalController@hasilTes')->name('soal.hasilJawaban.score');
+    Route::get('soal_hasil/detail','TesTahapAwalController@detailJawaban')->name('soal.detail.jawaban');
 
     // riwayat tes
     Route::get('riwayat/tes/peserta', 'TesTahapAwalController@riwayatTes')->name('riwayat_tes.user');
@@ -88,6 +89,8 @@ Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     //Peserta
     Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('peserta.data.pribadi');
     Route::post('/kelengkapan dokumen', 'PesertaController@kelengkapanDataDokumen')->name('peserta.data.dokumen');
+    Route::get('/profile', 'PesertaController@getProfile')->name('profile');
+    Route::post('/profile/update', 'PesertaController@update')->name('profile.update');
 
     Route::get('tes_tahap2/hasil','TesTahapAkhirController@hasilTes2')->name('tes2.hasil');
 });

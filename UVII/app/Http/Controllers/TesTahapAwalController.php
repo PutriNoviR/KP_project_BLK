@@ -189,6 +189,21 @@ class TesTahapAwalController extends Controller
         ),200);
     }
 
+    public function detailJawaban(){
+        $user = Auth::user()->email;
+
+        $ujiMinat = UjiMinatAwal::where('users_email',$user)->where('tanggal_selesai',null)->first();
+        
+        $dataSoal = Pertanyaan::all();
+        $dataJawaban = UjiMinatAwal::getDataJawaban($ujiMinat->id);
+
+        $waktu = explode(':', $ujiMinat->sisa_durasi);
+        $menit = $waktu[0];
+        $detik = $waktu[1];
+
+        return view('ujiTahapAwal.detailJawaban', compact('dataJawaban', 'dataSoal', 'menit', 'detik'));
+    }
+
     public function hasilTes(Request $request){
          // --menu manajemen --
          $role_user = Auth::user()->roles_id;
@@ -206,10 +221,10 @@ class TesTahapAwalController extends Controller
         $dataJawaban = UjiMinatAwal::getDataJawaban($tes->id);
        
         // cek apakah ada soal yang belum terisi dan masih terdapat cukup waktu;
-        if(in_array(0, $dataJawaban) && $tes->sisa_durasi != "00:00"){ 
-            return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
-        }
-        else{
+        // if(in_array(0, $dataJawaban) && $tes->sisa_durasi != "00:00"){ 
+        //     return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
+        // }
+        // else{
             $dataHasil = UjiMinatAwal::HitungScore($tes->id);
             
             $totalScore = $dataHasil->sum('score');
@@ -260,7 +275,7 @@ class TesTahapAwalController extends Controller
             // UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
 
             return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru', 'menu_role'));
-        }
+        // }
     
     }
 

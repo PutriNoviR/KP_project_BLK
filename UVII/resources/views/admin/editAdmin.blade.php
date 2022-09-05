@@ -24,27 +24,28 @@
 
         <div class="form-group">
             <label>No.Handphone</label>
-            <input name="no_hp" class="form-control" value="{{$data->nomer_hp}}" required>
+            <input type='text' name="no_hp" class="form-control" value="{{$data->nomer_hp}}" required>
         </div>
 
         <div class="form-group">
             <label>Email</label>
-            <input name="email" class="form-control" value="{{$data->email}}" required>
+            <input type='email' name="email" class="form-control" value="{{$data->email}}" required>
+            <input type='hidden' name="old_email" class="form-control" value="{{$data->email}}">
         </div>
 
         <div class="form-group">
             <label>Username</label>
-            <input name="username" class="form-control" value="{{$data->username}}" required>
+            <input type='text' name="username" class="form-control" value="{{$data->username}}" required>
         </div>
         
         <div class="form-group">
             <label>Kota</label>
-            <input name="kota" class="form-control" value="{{$data->kota}}" required>
+            <input type='text' name="kota" class="form-control" value="{{$data->kota}}" required>
         </div>
 
         <div class="form-group">
             <label>Alamat</label>
-            <input name="alamat" class="form-control" value="{{$data->alamat}}" required>
+            <input type='text' name="alamat" class="form-control" value="{{$data->alamat}}" required>
         </div>
     </div>
 
