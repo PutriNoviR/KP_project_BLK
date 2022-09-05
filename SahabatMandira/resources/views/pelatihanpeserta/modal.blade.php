@@ -102,8 +102,6 @@
                     <div>
                         <button type="submit" id="permanent" name="action" class="btn btn-primary">Simpan</button>
                     </div>
-
-
                 </div>
             </div>
         </form>
