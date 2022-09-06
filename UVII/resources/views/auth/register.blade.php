@@ -119,7 +119,7 @@
                             </div>
                         </div>
                        
-                        <input type="hidden" name="peran" value="Peserta">
+                        <input type="hidden" name="peran" value="peserta">
 
                         <div class="form-group col-md-6">
                            

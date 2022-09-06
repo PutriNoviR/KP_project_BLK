@@ -21,6 +21,6 @@ class AdminPolicy
     }
 
     public function access(User $user){
-        return ($user->role->nama_role == "Admin" ? Response::allow() : Response::deny("You must be a super administrator")); 
+        return ($user->role->nama_role == "adminuvii" ? Response::allow() : Response::deny("You must be a super administrator")); 
     }
 }

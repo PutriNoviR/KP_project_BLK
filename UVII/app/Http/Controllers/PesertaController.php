@@ -19,7 +19,7 @@ class PesertaController extends Controller
      */
     public function index()
     {
-        $idRole = Role::where('nama_role', 'Peserta')->first();
+        $idRole = Role::where('nama_role', 'peserta')->first();
         $data = User::where('roles_id', $idRole->id)->get();
 
         $role_user = Auth::user()->roles_id;

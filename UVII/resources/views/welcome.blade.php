@@ -84,7 +84,7 @@
         @endforeach
     @endif
     
-    @if(Auth::user()->role->nama_role == 'Peserta')
+    @if(Auth::user()->role->nama_role == 'peserta')
         @if(Auth::user()->nomor_identitas == null)
 
         <div class="card-kelengkapan">
