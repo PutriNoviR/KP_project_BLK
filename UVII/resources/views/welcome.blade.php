@@ -103,8 +103,8 @@
 
                             <select id='txt_kewarganegaraan' class="form-control" name="kewarganegaraan" required>
                                 
-                                    <option value="WNI" selected>Indonesia</option>
-                                    <option value="WNA">Bukan Indonesia</option>
+                                    <option value="WNI" {{ old('kewarganegaraan') == 'WNI' || empty(old('kewarganegaraan')) ? 'selected':''}}>Indonesia</option>
+                                    <option value="WNA" {{ old('kewarganegaraan') == 'WNA' ? 'selected':'' }}>Bukan Indonesia</option>
 
                             </select>
                             
@@ -115,8 +115,8 @@
 
                             <select id="txt_jenis_identitas" class="form-control" name="jenis_identitas" required>
                         
-                                    <option value="KTP" selected>KTP</option>
-                                    <option value="Pasport">Pasport</option>
+                                    <option value="KTP" {{ old('jenis_identitas') == 'KTP' || empty(old('jenis_identitas')) ? 'selected':''}}>KTP</option>
+                                    <option value="Pasport" {{ old('jenis_identitas') == 'Pasport' ? 'selected':''}}>Pasport</option>
                                 
                             </select>
                             
@@ -125,7 +125,7 @@
                         <div class="form-group">
                             <label for="nomor_identitas">Nomor Identitas</label>
 
-                            <input id="txt_nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" required autocomplete="nomor_identitas" autofocus>
+                            <input id="txt_nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required autocomplete="nomor_identitas" autofocus>
 
                             @error('nomor_identitas')
                                 <span class="invalid-feedback" role="alert">
@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label for="tanggal_lahir">Tanggal Lahir</label>
 
-                            <input id="txt_tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" required autocomplete="tanggal_lahir" autofocus>
+                            <input id="txt_tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required autocomplete="tanggal_lahir" autofocus>
 
                             @error('tanggal_lahir')
                                 <span class="invalid-feedback" role="alert">
@@ -155,11 +155,11 @@
                             <div class="col-md-12">
                                 <div class="radio-list">
                                     <label>
-                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Laki-Laki" required autofocus>
+                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'checked':''}} required autofocus>
                                         Laki-Laki
                                     </label>
                                     <label>
-                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" required autofocus> 
+                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked':''}} required autofocus> 
                                         Perempuan
                                     </label>
                                 </div>
@@ -179,28 +179,28 @@
                             <div class="col-md-12">
                                 <div class="radio-list">
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SD Sederajat" required autofocus>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SD Sederajat" {{ old('pendidikan_terakhir') == 'SD Sederajat'? 'checked':'' }} required autofocus>
                                         SD Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMP Sederajat" required autofocus>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMP Sederajat" {{ old('pendidikan_terakhir') == 'SMP Sederajat'? 'checked':'' }} required autofocus>
                                         SMP Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" {{ old('pendidikan_terakhir') == 'SMA Sederajat'? 'checked':'' }} required autofocus> 
                                         SMA Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" {{ old('pendidikan_terakhir') == 'D3/D4'? 'checked':'' }} required autofocus> 
                                         D3/D4 (Diploma)
                                     </label>
                             
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" {{ old('pendidikan_terakhir') == 'S1'? 'checked':'' }} required autofocus> 
                                         S1
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus> 
                                         Pasca Sarjana
                                     </label>
 
@@ -218,7 +218,7 @@
                         <div class="form-group">
                             <label for="hobi">Hobi</label>
 
-                            <textarea id="txt_hobi" rows='3' class="form-control @error('hobi') is-invalid @enderror" name="hobi" required autocomplete="hobi" autofocus></textarea>
+                            <textarea id="txt_hobi" rows='3' class="form-control @error('hobi') is-invalid @enderror" name="hobi" required autocomplete="hobi" autofocus>{{ old('hobi') }}</textarea>
 
                             @error('hobi')
                                 <span class="invalid-feedback" role="alert">
@@ -231,7 +231,7 @@
                         <div class="form-group">
                             <label for="kota">Alamat</label>
 
-                            <input id="txt_alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" autofocus>
+                            <input id="txt_alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" value="{{ old('alamat') }}" autofocus>
 
                             @error('alamat')
                                 <span class="invalid-feedback" role="alert">
@@ -244,7 +244,7 @@
                         <div class="form-group">
                             <label for="kota">Kota</label>
 
-                            <input id="txt_kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" required autocomplete="kota" autofocus>
+                            <input id="txt_kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ old('kota') }}" required autocomplete="kota" autofocus>
 
                             @error('kota')
                                 <span class="invalid-feedback" role="alert">
