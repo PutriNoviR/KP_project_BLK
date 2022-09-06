@@ -5,12 +5,10 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable, CascadesDeletes;
+    use Notifiable;
 
     // protected $connection = ''; tidak perlu dipakai, karena database pusatblk sudah diset sebagai database utama
 
@@ -46,9 +44,6 @@ class User extends Authenticatable
     //perlu ditambahkan agar primary key dapat dikenali
     public $incrementing = false;
     protected $keyType = 'string';
-
-    //fk
-    //protected $cascadeDeletes = ['ujiMinatAwals'];
 
     public function role(){
         return $this->belongsTo('App\Role','roles_id');
