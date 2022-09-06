@@ -86,7 +86,12 @@
 
         if(time > 0){
             startTimer(time, display1, display2);
-        }   
+        }  
+        else{
+            setInterval(function () {
+                $('#waktuHabisModal').modal('show',{backdrop:'static',keyboard:'false'});
+            },1000);
+        } 
          
     }
 
