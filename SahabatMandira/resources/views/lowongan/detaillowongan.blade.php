@@ -26,109 +26,134 @@
                                 <p class="FontComic display-5 text-primary">{{ $lowongan->perusahaan->nama }}</p>
                                 <p class="display-5">{{ $lowongan->perusahaan->alamat }}</p>
                             </div>
-                            @if ($lamaran != null && $lamaran->users_email == Auth::user()->email &&
+                            {{-- @if ($lamaran != null && $lamaran->users_email == Auth::user()->email &&
                             $lamaran->lowongans_id ==
                             $lowongan->id)
                             <div>
                                 @if ($lamaran->status == 'Terdaftar')
                                 <button type="button"
                                     class="btn btn-outline-success btn-lg disabled">{{ $lamaran->status }}</button>
-                                @elseif ($lamaran->status == 'Tahap Seleksi')
-                                <button type="button"
-                                    class="btn btn-outline-warning btn-lg disabled">{{ $lamaran->status }}</button>
-                                @elseif ($lamaran->status == 'Diterima')
-                                <button type="button"
-                                    class="btn btn-outline-success btn-lg disabled">{{ $lamaran->status }}</button>
-                                @else
-                                <button type="button"
-                                    class="btn btn-outline-danger btn-lg disabled">{{ $lamaran->status }}</button>
-                                @endif
-                            </div>
+                            @elseif ($lamaran->status == 'Tahap Seleksi')
+                            <button type="button"
+                                class="btn btn-outline-warning btn-lg disabled">{{ $lamaran->status }}</button>
+                            @elseif ($lamaran->status == 'Diterima')
+                            <button type="button"
+                                class="btn btn-outline-success btn-lg disabled">{{ $lamaran->status }}</button>
                             @else
-                            <form method="POST" action="{{ route('lamaran.store') }}">
-                                @csrf
-                                <input type="hidden" value="{{ $lowongan->id }}" name="id_lowongan">
-                                <button type="submit" class="btn btn-primary btn-lg px-5 ">Daftar</button>
-                            </form>
+                            <button type="button"
+                                class="btn btn-outline-danger btn-lg disabled">{{ $lamaran->status }}</button>
                             @endif
+                        </div>
+                        @else
 
+                        <form method="POST" action="{{ route('lamaran.store') }}">
+                            @csrf
+                            <input type="hidden" value="{{ $lowongan->id }}" name="id_lowongan">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 ">Daftar</button>
+                        </form>
+                        @endif --}}
+                        <div>
+                            <button type="button" class="btn btn-primary px-5 " data-toggle="modal"
+                                data-target="#daftarLowonganModal">Daftar</button>
                         </div>
-                    </div>
-                    <div class="post clearfix">
-                        <div class="user-block">
-                            <b>Gaji</b>
-                            <p>{{$lowongan->gaji}}</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Lokasi Kerja</b>
-                            <p>{{$lowongan->lokasi_kerja}}</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Pengalaman Kerja</b>
-                            <p>{{$lowongan->pengalaman_kerja}} Tahun</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Kualifikasi pendidikan</b>
-                            <p>{{$lowongan->pendidikan_terakhir}}</p>
-                        </div>
-                    </div>
-                    <div class="post clearfix">
-                        <div class="user-block">
-                            <b>Deskripsi Pekerjaan</b>
-                        </div>
-                        <p>
-                            {{$lowongan->deskripsi_kerja}}
-                        </p>
-                    </div>
-                    <div class="post clearfix">
-                        <div class="user-block">
-                            <b>Tentang Perusahaan</b>
-                        </div>
-                        <p>
-                            {{$lowongan->perusahaan->tentang_perusahaan}}
-                        </p>
                     </div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                    <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $lowongan->perusahaan->nama }}</h3>
-                    <p class="text-muted">{{ $lowongan->perusahaan->tentang_perusahaan }}</p>
-                    <br>
-                    <div class="text-muted">
-                        <p class="text-sm">Client Company
-                            <b class="d-block">Deveint Inc</b>
-                        </p>
-                        <p class="text-sm">Project Leader
-                            <b class="d-block">Tony Chicken</b>
-                        </p>
+                <div class="post clearfix">
+                    <div class="user-block">
+                        <b>Gaji</b>
+                        <p>{{$lowongan->gaji}}</p>
                     </div>
-
-                    <h5 class="mt-5 text-muted">{{ $lowongan->nama }}</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                                Functional-requirements.docx</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
-                                Email-from-flatbal.mln</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                                Contract-10_12_2014.docx</a>
-                        </li>
-                    </ul>
+                    <div class="user-block">
+                        <b>Lokasi Kerja</b>
+                        <p>{{$lowongan->lokasi_kerja}}</p>
+                    </div>
+                    <div class="user-block">
+                        <b>Pengalaman Kerja</b>
+                        <p>{{$lowongan->pengalaman_kerja}} Tahun</p>
+                    </div>
+                    <div class="user-block">
+                        <b>Kualifikasi pendidikan</b>
+                        <p>{{$lowongan->pendidikan_terakhir}}</p>
+                    </div>
+                </div>
+                <div class="post clearfix">
+                    <div class="user-block">
+                        <b>Deskripsi Pekerjaan</b>
+                    </div>
+                    <p>
+                        {{$lowongan->deskripsi_kerja}}
+                    </p>
+                </div>
+                <div class="post clearfix">
+                    <div class="user-block">
+                        <b>Tentang Perusahaan</b>
+                    </div>
+                    <p>
+                        {{$lowongan->perusahaan->tentang_perusahaan}}
+                    </p>
                 </div>
             </div>
+            <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $lowongan->perusahaan->nama }}</h3>
+                <p class="text-muted">{{ $lowongan->perusahaan->tentang_perusahaan }}</p>
+                <br>
+                <div class="text-muted">
+                    <p class="text-sm">Client Company
+                        <b class="d-block">Deveint Inc</b>
+                    </p>
+                    <p class="text-sm">Project Leader
+                        <b class="d-block">Tony Chicken</b>
+                    </p>
+                </div>
+
+                <h5 class="mt-5 text-muted">{{ $lowongan->nama }}</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                            Functional-requirements.docx</a>
+                    </li>
+                    <li>
+                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
+                    </li>
+                    <li>
+                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
+                            Email-from-flatbal.mln</a>
+                    </li>
+                    <li>
+                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
+                    </li>
+                    <li>
+                        <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                            Contract-10_12_2014.docx</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <!-- /.card-body -->
+    </div>
+    <!-- /.card-body -->
     </div>
     <!-- /.card -->
 
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="daftarLowonganModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

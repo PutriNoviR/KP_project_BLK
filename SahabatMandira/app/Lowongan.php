@@ -18,4 +18,9 @@ class Lowongan extends Model
     {
         return $this->hasMany('App\Lamaran', 'lowongans_id');
     }
+
+    public function dokumenlowongan()
+    {
+        return $this->hasMany(DokumenLowongan::class,'lowongans_id');
+    }
 }

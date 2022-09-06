@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Bursa;
 
+use App\DokumenLowongan;
 use App\Http\Controllers\Controller;
 use App\Lamaran;
 use App\Lowongan;
@@ -46,21 +47,42 @@ class LowonganController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validatedData = $request->validate([
+            'deskripsi_kerja' => 'required',
+            'kualifikasi_minimal' => 'required',
+            'dokumen' => 'required',
+            'nama' => 'required',
+            'posisi' => 'required',
+            'tanggal_pemasangan'=>'required',
+            'tanggal_kadaluarsa'=>'required',
+        ]);
+        // dd($request);
         $lowongan = new Lowongan();
-        $lowongan->nama = $request->nama;
-        $lowongan->posisi=$request->posisi;
-        $lowongan->lokasi_kerja=$request->lokasi_kerja;
-        $lowongan->jam_kerja=$request->jam_kerja;
-        $lowongan->pengalaman_kerja=$request->pengalaman_kerja;
-        $lowongan->pendidikan_terakhir=$request->pendidikan_terakhir;
-        $lowongan->deskripsi_kerja=$request->deskripsi_kerja;
-        $lowongan->profile_perusahaan=$request->profile_perusahaan;
-        $lowongan->tanggal_pemasangan = $request->tanggal_pemasangan;
+        $lowongan->deskripsi_kerja=$validatedData['deskripsi_kerja'];
+        $lowongan->kualifikasi_minimal=$validatedData['kualifikasi_minimal'];
         $lowongan->perusahaans_id = $request->perusahaans_id;
-        $lowongan->gaji=$request->gaji;
+        $lowongan->nama = $validatedData['nama'];
+        $lowongan->posisi=$validatedData['posisi'];
+        $lowongan->tanggal_pemasangan = $validatedData['tanggal_pemasangan'];
+        $lowongan->tanggal_kadaluarsa = $validatedData['tanggal_kadaluarsa'];
+        // $lowongan->lokasi_kerja=$request->lokasi_kerja;
+        // $lowongan->jam_kerja=$request->jam_kerja;
+        // $lowongan->pengalaman_kerja=$request->pengalaman_kerja;
+        // $lowongan->pendidikan_terakhir=$request->pendidikan_terakhir;
+        // $lowongan->profile_perusahaan=$request->profile_perusahaan;
+        // $lowongan->gaji=$request->gaji;
+
         // $lowongan->created_at = carbon::now()->format('Y-m-d H:i:m');
         // $lowongan->updated_at = carbon::now()->format('Y-m-d H:i:m');
         $lowongan->save();
+
+        foreach ($validatedData['dokumen'] as $dokumen) {
+            $dokumenLowongan = new DokumenLowongan();
+            $dokumenLowongan->nama = $dokumen;
+            $dokumenLowongan->lowongans_id = $lowongan->id;
+            $dokumenLowongan->save();
+        }
         return redirect()->back()->with('success', 'Data lowongan berhasil ditambahkan!');
     }
 

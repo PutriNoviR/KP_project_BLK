@@ -4,6 +4,15 @@
 Lowongan
 @endsection
 
+@section('style')
+<style>
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+
+</style>
+@endsection
+
 @section('page-bar')
 <div class="col-sm-6">
     <h1 class="m-0 text-dark">Dashboard</h1>
@@ -19,13 +28,29 @@ Lowongan
 @section('javascript')
 <script>
     ClassicEditor
-        .create(document.querySelector('#description'))
+        .create(document.querySelector('#deskripsi_pekerjaan'))
+        .then(editor => {
+            editor.ui.view.editable.element.style.height = '200px';
+        })
         .catch(error => {
             console.error(error);
         });
+    ClassicEditor
+        .create(document.querySelector('#kualifikasi_minimal'))
+        .catch(error => {
+            console.error(error);
+        });
+    // $('.editor').each(function () {
+    //     CKEDITOR.replace($(this).prop('id'));
+    // });
 
-    $('#btntambah').click(function () {
-
+    $('#btnSimpanDokumen').click(function () {
+        const nama = $('#namadokumen').val();
+        $('#dokumen_perusahaan').append(`<div class="col-4">
+            <p>- ${nama}</p>
+            <input type="hidden" name="dokumen[]" value="${nama}">
+        </div>`);
+        $('#tambahDokumenModal').modal('hide');
     });
 
 </script>
@@ -45,6 +70,13 @@ Lowongan
                     <li>{!! \Session::get('success') !!}</li>
                 </ul>
             </div>
+            @endif
+            @if(count($errors) > 0)
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                <li>{{$error}}</li>
+            </div>
+            @endforeach
             @endif
 
             <div class="card-body">
@@ -141,29 +173,37 @@ Lowongan
     @enderror
 </div>
 </div> --}}
-
 <div class="form-group p-3 border rounded">
-    <label for="pendidikanTerakhir" class="col-md-12 col-form-label">{{ __('Kualifikasi Minimal') }}</label>
-
+    <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Lowongan') }}</label>
     <div class="col-md-12">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <input id="pendidikanTerakhir" type="text"
-            class="form-control @error('pendidikanTerakhir') is-invalid @enderror" name="pendidikan_terakhir" required
-            autocomplete="pendidikanTerakhir" autofocus>
-
-        @error('pendidikanTerakhir')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
+        <input id="nama" type="text" class="form-control" name="nama">
     </div>
 </div>
-
 <div class="form-group p-3 border rounded">
-    <label for="deskripsiPekerjaan" class="col-md-12 col-form-label">{{ __('Deskripsi Pekerjaan') }}</label>
+    <label for="posisi" class="col-md-12 col-form-label">{{ __('Posisi') }}</label>
+    <div class="col-md-12">
+        <input id="posisi" type="text" class="form-control" name="posisi">
+    </div>
+</div>
+<div class="form-group p-3 border rounded row">
+    <div class="col px-0">
+        <label for="tanggal_pemasangan" class="col-md-12 col-form-label">{{ __('Tanggal Pemasangan') }}</label>
+        <div class="col-md-12">
+            <input id="tanggal_pemasangan" type="date" class="form-control" name="tanggal_pemasangan">
+        </div>
+    </div>
+    <div class="col px-0">
+        <label for="tanggal_kadaluarsa" class="col-md-12 col-form-label">{{ __('Tanggal Kadaluarsa') }}</label>
+        <div class="col-md-12">
+            <input id="tanggal_kadaluarsa" type="date" class="form-control" name="tanggal_kadaluarsa">
+        </div>
+    </div>
+</div>
+<div class="form-group p-3 border rounded">
+    <label for="deskripsi_pekerjaan" class="col-md-12 col-form-label">{{ __('Deskripsi Pekerjaan') }}</label>
 
     <div class="col-md-12">
-        <textarea name="deskripsi_kerja" id="description" class="form-control" rows="40" required></textarea>
+        <textarea name="deskripsi_kerja" id="deskripsi_pekerjaan" class="form-control editor" rows="40"></textarea>
 
         @error('deskripsiPekerjaan')
         <span class="invalid-feedback" role="alert">
@@ -172,6 +212,22 @@ Lowongan
         @enderror
     </div>
 </div>
+
+<div class="form-group p-3 border rounded">
+    <label for="kualifikasi_minimal" class="col-md-12 col-form-label">{{ __('Kualifikasi Minimal') }}</label>
+
+    <div class="col-md-12">
+        <textarea name="kualifikasi_minimal" class="form-control editor" id="kualifikasi_minimal" cols="30"
+            rows="10"></textarea>
+
+        @error('kualifikasi_minimal')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+</div>
+
 
 {{-- <div class="form-group p-3 border rounded">
                         <label for="profilPerusahaan"
@@ -187,14 +243,17 @@ Lowongan
     @enderror
 </div>
 </div> --}}
-<div id="dokumen_perusahaan">
-
+<div class="form-group p-3 border rounded">
+    <label class="form-label">Dokumen Persyaratan</label>
+    <div id="dokumen_perusahaan" class="row flex-column" style="height: 150px">
+    </div>
 </div>
 <div id="tambah_dokumen" class="p-3 border rounded">
     <button type="button" id="btntambah" class="btn btn-primary btn-block" data-toggle="modal"
         data-target="#tambahDokumenModal">Tambah Dokumen
         Persyaratan</button>
 </div>
+<input type="hidden" name="perusahaans_id" value="{{ Auth::user()->perusahaans_id_admin }}">
 <div class="form-group mb-0 rata_tengah">
     <div class="col-md-12 offset-manual">
         <button type="submit" class="btn btn-primary">
