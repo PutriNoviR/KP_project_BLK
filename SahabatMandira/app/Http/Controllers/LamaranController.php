@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DokumenLowongan;
 use App\Lamaran;
 use App\User;
 use Carbon\Carbon;
@@ -39,6 +40,13 @@ class LamaranController extends Controller
     public function store(Request $request)
     {
         //
+        $dokumenLowongan = DokumenLowongan::where('lowongans_id', $request->id_lowongan)->get();
+        foreach ($dokumenLowongan as $dokumen) {
+            $validatedData = $request->validate([
+                "$dokumen->nama" => 'required|mimes:png,jpg,pdf|max:2048',
+            ]);
+        }
+        dd($request);
         $lamaran = new Lamaran();
         $lamaran->lowongans_id = $request->id_lowongan;
         $lamaran->users_email = Auth::user()->email;
