@@ -58,7 +58,6 @@ Lowongan
 
 @section('contents')
 <div class="row justify-content-center">
-
     <div class="col-md-8">
         <div class="card-register">
             <div class="card-header">

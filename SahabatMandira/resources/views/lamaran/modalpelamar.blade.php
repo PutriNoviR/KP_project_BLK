@@ -6,6 +6,18 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="form-group">
+            <label for="">Dokumen Persyaratan</label>
+            <ul class="list-unstyled">
+                @foreach ($dokumenLamaran as $dokumen)
+                <li>
+                    <a href="{{ asset('storage/'.$dokumen->value) }}" class="btn-link text-secondary"><i
+                            class="far fa-fw fa-file-word"></i>
+                        {{ $dokumen->dokumenlowongan->nama }}</a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
         <form method="post" action="{{ route('lamaran.update',$lamaran->lowongans_id) }}">
             @csrf
             @method('PUT')
