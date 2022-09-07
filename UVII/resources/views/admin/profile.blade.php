@@ -4,6 +4,14 @@
     Profile Peserta
 @endsection
 
+@section('javascript')
+<script>
+    function updateTabAt(no){
+        $('#theTab').val(no);
+    }
+</script>
+@endsection
+
 @section('page-bar')
     <ul class="page-breadcrumb">
         <li>
@@ -35,6 +43,7 @@
     <div class="portlet-body form">
         <form action="{{route('profile.update')}}" method="post">
         @csrf
+        
         <div class="tab-content">
    
             <div class="tab-pane active" id="tab_1_3">

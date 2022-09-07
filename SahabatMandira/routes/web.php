@@ -104,6 +104,9 @@ Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->na
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
 Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
 
+//Tugas
+Route::resource('/tugas','TugasController');
+
 //User
 Route::resource('menu/User','UserController');
 Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');

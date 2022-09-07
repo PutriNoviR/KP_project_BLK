@@ -12,7 +12,7 @@ Pelatihan Peserta
         });
     });
 
-    function modalEdit(email,id) {
+    function modalEdit(email, id) {
         $.ajax({
             type: 'POST',
             url: '{{ route("pelatihanPesertas.getEditForm") }}',
@@ -30,13 +30,14 @@ Pelatihan Peserta
         });
     }
 
-    function modalKompetensi(id) {
+    function modalKompetensi(email, id) {
         $.ajax({
             type: 'POST',
             url: '{{ route("pelatihanPesertas.getKompetensiForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'email_peserta': id,
+                'email_peserta': email,
+                'sesi_pelatihans_id': id
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
@@ -132,7 +133,7 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}')" {{ $d->hasil_kompetensi  == 'null' ? 'disabled' : ''}}>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
