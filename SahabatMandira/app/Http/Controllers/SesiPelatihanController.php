@@ -88,10 +88,6 @@ class SesiPelatihanController extends Controller
         if (!$request->hasFile('fotoPelatihan')) {
             return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
         }
-        // else{
-        //     return 'dor';
-        // }
-
         $sesi = new SesiPelatihan();
         $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesi->tanggal_tutup = $request->tanggal_tutup;
@@ -248,7 +244,10 @@ class SesiPelatihanController extends Controller
         $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->get();
         //
-        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur'));
+        $mentor = User::join('roles as R', 'users.roles_id', '=', 'R.id')
+        ->WHERE('R.nama_role', '=', 'verifikator')
+        ->get();
+        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur','mentor','userLogin'));
     }
 
     public function daftarUlang(Request $request)
@@ -258,6 +257,7 @@ class SesiPelatihanController extends Controller
         $update = array(
             'is_daftar_ulang' => 1,
             'tanggal_daftar_ulang' => date('Y-m-d H:i:s'),
+            'status_fase' => 'SEDANG PROSES PELATIHAN',
         );
 
         DB::connection('mandira')

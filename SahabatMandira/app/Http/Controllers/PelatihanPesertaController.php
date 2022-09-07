@@ -139,7 +139,6 @@ class PelatihanPesertaController extends Controller
                 'rekom_catatan' => $request->get('rekom_catatan'),
                 'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
                 'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
                 'rekom_is_permanent' => $request->get('rekom_is_permanent'),
                 'status_fase' => 'DITERIMA',
             );
@@ -148,7 +147,6 @@ class PelatihanPesertaController extends Controller
                 'rekom_catatan' => $request->get('rekom_catatan'),
                 'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
                 'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
                 'rekom_is_permanent' => $request->get('rekom_is_permanent'),
                 'status_fase' => 'DITOLAK',
             );
@@ -157,7 +155,6 @@ class PelatihanPesertaController extends Controller
                 'rekom_catatan' => $request->get('rekom_catatan'),
                 'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
                 'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'hasil_kompetensi' => $request->get('hasil_kompetensi'),
                 'rekom_is_permanent' => $request->get('rekom_is_permanent'),
                 'status_fase' => 'DALAM SELEKSI',
             );
@@ -216,6 +213,7 @@ class PelatihanPesertaController extends Controller
         $check = '1';
         // $data = PelatihanPeserta::find($request->id);
         // dd($data);
+        // return $data;
         return response()->json(array(
             'status' => 'oke',
             'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
@@ -225,12 +223,13 @@ class PelatihanPesertaController extends Controller
     public function getKompetensiForm(Request $request)
     {
         $email = $request->email_peserta;
+        $id = $request->sesi_pelatihans_id;
         // $data = PelatihanPeserta::all()->WHERE('email_peserta','=', $email);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->where('email_peserta', $email)
-            ->get();
-
+            ->where('sesi_pelatihans_id', $id)
+            ->first();
         $check = '0';
         // $data = PelatihanPeserta::find($request->id);
         // dd($email);
