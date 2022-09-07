@@ -161,6 +161,32 @@
                                 <i class="fas fa-th-large"></i>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{Auth::user()->username}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    @can('peserta-permission')
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
+                                        type="button">LamaranKu</a>
+                                    @endcan
+                                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                        <p>
+                                            Logout
+                                        </p>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </div>
+
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.navbar -->
@@ -177,16 +203,6 @@
                     <!-- Sidebar -->
                     <div class="sidebar">
                         <!-- Sidebar user panel (optional) -->
-                        <div class=" user-panel mt-3 pb-3 mb-3 d-flex">
-                            <div class="image">
-                                <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg')}}"
-                                    class="img-circle elevation-2" alt="User Image">
-                            </div>
-                            <div class="info">
-                                <a href="#" class="d-block">{{Auth::user()->username}}</a>
-                            </div>
-                        </div>
-
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
                             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -443,18 +459,6 @@
                                     </ul>
                                 </li>
                                 @endcan
-                                <li class="nav-item has-treeview">
-                                    <a href="{{ route('logout') }}" class="nav-link " onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                                        <i class="nav-icon fas fa-home"></i>
-                                        <p>
-                                            Logout
-                                        </p>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
                             </ul>
                         </nav>
                         <!-- /.sidebar-menu -->

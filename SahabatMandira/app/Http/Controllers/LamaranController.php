@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DokumenLamaran;
+use App\DokumenLowongan;
 use App\Lamaran;
 use App\User;
 use Carbon\Carbon;
@@ -18,6 +20,8 @@ class LamaranController extends Controller
     public function index()
     {
         //
+        $lamarans = Lamaran::all();
+        return view('lamaran.lamaranku',compact('lamarans'));
     }
 
     /**
@@ -39,6 +43,22 @@ class LamaranController extends Controller
     public function store(Request $request)
     {
         //
+        $dokumenLowongan = DokumenLowongan::where('lowongans_id', $request->id_lowongan)->get();
+        foreach ($dokumenLowongan as $dokumen) {
+            $validatedData = $request->validate([
+                "$dokumen->nama" => 'required|mimes:png,jpg,pdf|max:2048',
+            ]);
+
+            $validatedData["$dokumen->nama"] = $request->file("$dokumen->nama")->store("$dokumen->nama");
+
+            $dokumenLamaran = new DokumenLamaran;
+            $dokumenLamaran->value = $validatedData["$dokumen->nama"];
+            $dokumenLamaran->users_email = Auth::user()->email;
+            $dokumenLamaran->dokumen_lowongans_id = $dokumen->id;
+            $dokumenLamaran->save();
+        }
+        // dd($request);
+
         $lamaran = new Lamaran();
         $lamaran->lowongans_id = $request->id_lowongan;
         $lamaran->users_email = Auth::user()->email;
@@ -90,7 +110,7 @@ class LamaranController extends Controller
         //
         $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$id)->update(['status'=> $request->status]);
         // dd($lamaran);
-        return redirect()->back()->with('success','Data pelamar berhasil dibuah!');
+        return redirect()->back()->with('success','Data pelamar berhasil diubah!');
     }
 
     /**
@@ -106,10 +126,11 @@ class LamaranController extends Controller
 
     public function getEditForm(Request $request)
     {
+        $dokumenLamaran = DokumenLamaran::where('users_email',$request->users_email)->get();
         $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$request->lowongans_id)->first();
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('lamaran.modalpelamar', compact('lamaran'))->render() 
+            'msg'=>view('lamaran.modalpelamar', compact('lamaran','dokumenLamaran'))->render() 
         ), 200);
         // return view('blk.update',compact('blk'));
     }

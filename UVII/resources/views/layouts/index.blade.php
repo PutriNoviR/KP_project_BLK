@@ -148,7 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				@endphp
 				@foreach($menu as $m)
 				<li>
-					<a href="{{route($m->url)}}" style='{{ (Auth::user()->nomor_identitas == null && Auth::user()->role->nama_role != "Admin") ? "pointer-events: none;" : "" }}'>
+					<a href="{{route($m->url)}}" style='{{ (Auth::user()->nomor_identitas == null && Auth::user()->role->nama_role != "adminuvii") ? "pointer-events: none;" : "" }}'>
 					
 					<i class='@php echo ($arr_icon[$m->nama] ?? $arr_icon["Role"]) @endphp'></i>
 					<span class="title">{{$m->nama}}</span>

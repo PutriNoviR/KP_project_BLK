@@ -15,4 +15,9 @@ class DokumenLowongan extends Model
     {
         return $this->belongsTo(Lowongan::class,'lowongans_id');
     }
+
+    public function dokumenlamaran()
+    {
+        return $this->hasMany(DokumenLamaran::class,'dokumen_lowongans_id');
+    }
 }   

@@ -148,7 +148,7 @@ class RoleController extends Controller
                         ->where('mm.status','Aktif')
                         ->get();
 
-        $idRole = Role::where('nama_role', 'Admin')->first();
+        $idRole = Role::where('nama_role', 'adminuvii')->first();
         $data = User::where('roles_id', $idRole->id)->get();
 
         return view('admin.tambahAdmin', compact('data','menu_role'));
@@ -171,7 +171,7 @@ class RoleController extends Controller
         $admin->username = $request->username;
         $admin->password = Hash::make($request->password);
 
-        $role = Role::where('nama_role','Admin')->first();
+        $role = Role::where('nama_role','adminuvii')->first();
 
         $admin->roles_id = $role->id;
         $admin->countries_id = 1;

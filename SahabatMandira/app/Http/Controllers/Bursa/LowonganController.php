@@ -95,8 +95,9 @@ class LowonganController extends Controller
     public function show(Lowongan $lowongan)
     {
         //
+        $dokumenLowongan = DokumenLowongan::where('lowongans_id', $lowongan->id)->get();
         $lamaran = Lamaran::where('lowongans_id',$lowongan->id)->where('users_email', Auth::user()->email)->first();
-        return view('lowongan.detaillowongan',compact('lowongan','lamaran'));
+        return view('lowongan.detaillowongan',compact('lowongan','lamaran','dokumenLowongan'));
     }
 
     /**

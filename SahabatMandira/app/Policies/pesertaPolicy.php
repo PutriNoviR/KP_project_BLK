@@ -20,6 +20,6 @@ class PesertaPolicy
         //
     }
     public function access(User $user){
-        return ($user->peran == "Peserta" ? Response::allow() : Response::deny("You must be peserta")); 
+        return ($user->role->nama_role == "peserta" ? Response::allow() : Response::deny("You must be peserta")); 
     }
 }
