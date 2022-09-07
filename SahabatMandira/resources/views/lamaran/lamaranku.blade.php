@@ -89,6 +89,17 @@ Lamaran Ku
     </div>
 </div>
 </div>
-<div class="col-8"></div>
+<div class="col-8">
+    <div class="card h-100" id="cardDetailLamaran">
+        {{-- @if ($lamaran->status == 'Tahap Seleksi')
+        @elseif($lamaran->status == 'Terdaftar')
+        @elseif($lamaran->status == 'Diterima')
+        @elseif($lamaran->status == 'Ditolak')
+        @endif --}}
+        <div class="bg-lightblue disabled  rounded-top pt-3 pl-5">
+            <h2 class="text-white ">Kamu sedang dalam seleksi</h2>
+        </div>
+    </div>
+</div>
 </div>
 @endsection
