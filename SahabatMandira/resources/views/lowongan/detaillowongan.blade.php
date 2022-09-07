@@ -6,7 +6,7 @@
     $('#daftarLowonganModal').modal('show');
     @endif
     @foreach($dokumenLowongan as $dokumen)
-    $('#{{ $dokumen->nama }}').on('change', function () {
+    $('#{{str_replace(" ", "_", $dokumen->nama)}}').on('change', function () {
         //get the file name
         var fileName = $(this).val().replace('C:\\fakepath\\', " ");
         //replace the "Choose a file" label
@@ -173,8 +173,8 @@
                     <div class="form-group">
                         <label for="" class="form-label">{{ $dokumen->nama }}</label>
                         <div class="custom-file">
-                            <input type="file" name="{{ $dokumen->nama }}" class="custom-file-input"
-                                id="{{ $dokumen->nama }}">
+                            <input type="file" name="{{str_replace(" ", "_", $dokumen->nama)}}"
+                                class="custom-file-input" id="{{str_replace(" ", "_", $dokumen->nama)}}">
                             <label class="custom-file-label" for="inputGroupFile02"
                                 aria-describedby="inputGroupFileAddon02">Choose file</label>
                         </div>

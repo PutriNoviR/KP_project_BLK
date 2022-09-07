@@ -45,19 +45,18 @@ class LamaranController extends Controller
         //
         $dokumenLowongan = DokumenLowongan::where('lowongans_id', $request->id_lowongan)->get();
         foreach ($dokumenLowongan as $dokumen) {
+            $nama = str_replace(' ', '_', $dokumen->nama);
             $validatedData = $request->validate([
-                "$dokumen->nama" => 'required|mimes:png,jpg,pdf|max:2048',
+                $nama => 'required|mimes:png,jpg,pdf|max:2048',
             ]);
 
-            $validatedData["$dokumen->nama"] = $request->file("$dokumen->nama")->store("$dokumen->nama");
-
+            $validatedData[$nama] = $request->file($nama)->store($nama);
             $dokumenLamaran = new DokumenLamaran;
-            $dokumenLamaran->value = $validatedData["$dokumen->nama"];
+            $dokumenLamaran->value = $validatedData[$nama];
             $dokumenLamaran->users_email = Auth::user()->email;
             $dokumenLamaran->dokumen_lowongans_id = $dokumen->id;
             $dokumenLamaran->save();
         }
-        // dd($request);
 
         $lamaran = new Lamaran();
         $lamaran->lowongans_id = $request->id_lowongan;
@@ -126,12 +125,32 @@ class LamaranController extends Controller
 
     public function getEditForm(Request $request)
     {
-        $dokumenLamaran = DokumenLamaran::where('users_email',$request->users_email)->get();
+        $dokumenLowongan = DokumenLowongan::where('lowongans_id',$request->lowongans_id)->get();
+        $dokumenLamaran = [];
+        foreach ($dokumenLowongan as $dl ) {
+            $dokumenLamaran[] = DokumenLamaran::where('users_email',$request->users_email)->where('dokumen_lowongans_id',$dl->id)->first();
+        }
         $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$request->lowongans_id)->first();
         return response()->json(array(
             'status'=>'oke',
             'msg'=>view('lamaran.modalpelamar', compact('lamaran','dokumenLamaran'))->render() 
         ), 200);
         // return view('blk.update',compact('blk'));
+    }
+
+    public function getDetailLamaranCard(Request $request)
+    {
+        $lamaran = Lamaran::where('lowongans_id',$request->lowongans_id)->where('users_email',Auth::user()->email)->first();
+        $dokumenLowongan = DokumenLowongan::where('lowongans_id',$request->lowongans_id)->get();
+        $dokumenLamarans = [];
+        foreach ($dokumenLowongan as $dl ) {
+            $dokumen = DokumenLamaran::where('users_email',Auth::user()->email)->where('dokumen_lowongans_id',$dl->id)->first();
+            $dokumenLamarans[] = $dokumen;
+        }
+        // dd($dokumenLamarans);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('lamaran.cardDetailLamaran', compact('lamaran','dokumenLamarans'))->render() 
+        ), 200);
     }
 }

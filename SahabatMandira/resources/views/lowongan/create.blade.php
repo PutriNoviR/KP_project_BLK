@@ -46,10 +46,12 @@ Lowongan
 
     $('#btnSimpanDokumen').click(function () {
         const nama = $('#namadokumen').val();
-        $('#dokumen_perusahaan').append(`<div class="col-4">
-            <p>- ${nama}</p>
+        $('#tbody').append(`<tr>
+            <td class="w-100">${nama}</td>
             <input type="hidden" name="dokumen[]" value="${nama}">
-        </div>`);
+            <td><button type="button" class="btn btn-danger"><i
+                                class="fas fa-trash"></i></button></td>
+        </tr>`);
         $('#tambahDokumenModal').modal('hide');
     });
 
@@ -245,6 +247,16 @@ Lowongan
 <div class="form-group p-3 border rounded">
     <label class="form-label">Dokumen Persyaratan</label>
     <div id="dokumen_perusahaan" class="row flex-column" style="height: 150px">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
     </div>
 </div>
 <div id="tambah_dokumen" class="p-3 border rounded">
@@ -253,9 +265,9 @@ Lowongan
         Persyaratan</button>
 </div>
 <input type="hidden" name="perusahaans_id" value="{{ Auth::user()->perusahaans_id_admin }}">
-<div class="form-group mb-0 rata_tengah">
+<div class="form-group mt-3 rata_tengah">
     <div class="col-md-12 offset-manual">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary btn-block">
             {{ __('SIMPAN') }}
         </button>
         <br>
