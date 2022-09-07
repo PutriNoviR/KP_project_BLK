@@ -46,6 +46,9 @@ PELATIHAN
                     <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
                         <i class="fas fa-plus"></i> {{--PINDAHIN KE UI  --}}
                     </a>
+                    <a data-toggle="modal" data-target="#modalRiwayatPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
+                        <i class="fas fa-plus"></i> {{--PINDAHIN KE UI  --}}
+                    </a>
                     @else
                     <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
                         <i class="fas fa-eye"></i> {{--PINDAHIN KE UI  --}}

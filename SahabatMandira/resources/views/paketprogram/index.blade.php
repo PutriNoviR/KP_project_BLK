@@ -23,7 +23,6 @@ PAKET PROGRAM
                 'id': paketProgramId,
             },
             success: function (data) {
-                // console.log(data.msg);
                 $("#modalContent").html(data.msg);
             },
             error: function (xhr) {
