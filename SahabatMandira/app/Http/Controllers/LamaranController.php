@@ -20,7 +20,7 @@ class LamaranController extends Controller
     public function index()
     {
         //
-        $lamarans = Lamaran::all();
+        $lamarans = Lamaran::where('users_email',Auth::user()->email)->get();
         return view('lamaran.lamaranku',compact('lamarans'));
     }
 
