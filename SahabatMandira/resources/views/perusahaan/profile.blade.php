@@ -10,8 +10,8 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle"
-                                src="{{ asset('storage/'.$perusahaan->logo) }}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/') }}"
+                                alt="User profile picture">
                         </div>
 
                         <h3 class="profile-username text-center">{{ $perusahaan->nama }}</h3>

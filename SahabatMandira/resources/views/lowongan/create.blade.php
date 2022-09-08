@@ -47,13 +47,17 @@ Lowongan
     $('#btnSimpanDokumen').click(function () {
         const nama = $('#namadokumen').val();
         $('#tbody').append(`<tr>
-            <td class="w-100">${nama}</td>
+            <td style="width:90%">${nama}</td>
             <input type="hidden" name="dokumen[]" value="${nama}">
-            <td><button type="button" class="btn btn-danger"><i
+            <td style="width:10%"><button type="button"  class="btndeleterow btn btn-danger"><i
                                 class="fas fa-trash"></i></button></td>
         </tr>`);
         $('#tambahDokumenModal').modal('hide');
     });
+
+    $('body').on('click', '.btndeleterow', function () {
+        $(this).parent().parent().remove();
+    })
 
 </script>
 @endsection
@@ -246,12 +250,12 @@ Lowongan
 </div> --}}
 <div class="form-group p-3 border rounded">
     <label class="form-label">Dokumen Persyaratan</label>
-    <div id="dokumen_perusahaan" class="row flex-column" style="height: 150px">
+    <div id="dokumen_perusahaan" class="row flex-column" style="min-height: 150px">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Aksi</th>
+                    <th style="width: 90%">Nama</th>
+                    <th style="width: 10%">Aksi</th>
                 </tr>
             </thead>
             <tbody id="tbody">
