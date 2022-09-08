@@ -14,9 +14,9 @@
                                 alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">{{ $perusahaan->nama }}</h3>
+                        <h3 class="profile-username text-center"></h3>
 
-                        <p class="text-muted text-center">{{ $perusahaan->tentang_perusahaan }}</p>
+                        <p class="text-muted text-center"></p>
 
 
                         {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
