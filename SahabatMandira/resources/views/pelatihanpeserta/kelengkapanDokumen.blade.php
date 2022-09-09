@@ -70,7 +70,7 @@ Pelatihan Peserta
                         </div>
 
                         <div class="form-group">
-                            <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                            <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                             <div class="col-md-12">
                                 <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" autofocus>

@@ -108,8 +108,8 @@ Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')
 Route::resource('/tugas','TugasController');
 
 //User
-Route::resource('menu/User','UserController');
-Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
+Route::resource('User','UserController');
+Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 Route::post('User/{id}','UserController@update')->name('User.update');
 Route::get('User/peserta','UserController@daftarPeserta')->name('User.peserta');
 

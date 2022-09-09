@@ -13,8 +13,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
@@ -30,8 +29,7 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     {{-- datatables --}}
-    <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -54,8 +52,7 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                                    class="fas fa-bars"></i></a>
+                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                         </li>
                     </ul>
 
@@ -72,13 +69,11 @@
                                 <a href="#" class="dropdown-item">
                                     <!-- Message Start -->
                                     <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user1-128x128.jpg')}}" alt="User Avatar"
-                                            class="img-size-50 mr-3 img-circle">
+                                        <img src="{{ asset('adminlte/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                                         <div class="media-body">
                                             <h3 class="dropdown-item-title">
                                                 Brad Diesel
-                                                <span class="float-right text-sm text-danger"><i
-                                                        class="fas fa-star"></i></span>
+                                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                             </h3>
                                             <p class="text-sm">Call me whenever you can...</p>
                                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
@@ -91,13 +86,11 @@
                                 <a href="#" class="dropdown-item">
                                     <!-- Message Start -->
                                     <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user8-128x128.jpg')}}" alt="User Avatar"
-                                            class="img-size-50 img-circle mr-3">
+                                        <img src="{{ asset('adminlte/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                         <div class="media-body">
                                             <h3 class="dropdown-item-title">
                                                 John Pierce
-                                                <span class="float-right text-sm text-muted"><i
-                                                        class="fas fa-star"></i></span>
+                                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
                                             </h3>
                                             <p class="text-sm">I got your message bro</p>
                                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
@@ -110,13 +103,11 @@
                                 <a href="#" class="dropdown-item">
                                     <!-- Message Start -->
                                     <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user3-128x128.jpg')}}" alt="User Avatar"
-                                            class="img-size-50 img-circle mr-3">
+                                        <img src="{{ asset('adminlte/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                         <div class="media-body">
                                             <h3 class="dropdown-item-title">
                                                 Nora Silvester
-                                                <span class="float-right text-sm text-warning"><i
-                                                        class="fas fa-star"></i></span>
+                                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
                                             </h3>
                                             <p class="text-sm">The subject goes here</p>
                                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
@@ -165,17 +156,21 @@
                         <li class="nav-item">
 
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                                    aria-expanded="false">
+                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                     {{Auth::user()->username}}
                                 </button>
                                 <div class="dropdown-menu">
+                                    
+                                    <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
+                                        <p>
+                                            Akun
+                                        </p>
+                                    </a>
                                     @can('peserta-permission')
-                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
-                                        type="button">LamaranKu</a>
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">LamaranKu</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                         <p>
                                             Logout
                                         </p>
@@ -194,10 +189,9 @@
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <!-- Brand Logo -->
-                    <a href="index3.html" class="brand-link">
-                        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
-                            class="brand-image img-circle elevation-3" style="opacity: .8">
-                        <span class="brand-text font-weight-light">AdminLTE 3</span>
+                    <a href="#" class="brand-link">
+                        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                        <span class="brand-text font-weight-light">Rumah Mandira</span>
                     </a>
 
                     <!-- Sidebar -->
@@ -205,22 +199,19 @@
                         <!-- Sidebar user panel (optional) -->
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                                data-accordion="false">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                                 <li class="nav-item has-treeview">
                                     @can('adminperusahaan-permission')
-                                    <a href="{{ route('perusahaan.profile') }}"
-                                        class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
+                                    <a href="{{ route('perusahaan.profile') }}" class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Profile Perusahaan
                                         </p>
                                     </a>
                                     @else
-                                    <a href="{{ route('dashboard') }}"
-                                        class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                                    <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Dashboard
@@ -230,8 +221,7 @@
                                 </li>
                                 @can('adminperusahaan-permission')
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('lowongan.index') }}"
-                                        class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
+                                    <a href="{{ route('lowongan.index') }}" class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             List Lowongan
@@ -315,15 +305,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('blk.index') }}"
-                                                class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
+                                            <a href="{{ route('blk.index') }}" class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('kejuruans.index') }}"
-                                                class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="{{ route('kejuruans.index') }}" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Kejuruan</p>
                                             </a>
@@ -346,15 +334,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('super.adminblk') }}"
-                                                class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
+                                            <a href="{{ route('super.adminblk') }}" class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('kejuruans.index') }}"
-                                                class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="{{ route('kejuruans.index') }}" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
@@ -385,43 +371,37 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/register.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/register.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Register</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/forgot-password.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/forgot-password.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Forgot Password</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/recover-password.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/recover-password.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Recover Password</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/lockscreen.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/lockscreen.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Lockscreen</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/legacy-user-menu.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/legacy-user-menu.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Legacy User Menu</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/language-menu.html')}}"
-                                                class="nav-link">
+                                            <a href="{{ asset('adminlte/pages/examples/language-menu.html')}}" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Language Menu</p>
                                             </a>
@@ -508,7 +488,6 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
     <!-- DataTables -->
     <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
