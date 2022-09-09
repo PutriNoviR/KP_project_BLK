@@ -110,7 +110,7 @@
                         <div class="col-md-12">
                             <select name="role" id="role" class="form-control">
                                 <option value="peserta">Peserta</option>
-                                <option value="verivikator">Mentor</option>
+                                <option value="verifikator">Mentor</option>
                                 <option value="adminperusahaan">Mitra</option>
                             </select>
 

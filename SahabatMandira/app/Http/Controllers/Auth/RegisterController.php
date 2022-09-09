@@ -93,7 +93,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         
-        $role = Role::where('nama_role', $data['nomer_hp'])->first();
+        $role = Role::where('nama_role', $data['role'])->first();
         // $role = Role::all();
         // dd($role);
         // $idRole = $role->id;

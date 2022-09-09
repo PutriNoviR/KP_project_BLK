@@ -167,7 +167,8 @@
                                         </p>
                                     </a>
                                     @can('peserta-permission')
-                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">LamaranKu</a>
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
+                                        type="button">Kegiatan Ku</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">

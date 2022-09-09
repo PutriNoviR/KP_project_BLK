@@ -63,16 +63,34 @@
                     {{$data->tanggal_selesai }}
                 </td>
                 <td>
-                    {{$data->klaster->nama }}
+                    {{-- {{$data->klaster->nama }} --}}
+                    @foreach($dataKlaster as $d)
+                        @if($data->klaster_id == $d->id)
+                            {{ $d->nama }}
+                        @endif
+                    @endforeach
                 </td>
                 <td>
-                    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
+                {{--    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
                         {{$d->kode}}
                         
                         @if(!$loop->last)
                             ,
                         @endif
-                    @endforeach                
+                    @endforeach     --}}
+                  
+                    @if($dataKategori[$data->id] != null)
+                        @foreach($dataKategori[$data->id] as $d)
+                       
+                            {{ $d }}
+                            @if(!$loop->last)
+                                ,
+                            @endif
+                       
+                        @endforeach
+                    @else
+                        Belum tes
+                    @endif
                 </td>
             </tr>
             @php

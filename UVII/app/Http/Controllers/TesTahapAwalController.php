@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\KlasterPsikometrik;
 
 class TesTahapAwalController extends Controller
 {
@@ -225,13 +226,12 @@ class TesTahapAwalController extends Controller
         //     return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
         // }
         // else{
-            $dataHasil = UjiMinatAwal::HitungScore($tes->id);
-            
-            $totalScore = $dataHasil->sum('score');
-
-            // dd($totalScore);
+            $dataHasil = UjiMinatAwal::HitungScoreMultiServer($tes->id);
+           
+            $totalScore = $dataHasil['totalScore'];
+           
             //Mengecek apakah ada hasil score klaster yang sama
-            $klaster = UjiMinatAwal::HasilKlasterSama($dataHasil);
+            $klaster = UjiMinatAwal::HasilKlasterSama($dataHasil['hasil']);
 
             // $data = UjiMinatAwal::where('id', $tes->id)->first();
             $waktu = Setting::where('key', 'durasi')->first();
@@ -252,7 +252,7 @@ class TesTahapAwalController extends Controller
                 
 
                 if($request->jawaban != null){
-                    UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil, $request->jawaban);
+                    UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil['hasil'], $request->jawaban);
                    
                     $klasters = 1;
 
@@ -261,7 +261,7 @@ class TesTahapAwalController extends Controller
             }
             else{
                 $dataKlaster = null;
-                UjiMinatAwal::updateHasil($tes->id, $dataHasil->take(1));
+                UjiMinatAwal::updateHasil($tes->id, array_slice($dataHasil['hasil'], 0,1));
               
             }
             
@@ -269,7 +269,7 @@ class TesTahapAwalController extends Controller
             
             $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
 
-            $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil, $tesTerbaru->id);
+            $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil['hasil'], $tesTerbaru->id);
 
             // Untuk Insert ke michael
             // UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
@@ -295,6 +295,8 @@ class TesTahapAwalController extends Controller
         $user = Auth::user()->email;
      //   $riwayat= UjiMinatAwal::riwayatTes($user);
         $daftarRiwayat= UjiMinatAwal::where('users_email',$user)->get();
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($daftarRiwayat);
 
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -305,12 +307,14 @@ class TesTahapAwalController extends Controller
                     ->get();
 
       //  return view('riwayatUjian.index', compact('riwayat','menu_role', 'daftarRiwayat'));
-      return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat'));
+      return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori'));
     }
     public function riwayatTesGlobal(){
         
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
         $riwayat_tes= UjiMinatAwal::all();
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
 
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -320,7 +324,7 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role'));
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
 
     }
 }
