@@ -200,8 +200,8 @@
             </td>
           </tr>
 
-          <div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
-            <div class="modal-dialog">
+<div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
+                      <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-group"></i>Soal no {{$no}}</h4>  
