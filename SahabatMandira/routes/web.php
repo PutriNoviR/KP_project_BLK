@@ -89,6 +89,7 @@ Route::resource('bursa/listKerja','Bursa\ListKerjaController');
 Route::resource('lamaran','LamaranController');
 Route::post('lamaran/getEditForm','LamaranController@getEditForm')->name('lamaran.getEditForm');
 Route::get('/kegiatanku/lamaran','LamaranController@index')->name('lamaran.lamaranku');
+Route::post('/getDetailLamaranCard','LamaranController@getDetailLamaranCard')->name('lamaran.getDetailLamaranCard');
 
 //Paket Program
 Route::resource('paketProgram','PaketProgramPelatihanController');
@@ -104,9 +105,12 @@ Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->na
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
 Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
 
+//Tugas
+Route::resource('/tugas','TugasController');
+
 //User
-Route::resource('menu/User','UserController');
-Route::post('menu/User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
+Route::resource('User','UserController');
+Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 Route::post('User/{id}','UserController@update')->name('User.update');
 Route::get('User/peserta','UserController@daftarPeserta')->name('User.peserta');
 

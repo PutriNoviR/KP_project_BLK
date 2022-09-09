@@ -6,7 +6,7 @@
     $('#daftarLowonganModal').modal('show');
     @endif
     @foreach($dokumenLowongan as $dokumen)
-    $('#{{ $dokumen->nama }}').on('change', function () {
+    $('#{{str_replace(" ", "_", $dokumen->nama)}}').on('change', function () {
         //get the file name
         var fileName = $(this).val().replace('C:\\fakepath\\', " ");
         //replace the "Choose a file" label
@@ -70,79 +70,66 @@
 
                         </div>
                     </div>
-                    <div class="post clearfix">
+                    {{-- <div class="post clearfix">
                         <div class="user-block">
                             <b>Gaji</b>
                             <p>{{$lowongan->gaji}}</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Lokasi Kerja</b>
-                            <p>{{$lowongan->lokasi_kerja}}</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Pengalaman Kerja</b>
-                            <p>{{$lowongan->pengalaman_kerja}} Tahun</p>
-                        </div>
-                        <div class="user-block">
-                            <b>Kualifikasi pendidikan</b>
-                            <p>{{$lowongan->pendidikan_terakhir}}</p>
-                        </div>
-                    </div>
-                    <div class="post clearfix">
-                        <div class="user-block">
-                            <b>Deskripsi Pekerjaan</b>
-                        </div>
-                        <p>
-                            {{$lowongan->deskripsi_kerja}}
-                        </p>
-                    </div>
-                    <div class="post clearfix">
-                        <div class="user-block">
-                            <b>Tentang Perusahaan</b>
-                        </div>
-                        <p>
-                            {{$lowongan->perusahaan->tentang_perusahaan}}
-                        </p>
-                    </div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                    <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $lowongan->perusahaan->nama }}</h3>
-                    <p class="text-muted">{{ $lowongan->perusahaan->tentang_perusahaan }}</p>
-                    <br>
-                    <div class="text-muted">
-                        <p class="text-sm">Client Company
-                            <b class="d-block">Deveint Inc</b>
-                        </p>
-                        <p class="text-sm">Project Leader
-                            <b class="d-block">Tony Chicken</b>
-                        </p>
-                    </div>
-
-                    <h5 class="mt-5 text-muted">{{ $lowongan->nama }}</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                                Functional-requirements.docx</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
-                                Email-from-flatbal.mln</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                        </li>
-                        <li>
-                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                                Contract-10_12_2014.docx</a>
-                        </li>
-                    </ul>
+                <div class="user-block">
+                    <b>Lokasi Kerja</b>
+                    <p>{{$lowongan->lokasi_kerja}}</p>
                 </div>
+                <div class="user-block">
+                    <b>Pengalaman Kerja</b>
+                    <p>{{$lowongan->pengalaman_kerja}} Tahun</p>
+                </div>
+                <div class="user-block">
+                    <b>Kualifikasi pendidikan</b>
+                    <p>{{$lowongan->pendidikan_terakhir}}</p>
+                </div>
+            </div> --}}
+            <div class="post clearfix"></div>
+            <div class="post clearfix">
+                <div class="user-block">
+                    <b>Deskripsi Pekerjaan</b>
+                </div>
+                <p>
+                    {!!$lowongan->deskripsi_kerja!!}
+                </p>
+            </div>
+            <div class="post clearfix">
+                <div class="user-block">
+                    <b>Kualifikasi Minimal</b>
+                </div>
+                <p>
+                    {!! $lowongan->kualifikasi_minimal !!}
+                </p>
+            </div>
+            <div class="post clearfix">
+                <div class="user-block">
+                    <b>Tentang Perusahaan</b>
+                </div>
+                <p>
+                    {{$lowongan->perusahaan->tentang_perusahaan}}
+                </p>
             </div>
         </div>
-        <!-- /.card-body -->
+        <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+            <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $lowongan->perusahaan->nama }}</h3>
+            <p class="text-muted">{{ $lowongan->perusahaan->tentang_perusahaan }}</p>
+            <h5 class="mt-5 ">Dokumen Persyaratan</h5>
+            <ul class="list-unstyled">
+                @foreach ($dokumenLowongan as $dl)
+                <li>
+                    <span href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                        {{ $dl->nama }}</span>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    </div>
+    <!-- /.card-body -->
     </div>
     <!-- /.card -->
 
@@ -173,8 +160,8 @@
                     <div class="form-group">
                         <label for="" class="form-label">{{ $dokumen->nama }}</label>
                         <div class="custom-file">
-                            <input type="file" name="{{ $dokumen->nama }}" class="custom-file-input"
-                                id="{{ $dokumen->nama }}">
+                            <input type="file" name="{{str_replace(" ", "_", $dokumen->nama)}}"
+                                class="custom-file-input" id="{{str_replace(" ", "_", $dokumen->nama)}}">
                             <label class="custom-file-label" for="inputGroupFile02"
                                 aria-describedby="inputGroupFileAddon02">Choose file</label>
                         </div>

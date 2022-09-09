@@ -81,4 +81,50 @@ Assign Tugas
         </div>
     </div>
 </div>
+
+
+{{-- MODAL UNTUK RIWAYAT PENUGASAN ADMIN --}}
+<div class="modal fade" id="modalRiwayatPenugasanAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Riwayat Penugasan Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+            <thead>
+                <tr role="row">
+                    <th>No</th>
+                    <th>Email Admin</th>
+                    <th>Email Mentor</th>
+                    <th>Keterangan</th>
+                    <th>Bukti Penugasan</th>
+                    <th>Dibuat Pada</th>
+                    <th>Diubah Pada</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach($ as $d)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ }}</td>
+                    <td>{{ }}</td>
+                    <td>{{ }}</td>
+                    <td>{{ }} -
+                        {{ }}
+                    </td>
+                    <td>{{  }}</td>
+                    <td>{{  }}</td>
+                    <td>{{  }}</td>
+                    <td>{{  }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 @endsection

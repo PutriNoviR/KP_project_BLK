@@ -3,85 +3,49 @@
 Lamaran Ku
 @endsection
 
+@section('javascript')
+<script>
+    $('.card-lamaranku').on('click', function () {
+        const idlowongan = $(this).attr('id-lowongan');
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("lamaran.getDetailLamaranCard") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'lowongans_id': idlowongan,
+            },
+            success: function (data) {
+                $("#cardDetailLamaran").html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    });
+
+</script>
+@endsection
+
 @section('page-bar')
-<div>
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-primary card-outline card-outline-tabs">
-                <h1 class="m-3">Lamaran Ku</h1>
-                <div class="card-header p-0 border-bottom-0">
-                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+<div class="w-100">
+    <div class="card card-primary card-outline card-outline-tabs">
+        <h1 class="m-3 font-weight-bolder">Kegiatan Ku</h1>
+        <div class="card-header p-0 border-bottom-0">
+            <div class="row">
+                <div class="col-4">
+                    <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                        <li class="nav-item w-50">
+                            <a class="nav-link" id="custom-tabs-two-pelatihan-tab" data-toggle="pill"
+                                href="#custom-tabs-two-pelatihan" role="tab" aria-controls="custom-tabs-two-pelatihan"
                                 aria-selected="false">Pelatihan</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                        <li class="nav-item w-50">
+                            <a class="nav-link active" id="custom-tabs-two-lamaran-tab" data-toggle="pill"
+                                href="#custom-tabs-two-lamaran" role="tab" aria-controls="custom-tabs-two-lamaran"
                                 aria-selected="true">Lamaran</a>
                         </li>
                     </ul>
-                </div>
-
-                <!-- /.card -->
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5 overflow-auto" style="height: 600px">
-            <div class="card card-primary card-outline card-outline-tabs">
-                <div class="card-body">
-                    <div class="tab-content" id="custom-tabs-four-tabContent">
-                        <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
-                            aria-labelledby="custom-tabs-four-home-tab">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper
-                            dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo.
-                            Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque
-                            tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique
-                            senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit
-                            suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo
-                            est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus
-                            quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum
-                            ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
-                        </div>
-                        <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel"
-                            aria-labelledby="custom-tabs-four-profile-tab">
-                            Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut
-                            ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                            cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis
-                            posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere
-                            nec nunc. Nunc euismod pellentesque diam.
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel"
-                            aria-labelledby="custom-tabs-four-messages-tab">
-                            Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat
-                            augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit
-                            sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut
-                            velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus
-                            tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet
-                            sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum
-                            gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt
-                            eleifend ac ornare magna.
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel"
-                            aria-labelledby="custom-tabs-four-settings-tab">
-                            Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus
-                            turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis
-                            vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum
-                            pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet
-                            urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse
-                            platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-7">
-            <div class="card card-primary card-outline card-outline-tabs">
-                <div class="card-body">
-
                 </div>
             </div>
         </div>
@@ -90,7 +54,92 @@ Lamaran Ku
 
 @endsection
 @section('contents')
-<div class="container">
-    <div></div>
+<div class="row pb-4">
+    <div class="col-4 overflow-auto">
+        <div class="tab-content" id="custom-tabs-two-tabContent" style="height: 600px;">
+            <div class="tab-pane fade" id="custom-tabs-two-pelatihan" role="tabpanel"
+                aria-labelledby="custom-tabs-two-pelatihan-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-text-width"></i>
+                            Secondary Block Quotes
+                        </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body clearfix">
+                        <blockquote class="quote-secondary">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+                            </p>
+                            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                        </blockquote>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="tab-pane fade active show" id="custom-tabs-two-lamaran" role="tabpanel"
+                aria-labelledby="custom-tabs-two-lamaran-tab">
+                @foreach ($lamarans as $lamaran)
+                <div class="card card-lamaranku" id-lowongan="{{ $lamaran->lowongans_id }}">
+                    <!-- /.card-header -->
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between">
+                            <img class="mb-1 rounded" src="{{ asset('storage/'.$lamaran->lowongan->perusahaan->logo) }}"
+                                style="height: 40px; width: 40px">
+                            <div class="">
+                                @if ($lamaran->status == 'Tahap Seleksi')
+                                <div class="bg-primary disabled text-sm d-inline p-1 rounded">
+                                    <span class="">{{ $lamaran->status }}</span>
+                                </div>
+                                @elseif ($lamaran->status == 'Terdaftar')
+                                <div class="bg-warning disabled text-sm d-inline p-1 rounded">
+                                    <span class="">{{ $lamaran->status }}</span>
+                                </div>
+                                @elseif ($lamaran->status == 'Diterima')
+                                <div class="bg-success disabled text-sm d-inline p-1 rounded">
+                                    <span class="">{{ $lamaran->status }}</span>
+                                </div>
+                                @elseif ($lamaran->status == 'Tidak Lolos Seleksi')
+                                <div class="bg-danger disabled text-sm d-inline p-1 rounded">
+                                    <span class="">{{ $lamaran->status }}</span>
+                                </div>
+                                @endif
+
+                            </div>
+                        </div>
+                        <div class="font-weight-bolder">
+                            {{ $lamaran->lowongan->nama }}
+                        </div>
+                        <div>
+                            {{ $lamaran->lowongan->perusahaan->nama }}
+                        </div>
+                        <div class="font-weight-light mt-1">
+                            {{ $lamaran->lowongan->perusahaan->alamat }}
+                        </div>
+                        <div class="text-sm text-muted mt-2">
+                            @php
+                            $date1 = strtotime($lamaran->lowongan->tanggal_pemasangan);
+                            $date2 = strtotime("now");
+                            $diff = abs($date2 - $date1);
+                            $years = floor($diff / (365*60*60*24));
+                            $months = floor(($diff - $years * 365*60*60*24)
+                            / (30*60*60*24));
+                            $days = floor(($diff - $years * 365*60*60*24 -
+                            $months*30*60*60*24)/ (60*60*24));
+                            // echo $days." hari yang lalu";
+                            @endphp
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card h-100" id="cardDetailLamaran">
+
+        </div>
+    </div>
 </div>
 @endsection
