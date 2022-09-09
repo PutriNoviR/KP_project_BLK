@@ -279,7 +279,7 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
 
     public static function getDataKategoriPsikometrik($sesi){
         $kategori = DB::table('kategori_psikometrik')
-                    ->select('id','nama')
+                    ->select('id','kode')
                     ->where('id','!=','0')
                     ->get();
 
@@ -296,7 +296,7 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
                                 ->first();
 
                 if($hasilTesTahap2 != null){
-                    array_push($arr_data, $k->nama);
+                    array_push($arr_data, $k->kode);
                    
                 }
              
