@@ -57,6 +57,10 @@ class HomeController extends Controller
                 ->orderBy('peringkat','ASC')
                 ->get();
 
+        $lanjutTesTahap2 = DB::connection('uvii')->table('hasil_rekomendasi_tes_tahap_2')
+                ->where('uji_minat_awals_id',($riwayatTes1->id??''))
+                ->get();
+
         if($riwayatTes1){
             $linkTes2 = KlasterPsikometrik::where('id', $riwayatTes1->klaster_id)
                     ->first();
@@ -66,7 +70,7 @@ class HomeController extends Controller
             $linkTes2 = '#';
         }
 
-        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2'));
+        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2'));
     }
 
     public function menuFilter(){

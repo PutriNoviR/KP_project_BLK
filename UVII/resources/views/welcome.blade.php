@@ -350,7 +350,7 @@
 
                                 Klaster minat Anda adalah <b>{{$riwayatTes1->klaster->nama}}</b>  
                                 
-                                @if($riwayatTes2->isNotEmpty())
+                                @if($riwayatTes2->isNotEmpty() && $lanjutTesTahap2->isNotEmpty())
                                     
                                     dan kategori klaster Anda:
                                         <ul>
