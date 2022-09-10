@@ -79,6 +79,7 @@ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address
   .footer {
     display: none;
   }
+ 
 
   .no-page-break {
     page-break-after: avoid;

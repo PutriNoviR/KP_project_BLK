@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>UBAYA VOCATIONAL INTERES INVENTORY</title>
+    <title>UBAYA VOCATIONAL INTEREST INVENTORY</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -77,12 +77,22 @@
                         @endguest
                     </ul>
                 </div>
+                
             </div>
         </nav>--}}
 
         <main class="py-4">
             @yield('content')
         </main>
+
+        <div class="footer">
+            <div class="footer-inner">
+               <img src="{{ asset('assets/image/dikti_logo2.png')}}" width='6%' height='6%' >
+               <img src="{{ asset('assets/image/logo.png')}}" width='14%' height='14%' >
+               <img src="{{ asset('assets/image/disnaker.jpeg')}}"  width='18%' height='18%'>
+               <img src="{{ asset('assets/image/ubaya.png')}}"  width='13%' height='13%'>
+            </div>
+        </div>
     </div>
 </body>
 </html>
