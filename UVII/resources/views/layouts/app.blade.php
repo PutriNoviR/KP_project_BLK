@@ -84,14 +84,18 @@
         <main class="py-4">
             @yield('content')
         </main>
-
+        
         <div class="footer">
+        <!-- <div class="container"> -->
             <div class="footer-inner">
-               <img src="{{ asset('assets/image/dikti_logo2.png')}}" width='6%' height='6%' >
-               <img src="{{ asset('assets/image/logo.png')}}" width='14%' height='14%' >
+               <img src="{{ asset('assets/image/dikti_logo2.png')}}" width='6%' height='6%'>
+               <img src="{{ asset('assets/image/logo.png')}}" width='14%' height='14%'>
                <img src="{{ asset('assets/image/disnaker.jpeg')}}"  width='18%' height='18%'>
                <img src="{{ asset('assets/image/ubaya.png')}}"  width='13%' height='13%'>
+               
+                
             </div>
+      
         </div>
     </div>
 </body>
