@@ -81,8 +81,9 @@ class UserController extends Controller
         $data = User::find($email);
 
         $pelatihan = PelatihanPeserta::WHERE('status_fase','!=','NULL')
-        ->get()
-        ->first();
+        ->ORDERBY('tanggal_seleksi','asc')
+        ->first()
+        ->get();
         // dd($pelatihan);
         return view('user.profile', compact('data','pelatihan'));
     }
@@ -137,7 +138,7 @@ class UserController extends Controller
         $User->kota = $request->kota;
         $User->alamat = $request->alamat;
         $User->ktp = $request->file('fotoKtp')->store('user/ktp');
-        $User->ksk = $request->ksk;
+        $User->ksk = $request->file('ksk')->store('user/ksk');
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;

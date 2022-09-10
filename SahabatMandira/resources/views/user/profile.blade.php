@@ -29,12 +29,14 @@ Profile
                         <div class="card-body">
                             <p class="overline">Data Pribadi</p>
                             <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
+                            
                             <p><br></p>
+                            
                             <br>
                             <div>
                                 <div class="m-t-20">
                                     <p class=""></p>
-                                    <p class=""><i class="fa fa-copy ml-1" id="copy-pinkrs" style="cursor: pointer;" title="Salin PIN KRS"></i></p>
+                                    <p class=""><i class="fa fa-copy ml-1" id="copy-pinkrs" style="cursor: pointer;" title="Salin"></i></p>
                                     <input type="hidden" value="" id="pinkrs">
                                 </div>
                             </div>

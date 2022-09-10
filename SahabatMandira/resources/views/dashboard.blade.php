@@ -146,7 +146,7 @@ Dashboard
 
 @endif
 
-@if(Auth::user()->role->nama_role == 'adminblk')
+@if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role == 'superadmin')
 
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
