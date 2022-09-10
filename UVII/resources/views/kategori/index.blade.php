@@ -41,7 +41,7 @@
 <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-               Klaster
+               Kategori
             </div>
         </div>
 
@@ -56,11 +56,11 @@
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Browser: activate to sort column ascending" style="width: 250px;">
-                        Nama
+                        Kode
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Browser: activate to sort column ascending" style="width: 250px;">
-                        Kode
+                        Nama
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Browser: activate to sort column ascending" style="width: 250px;">
@@ -130,7 +130,10 @@
                             </form>
                         </td>
                     </tr>
-                
+                    @php
+                        $no++;
+                    @endphp
+
                     @endforeach
                 </tbody>
             </table>

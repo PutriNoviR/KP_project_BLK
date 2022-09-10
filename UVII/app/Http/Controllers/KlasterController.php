@@ -17,7 +17,7 @@ class KlasterController extends Controller
      */
     public function index()
     {
-        $data = KlasterPsikometrik::all();
+        $data = KlasterPsikometrik::where('id','!=','0')->get();
          // -- menu manajemen --
          $role_user = Auth::user()->roles_id;
          $menu_role = DB::table('menu_manajemens_has_roles as mmhs')

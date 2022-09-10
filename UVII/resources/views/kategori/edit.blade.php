@@ -11,21 +11,21 @@
                 
     <div class="modal-body">
         <div class="form-group">
-            <label for="nama" class=" form-control-label">Nama</label>
+            <label for="nama" class="form-control-label">Nama</label>
             <input type="text" name="nama" placeholder="" class="form-control" value="{{ $data->nama }}" required>
             <input type="hidden" name="id" value="{{$data->id}}">
         </div>
         <div class="form-group">
-            <label for="nama" class=" form-control-label">Kode</label>
+            <label for="nama" class="form-control-label">Kode</label>
             <input type="text" name="kode" placeholder="" class="form-control" value="{{ $data->kode }}" required>
         </div>
         <div class="form-group">
-            <label for="nama" class=" form-control-label">Kode Poin</label>
+            <label for="nama" class="form-control-label">Kode Poin</label>
             <input type="number" name="kode_poin" placeholder="" class="form-control" value="{{ $data->kode_poin }}" step="any" required>
         </div>
         <div class="form-group">
-            <label for="nama" class=" form-control-label">Klaster</label>
-            <select name="klaster">
+            <label for="nama" class="form-control-label">Klaster</label>
+            <select name="klaster" class="form-control">
                 @foreach($dataKlaster as $d)
                 <option value="{{$d->id}}" {{ $data->getNama->id == $d->id ? 'selected':'' }}>{{$d->nama}}</option>
                 @endforeach

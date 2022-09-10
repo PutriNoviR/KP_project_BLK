@@ -18,8 +18,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $data = KategoriPsikometrik::all();
-        $dataKlaster= KlasterPsikometrik::all();
+        $data = KategoriPsikometrik::where('id','!=','0')->get();
+        $dataKlaster= KlasterPsikometrik::where('id','!=','0')->get();
          // -- menu manajemen --
          $role_user = Auth::user()->roles_id;
          $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -126,7 +126,7 @@ class KategoriController extends Controller
     }
     public function getEditForm(Request $request){
         $data = KategoriPsikometrik::find($request->id);
-        $dataKlaster= KlasterPsikometrik::all();
+        $dataKlaster= KlasterPsikometrik::where('id','!=','0')->get();
 
         return response()->json(array(
             'status'=>'oke',
