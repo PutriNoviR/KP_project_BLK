@@ -34,8 +34,6 @@
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link text" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tawaran">Tawaran</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pelatihan">Pelatihan</a></li>
                     <li class="nav-item"><a class="nav-link btn-info rounded-3 px-3"
                             href="{{ route('login') }}">Login</a></li>
                 </ul>
@@ -45,7 +43,7 @@
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
-            <div class="masthead-subheading">#Sahabat <span class="text-info">MANDIRA</span> </div>
+            <div class="masthead-subheading">Sahabat <span class="text-info">MANDIRA</span> </div>
             <div class="masthead-heading mb-0">Melanjutkan masa depan yang</div>
             <div class="masthead-heading"><span class="text-info">Mandiri dan
                     Sejahtera</span></div>
@@ -56,7 +54,7 @@
     <section class="page-section" id="tentang">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">#Sahabat mandira</h2>
+                <h2 class="section-heading text-uppercase">VISI MISI</h2>
                 <h3 class="section-subheading text-muted"></h3>
             </div>
             <div class="row justify-content-around">
@@ -108,7 +106,7 @@
                             src="{{ asset('landingpage/assets/img/about/3.jpg')}}" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Pelatihan</h4>
+                            <h4 class="subheading">Keuntungan</h4>
                         </div>
                         <div class="timeline-body">
                             <p class="text-muted">Memberi pelatihan kepada para pencari kerja untuk persiapan sebelum
@@ -125,82 +123,22 @@
                         </div>
                     </div>
                 </li>
-                <li class="timeline-inverted">
+                <li class="timeline-inverted" >
                     <div class="timeline-image">
+                        <a class="text-decoration-none text-dark" href="{{ route('register') }}">
                         <h4>
                             Mari
                             <br />
                             Bergabung!
                             <br />
                         </h4>
+                        </a>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
-    <!-- Team-->
-    <section class="page-section bg-light" id="tawaran">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Penawaran sahabat mandira</h2>
-                <h3 class="section-subheading text-muted"></h3>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="{{ route('register') }}">
-                            <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/1.jpg')}}"
-                                alt="..." />
-                            <h4></h4>
-                            <p class="">Daftar sebagai pencari kerja</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="{{ route('registerMentor') }}">
-                            <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/2.jpg')}}"
-                                alt="..." />
-                            <h4></h4>
-                            <p class="">Daftar sebagai mentor pelatihan</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <a class="text-decoration-none text-dark" href="{{ route('perusahaan.create') }}">
-                            <img class="mx-auto rounded-circle" src="{{ asset('landingpage/assets/img/team/3.jpg')}}"
-                                alt="..." />
-                            <h4></h4>
-                            <p class="">Daftar sebagi mitra</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Pelatihan -->
-    <section class="page-section" id="pelatihan">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase"> pelatihan</h2>
-                <h3 class="section-subheading text-muted"></h3>
-            </div>
-            <div class="row justify-content-around">
-                <div class="col-md-6 d-flex flex-column justify-content-around p-5">
-                    <p class="text-wrap text-center section-subheading">"Berbagai jenis pelatihan ditawarkan untuk
-                        dapat
-                        meningkatkan kompetensi dengan dibimbing oleh Mentor yang berpengalaman dari Disnaker, Dunia
-                        Akademis dan Industri."
-                    </p>
-                    <a href="{{ route('register') }}" class="btn btn-info btn-lg mx-auto">Daftar Sekarang!</a>
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ asset('landingpage/assets/img/pelatihan.jpg')}}" class="rounded w-100" alt="...">
-                </div>
-            </div>
-        </div>
-    </section>
+    
     <!-- Statistik -->
     <section class="page-section bg-light" id="statistik">
         <div class="container">

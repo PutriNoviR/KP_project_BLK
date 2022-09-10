@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Tes Minat Bakat</title>
+    <title>UBAYA VOCATIONAL INTERES INVENTORY</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
