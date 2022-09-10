@@ -107,6 +107,7 @@ Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')
 
 //Tugas
 Route::resource('/tugas','TugasController');
+Route::post('/tugas/getDetail','TugasController@getDetail')->name('tugas.getDetail');
 
 //User
 Route::resource('User','UserController');

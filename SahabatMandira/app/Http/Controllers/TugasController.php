@@ -38,22 +38,22 @@ class TugasController extends Controller
     public function store(Request $request)
     {
         //
-        $id = $request->id;
+        $sesiPelatihan_id = $request->id;
         $tugas = new Tugas();
         $tugas->email_admin = $request->email_admin;
         $tugas->email_mentor = $request->email_mentor;
         $tugas->keterangan = $request->keterangan;
-        $tugas->bukti = $request->bukti;
+        $tugas->bukti = $request->file('bukti')->store('tugas/bukti');
         $tugas->save();
 
 
         $userLogin = auth()->user()->email;
-        $periode = SesiPelatihan::find($id);
+        $periode = SesiPelatihan::find($sesiPelatihan_id);
         // dd($periode);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-            ->where('sesi_pelatihans_id', $id)
+            ->where('sesi_pelatihans_id', $sesiPelatihan_id)
             ->get();
 
         return view('pelatihanpeserta.index', compact('data', 'periode'));
@@ -65,9 +65,12 @@ class TugasController extends Controller
      * @param  \App\Tugas  $tugas
      * @return \Illuminate\Http\Response
      */
-    public function show(Tugas $tugas)
+    public function show($id)
     {
         //
+        $data = Tugas::all()->where('id','=',$id);
+        // dd($data);
+        return view('sesipelatihan.assignTugasVerifikator', compact('data'));
     }
 
     /**
@@ -102,5 +105,16 @@ class TugasController extends Controller
     public function destroy(Tugas $tugas)
     {
         //
+    }
+
+    public function getDetail(Request $request)
+    {
+        $tugas = Tugas::find($request->id);
+        // dd($sub);
+        $bukti = $tugas->bukti;
+        return response()->json(array(
+            'status'=>'oke',
+            'data'=> $bukti
+        ), 200);
     }
 }

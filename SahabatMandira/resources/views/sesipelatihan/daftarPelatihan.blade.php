@@ -43,12 +43,16 @@ PELATIHAN
                         <i class="fas fa-eye"></i>
                     </a> -->
                     @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
-                    <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
-                        <i class="fas fa-plus"></i> {{--PINDAHIN KE UI  --}}
-                    </a>
-                    <a data-toggle="modal" data-target="#modalRiwayatPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
-                        <i class="fas fa-plus"></i> {{--PINDAHIN KE UI  --}}
-                    </a>
+                    <div class="margin-bottom-15">
+                        <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{{ route('tugas.show',$d->id) }}" class="button btn btn-warning">
+                            <i class="fas fa-eye"> View</i>
+                        </a>
+                    </div>
                     @else
                     <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
                         <i class="fas fa-eye"></i> {{--PINDAHIN KE UI  --}}

@@ -10,5 +10,5 @@ class Tugas extends Model
     protected $table='tugas';
     protected $connection='mandira';
 
-    public $timestamps=false;
+    // public $timestamps=false;
 }

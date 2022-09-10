@@ -159,7 +159,7 @@ class PelatihanPesertaController extends Controller
                 'status_fase' => 'DALAM SELEKSI',
             );
         }
-
+        
         DB::connection('mandira')
             ->table('pelatihan_pesertas')
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
