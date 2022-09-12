@@ -110,13 +110,13 @@
                     <b>Tentang Perusahaan</b>
                 </div>
                 <p>
-                    {{$lowongan->perusahaan->tentang_perusahaan}}
+                    {!! $lowongan->perusahaan->tentang_perusahaan !!}
                 </p>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
             <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $lowongan->perusahaan->nama }}</h3>
-            <p class="text-muted">{{ $lowongan->perusahaan->tentang_perusahaan }}</p>
+            <p class="text-muted">{!! $lowongan->perusahaan->tentang_perusahaan !!}</p>
             <h5 class="mt-5 ">Dokumen Persyaratan</h5>
             <ul class="list-unstyled">
                 @foreach ($dokumenLowongan as $dl)

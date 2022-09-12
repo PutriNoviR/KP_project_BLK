@@ -33,6 +33,9 @@ class PerusahaanController extends Controller
     public function create()
     {
         //
+        if (Auth::user()->perusahaans_id_admin != null) {
+            return redirect()->route('perusahaan.profile');
+        }
         return view ("perusahaan.create");
     }
 
@@ -47,11 +50,6 @@ class PerusahaanController extends Controller
         //
         // dd($request);
         $validatedData = $request->validate([
-            'email' => 'required|unique:users|max:255',
-            'firstname' => 'required|max:250',
-            'lastname' => 'required|max:250',
-            'username' => 'required|max:250',
-            'password' => 'required|min:8|confirmed|max:250',
             'namaperusahaan' => 'required|max:200',
             'bidang' => ' required|max:200', 
             'alamat' => 'required|max:200',
@@ -59,18 +57,15 @@ class PerusahaanController extends Controller
             'no_telp' => 'required|max:12',
             'emailperusahaan' => 'required|max:250',
             'tentang_perusahaan' => 'required',
-            'logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_perusahaan' => 'required|image|mimes:jpeg,png,jpg|max:4096',
-            'siup' => 'required|mimes:pdf|max:2000',
-            'npwp' => 'required|mimes:pdf|max:2000',
+            // 'logo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // dd($request);
 
-        $validatedData['logo'] = $request->file('logo')->store('logo');
-        $validatedData['foto_perusahaan'] = $request->file('foto_perusahaan')->store('foto_perusahaan');
-        $validatedData['siup'] = $request->file('siup')->store('siup');
-        $validatedData['npwp'] = $request->file('npwp')->store('npwp');
+        // $validatedData['logo'] = $request->file('logo')->store('logo');
+        // $validatedData['foto_perusahaan'] = $request->file('foto_perusahaan')->store('foto_perusahaan');
+        // $validatedData['siup'] = $request->file('siup')->store('siup');
+        // $validatedData['npwp'] = $request->file('npwp')->store('npwp');
 
         $perusahaan = new Perusahaan();
         $perusahaan->nama=$validatedData['namaperusahaan'];
@@ -79,27 +74,17 @@ class PerusahaanController extends Controller
         $perusahaan->kode_pos=$validatedData['kode_pos'];
         $perusahaan->no_telp=$validatedData['no_telp'];
         $perusahaan->email=$validatedData['emailperusahaan'];
-        $perusahaan->logo=$validatedData['logo'];
-        $perusahaan->images=$validatedData['foto_perusahaan'];
-        $perusahaan->siup=$validatedData['siup'];
-        $perusahaan->npwp=$validatedData['npwp'];
+        $perusahaan->logo="logo/default.png";
+        // $perusahaan->images=$validatedData['foto_perusahaan'];
+        // $perusahaan->siup=$validatedData['siup'];
+        // $perusahaan->npwp=$validatedData['npwp'];
         $perusahaan->tentang_perusahaan=$validatedData['tentang_perusahaan'];
         $perusahaan->save();
 
-        $role = Role::where('nama_role','adminperusahaan')->first();
-
-        $User = new User();
-        $User->email = $validatedData['email'];
-        $User->nama_depan = $validatedData['firstname'];
-        $User->nama_belakang = $validatedData['lastname'];
-        $User->username = $validatedData['username'];
-        $User->password = bcrypt($validatedData['password']);
-        $User->countries_id = 1;
-        $User->roles_id = $role->id;
-        $User->perusahaans_id_admin = $perusahaan->id;
-        $User->save();
-
-        return redirect()->route("login")->with('success','Pendaftaran perusahaan berhasil');
+        $user = User::where('email',Auth::user()->email)->first();
+        $user->perusahaans_id_admin = $perusahaan->id;
+        $user->save();
+        return redirect()->route("perusahaan.profile")->with('success','Pendaftaran perusahaan berhasil');
     }
 
     /**
@@ -135,19 +120,14 @@ class PerusahaanController extends Controller
     public function update(Request $request, Perusahaan $perusahaan)
     {
         //
-        $perusahaan->nama=$request->nama;
-        $perusahaan->bidang=$request->bidang;
-        $perusahaan->alamat=$request->alamat;
-        $perusahaan->kode_pos=$request->kode_pos;
-        $perusahaan->no_telp=$request->no_telp;
-        $perusahaan->email=$request->email;
-        $perusahaan->logo=$request->logo;
-        $perusahaan->images=$request->foto;
-        $perusahaan->siup=$request->siup;
-        $perusahaan->npwp=$request->npwp;
+        // dd($request,$perusahaan);
+        $perusahaan->nama=$request->nama_perusahaan;
+        $perusahaan->bidang=$request->bidang_perusahaan;
+        $perusahaan->alamat=$request->alamat_perusahaan;
+        $perusahaan->kode_pos=$request->kodepos_perusahaan;
         $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
         $perusahaan->save();
-        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diubah!');
+        return redirect()->route('perusahaan.profile')->with('success', 'Data perusahaan berhasil diubah!');
     }
 
     /**
