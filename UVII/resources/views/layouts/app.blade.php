@@ -20,10 +20,22 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Recaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Google Analytics :Google tag (gtag.js) -->
+   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CBNPMEX4N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9CBNPMEX4N');
+    </script>
+   
 </head>
 <body>
     <div id="app">
@@ -98,5 +110,6 @@
       
         </div>
     </div>
+    @yield('javascript')
 </body>
 </html>
