@@ -1,24 +1,5 @@
 @extends('layouts.app')
 
-@section('javascript')
-<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
-<script>
-   setInterval(function () {
-        grecaptcha.ready(function() {
-            
-            grecaptcha.execute('{{config("services.recaptcha.site")}}', {action: 'submit'}).then(function(token) {
-                // Add your logic to submit to your backend server here.
-                if(token){
-                    $("#recaptcha_token").val(token);
-                }
-               
-            });
-        });
-    }, 3000);
-
-</script>
-@endsection
-
 @section('content')
 <div class="container">
     @if(count($errors) > 0)
@@ -165,11 +146,11 @@
                                     </div>
                                 @endif
 
-                                @if (Route::has('password.request'))
+                            {{--    @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.baru') }}">
                                         {{ __('Forgot Password') }}
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </form>
