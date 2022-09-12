@@ -31,7 +31,7 @@ return [
     ],
 
     'recaptcha' => [
-        'key' => env('BLK_RECAPTCH_KEY'),
-        'secret' => env('BLK_RECAPTCH_SECRET'),
+        'site' => env('MANDIRA_RECAPTCHA_SITE'),
+        'secret' => env('MANDIRA_RECAPTCHA_SECRET'),
     ],
 ];

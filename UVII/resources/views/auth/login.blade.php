@@ -13,7 +13,8 @@
         <div class="col-md-8">
             <div class="content">
                 <div class="title">
-                    <p>Welcome To UVII</p>
+                    <p>Selamat Datang pada</p>
+                    <p>UBAYA VOCATIONAL INTEREST INVENTORY</p>
                 </div>
             
                 <div class="card">
@@ -82,11 +83,11 @@
                                         </div>
                                     @endif
 
-                                    @if (Route::has('password.request'))
+                                    <!-- @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.baru') }}">
                                             {{ __('Forgot Password') }}
                                         </a>
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                         </form>

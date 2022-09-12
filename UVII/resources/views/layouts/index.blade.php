@@ -50,6 +50,17 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
+
+<!-- Google Analytics: Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CBNPMEX4N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9CBNPMEX4N');
+</script>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -144,7 +155,9 @@ License: You must have a valid license purchased only from themeforest(the above
 						'Riwayat Tes Peserta'=>'fa fa-file-text',
 						'Riwayat Ujian'=>'fa fa-list-alt',
 						'Mulai Tes'=>'fa fa-play',
-						'Bank Soal'=>'icon-book-open'];
+						'Bank Soal'=>'icon-book-open',
+						'Klaster'=>'fa fa-plus',
+						'Kategori'=> 'fa fa-plus-circle'];
 				@endphp
 				@foreach($menu as $m)
 				<li>

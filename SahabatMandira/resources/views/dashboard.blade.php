@@ -44,9 +44,9 @@ Dashboard
             <div class="card-header">
                 <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style='width:50%; height:50%; padding: 10px'>
                 <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
             </div>
             <div class="card-body">
                 {{ $d->paketprogram->subkejuruan->nama }}
@@ -87,9 +87,9 @@ Dashboard
                 <div class="card-header">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" >
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
@@ -130,7 +130,7 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:50%; height:50%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
@@ -146,7 +146,7 @@ Dashboard
 
 @endif
 
-@if(Auth::user()->role->nama_role == 'adminblk')
+@if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role == 'superadmin')
 
 <div class="container">
     <div class="d-flex justify-content-between mb-2">

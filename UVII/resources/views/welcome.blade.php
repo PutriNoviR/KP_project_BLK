@@ -40,12 +40,12 @@
     <script>
         function show(){
             $('#modalTes').css('display', 'block');   
-            $('#page').css('filter', 'blur(4px)');
+            $('.page').css('filter', 'blur(4px)');
         }
 
         function unshow(){
             $('#modalTes').css('display', 'none');   
-            $('#page').css('filter', 'blur(0)');
+            $('.page').css('filter', 'blur(0)');
         }
 
         function getEditForm(id){
@@ -336,7 +336,7 @@
         @else
             @if($riwayatTes1)
                 <div class="card-page">
-                    <div id="page">
+                    <div class="page">
                         <!-- <div class="card-header">
 
                         </div> -->
@@ -350,7 +350,7 @@
 
                                 Klaster minat Anda adalah <b>{{$riwayatTes1->klaster->nama}}</b>  
                                 
-                                @if($riwayatTes2->isNotEmpty())
+                                @if($riwayatTes2->isNotEmpty() && $lanjutTesTahap2->isNotEmpty())
                                     
                                     dan kategori klaster Anda:
                                         <ul>
@@ -370,7 +370,7 @@
                 </div>
             @endif
             <div class="card-page">
-                <div id="page">
+                <div class="page">
                     <div class="card-header">
                         <p>Tes Minat Bakat</p>
                     </div>

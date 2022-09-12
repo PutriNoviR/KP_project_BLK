@@ -70,16 +70,42 @@ class RegisterController extends Controller
                 $secretKey = config('services.recaptcha.secret');
                 $response = $value;
                 $userIP = $_SERVER['REMOTE_ADDR'];
-                $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response&remoteip=$userIP";
-                $response = \file_get_contents($url);
+                // $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response&remoteip=$userIP";
+                $url = "https://www.google.com/recaptcha/api/siteverify";
+                $data = [
+                    'secret'=>$secretKey,
+                    'response'=>$response,
+                    'remoteip'=>$userIP
+                ];
+                $option=[
+                    'http' => [
+                        'header' => "Content-type:application/x-www-form-urlencoded\r\n",
+                        'method' => 'POST',
+                        'content' => http_build_query($data) 
+                    ]
+                ];
+
+                $context = stream_context_create($option);
+
+                $response = \file_get_contents($url, false, $context);
                 // decode response
                 $response = json_decode($response);
-                
+            
                 if(!$response->success){
-                    $fail('please check the recaptcha');
-                    Session::flash('recaptcha', 'please check the recaptcha');
+                    $fail('Please refresh browser and try again!');
+                    // Session::flash('recaptcha', 'please refresh browser');
 
                 }
+                
+                else{
+                    if($response->score < 0.6){
+                        $fail('Please refresh browser and try again!');
+                        // Session::flash('recaptcha', 'please refresh browser');
+                    }
+                }
+                
+                
+
             }
         ]);
     }

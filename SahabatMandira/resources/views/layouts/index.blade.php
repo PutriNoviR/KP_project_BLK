@@ -58,6 +58,17 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-50BBRYS4HY"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-50BBRYS4HY');
+    </script>
+    
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

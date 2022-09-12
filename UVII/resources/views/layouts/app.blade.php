@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Balai Pelatihan Kerja') }}</title>
+    <title>UBAYA VOCATIONAL INTEREST INVENTORY</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,10 +20,22 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Recaptcha -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Google Analytics :Google tag (gtag.js) -->
+   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CBNPMEX4N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9CBNPMEX4N');
+    </script>
+   
 </head>
 <body>
     <div id="app">
@@ -77,12 +89,27 @@
                         @endguest
                     </ul>
                 </div>
+                
             </div>
         </nav>--}}
 
         <main class="py-4">
             @yield('content')
         </main>
+        
+        <div class="footer">
+        <!-- <div class="container"> -->
+            <div class="footer-inner">
+               <img src="{{ asset('assets/image/dikti_logo2.png')}}" width='6%' height='6%'>
+               <img src="{{ asset('assets/image/logo.png')}}" width='14%' height='14%'>
+               <img src="{{ asset('assets/image/disnaker.jpeg')}}"  width='18%' height='18%'>
+               <img src="{{ asset('assets/image/ubaya.png')}}"  width='13%' height='13%'>
+               
+                
+            </div>
+      
+        </div>
     </div>
+    @yield('javascript')
 </body>
 </html>

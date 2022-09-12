@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blk;
 use App\PaketProgram;
+use App\PelatihanPeserta;
 use App\Role;
 use App\SesiPelatihan;
 use App\User;
@@ -74,10 +75,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $User)
+    public function show($email)
     {
         //
-        return view($data = $User);
+        $data = User::find($email);
+
+        $pelatihan = PelatihanPeserta::WHERE('status_fase','!=','NULL')
+        ->ORDERBY('tanggal_seleksi','asc')
+        ->first()
+        ->get();
+        // dd($pelatihan);
+        return view('user.profile', compact('data','pelatihan'));
     }
 
     /**
@@ -124,16 +132,18 @@ class UserController extends Controller
         ]);
         // dd($request);
         $User->jenis_identitas = $request->jenis_identitas;
-        $User->pas_foto = $request->pas_foto;
+        $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
         $User->nomor_identitas = $request->nomorIdentitas;
         $User->nomer_hp = $request->nomorHp;
         $User->kota = $request->kota;
         $User->alamat = $request->alamat;
-        $User->ktp = $request->fotoKtp;
-        $User->ksk = $request->ksk;
+        $User->ktp = $request->file('fotoKtp')->store('user/ktp');
+        $User->ksk = $request->file('ksk')->store('user/ksk');
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
+
+
         $User->save();
         return view('sesipelatihan.detailPelatihan',compact('data'));
     }

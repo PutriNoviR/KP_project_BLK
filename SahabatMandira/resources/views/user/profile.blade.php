@@ -9,102 +9,207 @@ Profile
 
 @section('contents')
 
-
-@if(Auth::user()->role->nama_role == 'peserta')
-
-
-<div class="container">
-    <div class="col-sm-6">
-        <h4 class="m-0 text-dark">Data Pribadi</h4><br>
-        <p>Nama</p>
-        <p>Pelatihan</p>
-        <p>Status Pelatihan</p>
-    </div>
-</div>
-
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card-kelengkapan">
-            <div class="portlet-body form">
-
-                <form role='form' method="POST" enctype="multipart/form-data" action="">
-                    @csrf
-                    <div class="form-body">
-
-                        <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="nama" autofocus>
-
-                                @error('nama')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nik" class="col-md-12 col-form-label">{{ __('NIK') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" required autocomplete="nik" autofocus>
-
-                                @error('nik')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
-                            <div class="col-md-12">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="nomorHp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" name="nomorHp" required autocomplete="nomorHp" autofocus>
-
-                                @error('nomorHp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="domisili" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
-
-                            <div class="col-md-12">
-                                <input id="domisili" type="text" class="form-control @error('domisili') is-invalid @enderror" name="domisili" required autocomplete="domisili" autofocus>
-
-                                @error('domisili')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+<div class="content mt-2">
+    <!-- START JUMBOTRON -->
+    <div class="jumbotron" data-pages="parallax">
+        <div class="container-fluid p-l-25 p-r-25 sm-p-l-0 sm-p-r-0">
+            <div class="row row m-b-40">
+                <div class="col-xl-3 col-lg-4 ">
+                    <!-- START card -->
+                    <div class="">
+                        <div class="card-body text-center">
+                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$data->pas_foto.'') }}" alt="">
                         </div>
                     </div>
-                </form>
+                    <!-- END card -->
+                </div>
+                <div class="col-xl-9 col-lg-8 ">
+                    <!-- START card -->
+                    <div class="card card-transparent">
+                        <div class="card-body">
+                            <p class="overline">Data Pribadi</p>
+                            <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
+                            
+                            <p><br></p>
+                            
+                            <br>
+                            <div>
+                                <div class="m-t-20">
+                                    <p class=""></p>
+                                    <p class=""><i class="fa fa-copy ml-1" id="copy-pinkrs" style="cursor: pointer;" title="Salin"></i></p>
+                                    <input type="hidden" value="" id="pinkrs">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END card -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END JUMBOTRON -->
+
+    <!-- SHOW ERROR MESSAGE -->
+    <!-- END SHOW ERROR MESSAGE -->
+
+    <div class="container-fluid container-fixed-lg ">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card card-transparent">
+                    <!-- START card -->
+                    <div class="card card-default">
+                        <div class="card-header ">
+                            <div class="card-title">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4>Data Pribadi</h4>
+                            <p class="m-t-10 m-b-20 text-justify"></p>
+                            <form role='form' method="POST" enctype="multipart/form-data" action="">
+                                @csrf
+                                <div class="form-body">
+
+                                    <div class="form-group">
+                                        <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                                        <div class="col-md-12">
+                                            <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" value="{{ $data->email }}" name="email" readonly autocomplete="email" autofocus>
+
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Depan') }}</label>
+
+                                        <div class="col-md-12">
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama" required autocomplete="nama" autofocus>
+
+                                            @error('nama')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Belakang') }}</label>
+
+                                        <div class="col-md-12">
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama" required autocomplete="nama" autofocus>
+
+                                            @error('nama')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nik" class="col-md-12 col-form-label">{{ __('NIK') }}</label>
+
+                                        <div class="col-md-12">
+                                            <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" value="{{ $data->nomor_identitas }}" name="nik" required autocomplete="nik" autofocus>
+
+                                            @error('nik')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nomorHp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
+
+                                        <div class="col-md-12">
+                                            <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" value="{{ $data->nomer_hp }}" name="nomorHp" required autocomplete="nomorHp" autofocus>
+
+                                            @error('nomorHp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="domisili" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
+
+                                        <div class="col-md-12">
+                                            <input id="domisili" type="text" class="form-control @error('domisili') is-invalid @enderror" value="{{ $data->alamat }}" name="domisili" required autocomplete="domisili" autofocus>
+
+                                            @error('domisili')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
+                                        <div class="col-md-12">
+                                            <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
+                                                <option value="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan">Perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
+                                        <div class="col-md-12">
+                                            <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
+                                                <option value="SD Sederajat">SD Sederajat</option>
+                                                <option value="SMP Sederajat">SMP Sederajat</option>
+                                                <option value="SMA Sederajat">SMA Sederajat</option>
+                                                <option value="S1">S1</option>
+                                                <option value="Pasca Sarjana">Pasca Sarjana</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Pas Foto') }}</label>
+
+                                        <input type="file" name='pas_foto' class="defaults" value="" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="fotoKtp" class="col-md-12 col-form-label">{{ __('Dokumen KTP') }}</label>
+
+                                        <input type="file" name='fotoKtp' class="defaults" value="" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ksk" class="col-md-12 col-form-label">{{ __('Dokumen KSK') }}</label>
+
+                                        <input type="file" name='ksk' class="defaults" value="" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ijazah" class="col-md-12 col-form-label">{{ __('Dokumen Ijazah') }}</label>
+
+                                        <input type="file" name='ijazah' class="defaults" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END card -->
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

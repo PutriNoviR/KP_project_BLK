@@ -102,12 +102,12 @@ class SesiPelatihanController extends Controller
         $sesi->deskripsi = $request->deskripsi;
 
         //insert foto (maaf gk bisa elequent [yobong])
-        $foto = $request->file('fotoPelatihan');
-        $name = $foto->getClientOriginalName();
-        $foto->move('images/programPelatihan', $name);
+        $foto = $request->file('fotoPelatihan')->store('programPelatihan');
+        // $name = $foto->getClientOriginalName();
+        // $foto->move('images/programPelatihan', $name);
 
 
-        $sesi->gambar_pelatihan = $name;
+        $sesi->gambar_pelatihan = $foto;
         $sesi->save();
         return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
     }

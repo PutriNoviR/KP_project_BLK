@@ -68,6 +68,16 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
 
     //Soal Aktif
     Route::post('aktif','PertanyaanController@updateEnable')->name('update.enable');
+
+    //tambah klaster
+    Route::resource('menu/klaster','KlasterController');
+    Route::post('menu/klaster/edit', 'KlasterController@getEditForm')->name('klaster.edit');
+
+     //tambah kategori
+     Route::resource('menu/kategori','KategoriController');
+     Route::post('menu/kategori/edit', 'KategoriController@getEditForm')->name('kategori.edit');
+    
+
 });
 
 Route::middleware(['can:peserta-permission', 'auth'])->group(function(){

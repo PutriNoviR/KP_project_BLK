@@ -1,5 +1,24 @@
 @extends('layouts.app')
 
+@section('javascript')
+<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
+<script>
+   setInterval(function () {
+        grecaptcha.ready(function() {
+            
+            grecaptcha.execute('{{config("services.recaptcha.site")}}', {action: 'submit'}).then(function(token) {
+                // Add your logic to submit to your backend server here.
+                if(token){
+                    $("#recaptcha_token").val(token);
+                }
+               
+            });
+        });
+    }, 3000);
+
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     {{-- @if(count($errors) > 0)
@@ -148,11 +167,13 @@
                         </div>
                     </div>
 
+                    <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
+
                     {{-- <div class="form-group col-md-6">
-                            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
-            </div>
-            <br />
-        </div> --}}
+                        <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
+                        </div>
+                        <br />
+                    </div> --}}
 
         <div class="form-group mb-0 text-center">
             <div class="col-md-12 offset-manual">

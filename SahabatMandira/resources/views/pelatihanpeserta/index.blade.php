@@ -102,6 +102,9 @@ Pelatihan Peserta
                 <th>Rekomendasi</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
+                @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
+                <th>Daftar Ulang</th>
+                @endif
             </tr>
         </thead>
         <tbody id="myTable">
@@ -137,6 +140,13 @@ Pelatihan Peserta
                         Update Kompetensi
                     </button>
                 </td>
+                @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
+                <td>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
+                        Daftar Ulang
+                    </button>
+                </td>
+                @endif
             </tr>
             @endforeach
         </tbody>
