@@ -35,7 +35,7 @@ class LoginController extends Controller
         
         switch($role){
             case 'adminperusahaan':
-                return route('perusahaan.profile');
+                return route('perusahaan.create');
                 break;
             default:
                 return '/dashboard';
