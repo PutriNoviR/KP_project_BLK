@@ -8,6 +8,14 @@
         </div>
     @endif
 
+    @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger">
+            <li>{{$error}}</li>
+        </div>
+        @endforeach
+    @endif
+
     <div class="row justify-content-center">
      
         <div class="col-md-8">
@@ -54,6 +62,8 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
 
                             <div class="form-group">
                                 <div class="col-md-12">
