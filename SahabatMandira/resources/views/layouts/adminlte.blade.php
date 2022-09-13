@@ -38,13 +38,16 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50BBRYS4HY"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'G-50BBRYS4HY');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-50BBRYS4HY');
     </script>
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -171,15 +174,14 @@
                                     {{Auth::user()->username}}
                                 </button>
                                 <div class="dropdown-menu">
-                                    
+
                                     <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
                                             Akun
                                         </p>
                                     </a>
                                     @can('peserta-permission')
-                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
-                                        type="button">Kegiatan Ku</a>
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">Kegiatan Ku</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
@@ -243,7 +245,7 @@
                                 @endcan
                                 @can('adminblk-permission')
                                 <li class="nav-item">
-                                    <a href="{{ route('User.peserta') }}" class="nav-link ">
+                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
                                             Daftar Peserta
@@ -296,12 +298,6 @@
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Laporan Program Pelatihan</p>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
                                 @endcan
@@ -352,7 +348,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('kejuruans.index') }}" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="#" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
@@ -366,90 +362,6 @@
                                     </ul>
                                 </li>
 
-                                {{-- End Super Admin --}}
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon far fa-plus-square"></i>
-                                        <p>
-                                            Extras
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/login.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Login</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/register.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Register</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/forgot-password.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Forgot Password</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/recover-password.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Recover Password</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/lockscreen.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Lockscreen</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/legacy-user-menu.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Legacy User Menu</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/language-menu.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Language Menu</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/404.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Error 404</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/500.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Error 500</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/pace.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Pace</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/blank.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Blank Page</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="starter.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Starter Page</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 @endcan
                             </ul>
                         </nav>

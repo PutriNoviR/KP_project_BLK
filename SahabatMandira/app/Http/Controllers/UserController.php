@@ -80,12 +80,13 @@ class UserController extends Controller
         //
         $data = User::find($email);
 
-        $pelatihan = PelatihanPeserta::WHERE('status_fase','!=','NULL')
-        ->ORDERBY('tanggal_seleksi','asc')
-        ->first()
-        ->get();
-        // dd($pelatihan);
-        return view('user.profile', compact('data','pelatihan'));
+        // $pelatihan = PelatihanPeserta::WHERE('status_fase','!=','NULL')
+        // ->ORDERBY('tanggal_seleksi','asc')
+        // ->first()
+        // ->get();
+        // $a = 'halo';
+        // dd($a);
+        return view('user.profile', compact('data',));
     }
 
     /**
@@ -236,7 +237,7 @@ class UserController extends Controller
         $user->pendidikan_terakhir=$request->pendidikan_terakhir;
     }
 
-    public function daftarPeserta()
+    public function daftar()
     {
         $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
         ->where('r.nama_role','=','peserta')->get();

@@ -113,7 +113,7 @@ Route::post('/tugas/getDetail','TugasController@getDetail')->name('tugas.getDeta
 Route::resource('User','UserController');
 Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 Route::post('User/{id}','UserController@update')->name('User.update');
-Route::get('User/peserta','UserController@daftarPeserta')->name('User.peserta');
+Route::get('daftar','UserController@daftar')->name('User.daftar');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');

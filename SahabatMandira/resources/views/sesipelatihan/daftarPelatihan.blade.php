@@ -4,6 +4,18 @@
 PELATIHAN
 @endsection
 
+@section('javascript')
+<script>
+    $(function() {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+@endsection
+
+
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">

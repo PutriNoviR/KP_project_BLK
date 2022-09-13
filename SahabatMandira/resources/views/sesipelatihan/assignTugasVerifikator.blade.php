@@ -36,7 +36,7 @@ Assign Tugas
 
 @section('contents')
 
-@if(Auth::user()->role->nama_role == 'adminblk')
+@if(Auth::user()->role->nama_role == 'adminblk' || Auth::user()->role->nama_role == 'superadmin')
 {{-- MODAL UNTUK RIWAYAT PENUGASAN ADMIN --}}
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
