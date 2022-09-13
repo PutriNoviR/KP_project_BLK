@@ -20,10 +20,11 @@
 
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-2" id="mainNav">
         <div class="container">
             <a class="navbar-brand p-0" href="#page-top">
-                <p class="text-info text-uppercase m-0">Sahabat Mandira</p>
+                <p class="m-0"><img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}"
+                        style="height: 50px;" alt=""></p>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,22 +124,22 @@
                         </div>
                     </div>
                 </li>
-                <li class="timeline-inverted" >
+                <li class="timeline-inverted">
                     <div class="timeline-image">
                         <a class="text-decoration-none text-dark" href="{{ route('register') }}">
-                        <h4>
-                            Mari
-                            <br />
-                            Bergabung!
-                            <br />
-                        </h4>
+                            <h4>
+                                Mari
+                                <br />
+                                Bergabung!
+                                <br />
+                            </h4>
                         </a>
                     </div>
                 </li>
             </ul>
         </div>
     </section>
-    
+
     <!-- Statistik -->
     <section class="page-section bg-light" id="statistik">
         <div class="container">
