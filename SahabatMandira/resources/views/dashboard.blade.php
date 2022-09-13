@@ -20,7 +20,7 @@ Dashboard
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes minat bakat, Ikuti tes untuk mengetahui minat bakat untuk mengetahui pelatihan yang cocok ! &nbsp;&nbsp;&nbsp;
-    <a href="" class="button btn btn-primary">IKUTI TES SEKARANG !</a></center>
+    <a href="https://ubayavii.id" class="button btn btn-primary">IKUTI TES SEKARANG !</a></center>
 </div>
 @endif
 
@@ -44,7 +44,7 @@ Dashboard
             <div class="card-header">
                 <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
             </div>
-            <div class="card-body" style='width:50%; height:50%; padding: 10px'>
+            <div class="card-body">
                 <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
                 <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
             </div>
