@@ -136,8 +136,11 @@ class SesiPelatihanController extends Controller
         $mentor = PelatihanMentor::where('sesi_pelatihans_id', '=', $id)
             ->get();
         // $datas = $data->paketprogram;
-        // dd($data);
-        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor'));
+        $userLogin = auth()->user()->email;
+        $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
+        ->where('email_peserta', '=', $userLogin)->get();
+        // dd($cekDaftar);
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor','cekDaftar'));
     }
 
     /**

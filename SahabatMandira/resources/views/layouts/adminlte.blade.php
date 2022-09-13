@@ -38,13 +38,16 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-50BBRYS4HY"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'G-50BBRYS4HY');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-50BBRYS4HY');
     </script>
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -70,99 +73,7 @@
 
                     <!-- Right navbar links -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Messages Dropdown Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" data-toggle="dropdown" href="#">
-                                <i class="far fa-comments"></i>
-                                <span class="badge badge-danger navbar-badge">3</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                <a href="#" class="dropdown-item">
-                                    <!-- Message Start -->
-                                    <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                        <div class="media-body">
-                                            <h3 class="dropdown-item-title">
-                                                Brad Diesel
-                                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                            </h3>
-                                            <p class="text-sm">Call me whenever you can...</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- Message End -->
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <!-- Message Start -->
-                                    <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                        <div class="media-body">
-                                            <h3 class="dropdown-item-title">
-                                                John Pierce
-                                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                            </h3>
-                                            <p class="text-sm">I got your message bro</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- Message End -->
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <!-- Message Start -->
-                                    <div class="media">
-                                        <img src="{{ asset('adminlte/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                        <div class="media-body">
-                                            <h3 class="dropdown-item-title">
-                                                Nora Silvester
-                                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                            </h3>
-                                            <p class="text-sm">The subject goes here</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- Message End -->
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                            </div>
-                        </li>
-                        <!-- Notifications Dropdown Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" data-toggle="dropdown" href="#">
-                                <i class="far fa-bell"></i>
-                                <span class="badge badge-warning navbar-badge">15</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                    <span class="float-right text-muted text-sm">3 mins</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                                    <span class="float-right text-muted text-sm">12 hours</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-file mr-2"></i> 3 new reports
-                                    <span class="float-right text-muted text-sm">2 days</span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                                <i class="fas fa-th-large"></i>
-                            </a>
-                        </li>
+                        
 
                         <li class="nav-item">
 
@@ -171,15 +82,14 @@
                                     {{Auth::user()->username}}
                                 </button>
                                 <div class="dropdown-menu">
-                                    
+
                                     <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
                                             Akun
                                         </p>
                                     </a>
                                     @can('peserta-permission')
-                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
-                                        type="button">Kegiatan Ku</a>
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">Kegiatan Ku</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
@@ -243,7 +153,7 @@
                                 @endcan
                                 @can('adminblk-permission')
                                 <li class="nav-item">
-                                    <a href="{{ route('User.peserta') }}" class="nav-link ">
+                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
                                             Daftar Peserta
@@ -296,12 +206,6 @@
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Laporan Program Pelatihan</p>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
                                 @endcan
@@ -352,7 +256,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('kejuruans.index') }}" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="#" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
@@ -366,90 +270,6 @@
                                     </ul>
                                 </li>
 
-                                {{-- End Super Admin --}}
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon far fa-plus-square"></i>
-                                        <p>
-                                            Extras
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/login.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Login</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/register.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Register</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/forgot-password.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Forgot Password</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/recover-password.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Recover Password</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/lockscreen.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Lockscreen</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/legacy-user-menu.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Legacy User Menu</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/language-menu.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Language Menu</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/404.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Error 404</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/500.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Error 500</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/pace.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Pace</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ asset('adminlte/pages/examples/blank.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Blank Page</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="starter.html')}}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Starter Page</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 @endcan
                             </ul>
                         </nav>

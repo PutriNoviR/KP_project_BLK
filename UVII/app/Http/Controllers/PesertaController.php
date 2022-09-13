@@ -207,7 +207,7 @@ class PesertaController extends Controller
 
     public function kelengkapanDataPribadi(Request $request){
         $this->validate($request, [
-            'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
+            //'nomor_identitas' => ['required', 'numeric', 'digits:16', 'unique:users'],
         ]);
 
         // $data = $request->session()->get('kelengkapanData');
@@ -215,14 +215,16 @@ class PesertaController extends Controller
         // if(empty($data)){
            
             $data=[
-                "nomor_identitas" => $request->nomor_identitas,
-                "jenis_identitas" => $request->jenis_identitas,
+                // "nomor_identitas" => $request->nomor_identitas ?? null,
+                // "jenis_identitas" => $request->jenis_identitas ?? null,
                 "jenis_kelamin" => $request->jenis_kelamin,
                 "hobi" => $request->hobi,
                 "tanggal_lahir" => $request->tanggal_lahir,
                 "pendidikan_terakhir" => $request->pendidikan_terakhir,
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,
+                "tempat_lahir"=>$request->tempat_lahir,
+                "konsentrasi_pendidikan" => $request->konsentrasi,
             ];
 
             $myemail = Auth::user()->email;

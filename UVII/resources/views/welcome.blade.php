@@ -110,7 +110,7 @@
                             
                         </div>
 
-                        <div class="form-group">
+                        {{--<div class="form-group">
                             <label for="jenis_identitas">Jenis Identitas</label>
 
                             <select id="txt_jenis_identitas" class="form-control" name="jenis_identitas" required>
@@ -120,9 +120,9 @@
                                 
                             </select>
                             
-                        </div>
+                        </div>--}}
 
-                        <div class="form-group">
+                      {{--  <div class="form-group">
                             <label for="nomor_identitas">Nomor Identitas</label>
 
                             <input id="txt_nomor_identitas" type="text" class="form-control @error('nomor_identitas') is-invalid @enderror" name="nomor_identitas" value="{{ old('nomor_identitas') }}" required autocomplete="nomor_identitas" autofocus>
@@ -133,6 +133,15 @@
                                 </span>
                             @enderror
                         
+                        </div>--}}
+                        <div class="form-group">
+                            <label for="tanggal_lahir">Tempat Lahir</label>
+                            <input id="txt_tempat_lahir" type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required autocomplete="tempat_lahir" autofocus>
+                            @error('tempat_lahir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -191,13 +200,17 @@
                                         SMA Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" {{ old('pendidikan_terakhir') == 'D3/D4'? 'checked':'' }} required autofocus> 
-                                        D3/D4 (Diploma)
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMK Sederajat" {{ old('pendidikan_terakhir') == 'SMK Sederajat'? 'checked':'' }} required autofocus>
+                                        SMK Sederajat
+                                    </label>
+                                    <label>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus> 
+                                        D1/D2/D3/D4 (Diploma)
                                     </label>
                             
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" {{ old('pendidikan_terakhir') == 'S1'? 'checked':'' }} required autofocus> 
-                                        S1
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus> 
+                                        Sarjana(Strata-1)
                                     </label>
                                     <label>
                                         <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus> 
@@ -213,6 +226,19 @@
                                 </span>
                             @enderror
                             
+                        </div>
+
+                        <div class="form-group">
+                            <label for="konsentrasi">Konsentrasi/Keahlian Terakhir yang dipelajari:</label>
+
+                            <textarea id="txt_konsentrasi" rows='2' class="form-control @error('konsentrasi') is-invalid @enderror" name="konsentrasi" required autocomplete="konsentrasi" placeholder="Isilah Penjurusan/Keahlian pada Pendidikan terakhir yang diambil. Misalnya: SMK - Teknologi dan Jaringan, SMK-Multimedia, SMA-IPA/IPS/Bahasa, S1-Psikologi, S1-Teknik Informatika, dan lain-lain." autofocus>{{ old('konsentrasi') }}</textarea>
+
+                            @error('konsentrasi')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        
                         </div>
 
                         <div class="form-group">
@@ -242,7 +268,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="kota">Kota</label>
+                            <label for="kota">Kota Domisili</label>
 
                             <input id="txt_kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" value="{{ old('kota') }}" required autocomplete="kota" autofocus>
 
@@ -343,7 +369,7 @@
                         <div class="card-body">
                         
                             <p>
-                                Anda telah melakukan tes minat bakat pada
+                                Anda telah melakukan tes minat kejuruan pada
                                 <b> {{$riwayatTes1->tanggal_mulai}} </b>(UTC +7) 
                                 
                                 <br>
@@ -377,25 +403,29 @@
 
                     <div class="card-body">
                         <div class="body-title" >
-                            <p>Hal Penting tentang Tes Minat Bakat:</p>
+                            <p>Hal Penting tentang Tes Minat Kejuruan:</p>
                         </div>
                         <div class="body-content">
                             <ul class="tulisan_rata">
                                 <li>    
-                                    Tes minat bakat akan menentukan kejuruan dari pelatihan yang nantinya kalian ambil.
+                                    Tes minat kejuruan ini akan memberikan masukan mengenai kejuruan dari pelatihan yang nantinya dapat Anda ambil di Balai Latihan Kerja (BLK).
                                 </li>
                                 <li>
-                                    Ketika mengikuti tes ini, kalian harus menyelesaikan beberapa soal dalam bentuk 
-                                        pilihan ganda dan harus diselesaikan dalam waktu yang telah disediakan.  
-                                        Selama pengerjaan kalian dapat kembali ke soal sebelumnya.
+                                    Anda akan dihadapkan pada pernyatan-penyataan yang berisi berbagai aktivitas kerja dan Anda diminta untuk memilih salah satu aktivitas kerja yang paling Anda sukai terlepas dari jumlah penghasilan yang akan Anda peroleh dari aktivitas tersebut juga terlepas dari apakah Anda sudah memiliki keahlian untuk melakukan aktivitas tersebut. Pilihlah aktivitas yang memang benar-benar Anda sukai. 
                                 </li>
                                 <li>
-                                    Silahkan menekan tombol <b>Mulai Tes</b> jika merasa sudah siap.
+                                    Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah. 
                                 </li>
+                                <li>
+                                    Anda diminta untuk mengerjakan soal-soal tes dalam waktu yang kami sediakan sesuai dengan instruksi.  Selama pengerjaan Anda dapat kembali ke soal sebelumnya.
+                                </li>
+                               
                             </ul>
                         </div>
 
                         <div class="body-btn">
+                            <p>Silahkan menekan tombol <b>Mulai Tes</b> jika merasa sudah siap. Selamat mengerjakan tes.</p>
+                                
                             @if($tes == null)
                                 <button type="button" class="btn btn-primary" onclick="show()">
                                     Mulai Tes
