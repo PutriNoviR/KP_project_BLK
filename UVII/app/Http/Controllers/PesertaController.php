@@ -215,8 +215,8 @@ class PesertaController extends Controller
         // if(empty($data)){
            
             $data=[
-                "nomor_identitas" => $request->nomor_identitas ?? null,
-                "jenis_identitas" => $request->jenis_identitas ?? null,
+                // "nomor_identitas" => $request->nomor_identitas ?? null,
+                // "jenis_identitas" => $request->jenis_identitas ?? null,
                 "jenis_kelamin" => $request->jenis_kelamin,
                 "hobi" => $request->hobi,
                 "tanggal_lahir" => $request->tanggal_lahir,
@@ -224,7 +224,7 @@ class PesertaController extends Controller
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,
                 "tempat_lahir"=>$request->tempat_lahir,
-                "konsentrasi_terakhir" => $request->konsentrasi,
+                "konsentrasi_pendidikan" => $request->konsentrasi,
             ];
 
             $myemail = Auth::user()->email;

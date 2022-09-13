@@ -204,12 +204,12 @@
                                         SMK Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D3/D4" {{ old('pendidikan_terakhir') == 'D3/D4'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus> 
                                         D1/D2/D3/D4 (Diploma)
                                     </label>
                             
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="S1" {{ old('pendidikan_terakhir') == 'S1'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus> 
                                         Sarjana(Strata-1)
                                     </label>
                                     <label>
