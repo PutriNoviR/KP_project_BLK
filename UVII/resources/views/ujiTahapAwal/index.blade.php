@@ -42,25 +42,31 @@
 
                 <div class="card-body">
                     <div class="body-title" >
-                        <p>Hal Penting tentang Tes Minat Bakat:</p>
+                        <p>Hal Penting tentang Tes Minat Kejuruan:</p>
                     </div>
                     <div class="body-content">
                         <ul class="tulisan_rata">
                             <li>    
-                                Tes minat bakat akan menentukan kejuruan dari pelatihan yang nantinya kalian ambil.
+                            Tes minat kejuruan ini akan memberikan masukan mengenai kejuruan dari pelatihan yang nantinya dapat Anda ambil di Balai Latihan Kerja (BLK).
                             </li>
                             <li>
-                                Ketika mengikuti tes ini, kalian harus menyelesaikan beberapa soal dalam bentuk 
-                                    pilihan ganda dan harus diselesaikan dalam waktu yang telah disediakan.  
-                                    Selama pengerjaan kalian dapat kembali ke soal sebelumnya.
+                            Anda akan dihadapkan pada pernyatan-penyataan yang berisi berbagai aktivitas kerja dan Anda diminta untuk memilih salah satu aktivitas kerja yang paling Anda sukai terlepas dari jumlah penghasilan yang akan Anda peroleh dari aktivitas tersebut juga terlepas dari apakah Anda sudah memiliki keahlian untuk melakukan aktivitas tersebut. Pilihlah aktivitas yang memang benar-benar Anda sukai.
                             </li>
                             <li>
-                                Silahkan menekan tombol <b>Mulai Tes</b> jika merasa sudah siap.
+                            Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah. 
                             </li>
+                            <li>
+                            Anda diminta untuk mengerjakan soal-soal tes dalam waktu yang kami sediakan sesuai dengan instruksi.  Selama pengerjaan Anda dapat kembali ke soal sebelumnya.
+                            </li>
+                           
                         </ul>
                     </div>
 
                     <div class="body-btn">
+                        <p>
+                            Silahkan menekan tombol <b>Mulai Tes</b> jika merasa sudah siap. Selamat mengerjakan tes.
+                        </p>
+
                         @if($tes == null)
                             <button type="button" class="btn btn-primary" onclick="show()">
                                 Mulai Tes
