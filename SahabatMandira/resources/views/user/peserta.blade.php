@@ -1,7 +1,7 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Daftar User
+Daftar Peserta
 @endsection
 
 @section('page-bar')
@@ -67,7 +67,7 @@ Daftar User
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar User</h2>
+        <h2>Daftar Peserta</h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
             Tambah User Baru
         </button>
@@ -97,12 +97,21 @@ Daftar User
                 <td>{{ $d->email}}</td>
                 <td>{{ $d->username}}</td>
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
-                <td><button data-toggle="modal" onclick="return submitFormSuspend(this);"
+                <td>
+                    @if( $d->is_suspend == '1')
+                    <button data-toggle="modal" onclick="return submitFormSuspend(this);"
+                        data-target="#modalEditPelatihanPeserta" class='btn btn-success'
+                        onclick="modalEdit('{{$d->email_peserta}}')">
+                        UNSUSPEND
+                    </button>
+                    @else
+                    <button data-toggle="modal" onclick="return submitFormSuspend(this);"
                         data-target="#modalEditPelatihanPeserta" class='btn btn-danger'
-                        onclick="modalEdit('{{$d->email_peserta}}')"
-                        {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+                        onclick="modalEdit('{{$d->email_peserta}}')">
                         SUSPEND
-                    </button></td>
+                    </button>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </tbody>

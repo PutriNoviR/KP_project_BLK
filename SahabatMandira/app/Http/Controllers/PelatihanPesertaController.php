@@ -241,6 +241,7 @@ class PelatihanPesertaController extends Controller
 
     public function storePendaftar(Request $request, $id)
     {
+        
         $emailValidator = DB::connection('mandira')
             ->table('pelatihan_mentors')
             ->where('sesi_pelatihans_id', $id)
@@ -266,7 +267,7 @@ class PelatihanPesertaController extends Controller
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
             ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
             ->where('sesi_pelatihans_id', $id)
-            ->get();
+            ->first();
 
         //
         // dd($data);

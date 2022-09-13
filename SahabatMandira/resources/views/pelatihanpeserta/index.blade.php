@@ -136,7 +136,7 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
