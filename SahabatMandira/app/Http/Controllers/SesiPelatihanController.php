@@ -138,9 +138,9 @@ class SesiPelatihanController extends Controller
         // $datas = $data->paketprogram;
         $userLogin = auth()->user()->email;
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
-        ->where('email_peserta', '=', $userLogin)->get();
+            ->where('email_peserta', '=', $userLogin)->get();
         // dd($cekDaftar);
-        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor','cekDaftar'));
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar'));
     }
 
     /**
@@ -226,8 +226,11 @@ class SesiPelatihanController extends Controller
             $sesi = '0';
         } elseif ($id == '2') {
             $data = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
-                ->WHERE('p.email_peserta', '=', $userLogin)
-                ->WHERE('p.is_sesuai_minat', '=', '1')
+                ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id', '=', 'pp.id')
+                ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id', '=', 'sk.id')
+                ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
+                ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
+                ->WHERE('mu.users_email', '=', $userLogin)
                 ->get();
             //
             $sesi = '0';
@@ -248,9 +251,9 @@ class SesiPelatihanController extends Controller
             ->get();
         //
         $mentor = User::join('roles as R', 'users.roles_id', '=', 'R.id')
-        ->WHERE('R.nama_role', '=', 'verifikator')
-        ->get();
-        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur','mentor','userLogin'));
+            ->WHERE('R.nama_role', '=', 'verifikator')
+            ->get();
+        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin'));
     }
 
     public function daftarUlang(Request $request)

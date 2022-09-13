@@ -43,8 +43,11 @@ class HomeController extends Controller
         // ->get();
 
         $disarankan = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
-        ->WHERE('p.email_peserta', '=', $userLogin)
-        ->WHERE('p.is_sesuai_minat', '=', '1' )
+        ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id','=','pp.id')
+        ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id','=','sk.id')
+        ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id','=','sk.kode_kategori')
+        ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id','=','kp.id')
+        ->WHERE('mu.users_email', '=', $userLogin)
         ->skip(0)
         ->take(4)
         ->get();

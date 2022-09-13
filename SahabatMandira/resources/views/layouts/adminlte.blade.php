@@ -73,22 +73,18 @@
 
                     <!-- Right navbar links -->
                     <ul class="navbar-nav ml-auto">
-                        
-
                         <li class="nav-item">
-
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                     {{Auth::user()->username}}
                                 </button>
                                 <div class="dropdown-menu">
-
+                                    @can('peserta-permission')
                                     <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
                                             Akun
                                         </p>
                                     </a>
-                                    @can('peserta-permission')
                                     <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">Kegiatan Ku</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
@@ -111,7 +107,7 @@
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <!-- Brand Logo -->
-                    <a href="#" class="brand-link">
+                    <a href="{{ route('dashboard') }}" class="brand-link">
                         <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                         <span class="brand-text font-weight-light">Rumah Mandira</span>
                     </a>
