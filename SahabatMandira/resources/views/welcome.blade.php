@@ -60,8 +60,8 @@
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link text" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link btn-danger rounded-3 px-3"
-                            href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn-danger rounded-3 px-3" href="{{ route('login') }}"
+                            id="btnlogin">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -232,37 +232,57 @@
             </div>
             <div class="row justify-content-around">
                 <div class="col-6 row justify-content-around">
-                    <div class="col-6 info-section mb-3 p-3 rounded">
+                    <div
+                        class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Pencari Kerja</p>
-                        <p></p>
+                        <span>30%</span>
                     </div>
-                    <div class="col-6 info-section mb-3 p-3 rounded">
+                    <div
+                        class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Mentor</p>
+                        <span>30%</span>
                     </div>
-                    <div class="col-6 info-section mb-3 p-3 rounded">
+                    <div
+                        class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Mitra</p>
+                        <span>30%</span>
                     </div>
-                    <div class="col-6 info-section mb-3 p-3 rounded">
+                    <div
+                        class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Pelatihan</p>
+                        <span>30%</span>
                     </div>
                 </div>
-                <div class="col-6 info-section rounded mb-3 p-3">
-                    <p>Peserta pelatihan yang diterima</p>
+                <div
+                    class="col-6 info-section rounded mb-5 p-5   title-informasi-pelatihan d-flex flex-column align-items-center">
+                    <p class="text-start">Peserta pelatihan yang diterima</p>
+                    <span>30%</span>
                 </div>
             </div>
         </div>
     </section>
     <!-- Clients-->
     <div class="py-5 bg-info">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 col-sm-6 my-3">
-                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid d-block mx-auto"
-                            src="{{ asset('landingpage/assets/img/logos/ubaya.png')}}" aria-label="Ubaya Logo" /></a>
+        <div class="mx-3">
+            <div class="d-flex justify-content-around">
+                <div class="my-3 d-flex align-items-center">
+                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                            src="{{ asset('landingpage/assets/img/logos/LogoKemendikbud.png')}}"
+                            aria-label="Kemendikbud Logo" /></a>
                 </div>
-                <div class="col-md-6 col-sm-6 my-3">
-                    <a href="#!"><img class="img-fluid d-block mx-auto"
-                            src="{{ asset('landingpage/assets/img/logos/disnaker.png')}}"
+                <div class="my-3 d-flex align-items-center">
+                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                            src="{{ asset('landingpage/assets/img/logos/LogoKedaireka.png')}}"
+                            aria-label="Kemendikbud Logo" /></a>
+                </div>
+                <div class="my-3 d-flex align-items-center">
+                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                            src="{{ asset('landingpage/assets/img/logos/LogoUbaya.png')}}"
+                            aria-label="Ubaya Logo" /></a>
+                </div>
+                <div class="my-3 d-flex align-items-center">
+                    <a href="#!"><img class="img-fluid  d-block mx-auto"
+                            src="{{ asset('landingpage/assets/img/logos/LogoDisnaker.png')}}"
                             aria-label="Disnaker Logo" /></a>
                 </div>
             </div>
@@ -270,21 +290,25 @@
     </div>
     </div>
     <!-- Footer-->
-    <footer class="footer py-4">
+    <footer class="footer py-4 bg-color-black">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Sahabat Mandira 2022</div>
+                <div class="col-lg-4 text-lg-start"><img
+                        src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" style="height: 50px;"
+                        alt=""></div>
                 <div class="col-lg-4 my-3 my-lg-0">
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i
                             class="fab fa-twitter"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i
-                            class="fab fa-facebook-f"></i></a>
+                            class="fab fa-facebook-square"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i
-                            class="fab fa-linkedin-in"></i></a>
+                            class="fab fa-linkedin"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i
+                            class="fab fa-instagram"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    <a class="link-dark text-decoration-none me-3 text-white" href="#!">Privacy Policy</a>
+                    <a class="link-dark text-decoration-none text-white" href="#!">Terms of Use</a>
                 </div>
             </div>
         </div>
