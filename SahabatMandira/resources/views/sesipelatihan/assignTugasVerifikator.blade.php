@@ -24,7 +24,8 @@ Assign Tugas
             success: function(data) {
                 Swal.fire({
                     title: "Bukti",
-                    imageUrl: 'https://sahabatmandira.id/storage/'+ data.data +'',
+                    // imageUrl: 'https://sahabatmandira.id/storage/'+ data.data +'',
+                    imageUrl: "{{ asset('storage/') }}/"+data.data,
                     imageHeight: 800,
                     imageWidth: 1300,
                     width: 1300,
