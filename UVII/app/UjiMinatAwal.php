@@ -305,6 +305,10 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
             $arr_data_akhir[$s->id] = $arr_data;
         } 
 
+        if(empty($arr_data_akhir)){
+            return null;
+        }
+
         return $arr_data_akhir;
     }    
 }

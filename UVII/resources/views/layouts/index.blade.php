@@ -98,7 +98,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="{{route('profile')}}" style='{{ Auth::user()->nomor_identitas == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
+						<a href="{{route('profile')}}" style='{{ Auth::user()->tanggal_lahir == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
 					</li>
 					<div class="divider"></div>
 					<li>
@@ -161,7 +161,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				@endphp
 				@foreach($menu as $m)
 				<li>
-					<a href="{{route($m->url)}}" style='{{ (Auth::user()->nomor_identitas == null && Auth::user()->role->nama_role != "adminuvii") ? "pointer-events: none;" : "" }}'>
+					<a href="{{route($m->url)}}" style='{{ (Auth::user()->tanggal_lahir == null && Auth::user()->role->nama_role != "adminuvii") ? "pointer-events: none;" : "" }}'>
 					
 					<i class='@php echo ($arr_icon[$m->nama] ?? $arr_icon["Role"]) @endphp'></i>
 					<span class="title">{{$m->nama}}</span>

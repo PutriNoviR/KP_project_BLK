@@ -37,7 +37,7 @@
         <div class="card-page">
             <div id="page">
                 <div class="card-header">
-                    <p>Tes Minat Bakat</p>
+                    <p>Tes Minat Kejuruan</p>
                 </div>
 
                 <div class="card-body">

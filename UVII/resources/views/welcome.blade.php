@@ -85,7 +85,7 @@
     @endif
     
     @if(Auth::user()->role->nama_role == 'peserta')
-        @if(Auth::user()->nomor_identitas == null)
+        @if(Auth::user()->tanggal_lahir == null)
 
         <div class="card-kelengkapan">
 
@@ -398,7 +398,7 @@
             <div class="card-page">
                 <div class="page">
                     <div class="card-header">
-                        <p>Tes Minat Bakat</p>
+                        <p>Tes Minat Kejuruan</p>
                     </div>
 
                     <div class="card-body">
