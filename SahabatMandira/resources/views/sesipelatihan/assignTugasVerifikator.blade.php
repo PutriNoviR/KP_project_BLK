@@ -6,6 +6,13 @@ Assign Tugas
 
 @section('javascript')
 <script>
+    $(function() {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+    
     function alertShow(id) {
         $.ajax({
             type: 'POST',
