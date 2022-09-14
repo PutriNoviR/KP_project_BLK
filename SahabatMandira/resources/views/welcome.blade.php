@@ -26,20 +26,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif !important;
         }
 
-        .sahabat {
-            width: 783px;
-            height: 91px;
-            left: 353px;
-            top: 397px;
-            font-style: normal;
-            font-weight: 800;
-            font-size: 96px;
-            line-height: 80px;
-            /* or 83% */
-
-            letter-spacing: -0.05em;
-        }
-
     </style>
 </head>
 
@@ -67,36 +53,44 @@
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead">
-        <div class="container">
+    <header class="masthead vh-100 pb-0">
+        <div class="container d-flex flex-column h-100 justify-content-around d-sm-block">
             {{-- <div class="masthead-subheading">Sahabat <span class="text-info">MANDIRA</span> </div> --}}
-            <div class="masthead-heading mb-0"><span class="sahabat" style="color: #313131">Sahabat</span><span
-                    class="sahabat" style="color: #F06128"> Mandira</span></div>
-            <div class="masthead-subheading"><span class="text-sm text-decoration-none"
-                    style="color: #514040;">Melanjutkan Masa Depan
-                    yang
-                    Mandiri dan
-                    Sejahtera</span></div>
-            <a class="btn btn-info btn-xl text-uppercase" href="#tentang">Tentang Kami</a>
+            <div class="masthead-heading mb-0 ">
+                <span class="sahabat" style="color: #0A8AEA">
+                    Sahabat
+                </span>
+                <span class="sahabat" style="color: #F06128"> Mandira</span>
+            </div>
+            <div class="masthead-subheading">
+                <span class="text-sm text-decoration-none font-weight-bold" style="color: #514040;">
+                    Melanjutkan Masa Depan yang Mandiri dan Sejahtera
+                </span>
+                <p style="color: #514040;">Banyak Sahabat Banyak Peluang</p>
+            </div>
+            <div>
+                <a class=" btn btn-info btn-xl text-uppercase" href="#tentang">Tentang Kami</a>
+            </div>
         </div>
     </header>
     <!-- Services-->
-    <section class="page-section" id="tentang">
+    <section class="page-section pt-5 " id="tentang">
         <div class="container">
             <div class="row">
-                <div class="col-6">
-                    <div class="text-center text-lg pt-5 mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
                         <h1 class="text-color-black title-heading">VISI</h1>
                     </div>
                     <p class="title-subheading mb-5">
                         Menjadi suppport system terpadu yang unggul dalam meningkatkan kemandirian dan kesejahteraan
                         masyarakat
                     </p>
-                    <div class="text-center">
-                        <img src="{{ asset('landingpage/assets/img/visi.png') }}" class="visi-img img-thumbnail" alt="">
+                    <div class="text-center mt-auto">
+                        <img src="{{ asset('landingpage/assets/img/logos/mandirahorizontal.png') }}"
+                            class="visi-img img-thumbnail" alt="">
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6">
                     <div class="misi-section p-5">
                         <div class="text-center mb-5">
                             <h1 class="title-heading text-color-black">MISI</h1>
@@ -209,7 +203,7 @@
                 </li>
                 <li class="timeline-inverted">
                     <a class="text-decoration-none text-dark" href="{{ route('register') }}">
-                        <div class="timeline-image" style="border: 7px solid #A1CCED;">
+                        <div class="timeline-image" id="bergabung" style="border: 7px solid #A1CCED;">
                             <h4>
                                 Mari
                                 <br />
@@ -219,6 +213,7 @@
                         </div>
                     </a>
                 </li>
+
             </ul>
         </div>
     </section>
@@ -231,7 +226,7 @@
                 <h3 class="section-subheading text-muted"></h3>
             </div>
             <div class="row justify-content-around">
-                <div class="col-6 row justify-content-around">
+                <div class="col-lg-6 row justify-content-around">
                     <div
                         class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Pencari Kerja</p>
@@ -253,8 +248,8 @@
                         <span>30%</span>
                     </div>
                 </div>
-                <div
-                    class="col-6 info-section rounded mb-5 p-5   title-informasi-pelatihan d-flex flex-column align-items-center">
+                <div class="col-lg-6 info-section rounded mb-5 p-5  title-informasi-pelatihan d-flex flex-column align-items-center"
+                    id="pelatihanditerima">
                     <p class="text-start">Peserta pelatihan yang diterima</p>
                     <span>30%</span>
                 </div>

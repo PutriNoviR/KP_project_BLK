@@ -12384,7 +12384,8 @@ header.masthead {
     padding-bottom: 6rem;
     text-align: center;
     color: #fff;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.2)), url("../assets/img/header.jpg");
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.2)), url("../assets/img/header.jpg"); */
+    background-image: url("../assets/img/header.jpg");
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -12409,7 +12410,7 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
     header.masthead {
-        padding-top: 17rem;
+        padding-top: 13rem;
         padding-bottom: 12.5rem;
     }
 
@@ -12844,7 +12845,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 .title-heading {
-    font-size: 3.75rem;
+    font-size: 2.75rem;
     font-weight: 800;
 }
 
@@ -12863,14 +12864,14 @@ section#contact form#contactForm :-ms-input-placeholder {
 .paragraf {
     font-style: normal;
     font-weight: 350;
-    font-size: 1.5rem;
+    font-size: 1rem;
 
     color: #514040;
 }
 
 .visi-img {
-    width: 300px;
-    height: 300px;
+    /* width: 300px;
+    height: 300px; */
 }
 
 .misi-section {
@@ -12915,4 +12916,52 @@ section#contact form#contactForm :-ms-input-placeholder {
 .title-informasi-pelatihan span {
     color: #006ED3;
     font-size: 6rem;
+}
+
+.sahabat {
+    width: 783px;
+    height: 91px;
+    left: 353px;
+    top: 397px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 80px;
+    line-height: 80px;
+    /* or 83% */
+
+    letter-spacing: -0.05em;
+    text-shadow: 5px 4px #5e5959;
+}
+
+
+
+@media (min-width: 576px) {
+    .sahabat {
+        font-size: 96px;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    #bergabung {
+        left: 40% !important;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+
+    }
+
+    #bergabung h4 {
+        font-size: 15px;
+        width: 100%;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 992px) {
+    #pelatihanditerima {
+        width: 87%;
+    }
 }
