@@ -90,8 +90,8 @@
             </div>
             <div class="form-group">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                    <button type="submit" class="btn btn-primary">SIMPAN</button>
                 </div>
             </div>
         </form>
