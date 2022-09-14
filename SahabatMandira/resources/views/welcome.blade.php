@@ -53,7 +53,7 @@
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead vh-100 pb-0">
+    <header class="masthead min-vh-100 pb-0">
         <div class="container d-flex flex-column h-100 justify-content-around d-sm-block">
             {{-- <div class="masthead-subheading">Sahabat <span class="text-info">MANDIRA</span> </div> --}}
             <div class="masthead-heading mb-0 ">
