@@ -69,7 +69,7 @@ class TugasController extends Controller
     {
         //
         $data = Tugas::all()->where('id','=',$id);
-        dd($data);
+        // dd($data);
         return view('sesipelatihan.assignTugasVerifikator', compact('data'));
     }
 
