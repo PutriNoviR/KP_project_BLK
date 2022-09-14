@@ -131,7 +131,7 @@ class UserController extends Controller
             'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
             'nomorHp' => ['required', 'string', 'min:12']
         ]);
-        // dd($request);
+        dd($request);
         $User->jenis_identitas = $request->jenis_identitas;
         $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
         $User->nomor_identitas = $request->nomorIdentitas;

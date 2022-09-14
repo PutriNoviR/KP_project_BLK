@@ -73,7 +73,7 @@ BLK
 
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Program BLK</h2>
+        <h2>Daftar BLK</h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
             Tambah BLK Baru
         </button>
@@ -218,7 +218,7 @@ BLK
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
                         </div>
                     </form>
