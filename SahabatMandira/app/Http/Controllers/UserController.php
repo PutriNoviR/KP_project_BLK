@@ -126,7 +126,7 @@ class UserController extends Controller
         // ]);
         $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
         $userLogin = auth()->user()->email;
-        $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
+        $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $request->idPelatihan)
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($data->paketprogram);
         $User =User::find($request->id);
