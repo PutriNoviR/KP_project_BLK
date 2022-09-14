@@ -48,6 +48,7 @@ class HomeController extends Controller
         ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id','=','sk.kode_kategori')
         ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id','=','kp.id')
         ->WHERE('mu.users_email', '=', $userLogin)
+        // ->WHERE('mu.kategori_psikometrik_id', '=', 'sk.kode_kategori')
         ->skip(0)
         ->take(4)
         ->get();
