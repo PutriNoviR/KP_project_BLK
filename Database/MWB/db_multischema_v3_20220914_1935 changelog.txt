@@ -1,0 +1,11 @@
+Changelog :
+
+MasterBLK_db
+- Penambahan Tabel "keahlians"
+- Penanbahan relasi M:N antara tabel "Users" dan "Keahlians"
+
+
+Mandira_db
+- Penambahan tabel "mandira_mentoring"
+- Tabel "mandira_mentoring" direlasikan dengan users untuk mengetahui siapa yang menjadi mentornya.
+- Tabel "mandira_mentoring" direlasikan dengan keahlian untuk mengetahui mentoring tersebut berfokus pada bidang keahlian apa

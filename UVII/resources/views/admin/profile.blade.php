@@ -108,7 +108,7 @@
                                     </select>
                                 </div>
         
-                                <div class="form-group"><label for="no_identitas" class="form-control-label">Nomor Identitas</label><input type="text" name="no_identitas" placeholder="Enter your identity number" class="form-control" value="{{$data->nomor_identitas}}" required></div>
+                               {{-- <div class="form-group"><label for="no_identitas" class="form-control-label">Nomor Identitas</label><input type="text" name="no_identitas" placeholder="Enter your identity number" class="form-control" value="{{$data->nomor_identitas}}" required></div> --}}
 
                                 <div class="form-group"><label for="username" class="form-control-label">Username</label><input type="text" name="username" placeholder="Enter your username" class="form-control" value="{{$data->username}}" required></div>
 

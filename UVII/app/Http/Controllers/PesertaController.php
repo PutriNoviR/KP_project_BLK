@@ -141,7 +141,7 @@ class PesertaController extends Controller
         else{
             $this->validate($request, [
                 'username'=>['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($request->email, 'email')],
-                'no_identitas' => ['required', 'numeric', 'digits:16', Rule::unique('users', 'nomor_identitas')->ignore($request->email, 'email')],
+                // 'no_identitas' => ['required', 'numeric', 'digits:16', Rule::unique('users', 'nomor_identitas')->ignore($request->email, 'email')],
       
             ]);
 
@@ -156,7 +156,7 @@ class PesertaController extends Controller
     
             $peserta = [
 
-                "nomor_identitas" => $request->no_identitas,
+                // "nomor_identitas" => $request->no_identitas,
                 'jenis_identitas' => $identitas,
                 'username'=> $request->username,
                 "password" => $request->password,
