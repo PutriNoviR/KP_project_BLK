@@ -130,6 +130,7 @@
                with font-awesome or any other icon font library -->
                                 <li class="nav-item has-treeview">
                                     @can('adminperusahaan-permission')
+                                    @if (Auth::user()->perusahaans_id_admin !=null)
                                     <a href="{{ route('perusahaan.profile') }}"
                                         class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
@@ -137,6 +138,7 @@
                                             Profile Perusahaan
                                         </p>
                                     </a>
+                                    @endif
                                     @else
                                     <a href="{{ route('dashboard') }}"
                                         class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
