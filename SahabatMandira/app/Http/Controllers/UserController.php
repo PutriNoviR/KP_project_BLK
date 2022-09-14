@@ -128,6 +128,10 @@ class UserController extends Controller
         // dd($data->paketprogram);
         $User =User::find($request->id);
         $validator = $request->validate([
+            'pas_foto' => ['required','mimes:png,jpg'],
+            'fotoKtp' => ['required','mimes:png,jpg,pdf'],
+            'ksk' => ['required','mimes:png,jpg,pdf'],
+            'ijazah' => ['required','mimes:png,jpg,pdf'],
             'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
             'nomorHp' => ['required', 'string', 'min:12']
         ]);
@@ -140,7 +144,7 @@ class UserController extends Controller
         $User->alamat = $request->alamat;
         $User->ktp = $request->file('fotoKtp')->store('user/ktp');
         $User->ksk = $request->file('ksk')->store('user/ksk');
-        $User->ijazah = $request->ijazah;
+        $User->ijazah = $request->file('ijazah')->store('user/ijazah');
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
 

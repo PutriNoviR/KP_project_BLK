@@ -230,6 +230,7 @@ class SesiPelatihanController extends Controller
                 ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id', '=', 'sk.id')
                 ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
                 ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
+                ->WHERE('p.email_peserta', '=', $userLogin)
                 ->WHERE('mu.users_email', '=', $userLogin)
                 ->get();
             //

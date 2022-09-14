@@ -20,7 +20,8 @@ Dashboard
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes minat bakat, Ikuti tes untuk mengetahui minat bakat untuk mengetahui pelatihan yang cocok ! &nbsp;&nbsp;&nbsp;
-    <a href="https://ubayavii.id" class="button btn btn-primary">IKUTI TES SEKARANG !</a></center>
+        <a href="https://ubayavii.id" class="button btn btn-primary">IKUTI TES SEKARANG !</a>
+    </center>
 </div>
 @endif
 
@@ -32,35 +33,37 @@ Dashboard
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>
         <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti</h6>
     </div>
-    <div class="col-sm-3">
+
+    <div class="row ">
         @foreach($disarankan as $d)
-        @if($d != null)
-        <div class="card card-primary">
-            <div class="ribbon-wrapper">
-                <div class="ribbon bg-primary">
-                    {{ $d->paketprogram->blk->nama }}
+        <div class="col-sm-3">
+            @if($d != null)
+            <div class="card card-primary">
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-primary">
+                        {{ $d->paketprogram->blk->nama }}
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
+                </div>
+                <div class="card-body">
+                    <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
+                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                </div>
+                <div class="card-body">
+                    {{ $d->paketprogram->subkejuruan->nama }}
+                </div>
+                <div class="card-body">
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
+                </div>
+                <div class="card-footer">
+                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
-            <div class="card-header">
-                <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
-            </div>
-            <div class="card-body">
-                <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-                <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
-            </div>
-            <div class="card-body">
-                {{ $d->paketprogram->subkejuruan->nama }}
-            </div>
-            <div class="card-body">
-                <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
-            </div>
-            <div class="card-footer">
-                <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
-            </div>
+            @endif
         </div>
-        @endif
         @endforeach
-
     </div>
 </div>
 <hr>
@@ -87,9 +90,9 @@ Dashboard
                 <div class="card-header">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body" >
+                <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
