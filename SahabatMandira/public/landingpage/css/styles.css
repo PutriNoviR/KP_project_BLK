@@ -268,12 +268,12 @@ sup {
 }
 
 a {
-    color: #0A8AEA;
+    color: #F06128;
     text-decoration: underline;
 }
 
 a:hover {
-    color: #0A8AEA;
+    color: #F06128;
 }
 
 a:not([href]):not([class]),
@@ -4489,13 +4489,13 @@ fieldset:disabled .btn {
 }
 
 a.nav-link:hover {
-    color: #0A8AEA !important;
+    color: #F06128 !important;
 }
 
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
-    color: #0A8AEA;
+    color: #F06128;
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -4508,7 +4508,7 @@ a.nav-link:hover {
 
 .nav-link:hover,
 .nav-link:focus {
-    color: #0A8AEA;
+    color: #F06128;
 }
 
 .nav-link.disabled {
@@ -5500,7 +5500,7 @@ a.nav-link:hover {
 .page-link {
     position: relative;
     display: block;
-    color: #0A8AEA;
+    color: #F06128;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #dee2e6;
@@ -12333,7 +12333,7 @@ p {
 
 #mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #0A8AEA;
+    color: #F06128;
 }
 
 @media (min-width: 992px) {
@@ -12836,7 +12836,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 .bg-color-black {
-    background-color: #313131;
+    background-color: #212529;
 }
 
 .font-weight-800 {
@@ -12890,4 +12890,29 @@ section#contact form#contactForm :-ms-input-placeholder {
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
+}
+
+#btnlogin:hover {
+    background-color: #ff804e !important;
+    color: #fff !important;
+}
+
+.title-informasi {
+    color: #696969;
+    font-size: 1.125rem;
+}
+
+.title-informasi span {
+    color: #006ED3;
+    font-size: 2.5rem;
+}
+
+.title-informasi-pelatihan {
+    color: #696969;
+    font-size: 2rem;
+}
+
+.title-informasi-pelatihan span {
+    color: #006ED3;
+    font-size: 6rem;
 }
