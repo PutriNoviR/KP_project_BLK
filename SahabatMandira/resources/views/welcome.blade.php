@@ -62,11 +62,11 @@
                 </span>
                 <span class="sahabat" style="color: #F06128"> Mandira</span>
             </div>
-            <div class="masthead-subheading">
-                <span class="text-sm text-decoration-none font-weight-bold" style="color: #514040;">
+            <div class="masthead-subheading pt-4">
+                <span class="text-sm text-decoration-none font-weight-bold" style="color: #212529;">
                     Melanjutkan Masa Depan yang Mandiri dan Sejahtera
                 </span>
-                <p style="color: #514040;">Banyak Sahabat Banyak Peluang</p>
+                <p style="color: #212529;">Banyak Sahabat Banyak Peluang</p>
             </div>
             <div>
                 <a class=" btn btn-info btn-xl text-uppercase" href="#tentang">Tentang Kami</a>
@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
-                        <h1 class="text-color-black title-heading">VISI</h1>
+                        <h1 class="text-black title-heading">VISI</h1>
                     </div>
                     <p class="title-subheading mb-5">
                         Menjadi suppport system terpadu yang unggul dalam meningkatkan kemandirian dan kesejahteraan
@@ -87,13 +87,13 @@
                     </p>
                     <div class="text-center mt-auto">
                         <img src="{{ asset('landingpage/assets/img/logos/mandirahorizontal.png') }}"
-                            class="visi-img img-thumbnail" alt="">
+                            class="visi-img img-thumbnail border-0" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="misi-section p-5">
                         <div class="text-center mb-5">
-                            <h1 class="title-heading text-color-black">MISI</h1>
+                            <h1 class="title-heading text-white">MISI</h1>
                         </div>
                         <div class="d-flex paragraf mb-3">
                             <div>1.</div>

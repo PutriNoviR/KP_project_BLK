@@ -12866,7 +12866,7 @@ section#contact form#contactForm :-ms-input-placeholder {
     font-weight: 350;
     font-size: 1rem;
 
-    color: #514040;
+    color: #fff;
 }
 
 .visi-img {
@@ -12875,7 +12875,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 }
 
 .misi-section {
-    background-color: rgba(240, 97, 40, 0.3);
+    background-color: rgba(10, 138, 234);
     border-radius: 110px;
 }
 
