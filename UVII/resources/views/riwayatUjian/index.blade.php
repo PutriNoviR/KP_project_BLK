@@ -25,73 +25,87 @@
   <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
         <thead>
           <tr role="row">
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                 aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                       No
             </th>
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
               aria-label="Browser: activate to sort column ascending" style="width: 250px;">
                       Mulai Tes
             </th>
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                 aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
                       Selesai Tes
             </th>
-            
+
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
                       Rekomendasi Klaster
             </th>
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
                       Rekomendasi Kategori
             </th>
-            
+
           </tr>
         </thead>
         <tbody>
-            @php 
+            @php
                 $no = 1;
             @endphp
             @foreach($daftarRiwayat as $key=>$data)
+
             <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                 <td class="">
                     {{ $no }}
                 </td>
-                <td>
-                    {{$data->tanggal_mulai }}
-                </td>
-                <td>
-                    {{$data->tanggal_selesai }}
-                </td>
-                <td>
-                    {{-- {{$data->klaster->nama }} --}}
-                    @foreach($dataKlaster as $d)
-                        @if($data->klaster_id == $d->id)
-                            {{ $d->nama }}
-                        @endif
-                    @endforeach
-                </td>
-                <td>
-                {{--    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
-                        {{$d->kode}}
-                        
-                        @if(!$loop->last)
-                            ,
-                        @endif
-                    @endforeach     --}}
-                  
-                    @if($dataKategori[$data->id] != null)
-                        @foreach($dataKategori[$data->id] as $d)
-                       
-                            {{ $d }}
+
+
+                    <td>
+                        {{$data->tanggal_mulai }}
+                    </td>
+                    <td>
+                        {{$data->tanggal_selesai }}
+                    </td>
+                @if($settingValidasi[0]->value == 1)
+                    @if($data->is_validate == 0)
+                        <td >Mohon diitunggu sampai admin memvalidasi tes kamu</td>
+                        <td></td>
+                    @elseif($data->is_validate == 2)
+                        <td >Maaf tes kamu tidak valid</td>
+                        <td></td>
+                    @endif
+                @endif
+                @if($settingValidasi[0]->value == 0 || $data->is_validate == 1)
+                    <td>
+                        {{-- {{$data->klaster->nama }} --}}
+                        @foreach($dataKlaster as $d)
+                            @if($data->klaster_id == $d->id)
+                                {{ $d->nama }}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                    {{--    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
+                            {{$d->kode}}
+
                             @if(!$loop->last)
                                 ,
                             @endif
-                       
-                        @endforeach
-                    @else
-                        Belum tes
-                    @endif
-                </td>
+                        @endforeach     --}}
+
+                        @if($dataKategori[$data->id] != null)
+                            @foreach($dataKategori[$data->id] as $d)
+
+                                {{ $d }}
+                                @if(!$loop->last)
+                                    ,
+                                @endif
+
+                            @endforeach
+                        @else
+                            Belum tes
+                        @endif
+                    </td>
+                @endif
             </tr>
             @php
                 $no++;
