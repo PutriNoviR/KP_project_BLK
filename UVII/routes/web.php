@@ -46,7 +46,7 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::post('menu/admin/getEditForm', 'PertanyaanController@getEditForm')->name('soal.edit');
     Route::get('soal_setting','PertanyaanController@setting')->name('soal.setting');
     Route::post('soal_setting/save','PertanyaanController@getSetting')->name('soal.setting.save');
-   
+
     //Peserta
     Route::resource('menu/peserta','PesertaController');
     Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
@@ -76,7 +76,12 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
      //tambah kategori
      Route::resource('menu/kategori','KategoriController');
      Route::post('menu/kategori/edit', 'KategoriController@getEditForm')->name('kategori.edit');
-    
+
+    //halaman validate
+    Route::post('/validatePeserta', 'CameraController@validatePeserta')->name('validatePeserta');
+    Route::post('/validate/setting', 'CameraController@validateSetting')->name('validateSetting');
+    Route::get('/validate', 'CameraController@adminValidate')->name('admin.validate');
+
 
 });
 
@@ -103,6 +108,12 @@ Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     Route::post('/profile/update', 'PesertaController@update')->name('profile.update');
 
     Route::get('tes_tahap2/hasil','TesTahapAkhirController@hasilTes2')->name('tes2.hasil');
+
+    //halaman camera
+    Route::get('menu/tes/camera', 'CameraController@camera')->name('peserta.camera');
+    Route::post('/capture', 'CameraController@capture')->name('capture');
+    Route::post('/capture/akhir', 'CameraController@captureAkhir')->name('capture.akhir');
+
 });
 
 

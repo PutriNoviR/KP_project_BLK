@@ -5,17 +5,61 @@
 @endsection
 
 @section('javascript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+        let setting = null
+        $(document).ready(function(){
+            setting = "<?php echo $settingValidasi[0]->value;?>"
+        if(setting == 1){
+            Webcam.set({
+                width: 490,
+                height: 350,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+
+            Webcam.attach( '#my_camera' );
+            function capture() {
+                Webcam.snap( function(data_uri) {
+                    // $(".image-tag").val(data_uri);
+                        let photo = data_uri;
+                        console.log(photo)
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('capture') }}",
+                            data: {
+                                '_token': '<?php echo csrf_token(); ?>',
+                                'image' : photo
+                            },
+                            success: function(data) {
+                                if(data.msg = "Berhasil"){
+                                    alert('yey berhasil')
+                                    $('.btn-mulai').prop("disabled", false)
+                                }
+                                else
+                                {
+                                    $('.btn-mulai').prop("disabled", true)
+                                }
+                            }
+                        });
+                } );
+            }
+        }
+
+        })
         function show(){
-            $('#modalTes').css('display', 'block');   
+            $('#modalTes').css('display', 'block');
             $('#page').css('filter', 'blur(4px)');
         }
 
         function unshow(){
-            $('#modalTes').css('display', 'none');   
+            $('#modalTes').css('display', 'none');
             $('#page').css('filter', 'blur(0)');
         }
-        
+
+
+
     </script>
 @endsection
 
@@ -45,20 +89,39 @@
                         <p>Hal Penting tentang Tes Minat Kejuruan:</p>
                     </div>
                     <div class="body-content">
+                    @if($settingValidasi[0]->value == 1)
+                        <div class='container'>
+                            <!-- <h1 class="text-center">Tolong perlihatkan wajah ke kamera.</h1> -->
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="my_camera"></div>
+                                        <br/>
+                                        <!-- <input type=button value="Take Snapshot" onClick="capture()"> -->
+                                        <!-- <input type="hidden" name="image" class="image-tag"> -->
+                                            <button type='button' class="btn btn-success" onClick="capture()">capture</button>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div id="results">Your captured image will appear here...</div>
+                                    </div> -->
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                         <ul class="tulisan_rata">
-                            <li>    
+                            <li>
                             Tes minat kejuruan ini akan memberikan masukan mengenai kejuruan dari pelatihan yang nantinya dapat Anda ambil di Balai Latihan Kerja (BLK).
                             </li>
                             <li>
                             Anda akan dihadapkan pada pernyatan-penyataan yang berisi berbagai aktivitas kerja dan Anda diminta untuk memilih salah satu aktivitas kerja yang paling Anda sukai terlepas dari jumlah penghasilan yang akan Anda peroleh dari aktivitas tersebut juga terlepas dari apakah Anda sudah memiliki keahlian untuk melakukan aktivitas tersebut. Pilihlah aktivitas yang memang benar-benar Anda sukai.
                             </li>
                             <li>
-                            Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah. 
+                            Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah.
                             </li>
                             <li>
                             Anda diminta untuk mengerjakan soal-soal tes dalam waktu yang kami sediakan sesuai dengan instruksi.  Selama pengerjaan Anda dapat kembali ke soal sebelumnya.
                             </li>
-                           
+
                         </ul>
                     </div>
 
@@ -68,13 +131,13 @@
                         </p>
 
                         @if($tes == null)
-                            <button type="button" class="btn btn-primary" onclick="show()">
+                            <button type="button" class="btn btn-primary btn-mulai" <?php if($settingValidasi[0]->value==1) echo "disabled"  ?>  onclick="show()">
                                 Mulai Tes
                             </button>
                         @else
-                            <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Lanjut Tes</a>
+                            <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary btn-mulai" <?php if($settingValidasi[0]->value==1) echo "disabled"  ?>>Lanjut Tes</a>
                         @endif
-                        
+
                     </div>
                 </div>
 
@@ -94,7 +157,7 @@
                                 Pastikan menyelesaikan soal tepat waktu.
                             </p>
                         </div>
-    
+
                         <div class="modal-btn">
                             <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Mulai</a>
                             <button type="button" class="btn btn-default" onclick="unshow()">Kembali</button>
@@ -103,5 +166,5 @@
                 </div>
             </div>
         </div>
-   
+
 @endsection
