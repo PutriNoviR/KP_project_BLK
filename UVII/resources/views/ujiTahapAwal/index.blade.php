@@ -20,32 +20,34 @@
             });
 
             Webcam.attach( '#my_camera' );
-            function capture() {
-                Webcam.snap( function(data_uri) {
-                    // $(".image-tag").val(data_uri);
-                        let photo = data_uri;
-                        console.log(photo)
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('capture') }}",
-                            data: {
-                                '_token': '<?php echo csrf_token(); ?>',
-                                'image' : photo
-                            },
-                            success: function(data) {
-                                if(data.msg = "Berhasil"){
-                                    alert('yey berhasil')
-                                    $('.btn-mulai').prop("disabled", false)
-                                }
-                                else
-                                {
-                                    $('.btn-mulai').prop("disabled", true)
-                                }
-                            }
-                        });
-                } );
-            }
         }
+        $('#btn-capture').on('click',function(){
+
+            Webcam.snap( function(data_uri) {
+                // $(".image-tag").val(data_uri);
+                    let photo = data_uri;
+                    console.log(photo)
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('capture') }}",
+                        data: {
+                            '_token': '<?php echo csrf_token(); ?>',
+                            'image' : photo
+                        },
+                        success: function(data) {
+                            if(data.msg = "Berhasil"){
+                                alert('yey berhasil')
+                                $('.btn-mulai').prop("disabled", false)
+                            }
+                            else
+                            {
+                                $('.btn-mulai').prop("disabled", true)
+                            }
+                        }
+                    });
+            } );
+        })
+
 
         })
         function show(){
@@ -99,7 +101,7 @@
                                         <br/>
                                         <!-- <input type=button value="Take Snapshot" onClick="capture()"> -->
                                         <!-- <input type="hidden" name="image" class="image-tag"> -->
-                                            <button type='button' class="btn btn-success" onClick="capture()">capture</button>
+                                            <button type='button' id='btn-capture' class="btn btn-success" >capture</button>
                                     </div>
                                     <!-- <div class="col-md-6">
                                         <div id="results">Your captured image will appear here...</div>
