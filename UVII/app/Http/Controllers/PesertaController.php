@@ -99,6 +99,7 @@ class PesertaController extends Controller
                 "nomer_hp" => $request->no_hp,
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,
+                "jenis_kelamin" => $request->jenis_kelamin,
             ];
         }
         else if($request->tab == 'tab_2'){
@@ -160,6 +161,10 @@ class PesertaController extends Controller
                 'jenis_identitas' => $identitas,
                 'username'=> $request->username,
                 "password" => $request->password,
+                "tempat_lahir"=>$request->tempat_lahir,
+                "tanggal_lahir" => $request->tanggal_lahir,
+                "pendidikan_terakhir" => $request->pendidikan_terakhir,
+                "konsentrasi_pendidikan" => $request->konsentrasi,
             ];
         }
         

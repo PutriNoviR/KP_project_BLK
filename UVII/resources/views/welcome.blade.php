@@ -164,11 +164,11 @@
                             <div class="col-md-12">
                                 <div class="radio-list">
                                     <label>
-                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'checked':''}} required autofocus>
+                                        <input id="txt_jenis_kelamin" type="radio" class="@error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'checked':''}} required autofocus>
                                         Laki-Laki
                                     </label>
                                     <label>
-                                        <input id="txt_jenis_kelamin" type="radio" class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked':''}} required autofocus> 
+                                        <input id="txt_jenis_kelamin" type="radio" class="@error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked':''}} required autofocus> 
                                         Perempuan
                                     </label>
                                 </div>
@@ -188,32 +188,32 @@
                             <div class="col-md-12">
                                 <div class="radio-list">
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SD Sederajat" {{ old('pendidikan_terakhir') == 'SD Sederajat'? 'checked':'' }} required autofocus>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SD Sederajat" {{ old('pendidikan_terakhir') == 'SD Sederajat'? 'checked':'' }} required autofocus>
                                         SD Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMP Sederajat" {{ old('pendidikan_terakhir') == 'SMP Sederajat'? 'checked':'' }} required autofocus>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMP Sederajat" {{ old('pendidikan_terakhir') == 'SMP Sederajat'? 'checked':'' }} required autofocus>
                                         SMP Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" {{ old('pendidikan_terakhir') == 'SMA Sederajat'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" {{ old('pendidikan_terakhir') == 'SMA Sederajat'? 'checked':'' }} required autofocus> 
                                         SMA Sederajat
                                     </label>
                                     <label>
-                                    <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMK Sederajat" {{ old('pendidikan_terakhir') == 'SMK Sederajat'? 'checked':'' }} required autofocus>
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMK Sederajat" {{ old('pendidikan_terakhir') == 'SMK Sederajat'? 'checked':'' }} required autofocus>
                                         SMK Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus> 
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus> 
                                         D1/D2/D3/D4 (Diploma)
                                     </label>
                             
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus> 
                                         Sarjana(Strata-1)
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="form-control @error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus> 
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus> 
                                         Pasca Sarjana
                                     </label>
 
@@ -468,23 +468,23 @@
         <div class="portlet">
             <div class="portlet-body">
 
-                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
                     <thead>
                         <tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                                aria-label="Rendering engine: activate to sort column ascending">
                                     No
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                            aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                            aria-label="Browser: activate to sort column ascending">
                                     Pertanyaan
                             </th>
                             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                                aria-label="Rendering engine: activate to sort column ascending">
                                     Detail
                             </th>
                             
-                            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+                            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                                     Aksi
                             </th>
                             

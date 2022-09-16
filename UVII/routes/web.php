@@ -40,6 +40,9 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::get('importView','ImportController@importView');
     Route::post('import','ImportController@import')->name('import');
 
+    //cetak
+    Route::get('riwayat/tes_global/peserta/cetak','TesTahapAwalController@cetakPDF')->name('riwayat_tes_global.cetak');
+
     //CRUD
     Route::resource('menu/blk', 'BlkController');
     Route::resource('soal', "PertanyaanController");

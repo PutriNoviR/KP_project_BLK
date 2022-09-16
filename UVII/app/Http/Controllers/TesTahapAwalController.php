@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
+use PDF;
 
 class TesTahapAwalController extends Controller
 {
@@ -333,5 +334,18 @@ class TesTahapAwalController extends Controller
 
         return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
 
+    }
+
+    public function cetakPDF(){
+        $user = DB::table('users')->get();
+        $riwayat_tes= UjiMinatAwal::all();
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+
+        $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+
+        $pdf = PDF::loadview('export.riwayatPdf',compact('riwayat_tes','dataKlaster','dataKategori', 'totalPeserta', 'user'))->setOptions(['defaultFont'=>'sans-serif']);
+        $name = "laporan-tes-peserta.pdf";
+        return $pdf->download($name);
     }
 }
