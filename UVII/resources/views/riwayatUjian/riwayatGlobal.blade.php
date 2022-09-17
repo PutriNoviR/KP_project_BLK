@@ -20,7 +20,9 @@
 @section('contents')
 <h4 class="text-center">Riwayat Tes Semua Peserta</h4>
 
-<a href="{{route('riwayat_tes_global.cetak')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Cetak</a><br><br>
+<a href="{{route('export')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
+<a href="{{route('riwayat_tes_global.cetak')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to PDF</a><br><br>
+
 
 <div class="portlet">
   <div class="portlet-body">

@@ -42,6 +42,9 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
 
     //cetak
     Route::get('riwayat/tes_global/peserta/cetak','TesTahapAwalController@cetakPDF')->name('riwayat_tes_global.cetak');
+    Route::resource('ex/excel','ExportController');
+    Route::get('/export/excel', 'ExportController@exportExcel')->name('export');
+    Route::get('/listPeserta/excel', 'ExportController@exportListPeserta')->name('export.listPeserta');
 
     //CRUD
     Route::resource('menu/blk', 'BlkController');

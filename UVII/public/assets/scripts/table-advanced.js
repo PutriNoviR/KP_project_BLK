@@ -16,7 +16,8 @@ var TableAdvanced = function () {
             },
             "collection": {
                 "container": "DTTT_dropdown dropdown-menu tabletools-dropdown-menu"
-            }
+            },
+           
         });
 
         var oTable = table.dataTable({
