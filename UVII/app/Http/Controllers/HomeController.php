@@ -28,9 +28,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
-    {    
+    {
         $email = Auth::user()->email;
-        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();   
+        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
        // $data = $request->session()->get('kelengkapanData');
 
        //--menu manajemen--
@@ -41,7 +41,7 @@ class HomeController extends Controller
                    ->where('roles_id', $role_user)
                    ->where('mm.status','Aktif')
                    ->get();
-       
+
         $data = Pertanyaan::all();
         $data2 = Jawaban::all();
         $data3 = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
@@ -69,8 +69,9 @@ class HomeController extends Controller
         else{
             $linkTes2 = '#';
         }
+        $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
 
-        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2'));
+        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi'));
     }
 
     public function menuFilter(){

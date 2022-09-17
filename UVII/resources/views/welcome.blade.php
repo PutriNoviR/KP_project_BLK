@@ -1,4 +1,4 @@
-{{-- 
+{{--
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -29,7 +29,7 @@
         </style>
     </head>
     <body> --}}
-    
+
     @extends('layouts.index',['menu' => $menu_role])
 
     @section('title')
@@ -37,14 +37,57 @@
     @endsection
 
     @section('javascript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+
     <script>
+        let setting = null
+        $(document).ready(function(){
+            setting = "<?php echo $settingValidasi[0]->value;?>"
+        if(setting == 1){
+            Webcam.set({
+                width: 490,
+                height: 350,
+                image_format: 'jpeg',
+                jpeg_quality: 90
+            });
+
+            Webcam.attach( '#my_camera' );
+        }
+        $('#btn-capture').on('click',function(){
+
+            Webcam.snap( function(data_uri) {
+                // $(".image-tag").val(data_uri);
+                    let photo = data_uri;
+                    console.log(photo)
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('capture') }}",
+                        data: {
+                            '_token': '<?php echo csrf_token(); ?>',
+                            'image' : photo
+                        },
+                        success: function(data) {
+                            if(data.msg = "Berhasil"){
+                                alert('yey berhasil')
+                                $('.btn-mulai').prop("disabled", false)
+                            }
+                            else
+                            {
+                                $('.btn-mulai').prop("disabled", true)
+                            }
+                        }
+                    });
+            } );
+        })
+        })
+
         function show(){
-            $('#modalTes').css('display', 'block');   
+            $('#modalTes').css('display', 'block');
             $('.page').css('filter', 'blur(4px)');
         }
 
         function unshow(){
-            $('#modalTes').css('display', 'none');   
+            $('#modalTes').css('display', 'none');
             $('.page').css('filter', 'blur(0)');
         }
 
@@ -83,7 +126,7 @@
             </div>
         @endforeach
     @endif
-    
+
     @if(Auth::user()->role->nama_role == 'peserta')
         @if(Auth::user()->tanggal_lahir == null)
 
@@ -102,24 +145,24 @@
                             <label for="kewarganegaraan">Kewarganegaraan</label>
 
                             <select id='txt_kewarganegaraan' class="form-control" name="kewarganegaraan" required>
-                                
+
                                     <option value="WNI" {{ old('kewarganegaraan') == 'WNI' || empty(old('kewarganegaraan')) ? 'selected':''}}>Indonesia</option>
                                     <option value="WNA" {{ old('kewarganegaraan') == 'WNA' ? 'selected':'' }}>Bukan Indonesia</option>
 
                             </select>
-                            
+
                         </div>
 
                         {{--<div class="form-group">
                             <label for="jenis_identitas">Jenis Identitas</label>
 
                             <select id="txt_jenis_identitas" class="form-control" name="jenis_identitas" required>
-                        
+
                                     <option value="KTP" {{ old('jenis_identitas') == 'KTP' || empty(old('jenis_identitas')) ? 'selected':''}}>KTP</option>
                                     <option value="Pasport" {{ old('jenis_identitas') == 'Pasport' ? 'selected':''}}>Pasport</option>
-                                
+
                             </select>
-                            
+
                         </div>--}}
 
                       {{--  <div class="form-group">
@@ -132,7 +175,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        
+
                         </div>--}}
                         <div class="form-group">
                             <label for="tanggal_lahir">Tempat Lahir</label>
@@ -154,13 +197,13 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            
+
                         </div>
 
                         <div class="form-group">
-                            
+
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            
+
                             <div class="col-md-12">
                                 <div class="radio-list">
                                     <label>
@@ -168,7 +211,7 @@
                                         Laki-Laki
                                     </label>
                                     <label>
-                                        <input id="txt_jenis_kelamin" type="radio" class="@error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked':''}} required autofocus> 
+                                        <input id="txt_jenis_kelamin" type="radio" class="@error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'checked':''}} required autofocus>
                                         Perempuan
                                     </label>
                                 </div>
@@ -179,7 +222,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            
+
                         </div>
 
                         <div class="form-group">
@@ -196,7 +239,7 @@
                                         SMP Sederajat
                                     </label>
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" {{ old('pendidikan_terakhir') == 'SMA Sederajat'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="SMA Sederajat" {{ old('pendidikan_terakhir') == 'SMA Sederajat'? 'checked':'' }} required autofocus>
                                         SMA Sederajat
                                     </label>
                                     <label>
@@ -204,16 +247,16 @@
                                         SMK Sederajat
                                     </label>
                                     <label>
-                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus> 
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="D1/D2/D3/D4" {{ old('pendidikan_terakhir') == 'D1/D2/D3/D4'? 'checked':'' }} required autofocus>
                                         D1/D2/D3/D4 (Diploma)
                                     </label>
-                            
+
                                     <label>
-                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus> 
+                                        <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Sarjana(Strata-1)" {{ old('pendidikan_terakhir') == 'Sarjana(Strata-1)'? 'checked':'' }} required autofocus>
                                         Sarjana(Strata-1)
                                     </label>
                                     <label>
-                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus> 
+                                    <input id="txt_pendidikan_terakhir" type="radio" class="@error('pendidikan_terakhir') is-invalid @enderror" name="pendidikan_terakhir" value="Pasca Sarjana" {{ old('pendidikan_terakhir') == 'Pasca Sarjana'? 'checked':'' }} required autofocus>
                                         Pasca Sarjana
                                     </label>
 
@@ -225,7 +268,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            
+
                         </div>
 
                         <div class="form-group">
@@ -238,7 +281,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        
+
                         </div>
 
                         <div class="form-group">
@@ -251,7 +294,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        
+
                         </div>
 
                         <div class="form-group">
@@ -264,7 +307,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        
+
                         </div>
 
                         <div class="form-group">
@@ -277,19 +320,19 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        
+
                         </div>
 
                         <div class="form-group form-button">
-                    
+
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Save') }}
                             </button>
-                        
+
                         </div>
-                        
+
                     </div>
-                
+
                 </form>
             </div>
 
@@ -303,36 +346,36 @@
                 </div>
 
                 <div class="portlet-body form">
-                    
+
                     <p>
                         <span class="label label-danger">NOTE!</span>
                         Upload semua dokumen dalam bentuk .JPG, .PNG atau .PDF
                     </p>
-                    
+
                     <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('peserta.data.dokumen') }}">
                         @csrf
                         <div class="form-body">
                             <div class="form-group">
                                 <label for="pas_foto">Pas Foto</label>
-                                
+
                                 <input type="file" name='pas_foto' class="defaults" value="{{ $data->pas_foto ?? ''}}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="ktp">Dokumen KTP</label>
-                                
+
                                 <input type="file" name='no_ktp' class="defaults" value="{{ $data->ktp ?? ''}}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="ksk">Dokumen KSK</label>
-                                
-                                <input type="file" name='ksk' class="defaults" value="{{ $data->ksk ?? ''}}" required> 
+
+                                <input type="file" name='ksk' class="defaults" value="{{ $data->ksk ?? ''}}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="ijazah">Dokumen Ijazah</label>
-                                
+
                                 <input type="file" name='ijazah' class="defaults" value="{{ $data->ijazah ?? ''}}" required>
                             </div>
 
@@ -351,9 +394,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
-                    
+
                     </form>
                 </div>
 
@@ -361,39 +404,41 @@
 
         @else
             @if($riwayatTes1)
+                @if($settingValidasi[0]->value == 1 && $riwayatTes1->is_validate==1)
                 <div class="card-page">
                     <div class="page">
                         <!-- <div class="card-header">
 
                         </div> -->
                         <div class="card-body">
-                        
+
                             <p>
                                 Anda telah melakukan tes minat kejuruan pada
-                                <b> {{$riwayatTes1->tanggal_mulai}} </b>(UTC +7) 
-                                
+                                <b> {{$riwayatTes1->tanggal_mulai}} </b>(UTC +7)
+
                                 <br>
 
-                                Klaster minat Anda adalah <b>{{$riwayatTes1->klaster->nama}}</b>  
-                                
+                                Klaster minat Anda adalah <b>{{$riwayatTes1->klaster->nama}}</b>
+
                                 @if($riwayatTes2->isNotEmpty() && $lanjutTesTahap2->isNotEmpty())
-                                    
+
                                     dan kategori klaster Anda:
                                         <ul>
                                             @foreach($riwayatTes2 as $dataKategori)
                                                 <li><b>{{$dataKategori->nama_klaster}}</b></li>
-                                                
+
                                             @endforeach
                                         </ul>
                                 @else
                                     Silahkan Anda mengikuti ujian tahap 2 <a href="{{ $linkTes2 }}" target="_blank" class="btn btn-warning">di sini</a>
                                 @endif
                             </p>
-                        
-                        
+
+
                         </div>
                     </div>
                 </div>
+                @endif
             @endif
             <div class="card-page">
                 <div class="page">
@@ -406,32 +451,51 @@
                             <p>Hal Penting tentang Tes Minat Kejuruan:</p>
                         </div>
                         <div class="body-content">
+                        @if($settingValidasi[0]->value == 1)
+                        <div class='container'>
+                            <!-- <h1 class="text-center">Tolong perlihatkan wajah ke kamera.</h1> -->
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="my_camera"></div>
+                                        <br/>
+                                        <!-- <input type=button value="Take Snapshot" onClick="capture()"> -->
+                                        <!-- <input type="hidden" name="image" class="image-tag"> -->
+                                            <button type='button' id='btn-capture' class="btn btn-success" >capture</button>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div id="results">Your captured image will appear here...</div>
+                                    </div> -->
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                             <ul class="tulisan_rata">
-                                <li>    
+                                <li>
                                     Tes minat kejuruan ini akan memberikan masukan mengenai kejuruan dari pelatihan yang nantinya dapat Anda ambil di Balai Latihan Kerja (BLK).
                                 </li>
                                 <li>
-                                    Anda akan dihadapkan pada pernyatan-penyataan yang berisi berbagai aktivitas kerja dan Anda diminta untuk memilih salah satu aktivitas kerja yang paling Anda sukai terlepas dari jumlah penghasilan yang akan Anda peroleh dari aktivitas tersebut juga terlepas dari apakah Anda sudah memiliki keahlian untuk melakukan aktivitas tersebut. Pilihlah aktivitas yang memang benar-benar Anda sukai. 
+                                    Anda akan dihadapkan pada pernyatan-penyataan yang berisi berbagai aktivitas kerja dan Anda diminta untuk memilih salah satu aktivitas kerja yang paling Anda sukai terlepas dari jumlah penghasilan yang akan Anda peroleh dari aktivitas tersebut juga terlepas dari apakah Anda sudah memiliki keahlian untuk melakukan aktivitas tersebut. Pilihlah aktivitas yang memang benar-benar Anda sukai.
                                 </li>
                                 <li>
-                                    Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah. 
+                                    Ketika mengerjakan tes ini, Anda diminta untuk menjawab seluruh pertanyaan-pertanyaan yang diberikan. Semua jawaban adalah benar sejauh Anda menjawab sesuai kondisi diri Anda. Anda tidak perlu khawatir, karena tidak ada jawaban yang salah.
                                 </li>
                                 <li>
                                     Anda diminta untuk mengerjakan soal-soal tes dalam waktu yang kami sediakan sesuai dengan instruksi.  Selama pengerjaan Anda dapat kembali ke soal sebelumnya.
                                 </li>
-                               
+
                             </ul>
                         </div>
 
                         <div class="body-btn">
                             <p>Silahkan menekan tombol <b>Mulai Tes</b> jika merasa sudah siap. Selamat mengerjakan tes.</p>
-                                
+
                             @if($tes == null)
-                                <button type="button" class="btn btn-primary" onclick="show()">
+                                <button type="button" class="btn btn-primary btn-mulai" <?php if($settingValidasi[0]->value==1) echo "disabled"  ?> onclick="show()">
                                     Mulai Tes
                                 </button>
                             @else
-                                <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Lanjut Tes</a>
+                                <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary btn-mulai" <?php if($settingValidasi[0]->value==1) echo "disabled"  ?>>Lanjut Tes</a>
                             @endif
 
                         </div>
@@ -453,7 +517,7 @@
                                     Pastikan menyelesaikan soal tepat waktu.
                                 </p>
                             </div>
-        
+
                             <div class="modal-btn">
                                 <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary">Mulai</a>
                                 <button type="button" class="btn btn-default" onclick="unshow()">Kembali</button>
@@ -471,28 +535,28 @@
                 <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
                     <thead>
                         <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                                 aria-label="Rendering engine: activate to sort column ascending">
                                     No
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                             aria-label="Browser: activate to sort column ascending">
                                     Pertanyaan
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                                 aria-label="Rendering engine: activate to sort column ascending">
                                     Detail
                             </th>
-                            
+
                             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                                     Aksi
                             </th>
-                            
+
                         </tr>
                     </thead>
-                    
+
                     <tbody>
-                    @php 
+                    @php
                         $no = 1;
                     @endphp
 
@@ -505,7 +569,7 @@
                         <td>
                             {{ $item->pertanyaan }}
                         </td>
-                        
+
                         <td>
                             <a data-toggle='modal' data-target='#modal_{{$item->id}}' class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
                         </td>
@@ -518,14 +582,14 @@
                             <div class="modal-dialog">
                             <div class="modal-content" id='modalContent'></div>
                             </div>
-                        </div> 
+                        </div>
 
-                        
+
 
                         {{-- Button Delete 2--}}
                         <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$item->id}}">
                             Delete
-                        </a>              
+                        </a>
                         <form method='POST' action="{{ url('soal/'.$item->id) }}">
                             @csrf
                             @method('DELETE')
@@ -544,7 +608,7 @@
                                         <div style="border-top: none; text-align: center;" class="modal-footer">
                                             <button type="submit" class="btn btn-danger">Hapus</button>
                                             <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -557,7 +621,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-group"></i>Soal no {{$no}}</h4>  
+                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-group"></i>Soal no {{$no}}</h4>
                                 </div>
 
                                 <div class="modal-body">
@@ -565,13 +629,13 @@
                                         <label for="pertanyaan">Pertanyaan</label>
                                         <textarea name="pertanyaan" class="form-control" disabled value='{{ $item->pertanyaan }}' rows="3" placeholder="Masukkan Pertanyaan" required>{{ $item->pertanyaan }}</textarea>
                                     </div>
-                
+
                                     <div class="form-group">
                                         <div class='row'>
                                             <div class='col-md-8'>
                                                 <label for="jawaban">Jawaban</label>
                                             </div>
-                                        
+
                                         </div>
 
                                         @php
@@ -588,11 +652,11 @@
                                             <div class="col-md-4">
                                                 <select class="form-control" name="kejuruan[{{ $i }}]" disabled required>
                                                 {{-- Belum fix. Tinggal di looping lagi sesuai table kejuruans --}}
-                        
+
                                                 @foreach($data3 as $e)
                                                     @if($e->id == $d->klaster_id)
                                                         <option value='{{ $d->klaster_id }}'>{{ $e->nama }}</option>
-                                                    
+
                                                     @endif
                                                 @endforeach
 
@@ -606,7 +670,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-            
+
                                 <div style="border-top: none; text-align: center;" class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
@@ -620,11 +684,11 @@
                     @endforeach
                     </tbody>
                 </table>
-            
+
             </div>
-        </div>    
+        </div>
     @endif
-          
+
 @endsection
     {{--</body>
 </html>--}}
