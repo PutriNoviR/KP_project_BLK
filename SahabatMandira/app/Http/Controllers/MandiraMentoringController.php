@@ -18,8 +18,8 @@ class MandiraMentoringController extends Controller
     public function index()
     {
         //
-        $mentoring = MandiraMentoring::where('is_validated','=','0')->get();
-        return view('mentoring.index',compact('mentoring'));
+        $mentoring = MandiraMentoring::where('is_validated', '=', '0')->get();
+        return view('mentoring.index', compact('mentoring'));
     }
 
     /**
@@ -119,26 +119,26 @@ class MandiraMentoringController extends Controller
     public function destroy($id)
     {
         //
-        $mandiraMentoring = MandiraMentoring::where('id_mentoring',$id);
+        $mandiraMentoring = MandiraMentoring::where('id_mentoring', $id);
         try {
             $mandiraMentoring->delete();
             return redirect()->route('dashboard')->with('success', 'Program Mentor berhasil dihapus!');
         } catch (\PDOException $e) {
-            $msg="Data gagal dihapus";
+            $msg = "Data gagal dihapus";
 
-            return redirect()->route('dashboard')->with('error',$msg);
+            return redirect()->route('dashboard')->with('error', $msg);
         }
     }
 
     public function getEditForm(Request $request)
     {
         $userLogin = auth()->user()->email;
-        $mentoring = MandiraMentoring::where('id_mentoring','=',$request->id_mentoring)->first();
-        $daftarKeahlian = Keahlian::JOIN('keahlian_users as k','k.keahlians_idkeahlians','=','keahlians.idkeahlians')
-        ->where('users_email','=',$userLogin)->get();
+        $mentoring = MandiraMentoring::where('id_mentoring', '=', $request->id_mentoring)->first();
+        $daftarKeahlian = Keahlian::JOIN('keahlian_users as k', 'k.keahlians_idkeahlians', '=', 'keahlians.idkeahlians')
+            ->where('users_email', '=', $userLogin)->get();
         return response()->json(array(
             'status' => 'oke',
-            'msg' => view('mentoring.modal', compact('mentoring','daftarKeahlian'))->render()
+            'msg' => view('mentoring.modal', compact('mentoring', 'daftarKeahlian'))->render()
         ), 200);
     }
 

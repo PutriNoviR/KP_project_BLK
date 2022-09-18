@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blk;
+use App\Keahlian;
 use App\MandiraMentoring;
 use App\PaketProgram;
 use App\PelatihanPeserta;
@@ -291,11 +292,13 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Suspend Peserta berhasil diubah!');
     }
 
-    public function halamanMentor($email){
-
+    public function halamanMentor($email)
+    {
         $userLogin = auth()->user()->email;
         $user = User::find($email);
-        $mentoring = MandiraMentoring::where('email_mentor',$userLogin)->first();
-        return view('mentor.profile',compact('user','mentoring'));
+        $daftarKeahlian = Keahlian::JOIN('keahlian_users as k', 'k.keahlians_idkeahlians', '=', 'keahlians.idkeahlians')
+            ->where('users_email', '=', $userLogin)->get();
+        $mentoring = MandiraMentoring::where('email_mentor', $userLogin)->first();
+        return view('mentor.profile', compact('user', 'mentoring','daftarKeahlian'));
     }
 }

@@ -4,6 +4,31 @@
 Profile
 @endsection
 
+
+@section('javascript')
+<script>
+    $(function() {
+        ClassicEditor
+            .create(document.querySelector('#tentang_perusahaan'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        $('#btnubahdata').click(function() {
+            $('#btnubahdata').hide();
+            $('#data-perusahaan').hide();
+            $('#ubah-data-perusahaan').removeClass('d-none');
+        });
+
+        $('#btnbatal').click(function() {
+            $('#btnubahdata').show();
+            $('#data-perusahaan').show();
+            $('#ubah-data-perusahaan').addClass('d-none');
+        })
+    });
+</script>
+@endsection
+
 @section('contents')
 <section class="content">
     <div class="container-fluid">
@@ -14,7 +39,10 @@ Profile
                     <div class="">
                         <h3 class="font-weight-normal">{{ $user->nama_depan }} {{ $user->nama_belakang }}</h3>
                         <span class="text-muted d-block">Nomor Telepon : {{ $user->nomer_hp }}</span>
-                        <span class="text-muted">Email : {{ $user->email }}</span>
+                        <span class="text-muted d-block">Email : {{ $user->email }}</span>
+                        @foreach($daftarKeahlian as $k)
+                        <span class="text-muted">#{{ $k->nama}} </span>
+                        @endforeach
                     </div>
                     <div>
                         <button class="btn btn-outline-primary rounded font-weight-bold" id="btnubahdata">Ubah
