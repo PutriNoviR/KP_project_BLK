@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use File;
 use App\Http\Controllers\Controller;
+use App\MandiraMentoring;
 use App\PelatihanVendor;
 
 class SesiPelatihanController extends Controller
@@ -225,16 +226,11 @@ class SesiPelatihanController extends Controller
             $data = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
             $sesi = '0';
         } elseif ($id == '2') {
-            $data = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
-                ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id', '=', 'pp.id')
-                ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id', '=', 'sk.id')
-                ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
-                ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
-                ->WHERE('p.email_peserta', '=', $userLogin)
-                ->WHERE('mu.users_email', '=', $userLogin)
-                ->get();
+            $data = MandiraMentoring::join('masterblk_db.users as u','u.email','=','mandira_mentorings.email_mentor')
+            ->where('is_validated','=',1)
+            ->get();
             //
-            $sesi = '0';
+            $sesi = '2';
         } else {
             $data = PelatihanVendor::all();
             $sesi = '1';

@@ -13,8 +13,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
@@ -30,8 +29,7 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     {{-- datatables --}}
-    <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -48,7 +46,6 @@
         gtag('js', new Date());
 
         gtag('config', 'G-50BBRYS4HY');
-
     </script>
 
 </head>
@@ -69,8 +66,7 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                                    class="fas fa-bars"></i></a>
+                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                         </li>
                     </ul>
 
@@ -79,19 +75,28 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                                    aria-expanded="false">
+                                @if (auth()->user()->role->nama_role == 'superadmin')
+                                <button class="btn dropdown-toggle btn-dark" type="button" data-toggle="dropdown" aria-expanded="false">
                                     {{Auth::user()->username}}
                                 </button>
+                                @else
+                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    {{Auth::user()->username}}
+                                </button>
+                                @endif
                                 <div class="dropdown-menu">
-                                    @can('peserta-permission')
-                                    <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
+                                    @if(Auth::user()->role->nama_role == 'mentor')
+                                    <a href="{{ route('User.halamanku',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
-                                            Akun
+                                            Halamanku
                                         </p>
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
-                                        type="button">Kegiatan Ku</a>
+                                    @endif
+                                    @can('peserta-permission')
+                                    <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
+                                        Akun
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}" type="button">Kegiatan Ku</a>
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
@@ -114,8 +119,7 @@
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <!-- Brand Logo -->
                     <a href="{{ route('dashboard') }}" class="brand-link">
-                        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
-                            class="brand-image img-circle elevation-3" style="opacity: .8">
+                        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                         <span class="brand-text font-weight-light">Rumah Mandira</span>
                     </a>
 
@@ -124,15 +128,13 @@
                         <!-- Sidebar user panel (optional) -->
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                                data-accordion="false">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                                 <li class="nav-item has-treeview">
                                     @can('adminperusahaan-permission')
                                     @if (Auth::user()->perusahaans_id_admin !=null)
-                                    <a href="{{ route('perusahaan.profile') }}"
-                                        class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
+                                    <a href="{{ route('perusahaan.profile') }}" class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Profile Perusahaan
@@ -140,8 +142,7 @@
                                     </a>
                                     @endif
                                     @else
-                                    <a href="{{ route('dashboard') }}"
-                                        class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                                    <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             Dashboard
@@ -152,8 +153,7 @@
                                 @can('adminperusahaan-permission')
                                 @if (Auth::user()->perusahaans_id_admin !=null)
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('lowongan.index') }}"
-                                        class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
+                                    <a href="{{ route('lowongan.index') }}" class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>
                                             List Lowongan
@@ -171,16 +171,37 @@
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
+                                @endcan
+                                @can('super.admin-permission')
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
                                         <p>
-                                            Daftar Pelatihan
+                                            Pelatihan
+                                            <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
+                                                <i class="nav-icon far fa-circle"></i>
+                                                <p>
+                                                    Penugasan Admin
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item treeview">
+                                            <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
+                                                <i class="nav-icon far fa-circle"></i>
+                                                <p>
+                                                    Pengelolaan Sesi
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                @endif
-                                @if(Auth::user()->role->nama_role != 'adminperusahaan')
+                                @endcan
+                                @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item treeview">
                                     <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -219,6 +240,36 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Mentor
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('keahlian.index') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Daftar Keahlian</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('User.mentoring') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Daftar Mentor</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('mandiraMentoring.index') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Validasi Program</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 @endcan
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')
@@ -232,15 +283,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('blk.index') }}"
-                                                class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
+                                            <a href="{{ route('blk.index') }}" class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('kejuruans.index') }}"
-                                                class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="{{ route('kejuruans.index') }}" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Kejuruan</p>
                                             </a>
@@ -263,15 +312,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('super.adminblk') }}"
-                                                class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
+                                            <a href="{{ route('super.adminblk') }}" class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#"
-                                                class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
+                                            <a href="#" class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
@@ -335,7 +382,6 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
     <!-- DataTables -->
     <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>

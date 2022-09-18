@@ -1,7 +1,7 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Daftar Peserta
+Daftar Mentor
 @endsection
 
 @section('javascript')
@@ -13,13 +13,13 @@ Daftar Peserta
         });
     });
 
-    function modalEdit(id) {
+    function modalEdit(email) {
         $.ajax({
             type: 'POST',
             url: '{{ route("user.getEditForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'id': id,
+                'email': email,
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
@@ -51,7 +51,7 @@ Daftar Peserta
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Peserta</h2>
+        <h2>Daftar Mentor</h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -88,7 +88,7 @@ Daftar Peserta
                     @else
                     <form method="POST" action="{{ route('User.suspend',$d->email) }}" onsubmit="return submitFormSuspend(this);" class="d-inline">
                         @csrf
-                        <button data-toggle="modal"  data-target="#modalEditPelatihanPeserta" class='btn btn-danger' onclick="modalEdit('{{$d->email_peserta}}')">
+                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-danger' onclick="modalEdit('{{$d->email_peserta}}')">
                             SUSPEND
                         </button>
                     </form>

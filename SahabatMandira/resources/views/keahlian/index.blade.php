@@ -1,7 +1,7 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Daftar Kejuruan
+Daftar Keahlian Mentor
 @endsection
 
 @section('page-bar')
@@ -68,7 +68,7 @@ Daftar Kejuruan
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Kejuruan</h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah Kejuruan Baru
+            Tambah Keahlian Baru
         </button>
     </div>
     @if (\Session::has('success'))
@@ -81,21 +81,21 @@ Daftar Kejuruan
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th>NO</th>
-                <th>KEJURUAN</th>
-                <th>AKSI</th>
+                <th style="width: 10%">NO</th>
+                <th style="width: 70%">KEAHLIAN</th>
+                <th style="width: 20%">AKSI</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($kejuruans as $kej)
+            @foreach($keahlian as $k)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $kej->nama}}</td>
+                <td>{{ $k->nama}}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditKejuruan" class='btn btn-warning' onclick="modalEdit({{$kej->id}})">
+                    <a data-toggle="modal" data-target="#modalEditKeahlian" class='btn btn-warning' onclick="modalEdit({{$k->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('kejuruans.destroy',$kej->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('keahlian.destroy',$k->idkeahlians) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger" data-toggle="modal"><i class="fas fa-trash"></i></button>
@@ -107,7 +107,7 @@ Daftar Kejuruan
     </table>
 </div>
 {{-- MODAL --}}
-<div class="modal fade" id="modalEditKejuruan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditKeahlian" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
@@ -124,14 +124,14 @@ Daftar Kejuruan
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('kejuruans.store') }}">
+                    <form method="POST" action="{{ route('keahlian.store') }}">
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
+                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Keahlian') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="nama_kejuruan" required autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="nama" required autocomplete="nama">
 
                             </div>
                         </div>

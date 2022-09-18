@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blk;
+use App\MandiraMentoring;
 use App\PaketProgram;
 use App\PelatihanPeserta;
 use App\Role;
@@ -124,17 +125,17 @@ class UserController extends Controller
         //     'jenis_kelamin' => ['required']
 
         // ]);
-        $data = SesiPelatihan::where('id',$request->idPelatihan)->get();
+        $data = SesiPelatihan::where('id', $request->idPelatihan)->get();
         $userLogin = auth()->user()->email;
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $request->idPelatihan)
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($data->paketprogram);
-        $User =User::find($request->id);
+        $User = User::find($request->id);
         $validator = $request->validate([
-            'pas_foto' => ['required','mimes:png,jpg'],
-            'fotoKtp' => ['required','mimes:png,jpg,pdf'],
-            'ksk' => ['required','mimes:png,jpg,pdf'],
-            'ijazah' => ['required','mimes:png,jpg,pdf'],
+            'pas_foto' => ['required', 'mimes:png,jpg'],
+            'fotoKtp' => ['required', 'mimes:png,jpg,pdf'],
+            'ksk' => ['required', 'mimes:png,jpg,pdf'],
+            'ijazah' => ['required', 'mimes:png,jpg,pdf'],
             'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
             'nomorHp' => ['required', 'string', 'min:12']
         ]);
@@ -153,7 +154,7 @@ class UserController extends Controller
 
 
         $User->save();
-        return view('sesipelatihan.detailPelatihan',compact('data','cekDaftar'));
+        return view('sesipelatihan.detailPelatihan', compact('data', 'cekDaftar'));
     }
 
     /**
@@ -173,82 +174,128 @@ class UserController extends Controller
     {
         $blks = Blk::all();
         $adminblks = User::whereNotNull('blks_id_admin')->get();
-        return view('admin.daftarAdminBlk', compact('adminblks','blks'));
+        return view('admin.daftarAdminBlk', compact('adminblks', 'blks'));
     }
 
     public function tambahAdminBlk(Request $request)
     {
-        $adminblk = User::where('email',$request->email)->first();
+        $adminblk = User::where('email', $request->email)->first();
         if ($adminblk == null) {
-            return redirect()->back()->with('failed','Data user tidak ditemukan!');
+            return redirect()->back()->with('failed', 'Data user tidak ditemukan!');
         }
-        $role = Role::where('nama_role','adminblk')->first();
+        $role = Role::where('nama_role', 'adminblk')->first();
 
         $adminblk->blks_id_admin = $request->blks_id;
         $adminblk->roles_id = $role->id;
         $adminblk->save();
-        return redirect()->back()->with('success','Admin BLK berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Admin BLK berhasil ditambahkan!');
     }
 
     public function editAdminBlk(Request $request)
     {
-        $admin = User::where('email',$request->email)->first();
+        $admin = User::where('email', $request->email)->first();
         $admin->blks_id_admin = $request->blks_id;
         $admin->save();
-        return redirect()->back()->with('success','Admin BLK berhasil diubah!');
+        return redirect()->back()->with('success', 'Admin BLK berhasil diubah!');
     }
 
     public function hapusAdminBlk($email)
     {
-        $role = Role::where('nama_role','peserta')->first();
-        $user = User::where('email',$email)->first();
+        $role = Role::where('nama_role', 'peserta')->first();
+        $user = User::where('email', $email)->first();
         // dd($user);
         $user->blks_id_admin = null;
         $user->roles_id = $role->id;
         $user->save();
 
-        return redirect()->back()->with('success','Admin BLK berhasil dihapus!');
+        return redirect()->back()->with('success', 'Admin BLK berhasil dihapus!');
     }
 
     public function getEditForm(Request $request)
     {
         $user = User::find($request->id);
         return response()->json(array(
-            'status'=>'oke',
-            'msg'=>view('user.modal', compact('user'))->render()
+            'status' => 'oke',
+            'msg' => view('user.modal', compact('user'))->render()
         ), 200);
     }
 
     public function getEditFormAdminBlk(Request $request)
     {
         $blks = Blk::all();
-        $admin = User::where('email',$request->email)->first();
+        $admin = User::where('email', $request->email)->first();
         return response()->json(array(
-            'status'=>'oke',
-            'msg'=>view('admin.editModalAdminBlk', compact('admin','blks'))->render()
+            'status' => 'oke',
+            'msg' => view('admin.editModalAdminBlk', compact('admin', 'blks'))->render()
         ), 200);
     }
 
-    public function kelengkapanDokumen(Request $request){
+    public function kelengkapanDokumen(Request $request)
+    {
         $user = new User();
-        $user->jenis_identitas=$request->jenis_identitas;
-        $user->nomor_identitas=$request->nomorIdentitas;
-        $user->nomer_hp=$request->nomorHp;
-        $user->kota=$request->kota;
-        $user->alamat=$request->alamat;
-        $user->pas_foto=$request->pas_foto;
-        $user->ktp=$request->fotoKtp;
-        $user->ksk=$request->ksk;
-        $user->ijazah=$request->ijazah;
-        $user->jenis_kelamin=$request->jenis_kelamin;
-        $user->pendidikan_terakhir=$request->pendidikan_terakhir;
+        $user->jenis_identitas = $request->jenis_identitas;
+        $user->nomor_identitas = $request->nomorIdentitas;
+        $user->nomer_hp = $request->nomorHp;
+        $user->kota = $request->kota;
+        $user->alamat = $request->alamat;
+        $user->pas_foto = $request->pas_foto;
+        $user->ktp = $request->fotoKtp;
+        $user->ksk = $request->ksk;
+        $user->ijazah = $request->ijazah;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->pendidikan_terakhir = $request->pendidikan_terakhir;
     }
 
     public function daftar()
     {
-        $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
-        ->where('r.nama_role','=','peserta')->get();
-        // dd($data);
+
+        $adminBlk = auth()->user()->blks_id_admin;
+
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            $data = User::JOIN('mandira_db.pelatihan_pesertas as p', 'users.email', '=', 'p.email_peserta')
+                ->JOIN('mandira_db.sesi_pelatihans as s', 's.id', '=', 'p.sesi_pelatihans_id')
+                ->JOIN('paket_program as m', 's.paket_program_id', '=', 'm.id')
+                ->WHERE('m.blks_id', '=', $adminBlk)
+                ->get();
+        } else {
+            $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
+                ->where('r.nama_role', '=', 'peserta')->get();
+        }
+        // dd($dataAdmin);
         return view('user.peserta', compact('data'));
+    }
+
+    public function mentordaftar()
+    {
+        $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
+            ->where('r.nama_role', '=', 'mentor')
+            ->get();
+        // dd($data);
+        return view('keahlian.peserta', compact('data'));
+    }
+
+    public function suspendUser($email)
+    {
+        $userLogin = auth()->user()->email;
+        $User = User::find($email);
+        // dd($User);
+        // $check = $request->check;
+        if ($User->is_suspend == '1') {
+            $User->is_suspend = 0;
+        } else {
+            $User->is_suspend = 1;
+        }
+
+        $User->suspended_by = $userLogin;
+        $User->save();
+        return redirect()->back()->with('success', 'Suspend Peserta berhasil diubah!');
+    }
+
+    public function halamanMentor($email){
+
+        $userLogin = auth()->user()->email;
+        $user = User::find($email);
+        $mentoring = MandiraMentoring::where('email_mentor',$userLogin)->first();
+        return view('mentor.profile',compact('user','mentoring'));
     }
 }
