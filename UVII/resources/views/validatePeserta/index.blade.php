@@ -12,13 +12,13 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('riwayat_tes_global.user')}}">Validate Peserta</a>
+            <a href="{{route('admin.validate')}}">Validate Peserta</a>
             <i class="fa fa-angle-right"></i>
         </li>
     </ul>
 @endsection
 @section('contents')
-<h4 class="text-center">Riwayat Tes Semua Peserta</h4>
+<h4 class="text-center">Validasi Tes Semua Peserta</h4>
 <div>
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="setting" <?php if($settingValidasi[0]->value == 1){ echo"checked "; } echo"value='".$settingValidasi[0]->value."'";?>>
@@ -27,23 +27,23 @@
 </div>
 <div class="portlet">
   <div class="portlet-body">
-  <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
         <thead>
           <tr role="row">
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       No
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-              aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+              aria-label="Browser: activate to sort column ascending">
                       Peserta
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-              aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+              aria-label="Browser: activate to sort column ascending">
                       Mulai Tes
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       Selesai Tes
             </th>
             <th></th>
@@ -169,7 +169,7 @@
         $('#imgAkhir').html(`<img  src="{{asset('camera/akhir/`+nama+`.png')}}" alt="">`);
         $('.btn-validasi').attr('usrId',id);
         // $('#imgAkhir').attr('src',"{{asset('camera/akhir"+nama+".png')}}");
-        $('#modalValidate').modal('toggle');
+        $('#modalValidate').show();
     })
     $('.btn-validasi').on('click',function(){
         let id = $(this).attr('usrId');
@@ -183,10 +183,10 @@
                 'val':val
             },
             success:function(data){
-                $('#modalValidate').modal('hide');
+                $('#modalValidate').hide();
                 $('#info').html(data.info);
                 $('#btn-close-info').val(data.resCode);
-                $('#modalInfo').modal('toggle');
+                $('#modalInfo').show();
             }
         });
     })

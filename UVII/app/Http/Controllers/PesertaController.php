@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class PesertaController extends Controller
 {
@@ -317,4 +318,15 @@ class PesertaController extends Controller
     
         return view('admin.profile', compact('data','menu_role'));
     }
+
+    public function cetakPDF(){
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
+        $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+
+        $pdf = PDF::loadview('export.daftarPesertaPdf',compact('user','totalPeserta'))->setOptions(['defaultFont'=>'sans-serif']);
+        $name = "laporan-daftar-peserta.pdf";
+        return $pdf->download($name);
+    }
+
 }

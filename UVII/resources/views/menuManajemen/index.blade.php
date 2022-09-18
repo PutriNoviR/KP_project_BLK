@@ -25,7 +25,7 @@
   $('#role_user').on('change', function() {
     $('input[type=checkbox]').each(function(){
       $(this).parent().removeClass('checked');
-    
+      $(this).prop('checked', false);
     });
 
     var idrole = $(this).find(":selected").val();
@@ -283,11 +283,11 @@
                       <div class="col-md-8">
                         <div class="radio-list">
                           <label>
-                            <input type="radio" class='form-control' name='status' value="Aktif">
+                            <input type="radio" name='status' value="Aktif">
                             Aktif
                           </label>
                           <label>
-                            <input type="radio" class='form-control' name='status' value="Tidak Aktif" checked>
+                            <input type="radio" name='status' value="Tidak Aktif" checked>
                             Tidak Aktif
                           </label>
                         </div>

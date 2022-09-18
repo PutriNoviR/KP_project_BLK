@@ -49,7 +49,7 @@
             </div>
         </div>
     @else
-        @if($settingValidasi[0]->value == 0)
+        @if($settingValidasi[0]->value == 0 || $tesTerbaru->is_validate == 1)
             <div class="card-page">
                 <div class="card-header">
                     <p> <b>Hasil Tes Minat Peserta</b></p>

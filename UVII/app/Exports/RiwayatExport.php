@@ -12,6 +12,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use App\User;
+use App\Role; 
+
 class RiwayatExport implements FromCollection, WithHeadings, WithEvents
 {
     /**
@@ -22,7 +24,8 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
         $datas=[];
         $seluruh_data=[];
         $data_kategori=[];
-        $user =User::all();
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user =User::where('roles_id',$idRole->id)->get();
         $riwayat_tes= UjiMinatAwal::all();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
@@ -54,16 +57,16 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
 
             }
             if($dataKategori[$data_test->id] != null){
-                foreach($dataKategori[$data_test->id] as $d){
-                     
+                // foreach($dataKategori[$data_test->id] as $d){
+                    $koma=implode(',',$dataKategori[$data_test->id]);
                   
-                    if(!$loop->last){
-                        $koma=implode(',',$d);
-                    }
+                    // if(!$loop->last){
+                      
+                    // }
                     
                    // array_push($data_kategori,$koma);
                    
-                }
+                // }
             }
             else {
                 $koma= "Belum tes";
