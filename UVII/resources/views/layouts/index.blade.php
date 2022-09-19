@@ -79,10 +79,10 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="page-logo">
             <img src="{{ asset('assets/image/disnaker.jpeg') }}" alt="logo" width="250px"/>
         </div>
-        <form class="search-form search-form-header" role="form" action="index.html">
+		<form class="search-form search-form-header" role="form" action="{{route('search.button')}}">
             <div class="input-icon right">
                 <i class="icon-magnifier"></i>
-                <input type="text" class="form-control input-sm" name="query" placeholder="Search...">
+                <input type="text" class="form-control input-sm" name="keyword" placeholder="Search Menu...">
             </div>
         </form>
 		<!-- END LOGO -->

@@ -74,6 +74,29 @@ class HomeController extends Controller
         return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi'));
     }
 
+    public function search(Request $request){
+        $keyword = $request->keyword;
+        $role_user = Auth::user()->role->id;
+
+        if($keyword){
+            $menu = DB::table('menu_manajemens as mm')
+                        ->join('menu_manajemens_has_roles as mmhs','mmhs.menu_manajemens_id','=','mm.id')
+                        ->where('mmhs.roles_id',$role_user)
+                        ->where('mm.nama','like', '%'.$keyword.'%')
+                        ->orWhere('mm.deskripsi','like','%'.$keyword.'%')
+                        ->first() ?? null;
+
+            if($menu != null){
+                
+                return redirect()->route($menu->url);
+            }
+            else{
+                return redirect()->back()->with('error','menu tidak ditemukan');
+            }
+       
+        }
+    }
+
     public function menuFilter(){
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')

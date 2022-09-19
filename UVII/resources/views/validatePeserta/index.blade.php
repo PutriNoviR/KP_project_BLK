@@ -54,27 +54,29 @@
             @php
                 $no = 1;
             @endphp
-            @foreach($riwayat_tes as $key=>$data)
+           {{-- @foreach($riwayat_tes as $key=>$data) --}}
+           @foreach($data_akhir as $key=>$data)
             <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                 <td class="">
+                   
                     {{ $no }}
                 </td>
                 <td>
-                    {{$data->users_email }}
+                    {{ $data['users_email'] }}
                 </td>
                 <td>
-                    {{$data->tanggal_mulai }}
+                    {{ $data['tanggal_mulai'] }}
                 </td>
                 <td>
-                    {{$data->tanggal_selesai }}
+                    {{ $data['tanggal_selesai'] }}
                 </td>
                 <td>
-                    @if($data->is_validate == 2)
+                    @if($data['is_validate'] == 2)
                     <button type='button' class='btn btn-error'>Tidak valid</button>
-                    @elseif($data->is_validate == 1)
+                    @elseif($data['is_validate'] == 1)
                     <button type='button' class='btn btn-success'>Valid</button>
                     @else
-                    <button class='btn btn-primary btn-validate' usrId='{{$data->id }}' value='{{$data->nama_depan}} {{$data->nama_belakang}}'> validate</button>
+                    <button class='btn btn-primary btn-validate' usrId='{{$data["id"] }}' value='{{$data["nama_depan"]}} {{$data["nama_belakang"]}}'> validate</button>
                     @endif
                 </td>
             </tr>
