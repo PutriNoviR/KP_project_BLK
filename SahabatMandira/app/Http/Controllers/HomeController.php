@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Keahlian;
 use App\KeahlianUser;
+use App\Lamaran;
 use App\MandiraMentoring;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
 use App\User;
 use App\PelatihanOther;
+use App\PelatihanPeserta;
 use App\PelatihanVendor;
+use App\Perusahaan;
+use App\Role;
 
 class HomeController extends Controller
 {
@@ -30,7 +34,16 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('welcome');
+        $pencaker = Lamaran::distinct('users_email')->count('users_email');
+        $mitra = Perusahaan::distinct('nama')->count('nama');
+        $idmentor = Role::where('nama_role','mentor')->first();
+        $mentor = User::where('roles_id',$idmentor->id)->distinct('email')->count('email');
+        $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran','<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup','>=',date('y-m-d h:i:s', strtotime('now')))->count();
+        $totalpendaftar = PelatihanPeserta::all()->count();
+        $pesertaditerima = PelatihanPeserta::where('rekom_keputusan','LULUS')->count();
+        $persentase = $pesertaditerima/$totalpendaftar * 100;
+        // dd($totalpelatihan);
+        return view('welcome', compact('pencaker','mitra','mentor','totalpelatihan','persentase'));
     }
 
     public function dashboard()
