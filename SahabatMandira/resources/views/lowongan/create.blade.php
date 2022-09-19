@@ -49,8 +49,8 @@ Lowongan
         $('#tbody').append(`<tr>
             <td style="width:90%">${nama}</td>
             <input type="hidden" name="dokumen[]" value="${nama}">
-            <td style="width:10%"><button type="button"  class="btndeleterow btn btn-danger"><i
-                                class="fas fa-trash"></i></button></td>
+            <td style="width:10%"><button type="button"  class="btndeleterow btn btn-danger">
+            <i class="fas fa-trash"></i></button></td>
         </tr>`);
         $('#tambahDokumenModal').modal('hide');
     });

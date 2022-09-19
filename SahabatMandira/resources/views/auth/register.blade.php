@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+@section('title')
+Register
+@endsection
+
 @section('javascript')
 <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>
@@ -129,8 +134,9 @@
                         <div class="col-md-12">
                             <select name="role" id="role" class="form-control">
                                 <option value="peserta">Peserta</option>
-                                <option value="verifikator">Mentor</option>
+                                <option value="verifikator">Instruktur</option>
                                 <option value="adminperusahaan">Mitra</option>
+                                <option value="mentor">Mentor</option>
                             </select>
 
                             @error('role')

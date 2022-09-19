@@ -23,6 +23,7 @@
     function updateTabAt(no){
         $('#theTab').val(no);
     }
+    
 </script>
 @endsection
 
@@ -63,32 +64,35 @@
                Daftar Peserta
             </div>
         </div>
+        
         <div class="portlet-body">
-     
-            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+        <a href="{{route('export.listPeserta')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
+        <a href="{{route('daftar_peserta.cetak')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
+
+            <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
                 <thead>
                 <tr role="row">
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                        aria-label="Rendering engine: activate to sort column ascending">
                         No
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                        aria-label="Browser: activate to sort column ascending">
                         Nama Lengkap
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                        aria-label="Rendering engine: activate to sort column ascending">
                         Email
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                        aria-label="Rendering engine: activate to sort column ascending">
                         Username
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                        aria-label="Rendering engine: activate to sort column ascending">
                         Detail
                     </th>
-                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                         Aksi
                     </th>
                 </tr>

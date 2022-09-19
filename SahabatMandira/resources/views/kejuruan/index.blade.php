@@ -21,7 +21,7 @@ Daftar Kejuruan
 
 @section('javascript')
 <script>
-    $(function () {
+    $(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -36,10 +36,10 @@ Daftar Kejuruan
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -60,7 +60,6 @@ Daftar Kejuruan
             });
         return false;
     }
-
 </script>
 @endsection
 
@@ -79,8 +78,7 @@ Daftar Kejuruan
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>NO</th>
@@ -94,16 +92,13 @@ Daftar Kejuruan
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $kej->nama}}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditKejuruan" class='btn btn-warning'
-                        onclick="modalEdit({{$kej->id}})">
+                    <a data-toggle="modal" data-target="#modalEditKejuruan" class='btn btn-warning' onclick="modalEdit({{$kej->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('kejuruans.destroy',$kej->id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('kejuruans.destroy',$kej->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
-                                class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
@@ -136,8 +131,7 @@ Daftar Kejuruan
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Kejuruan') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="nama_kejuruan" required
-                                    autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="nama_kejuruan" required autocomplete="nama">
 
                             </div>
                         </div>
@@ -150,4 +144,6 @@ Daftar Kejuruan
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+</div>
+@endsection

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+@section('title')
+Login
+@endsection
+
 @section('javascript')
 <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>

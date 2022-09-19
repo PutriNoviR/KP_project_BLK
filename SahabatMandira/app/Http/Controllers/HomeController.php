@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Keahlian;
+use App\KeahlianUser;
+use App\MandiraMentoring;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
 use App\User;
@@ -34,8 +37,8 @@ class HomeController extends Controller
     {
         $userLogin = auth()->user()->email;
         $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()')
-        ->skip(0)
-        ->take(4);
+            ->skip(0)
+            ->take(4);
         // dd($ditawarkan);
         // $disarankan = PelatihanPeserta::join('sesi_pelatihans as P', 'pelatihan_pesertas.sesi_pelatihans_id', '=', 'P.id')
         // ->join('masterblk_db.users as u', 'u.email', '=', $userLogin)
@@ -43,34 +46,56 @@ class HomeController extends Controller
         // ->get();
 
         $disarankan = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
-        ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id','=','pp.id')
-        ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id','=','sk.id')
-        ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id','=','sk.kode_kategori')
-        ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id','=','kp.id')
-        ->WHERE('mu.users_email', '=', $userLogin)
-        ->WHERE('p.email_peserta', '=', $userLogin)
-        ->skip(0)
-        ->take(4)
-        ->get();
+            ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id', '=', 'pp.id')
+            ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id', '=', 'sk.id')
+            ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
+            ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
+            ->WHERE('mu.users_email', '=', $userLogin)
+            ->WHERE('p.email_peserta', '=', $userLogin)
+            ->skip(0)
+            ->take(4)
+            ->get();
         // dd($disarankan);
 
         $adminBlk = auth()->user()->blks_id_admin;
 
-        $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
-        ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
-        ->WHERE('b.id','=',$adminBlk)
-        ->get();
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
+                ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
+                ->WHERE('b.id', '=', $adminBlk)
+                ->get();
+        } else {
+            $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
+                ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
+                ->get();
+        }
+
+
+        $mentoring = MandiraMentoring::where('email_mentor', '=', $userLogin)->get();
+        // dd($mentoring);
+
+        $programMentor = MandiraMentoring::where('is_validated', '=', 1)
+            ->skip(0)
+            ->take(4)
+            ->get();
 
         $other = PelatihanVendor::all()
-        ->skip(0)
-        ->take(4);
+            ->skip(0)
+            ->take(4);
 
+        $keahlian = KeahlianUser::where('users_email', '=', $userLogin)->get();
 
+        $daftarKeahlian = Keahlian::JOIN('keahlian_users as k', 'k.keahlians_idkeahlians', '=', 'keahlians.idkeahlians')
+            ->where('users_email', '=', $userLogin)->get();
+        // dd($keahlian);
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
-        ->WHERE('R.nama_role', '=', 'verifikator' )
-        ->get();
+            ->WHERE('R.nama_role', '=', 'verifikator')
+            ->get();
 
-        return view('dashboard',compact('ditawarkan','disarankan', 'adminDashboard','user','other'));
+        $suspend = auth()->user()->is_suspend;
+        // dd($suspend);
+
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend'));
 
         // return view('dashboard');
     }

@@ -47,30 +47,30 @@
 
         <div class="portlet-body"> 
 
-            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+            <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
                 <thead>
                 <tr role="row">
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                        aria-label="Rendering engine: activate to sort column ascending">
                         No
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                        aria-label="Browser: activate to sort column ascending">
                         Kode
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                        aria-label="Browser: activate to sort column ascending">
                         Nama
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                        aria-label="Browser: activate to sort column ascending">
                         Kode Poin
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                        aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+                        aria-label="Browser: activate to sort column ascending">
                         Klaster Psikometrik
                     </th>
-                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+                    <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                         Aksi
                     </th>
                 </tr>
@@ -168,7 +168,7 @@
                         </div>
                         <div class="form-group">
                         <label for="nama" class=" form-control-label">Klaster</label>
-                        <select name="klaster">
+                        <select name="klaster" class=" form-control">
                             @foreach($dataKlaster as $d)
                                 <option value="{{$d->id}}">{{$d->nama}}</option>
                             @endforeach

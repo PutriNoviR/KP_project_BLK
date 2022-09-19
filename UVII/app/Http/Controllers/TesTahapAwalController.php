@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
+use PDF;
+use App\Role;
 
 class TesTahapAwalController extends Controller
 {
@@ -101,12 +103,13 @@ class TesTahapAwalController extends Controller
                     ->where('roles_id', $role_user)
                     ->where('mm.status','Aktif')
                     ->get();
-        
-        return view('ujiTahapAwal.index', compact('tes', 'menu_role'));
+
+        $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
+        return view('ujiTahapAwal.index', compact('tes', 'menu_role','settingValidasi'));
     }
 
     public function test(){
-        
+
         $dataSoal = Pertanyaan::inRandomOrder()->simplepaginate(3);
 
         return view('ujiTahapAwal.coba', compact('dataSoal'));
@@ -118,7 +121,7 @@ class TesTahapAwalController extends Controller
         $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
 
         //ambil data untuk di setting
-       
+
         $dataSet= Setting::where('key','soal_perHalaman')->first();
         $dataMenit= Setting::where('key','durasi')->first();
 
@@ -137,20 +140,20 @@ class TesTahapAwalController extends Controller
             $uji_minat->sisa_durasi = $menit;
             $uji_minat->durasi_awal = $menit;
             $waktu = explode(':', $uji_minat->sisa_durasi);
-           
-         
+
+
             $uji_minat->save();
             // membuat soal random dan dikunci
 
             $dataSoal = Pertanyaan::where('is_enable', 1)->inRandomOrder()->take($dataJmlSoal->value)->get();
-       
+
             UjiMinatAwal::insertPertanyaanPerSesi($uji_minat->id, $dataSoal);
         }
         else{
             $uji_minat = $tes;
-           
+
             $waktu = explode(':',$uji_minat->sisa_durasi);
-            
+
         }
         $waktu1= $waktu[0];
         $waktu2= $waktu[1];
@@ -161,29 +164,29 @@ class TesTahapAwalController extends Controller
         // $dataSoal = Pertanyaan::inRandomOrder(); //->paginate(1);
         // random masuk ke tabel
 
-        //ambil data jumlah halaman dari setting 
+        //ambil data jumlah halaman dari setting
         $dataSoal = ($uji_minat->hasilJawabans()->orderBy('urutan'))->paginate($perPage);
-        
+
         $totalSoal = count($uji_minat->hasilJawabans);
-        
+
 
         return view('ujiTahapAwal.tes', compact('dataSoal', 'totalSoal','dataJawaban','waktu1', 'waktu2', 'perPage'));
     }
-    
+
     public function simpanJawaban(Request $request){
         // ambil value input type hidden (FK uji_Minat_awal)
         // FK soal
         // jawaban (PK jawaban)
         $user = Auth::user()->email;
-       
+
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first();
-    
+
         $id_tes = $tes->id;
 
         UjiMinatAwal::updateJawabanPeserta($id_tes, $request->soal, $request->jawaban);
 
         // $tes->hasilJawabans()->attach($request->soal, ['jawaban' => $request->jawaban]);
-        // $tes->hasilJawabans->update 
+        // $tes->hasilJawabans->update
 
         return response()->json(array(
             'msg'=>"Jawaban tersimpan di tes".$id_tes ." dengan ".$request->soal." dan ".$request->jawaban
@@ -194,7 +197,7 @@ class TesTahapAwalController extends Controller
         $user = Auth::user()->email;
 
         $ujiMinat = UjiMinatAwal::where('users_email',$user)->where('tanggal_selesai',null)->first();
-        
+
         $dataSoal = Pertanyaan::all();
         $dataJawaban = UjiMinatAwal::getDataJawaban($ujiMinat->id);
 
@@ -214,22 +217,22 @@ class TesTahapAwalController extends Controller
                      ->where('roles_id', $role_user)
                      ->where('mm.status','Aktif')
                      ->get();
-        
+
         $user = Auth::user()->email;
-        
+
         $tes = UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->orderBy('tanggal_mulai','DESC')->first() ?? UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
 
         $dataJawaban = UjiMinatAwal::getDataJawaban($tes->id);
-       
+
         // cek apakah ada soal yang belum terisi dan masih terdapat cukup waktu;
-        // if(in_array(0, $dataJawaban) && $tes->sisa_durasi != "00:00"){ 
+        // if(in_array(0, $dataJawaban) && $tes->sisa_durasi != "00:00"){
         //     return redirect()->back()->with('error','Terdapat soal yang belum terjawab. Silahkan gunakan waktu yang tersisa untuk menjawab.');
         // }
         // else{
             $dataHasil = UjiMinatAwal::HitungScoreMultiServer($tes->id);
-           
+
             $totalScore = $dataHasil['totalScore'];
-           
+
             //Mengecek apakah ada hasil score klaster yang sama
             $klaster = UjiMinatAwal::HasilKlasterSama($dataHasil['hasil']);
 
@@ -241,19 +244,19 @@ class TesTahapAwalController extends Controller
             $waktu = explode(':', $data->durasi);
             $waktu1 = $waktu[0];
             $waktu2 = $waktu[1];
-           
+
             // dd($waktu1, $waktu2);
             $klasters = $klaster['jmlKlaster'];
-        
+
             //jika hasil score ada yang sama
             if($klasters > 1){
                 //Nama klaster yang sama
                 $dataKlaster = DB::table('klaster_psikometrik')->whereIn('nama', $klaster['namaKlaster'])->get();
-                
+
 
                 if($request->jawaban != null){
                     UjiMinatAwal::updateHasilTesSama($tes->id, $dataHasil['hasil'], $request->jawaban);
-                   
+
                     $klasters = 1;
 
                     // dd($dataHasil);
@@ -262,11 +265,11 @@ class TesTahapAwalController extends Controller
             else{
                 $dataKlaster = null;
                 UjiMinatAwal::updateHasil($tes->id, array_slice($dataHasil['hasil'], 0,1));
-              
+
             }
-            
+
             UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['tanggal_selesai' => Carbon::now()->format('Y-m-d H:i:m')]);
-            
+
             $tesTerbaru = UjiMinatAwal::where('users_email', $user)->orderBy('tanggal_selesai','DESC')->first();
 
             $dataHasilTerbaru = UjiMinatAwal::scoreTertinggi($dataHasil['hasil'], $tesTerbaru->id);
@@ -274,16 +277,20 @@ class TesTahapAwalController extends Controller
             // Untuk Insert ke michael
             // UjiMinatAwal::insertHasilRekomendasi($tesTerbaru->id);
 
-            return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru', 'menu_role'));
+            $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
+
+
+
+            return view('ujiTahapAwal.hasilJawaban', compact('totalScore', 'waktu1','waktu2','klasters', 'dataKlaster', 'tesTerbaru', 'dataHasilTerbaru', 'menu_role','settingValidasi'));
         // }
-    
+
     }
 
     public function updateTimer(Request $request){
         $user = Auth::user()->email;
 
         $timer = ($request->menit.":".$request->detik);
-       
+
         UjiMinatAwal::where('users_email', $user)->where('tanggal_selesai', null)->update(['sisa_durasi' => $timer]);
 
         return response()->json(array(
@@ -306,11 +313,13 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
+        $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
+
       //  return view('riwayatUjian.index', compact('riwayat','menu_role', 'daftarRiwayat'));
-      return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori'));
+      return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori','settingValidasi'));
     }
     public function riwayatTesGlobal(){
-        
+
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
         $riwayat_tes= UjiMinatAwal::all();
         $dataKlaster = KlasterPsikometrik::all();
@@ -326,5 +335,19 @@ class TesTahapAwalController extends Controller
 
         return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
 
+    }
+
+    public function cetakPDF(){
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
+        $riwayat_tes= UjiMinatAwal::all();
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+
+        $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+
+        $pdf = PDF::loadview('export.riwayatPdf',compact('riwayat_tes','dataKlaster','dataKategori', 'totalPeserta', 'user'))->setOptions(['defaultFont'=>'sans-serif']);
+        $name = "laporan-tes-peserta.pdf";
+        return $pdf->download($name);
     }
 }

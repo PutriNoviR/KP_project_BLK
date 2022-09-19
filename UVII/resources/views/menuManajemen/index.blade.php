@@ -25,7 +25,7 @@
   $('#role_user').on('change', function() {
     $('input[type=checkbox]').each(function(){
       $(this).parent().removeClass('checked');
-    
+      $(this).prop('checked', false);
     });
 
     var idrole = $(this).find(":selected").val();
@@ -89,30 +89,30 @@
 
 <div class="portlet">
   <div class="portlet-body">
-  <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">    
         <thead>
           <tr role="row">
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       No
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-              aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+              aria-label="Browser: activate to sort column ascending">
                       Nama
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-              aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+              aria-label="Browser: activate to sort column ascending">
                       Deskripsi
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       Status
             </th>
             
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       URL
             </th>
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Aksi
             </th>
             
@@ -283,11 +283,11 @@
                       <div class="col-md-8">
                         <div class="radio-list">
                           <label>
-                            <input type="radio" class='form-control' name='status' value="Aktif">
+                            <input type="radio" name='status' value="Aktif">
                             Aktif
                           </label>
                           <label>
-                            <input type="radio" class='form-control' name='status' value="Tidak Aktif" checked>
+                            <input type="radio" name='status' value="Tidak Aktif" checked>
                             Tidak Aktif
                           </label>
                         </div>

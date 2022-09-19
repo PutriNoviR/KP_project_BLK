@@ -109,11 +109,25 @@ Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')
 Route::resource('/tugas','TugasController');
 Route::post('/tugas/getDetail','TugasController@getDetail')->name('tugas.getDetail');
 
+//Keahlian
+Route::resource('/keahlian','KeahlianController');
+
+//KeahlianUser
+Route::resource('/keahlianUser','KeahlianUserController');
+
+//MandiraMentoring
+Route::resource('/mandiraMentoring','MandiraMentoringController');
+Route::post('/mandiraMentoring/getEditForm','MandiraMentoringController@getEditForm')->name('mandiraMentoring.getEditForm');
+Route::post('/mandiraMentoring/validasi/{id}','MandiraMentoringController@validasi')->name('mandiraMentoring.validated');
+
 //User
 Route::resource('User','UserController');
 Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
 Route::post('User/{id}','UserController@update')->name('User.update');
+Route::post('User/suspend/{email}','UserController@suspendUser')->name('User.suspend');
 Route::get('daftar','UserController@daftar')->name('User.daftar');
+Route::get('/user/mentor','UserController@mentordaftar')->name('User.mentoring');
+Route::get('/user/halaman/{email}','UserController@halamanMentor')->name('User.halamanku');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');

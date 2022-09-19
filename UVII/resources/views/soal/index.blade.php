@@ -93,32 +93,32 @@
 
 <a href="{{url('soal/create')}}" data-toggle='modal' class='btn btn-info'> Tambah Soal </a>
 <a href="#modalImport" data-toggle='modal' class='btn btn-info'> Import Soal </a><br><br>
-<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a>
+<a href="#modalSetting" data-toggle='modal' class='btn btn-info'> Setting Soal </a><br><br>
 
 <div class="portlet">
   <div class="portlet-body">
  
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
         <thead>
           <tr role="row">
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       No
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-              aria-label="Browser: activate to sort column ascending" style="width: 250px;">
+              aria-label="Browser: activate to sort column ascending">
                       Pertanyaan
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       Soal Aktif
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 129px;">
+                aria-label="Rendering engine: activate to sort column ascending">
                       Detail
             </th>
             
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1" style="width: 120px;">
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Aksi
             </th>
             
@@ -200,7 +200,7 @@
             </td>
           </tr>
 
-<div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
+          <div class="modal fade" id="modal_{{$item->id}}" tabindex="-1" role="basic" aria-hidden="true">
                       <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -266,8 +266,8 @@
             $no++;
           @endphp
 
-        @endforeach
-      </tbody>
+          @endforeach
+        </tbody>
     </table>
     
   </div>

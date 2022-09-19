@@ -4,24 +4,9 @@
 Daftar Peserta
 @endsection
 
-@section('page-bar')
-{{-- <ul class="page-breadcrumb">
-    <li>
-        <i class="fa fa-home"></i>
-        <a href="http://127.0.0.1:8000/">Dashboard</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-
-    <li>
-        <a href="http://127.0.0.1:8000/menu/user">User</a>
-        <i class="fa fa-angle-right"></i>
-    </li>
-</ul> --}}
-@endsection
-
 @section('javascript')
 <script>
-    $(function () {
+    $(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -36,10 +21,10 @@ Daftar Peserta
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -60,7 +45,6 @@ Daftar Peserta
             });
         return false;
     }
-
 </script>
 @endsection
 
@@ -68,9 +52,6 @@ Daftar Peserta
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta</h2>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah User Baru
-        </button>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -79,8 +60,7 @@ Daftar Peserta
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>NO</th>
@@ -99,17 +79,19 @@ Daftar Peserta
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
                 <td>
                     @if( $d->is_suspend == '1')
-                    <button data-toggle="modal" onclick="return submitFormSuspend(this);"
-                        data-target="#modalEditPelatihanPeserta" class='btn btn-success'
-                        onclick="modalEdit('{{$d->email_peserta}}')">
-                        UNSUSPEND
-                    </button>
+                    <form method="POST" action="{{ route('User.suspend',$d->email) }}" onsubmit="return submitFormSuspend(this);" class="d-inline">
+                        @csrf
+                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-success' onclick="modalEdit('{{$d->email_peserta}}')">
+                            UNSUSPEND
+                        </button>
+                    </form>
                     @else
-                    <button data-toggle="modal" onclick="return submitFormSuspend(this);"
-                        data-target="#modalEditPelatihanPeserta" class='btn btn-danger'
-                        onclick="modalEdit('{{$d->email_peserta}}')">
-                        SUSPEND
-                    </button>
+                    <form method="POST" action="{{ route('User.suspend',$d->email) }}" onsubmit="return submitFormSuspend(this);" class="d-inline">
+                        @csrf
+                        <button data-toggle="modal"  data-target="#modalEditPelatihanPeserta" class='btn btn-danger' onclick="modalEdit('{{$d->email_peserta}}')">
+                            SUSPEND
+                        </button>
+                    </form>
                     @endif
                 </td>
             </tr>
