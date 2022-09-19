@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
 use PDF;
+use App\Role;
 
 class TesTahapAwalController extends Controller
 {
@@ -337,7 +338,8 @@ class TesTahapAwalController extends Controller
     }
 
     public function cetakPDF(){
-        $user = DB::table('users')->get();
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
         $riwayat_tes= UjiMinatAwal::all();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);

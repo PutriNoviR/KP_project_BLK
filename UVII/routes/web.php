@@ -45,7 +45,8 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::resource('ex/excel','ExportController');
     Route::get('/export/excel', 'ExportController@exportExcel')->name('export');
     Route::get('/listPeserta/excel', 'ExportController@exportListPeserta')->name('export.listPeserta');
-
+    Route::get('menu/peserta/cetak','PesertaController@cetakPDF')->name('daftar_peserta.cetak');
+    
     //CRUD
     Route::resource('menu/blk', 'BlkController');
     Route::resource('soal', "PertanyaanController");

@@ -102,9 +102,11 @@ License: You must have a valid license purchased only from themeforest(the above
 				<i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu">
+					@if(Auth::user()->role->nama_role == 'peserta')
 					<li>
 						<a href="{{route('profile')}}" style='{{ Auth::user()->tanggal_lahir == null ? "pointer-events: none;" : "" }}'><i class="fa fa-user"></i> Profile</a>
 					</li>
+					@endif
 					<div class="divider"></div>
 					<li>
 						<form action="{{ route('logout') }}" method="POST" class="d-none logout">

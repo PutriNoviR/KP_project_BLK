@@ -7,7 +7,7 @@
 
     <div class="portlet-body">
         <div class="row">
-            <table id='sample_1' class="table table-striped table-bordered table-hover dataTable no-footer display responsive" style="width:100%;">
+            <table id='sample_1' class="table table-striped table-bordered table-hover dataTable no-footer display responsive" style="border-collapse: collapse; width:100%;">
                 <thead>
                     <tr>
                         <th style="width: 2%; text-align: left;">Kode</th>
@@ -20,13 +20,13 @@
                         <th>Kota Domisili</th> -->
                         <th style="width: 30%; text-align: left;">Tanggal Tes</th>
                         <!-- <th style="width: 30%;">Selesai Tes</th> -->
-                        <th style="width: 30%; text-align: left;">Rekom Klaster</th>
+                        <th style="width: 30%; text-align: center;">Rekom Klaster</th>
                         <th style="width: 50%; text-align:left;">Rekom Kategori</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($riwayat_tes as $riwayat)
-                    <tr>
+                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.3)">
                         <td data-th="Kode">
                             {{$riwayat->id}}
                         </td>
@@ -77,12 +77,12 @@
                                    <small>Mulai: {{$riwayat->tanggal_mulai}}</small>
                                 </div><br>
                                 <div class="col-sm-6">
-                                   <small>Selesai: {{$riwayat->tanggal_selesai}}</small>
+                                    <small>Selesai: {{$riwayat->tanggal_selesai ?? '-'}}</small>
                                 </div>
                             </div>
                         </td>
    
-                        <td data-th="Rekom Klaster">
+                        <td data-th="Rekom Klaster" style="text-align: center;">
                             @foreach($dataKlaster as $d)
                                 @if($riwayat->klaster_id == $d->id)
                                     {{ $d->nama }}

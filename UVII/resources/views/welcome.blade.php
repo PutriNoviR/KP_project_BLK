@@ -70,6 +70,7 @@
                             if(data.msg = "Berhasil"){
                                 alert('yey berhasil')
                                 $('.btn-mulai').prop("disabled", false)
+                                $('#btn-lanjut').removeClass('disabled')
                             }
                             else
                             {
@@ -495,7 +496,7 @@
                                     Mulai Tes
                                 </button>
                             @else
-                                <a href="{{ route('peserta.uji.tahap.awal') }}" class="button btn btn-primary btn-mulai" <?php if($settingValidasi[0]->value==1) echo "disabled"  ?>>Lanjut Tes</a>
+                                <a href="{{ route('peserta.uji.tahap.awal') }}" id='btn-lanjut' class="button btn btn-primary btn-mulai <?php if($settingValidasi[0]->value==1) echo 'disabled'  ?>">Lanjut Tes</a>
                             @endif
 
                         </div>
