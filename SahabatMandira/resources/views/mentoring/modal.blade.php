@@ -14,7 +14,7 @@
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Program') }}</label>
 
                 <div class="col-md-12">
-                    <input id="nama" type="text" class="form-control " name="nama_program" value="{{ $mentoring->nama_program }}" required autocomplete="nama">
+                    <input id="nama" type="text" class="form-control " name="nama_program" value="{{ date('Y-m-d\TH:i:s',$mentoring->nama_program) }}" required autocomplete="nama">
 
                 </div>
             </div>

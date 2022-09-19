@@ -329,6 +329,14 @@
                                     </ul>
                                 </li>
                                 @endcan
+                                <li class="nav-item has-treeview">
+                                    <a href="{{url('https://sahabatmandira.id/bantuan')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Bantuan
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
                         <!-- /.sidebar-menu -->
