@@ -22,8 +22,7 @@
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Deskripsi Program') }}</label>
 
                 <div class="col-md-12">
-                    <input id="nama" type="text" class="form-control " name="deskripsi_program" value="{{ $mentoring->deskripsi_program }}" required autocomplete="nama">
-
+                    <textarea class="form-control" name="deskripsi_program" id="deskripsi-program" rows="2" value="{{ $mentoring->deskripsi_program }}"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -45,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="tgl_ditutup" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label"  name="tgl_ditutup">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup">
 
                 <div class="col-md-12">
 

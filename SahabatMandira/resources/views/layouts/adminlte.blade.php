@@ -171,8 +171,6 @@
                                         </p>
                                     </a>
                                 </li>
-                                @endcan
-                                @can('super.admin-permission')
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -240,36 +238,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
-                                        <p>
-                                            Mentor
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('keahlian.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Daftar Keahlian</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('User.mentoring') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Daftar Mentor</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('mandiraMentoring.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Validasi Program</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 @endcan
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')
@@ -331,7 +299,35 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Mentor
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('keahlian.index') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Daftar Keahlian</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('User.mentoring') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Daftar Mentor</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('mandiraMentoring.index') }}" class="nav-link ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Validasi Program</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 @endcan
                             </ul>
                         </nav>

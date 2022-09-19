@@ -23,15 +23,22 @@ class PaketProgramPelatihanController extends Controller
     public function index()
     {
         //
-        
-        $paketprograms = PaketProgram::all();
-
         $blk = Blk::all();
         $kejuruan = Kejuruan::all();
         $subKejuruan = Subkejuruan::all();
+
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            $blk_id = auth()->user()->blks_id_admin;
+            $paketprograms = PaketProgram::where('blks_id',$blk_id)->get();
+
+        } else {
+
+            $paketprograms = PaketProgram::all();
+
+        }
         // dd($blk);
-        
-        return view('paketprogram.index', compact('paketprograms','blk','kejuruan','subKejuruan'));
+
+        return view('paketprogram.index', compact('paketprograms', 'blk', 'kejuruan', 'subKejuruan'));
     }
 
     /**
@@ -89,7 +96,7 @@ class PaketProgramPelatihanController extends Controller
     public function edit($paketProgram)
     {
         //
-        return view ('paketProgram.update',compact('paketProgram'));
+        return view('paketProgram.update', compact('paketProgram'));
     }
 
     /**
@@ -101,14 +108,14 @@ class PaketProgramPelatihanController extends Controller
      */
     public function update(Request $request, PaketProgram $paketProgram)
     {
-        
+
         $paketProgram->blks_id = $request->namaBlk;
 
         $paketProgram->kejuruans_id = $request->kejuruan;
 
         $paketProgram->sub_kejuruans_id = $request->subKejuruan;
         $paketProgram->save();
-        return redirect()->back()->with('Success','Data paket program berhasil diubah!');
+        return redirect()->back()->with('Success', 'Data paket program berhasil diubah!');
     }
 
     /**
@@ -120,42 +127,45 @@ class PaketProgramPelatihanController extends Controller
     public function destroy(PaketProgram $paketProgram)
     {
         //
-        try{
+        try {
             $paketProgram->delete();
             return redirect()->route('paketProgram.index')->with('success', 'Data paket program berhasil dihapus!');
-        } catch (\PDOException $e){
-            $msg="Data gagal dihapus";
+        } catch (\PDOException $e) {
+            $msg = "Data gagal dihapus";
 
-            return redirect()->route('paketProgram.index')->with('error',$msg);
+            return redirect()->route('paketProgram.index')->with('error', $msg);
         }
     }
 
-    public function detail($id){
+    public function detail($id)
+    {
         $data = PaketProgram::find($id);
-        return view('PaketProgram.detail',['data'=>$data]);
+        return view('PaketProgram.detail', ['data' => $data]);
     }
 
-    public function getEditForm(Request $request){
+    public function getEditForm(Request $request)
+    {
         $paketProgram = PaketProgram::find($request->id);
         $blk = Blk::all();
         $kejuruan = Kejuruan::all();
         $subKejuruan = SubKejuruan::all();
-        
-        return response()->json(Array(
-            'status'=>'oke',
-            'msg'=>view('paketprogram.modal',compact('paketProgram','blk','kejuruan','subKejuruan'))->render()),200);
+
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('paketprogram.modal', compact('paketProgram', 'blk', 'kejuruan', 'subKejuruan'))->render()
+        ), 200);
     }
 
-    public function getSubkejuruan(Request $request )
+    public function getSubkejuruan(Request $request)
     {
         $idkejuruan = $request->idkejuruan;
         // $idkejuruan = 1;
-        $subkejuruan = Subkejuruan::where('kejuruans_id',$idkejuruan)->get();
+        $subkejuruan = Subkejuruan::where('kejuruans_id', $idkejuruan)->get();
         // dd('oi');
         $arr_subkejuruan = [];
         $arr = [];
 
-        foreach ($subkejuruan as $sub ) {
+        foreach ($subkejuruan as $sub) {
             $arr['id'] = $sub->id;
             $arr['nama'] = $sub->nama;
             $arr_subkejuruan[] = $arr;

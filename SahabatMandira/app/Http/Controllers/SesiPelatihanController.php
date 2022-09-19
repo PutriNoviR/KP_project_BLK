@@ -26,7 +26,18 @@ class SesiPelatihanController extends Controller
     public function index()
     {
         //
-        $data = SesiPelatihan::all();
+        
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            
+            $blk_id = auth()->user()->blks_id_admin;
+            $data = SesiPelatihan::join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
+            ->where('blks_id',$blk_id)->get();
+
+        } else {
+
+            $data = SesiPelatihan::all();
+
+        }
 
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
             ->WHERE('R.nama_role', '=', 'verifikator')
@@ -244,12 +255,28 @@ class SesiPelatihanController extends Controller
     public function daftarPelatihan()
     {
         $userLogin = auth()->user()->email;
-        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-            ->get();
+        // $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+        //     ->get();
         //
+
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            
+            $blk_id = auth()->user()->blks_id_admin;
+            $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
+            ->where('blks_id',$blk_id)->get();
+
+        } else {
+
+            $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->get();
+
+        }
         $mentor = User::join('roles as R', 'users.roles_id', '=', 'R.id')
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
+
+            // dd('mentor');
         return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin'));
     }
 
