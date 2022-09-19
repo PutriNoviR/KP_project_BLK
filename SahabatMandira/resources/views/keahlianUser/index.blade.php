@@ -26,7 +26,6 @@ Keahlian Mentor
 
 @section('javascript')
 <script>
-
     $('#btnSimpanKeahlian').click(function() {
         const nama = $('#namaKeahlian').val();
         const id = $('#namaKeahlian option:selected').attr('id-keahlian');
@@ -128,8 +127,8 @@ Keahlian Mentor
                         </div>
                     </div>
                 </div>
-                @endsection
             </div>
         </div>
     </div>
 </div>
+@endsection

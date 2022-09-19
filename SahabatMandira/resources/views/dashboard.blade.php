@@ -246,9 +246,11 @@ Dashboard
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Program</h2>
+        @if(count($keahlian) === 0)
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
             Tambah Program Baru
         </button>
+        @endif
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
