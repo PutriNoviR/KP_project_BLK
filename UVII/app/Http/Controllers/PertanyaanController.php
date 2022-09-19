@@ -24,6 +24,7 @@ class PertanyaanController extends Controller
         $settingHalaman = Setting::where('key', 'soal_perHalaman')->first()->value;
         
         $list_klaster = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
+        $jml_klaster= DB::table('klaster_psikometrik')->where('id','!=',0)->count();
         $list_pertanyaan = Pertanyaan::all();
         $list_jawaban = Jawaban::all();
         // $jawaban = Jawaban::all();
@@ -38,7 +39,7 @@ class PertanyaanController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
         
-        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster, 'durasi'=>$settingDurasi, 'soal'=>$settingSoal, 'halaman'=>$settingHalaman, 'menu_role'=>$menu_role]);
+        return view('soal.index',['data'=>$list_pertanyaan, 'data2'=>$list_jawaban, 'data3'=>$list_klaster, 'data4'=>$jml_klaster, 'durasi'=>$settingDurasi, 'soal'=>$settingSoal, 'halaman'=>$settingHalaman, 'menu_role'=>$menu_role]);
     }
 
     /**
@@ -49,7 +50,8 @@ class PertanyaanController extends Controller
     public function create()
     {
         $namaKlaster= DB::table('klaster_psikometrik')->where('id','!=',0)->get();
-        
+        $jml_klaster= DB::table('klaster_psikometrik')->where('id','!=',0)->count();
+       // dd($jml_klaster);
          //--menu manajemen--
          $role_user = Auth::user()->roles_id;
          $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -60,7 +62,7 @@ class PertanyaanController extends Controller
                      ->get();
         // $jawaban= Jawaban::all();
         // return view('soal.create',['jawaban'=>$jawaban]);
-        return view('soal.create', compact('namaKlaster', 'menu_role'));
+        return view('soal.create', compact('namaKlaster', 'menu_role','jml_klaster'));
     }
 
     /**
@@ -81,8 +83,9 @@ class PertanyaanController extends Controller
             
     
             $pertanyaan->save();
+            $jml_klaster= DB::table('klaster_psikometrik')->where('id','!=',0)->count();
     
-            for($i = 0; $i<4; $i++){
+            for($i = 0; $i<$jml_klaster; $i++){
               
                 $jawaban = new Jawaban();
                 $jawaban->jawaban = $request->jawaban[$i];
@@ -147,8 +150,9 @@ class PertanyaanController extends Controller
             return redirect()->back()->with('error','Pertanyaan tidak ditemukan');
             // todo = alert('id yang tidak sesuai')
         }
+        $jml_klaster= DB::table('klaster_psikometrik')->where('id','!=',0)->count();
 
-        for($i=0; $i<4; $i++){ 
+        for($i=0; $i<$jml_klaster; $i++){ 
 
             $dataJawaban=[
                 'jawaban' => $request->jawaban[$i],
@@ -184,7 +188,7 @@ class PertanyaanController extends Controller
     }
     public function getEditForm(Request $request){
         $namaKlaster= DB::table('klaster_psikometrik')->where('id','!=',0)->get();
-
+        $jml_klaster= DB::table('klaster_psikometrik')->where('id','!=',0)->count();
         $id=$request->get('id');
         $data= Pertanyaan::where('id',$id)->first();
         $jawaban = Jawaban::where('question_id',$id)->get();
@@ -192,7 +196,7 @@ class PertanyaanController extends Controller
         return response()->json(array(
             'status'=>'oke',
             // 'msg'=>'success'
-            'msg'=>view('soal.edit',compact('namaKlaster','data','jawaban'))->render()
+            'msg'=>view('soal.edit',compact('namaKlaster','jml_klaster','data','jawaban'))->render()
         ),200);
     }
 
@@ -205,7 +209,7 @@ class PertanyaanController extends Controller
       
 
         if($request->has('value')){
-            for($i=0; $i < 3; $i++){
+            for($i=0; $i < 4; $i++){
 
                 $dataSetting = [
                     'key' => $request->key[$i],
