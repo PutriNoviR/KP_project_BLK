@@ -105,6 +105,28 @@ Profile
                     </p>
                 </div>
 
+                <div class="col-4">
+                    <p>
+                        <span class="text-muted d-block">Tanggal Lahir</span>
+                        <span>{{  }}</span>
+                    </p>
+                    <p>
+                        <span class="text-muted d-block">Jenis Kelamin</span>
+                        <span>{{ }}</span>
+                    </p>
+                </div>
+
+                <div class="col-4">
+                    <p>
+                        <span class="text-muted d-block">Pendidikan Terakhir</span>
+                        <span>{{  }}</span>
+                    </p>
+                    <p>
+                        <span class="text-muted d-block">Konsentrasi Pendidikan</span>
+                        <span>{{$user->alamat }}</span>
+                    </p>
+                </div>
+
             </div>
             <hr>
         </div>
@@ -135,6 +157,27 @@ Profile
                     <p>
                         <span class="text-muted d-block">Alamat</span>
                         <textarea class="form-control" name="alamat_perusahaan" id="alamat-perusahaan" rows="2">{{ $user->alamat}}</textarea>
+                    </p>
+                </div>
+                <div class="col-4">
+                    <p>
+                        <span class="text-muted d-block">Tanggal Lahir</span>
+                        <span>{{  }}</span>
+                    </p>
+                    <p>
+                        <span class="text-muted d-block">Jenis Kelamin</span>
+                        <span>{{ }}</span>
+                    </p>
+                </div>
+
+                <div class="col-4">
+                    <p>
+                        <span class="text-muted d-block">Pendidikan Terakhir</span>
+                        <span>{{  }}</span>
+                    </p>
+                    <p>
+                        <span class="text-muted d-block">Konsentrasi Pendidikan</span>
+                        <span>{{$user->alamat }}</span>
                     </p>
                 </div>
             </div>
