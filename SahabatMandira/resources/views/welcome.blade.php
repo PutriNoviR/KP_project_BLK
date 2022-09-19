@@ -251,7 +251,7 @@
                 <div class="col-lg-6 info-section rounded mb-5 p-5  title-informasi-pelatihan d-flex flex-column align-items-center"
                     id="pelatihanditerima">
                     <p class="text-start">Peserta pelatihan yang diterima</p>
-                    <span>{{ $persentase }}%</span>
+                    <span>{{ floor($persentase) }}%</span>
                 </div>
             </div>
         </div>
