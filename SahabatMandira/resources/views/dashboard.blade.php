@@ -214,13 +214,13 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
                 <div class="card-body">
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{ $d->link }}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>

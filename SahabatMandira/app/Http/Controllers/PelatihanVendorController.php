@@ -15,6 +15,11 @@ class PelatihanVendorController extends Controller
     public function index()
     {
         //
+        $today = date("Y-m-d");
+        $pelatihans = PelatihanVendor::whereDate('tanggal_tutup', '>=',$today)
+        ->get();
+
+        return view();
     }
 
     /**
