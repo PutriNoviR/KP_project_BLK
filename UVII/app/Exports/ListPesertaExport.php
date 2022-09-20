@@ -21,22 +21,27 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
         $seluruh_data=[];
         $idRole = Role::where('nama_role', 'peserta')->first();
         $data = User::where('roles_id', $idRole->id)->get();
-        $no = 1;    
-        foreach($data as $key=>$d){
+        $no = 1;
+
+        //menggabungkan hasil klaster dan kategori dengan user
+        $hasil = User::hasilTerakhir($data);
+
+        foreach($hasil as $key=>$d){
             $datas=[
                 'id'=>$no,
-                'nama'=>$d->nama_depan." ".$d->nama_belakang,
-                'email'=>$d->email,
-                'jenis kelamin'=>$d->jenis_kelamin,
-                'nomor handphone'=>$d->nomer_hp,
-                'tempat lahir'=>$d->tempat_lahir,
-                'tanggal lahir'=>$d->tanggal_lahir,
-                'kota domisili'=>$d->kota,
-                'alamat'=>$d->alamat,
-                'username'=>$d->username,
-                'pendidikan'=>$d->pendidikan_terakhir??"tidak ada",
-                'konsentrasi'=>$d->konsentrasi_pendidikan??"tidak ada",
-       
+                'nama'=>$d['nama_depan']." ".$d['nama_belakang'],
+                'email'=>$d['email'],
+                'jenis kelamin'=>$d['jenis_kelamin'],
+                'nomor handphone'=>$d['No.Hp'],
+                'tempat lahir'=>$d['tempat_lahir'],
+                'tanggal lahir'=>$d['tanggal_lahir'],
+                'kota domisili'=>$d['kota'],
+                'alamat'=>$d['alamat'],
+                'username'=>$d['username'],
+                'pendidikan'=>$d['pendidikan']??"tidak ada",
+                'konsentrasi'=>$d['konsentrasi']??"tidak ada",
+                'klaster'=>$d['klaster'],
+                'kategori'=>$d['kategori'],
             ];
             array_push($seluruh_data,$datas);
             $no++;
@@ -60,7 +65,8 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
             'Username',
             'Pendidikan',
             'Konsentrasi/Keahlian',
-            
+            'Hasil Klaster',
+            'Hasil Kategori',
         ];
     }
     public function registerEvents(): array

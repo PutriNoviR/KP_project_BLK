@@ -59,41 +59,59 @@ class User extends Authenticatable
     public static function hasilTerakhir($user){
         $dataKlaster=KlasterPsikometrik::where('id','!=',0)->get();
         $dataKategori=KategoriPsikometrik::where('id','!=',0)->get();
+       
         $arr_hasil=[];
         $arr_akhir=[];
-        foreach($user as $u){
-            $hasil= DB::connection('uvii')->table('uji_minat_awals as um')
-                ->select('um.klaster_id','ht.kategori_id')
-                ->join('hasil_rekomendasi_tes_tahap_2 as ht','um.id','=','ht.uji_minat_awals_id')
-                ->where('um.users_email',$u->email)
-                ->orderBy('um.tanggal_selesai','DESC')
-                ->first();
-            
-                if($hasil){
-                foreach($dataKlaster as $dk){
-                    if($dk->id == $hasil->klaster_id){
-                        $hasil_terakhir= $dk->nama;
-                    }
+        $hasil_terakhir="";
 
-                }
+        foreach($user as $u){
+            //mencari sesi tes tahap 1 terbaru
+            $sesi= DB::connection('uvii')->table('uji_minat_awals as um')
+                    ->select('um.id', 'um.klaster_id')
+                    ->where('um.users_email',$u->email)
+                    ->orderBy('um.tanggal_selesai','DESC')
+                    ->first();
+
+            if($sesi){
+                //mencari hasil kategori 
+                $arr_kategori = [];
+                
                 foreach($dataKategori as $dKat){
-                    if($dKat->id ==$hasil->kategori_id){
-                        $hasil_kategori =$dKat->kode;
+
+                    $hasil= DB::connection('uvii')->table('hasil_rekomendasi_tes_tahap_2 as ht')
+                        ->select('ht.kategori_id')
+                        ->where('ht.uji_minat_awals_id',$sesi->id)
+                        ->where('ht.kategori_id', $dKat->id)
+                        ->first();
+
+                    if($hasil){
+                        array_push($arr_kategori, $dKat->kode);
+     
+                        $hasil_kategori = implode(', ',$arr_kategori);
+                    }
+                  
+                }
+
+                //mencari hasil klaster
+                foreach($dataKlaster as $dk){
+            
+                    if($dk->id == $sesi->klaster_id){
+                        $hasil_terakhir= $dk->nama;
+                        break;
                     }
                 }
                 
-                }
-                else{
-                    $hasil_terakhir= "Belum Tes";
-                    $hasil_kategori ="Belum Tes";
-                }
-                $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir, 'kategori'=>$hasil_kategori,'kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir,'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan];
-                array_push($arr_akhir,$arr_hasil);
-
-            
-
+            }  
+            else{
+                $hasil_terakhir= "Belum Tes";
+                $hasil_kategori ="Belum Tes";
+            }    
+             
+            $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir ?? 'Belum tes', 'kategori'=>$hasil_kategori ?? 'Belum tes','kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir,'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan];
+            array_push($arr_akhir,$arr_hasil);
 
         }
+
         return $arr_akhir;
         
     }  
