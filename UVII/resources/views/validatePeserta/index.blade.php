@@ -31,11 +31,11 @@
         <thead>
           <tr role="row">
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                aria-label="Rendering engine: activate to sort column ascending">
+                aria-label="Rendering engine: activate to sort column ascending" width="5%">
                       No
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-              aria-label="Browser: activate to sort column ascending">
+              aria-label="Browser: activate to sort column ascending" width="10%">
                       Peserta
             </th>
             <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
@@ -79,6 +79,7 @@
                     <button class='btn btn-primary btn-validate' usrId='{{$data["id"] }}' value='{{$data["nama_depan"]}} {{$data["nama_belakang"]}}'> validate</button>
                     @endif
                 </td>
+              
             </tr>
             @php
                 $no++;
@@ -118,7 +119,7 @@
                     </div> -->
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
-                    <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary mdl-close" id='btn-close' data-bs-dismiss="modal">Close</button>
                     <button type='button' class="btn btn-primary btn-validasi" usrId='' value='1' >Valid</button>
                     <button type='button' class="btn btn-error btn-validasi" usrId='' value='2' >Tidak valid</button>
                 </div>
@@ -138,7 +139,7 @@
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
                     <button type='button' class="btn btn-primary" value="" id='btn-ubah'>Save</button>
-                    <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal" id='btn-close'>Close</button>
                 </div>
             </div>
         </div>
@@ -192,6 +193,11 @@
             }
         });
     })
+
+    $('#btn-close').on('click', function(){
+        $('#modalValidate').hide();
+    });
+
     $('#btn-close-info').on('click',function(){
         let respond = $(this).val();
         if(respond == '200'){
