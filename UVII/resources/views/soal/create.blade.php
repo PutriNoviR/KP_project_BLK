@@ -67,8 +67,8 @@
               <label for="kejuruan">Klaster</label>
             </div>--}}
           </div>
-
-          @for($i = 0; $i<=3; $i++)
+         
+          @for($i = 0; $i<$jml_klaster; $i++)
             <div class='row'>
               <div class='col-md-8'>
                 <input type="text" class="form-control" id="jawaban" name="jawaban[{{ $i }}]" placeholder="Masukkan Pilihan {{ ($i+1) }}" required>
@@ -84,6 +84,7 @@
               </div>
             </div><br>
           @endfor
+        
         </div>
       
         <div class="body-btn">

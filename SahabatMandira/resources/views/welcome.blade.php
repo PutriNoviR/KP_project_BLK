@@ -230,28 +230,28 @@
                     <div
                         class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Pencari Kerja</p>
-                        <span>30%</span>
+                        <span>{{ number_format($pencaker,0,"",".") }}</span>
                     </div>
                     <div
                         class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Mentor</p>
-                        <span>30%</span>
+                        <span>{{ number_format($mentor,0,"",".") }}</span>
                     </div>
                     <div
                         class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Mitra</p>
-                        <span>30%</span>
+                        <span>{{ number_format($mitra,0,"",".") }}</span>
                     </div>
                     <div
                         class="col-6 info-section mb-5 p-3 rounded title-informasi d-flex flex-column align-items-center">
                         <p>Pelatihan</p>
-                        <span>30%</span>
+                        <span>{{ number_format($totalpelatihan,0,"",".") }}</span>
                     </div>
                 </div>
                 <div class="col-lg-6 info-section rounded mb-5 p-5  title-informasi-pelatihan d-flex flex-column align-items-center"
                     id="pelatihanditerima">
                     <p class="text-start">Peserta pelatihan yang diterima</p>
-                    <span>30%</span>
+                    <span>{{ floor($persentase) }}%</span>
                 </div>
             </div>
         </div>

@@ -89,19 +89,46 @@ class CameraController extends Controller
                     ->where('roles_id', $role_user)
                     ->where('mm.status','Aktif')
                     ->get();
+
+        $arr_data = [];
+        $data_akhir = [];
+
         // $data = DB::connection('masterblk_db')->table('users')
         $riwayat_tes= DB::connection('uvii')->table('uji_minat_awals as um')
-            ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','kp.nama as rekomendasi_klaster','us.nama_depan','us.nama_belakang','um.is_validate','um.id')
-            ->join('masterblk_db.klaster_psikometrik as kp','um.klaster_id','=','kp.id')
-            ->join('masterblk_db.users as us', 'um.users_email','=','us.email')
+            ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','um.is_validate','um.klaster_id', 'um.id')
             //->groupBy('um.users_email')
             ->orderBy('um.tanggal_selesai','DESC')
             ->get();
 
+            foreach($riwayat_tes as $sesi){
+                $dataUser = DB::connection('mysql')->table('users as us')
+                        ->select('us.nama_depan','us.nama_belakang')
+                        ->where('us.email',$sesi->users_email)
+                        ->first();
+
+                $dataKlaster = DB::connection('mysql')->table('klaster_psikometrik as kp')
+                        ->select('kp.nama')
+                        ->where('kp.id',$sesi->klaster_id)
+                        ->first();
+                        
+                $arr_data = [
+                    'users_email'=>$sesi->users_email,
+                    'tanggal_mulai'=>$sesi->tanggal_mulai,
+                    'tanggal_selesai'=>$sesi->tanggal_selesai,
+                    'is_validate'=>$sesi->is_validate,
+                    'id'=>$sesi->id,
+                    'nama_depan'=>$dataUser->nama_depan,
+                    'nama_belakang'=>$dataUser->nama_belakang,
+                    'nama'=>$dataKlaster->nama,
+                ];
+               array_push($data_akhir, $arr_data);
+               
+            } 
+
         $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
 
         // dd($riwayat_tes);
-        return view('validatePeserta.index', compact('riwayat_tes','menu_role','settingValidasi'));
+        return view('validatePeserta.index', compact('data_akhir','menu_role','settingValidasi'));
     }
 
     function validateSetting(Request $request){

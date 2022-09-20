@@ -24,7 +24,7 @@ class SoalImport implements ToModel,WithHeadingRow
         // ]);
         $user = Auth::user()->email;
         $tanggal=Carbon::now()->format('Y-m-d H:i:m');
-       
+
         $data_klaster= DB::table('klaster_psikometrik')
         ->where('nama',$row['klaster'])->first();
 
@@ -42,13 +42,14 @@ class SoalImport implements ToModel,WithHeadingRow
         // }
         $idSoal = Pertanyaan::orderBy('id','DESC')->first()->id ?? '1';
         $dataSoal = Pertanyaan::where('id', $idSoal)->first();
+
         //pengecekan 2 jika soal kembar
         if(!$dataSoal || $dataSoal->jawaban->count() == 4){
-           
+
             Pertanyaan::insert($pertanyaan);
         }
 
-       
+
         // $data_pertanyaan= Pertanyaan::where('pertanyaan',$row['pertanyaan'])->first();
             // dd($data_pertanyaan);
         $jawaban=[
@@ -56,7 +57,7 @@ class SoalImport implements ToModel,WithHeadingRow
             'klaster_id'=>$data_klaster->id,
             'question_id'=>Pertanyaan::orderBy('id','DESC')->first()->id,
         ];
-        
+
         Jawaban::insert($jawaban);
     }
 }

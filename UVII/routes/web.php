@@ -22,6 +22,9 @@ Route::get('/forgotPassword', 'PesertaController@getForgotPasswords')->name('pas
 
 Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
 
+//search
+Route::get('/search','HomeController@search')->name('search.button')->middleware('auth');
+
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';
 });

@@ -157,7 +157,7 @@ Register
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong>'Password anda harus terdiri dari minimal 8 karakter, harus mengandung setidaknya 1 Huruf Besar, 1 Huruf Kecil, 1 Numerik dan 1 karakter khusus(#,?,!,@,$,%,^,&,*,-).'</strong>
                             </span>
                             @enderror
                         </div>
