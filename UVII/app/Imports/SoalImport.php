@@ -17,8 +17,12 @@ class SoalImport implements ToModel,WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    private $no = [];
+
     public function model(array $row)
     {
+   
+     
         // return new Import([
         //     //
         // ]);
@@ -44,9 +48,10 @@ class SoalImport implements ToModel,WithHeadingRow
         $dataSoal = Pertanyaan::where('id', $idSoal)->first();
 
         //pengecekan 2 jika soal kembar
-        if(!$dataSoal || $dataSoal->jawaban->count() == 4){
+        if(!$dataSoal || (!in_array($row['no'],$this->no)) ){ //$dataSoal->jawaban->count() == 4 ){
 
             Pertanyaan::insert($pertanyaan);
+            array_push($this->no, $row['no']);
         }
 
 
@@ -60,4 +65,5 @@ class SoalImport implements ToModel,WithHeadingRow
 
         Jawaban::insert($jawaban);
     }
+    
 }
