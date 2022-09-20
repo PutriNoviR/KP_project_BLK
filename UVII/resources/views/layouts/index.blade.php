@@ -164,7 +164,8 @@ License: You must have a valid license purchased only from themeforest(the above
 						'Mulai Tes'=>'fa fa-play',
 						'Bank Soal'=>'icon-book-open',
 						'Klaster'=>'fa fa-plus',
-						'Kategori'=> 'fa fa-plus-circle'];
+						'Kategori'=> 'fa fa-plus-circle',
+						'Bantuan'=>'icon-question'];
 				@endphp
 				@foreach($menu as $m)
 				<li>
