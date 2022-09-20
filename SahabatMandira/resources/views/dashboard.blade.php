@@ -246,10 +246,14 @@ Dashboard
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Program</h2>
-        @if(count($keahlian) === 0)
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
-            Tambah Program Baru
-        </button>
+        @if(count($keahlian) != 0)
+            @if(Auth::user()->nomor_identitas == null)
+            <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.Auth::user()->email)}}" class="button btn btn-warning">{{ __('TAMBAH PROGRAM')}}</a>
+            @else
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
+                Tambah Program Baru
+            </button>
+            @endif
         @endif
     </div>
     @if (\Session::has('success'))
@@ -280,9 +284,9 @@ Dashboard
                 <td>{{ $m->tgl_dibuka}} - {{ $m->tgl_ditutup}}</td>
                 <td>{{ $m->link_pendaftaran}}</td>
                 <td>@if($m->is_validated == 1)
-                        SUDAH DIVALIDASI
+                    SUDAH DIVALIDASI
                     @else
-                        BELUM DIVALIDASI
+                    BELUM DIVALIDASI
                     @endif
                 </td>
                 <td>

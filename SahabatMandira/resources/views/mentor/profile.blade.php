@@ -108,22 +108,19 @@ Profile
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Tanggal Lahir</span>
-                        <span>{{  }}</span>
+                        <span>{{ $user->tanggal_lahir }}</span>
                     </p>
                     <p>
                         <span class="text-muted d-block">Jenis Kelamin</span>
-                        <span>{{ }}</span>
+                        <span>{{ $user->jenis_kelamin }}</span>
                     </p>
-                </div>
-
-                <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Pendidikan Terakhir</span>
-                        <span>{{  }}</span>
+                        <span>{{ $user->pendidikan_terakhir }}</span>
                     </p>
                     <p>
                         <span class="text-muted d-block">Konsentrasi Pendidikan</span>
-                        <span>{{$user->alamat }}</span>
+                        <span>{{ $user->konsentrasi_pendidikan }}</span>
                     </p>
                 </div>
 
@@ -162,22 +159,19 @@ Profile
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Tanggal Lahir</span>
-                        <span>{{  }}</span>
+                        <input type="text" class="form-control" id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Jenis Kelamin</span>
-                        <span>{{ }}</span>
+                        <input type="text" class="form-control" id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
-                </div>
-
-                <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Pendidikan Terakhir</span>
-                        <span>{{  }}</span>
+                        <input type="text" class="form-control" id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Konsentrasi Pendidikan</span>
-                        <span>{{$user->alamat }}</span>
+                        <input type="text" class="form-control" id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
                 </div>
             </div>

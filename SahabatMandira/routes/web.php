@@ -111,6 +111,7 @@ Route::post('/tugas/getDetail','TugasController@getDetail')->name('tugas.getDeta
 
 //Keahlian
 Route::resource('/keahlian','KeahlianController');
+Route::post('/keahlian/getEditForm','KeahlianController@getEditForm')->name('keahlian.getEditForm');
 
 //KeahlianUser
 Route::resource('/keahlianUser','KeahlianUserController');

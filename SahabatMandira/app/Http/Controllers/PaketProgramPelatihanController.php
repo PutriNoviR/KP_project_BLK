@@ -23,18 +23,27 @@ class PaketProgramPelatihanController extends Controller
     public function index()
     {
         //
-        $blk = Blk::all();
         $kejuruan = Kejuruan::all();
-        $subKejuruan = Subkejuruan::all();
-
+        $subKejuruan = Subkejuruan::join('kejuruans as k', 'k.id', '=', 'sub_kejuruans.kejuruans_id')
+            ->select('sub_kejuruans.id as id', 'sub_kejuruans.nama as nama')
+            ->get();
         if (auth()->user()->role->nama_role == 'adminblk') {
             $blk_id = auth()->user()->blks_id_admin;
-            $paketprograms = PaketProgram::where('blks_id',$blk_id)->get();
-
+            $paketprograms = PaketProgram::where('blks_id', $blk_id)->get();
+            $blk = Blk::where('id', $blk_id)->get();
+            // $kejuruan = Kejuruan::join('paket_program as p', 'p.kejuruans_id', '=', 'kejuruans.id')
+            //     ->where('blks_id', $blk_id)
+            //     ->select('kejuruans.id as id', 'kejuruans.nama as nama')
+            //     ->get();
+            // $subKejuruan = Subkejuruan::join('kejuruans as k', 'k.id', '=', 'sub_kejuruans.kejuruans_id')
+            //     ->join('paket_program as p', 'p.kejuruans_id', '=', 'k.id')
+            //     ->where('blks_id', $blk_id)
+            //     ->select('sub_kejuruans.id as id', 'sub_kejuruans.nama as nama')
+            //     ->get();
         } else {
-
             $paketprograms = PaketProgram::all();
 
+            $blk = Blk::all();
         }
         // dd($blk);
 
@@ -145,8 +154,14 @@ class PaketProgramPelatihanController extends Controller
 
     public function getEditForm(Request $request)
     {
+        $blkUser = auth()->user()->blks_id_admin;
         $paketProgram = PaketProgram::find($request->id);
-        $blk = Blk::all();
+        if (auth()->user()->role->nama_role == 'adminblk') {
+            $blk = Blk::where('id', $blkUser)->get();
+        } else {
+            $blk = Blk::all();
+        }
+        // dd($blk);
         $kejuruan = Kejuruan::all();
         $subKejuruan = SubKejuruan::all();
 
