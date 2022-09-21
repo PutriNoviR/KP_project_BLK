@@ -135,7 +135,7 @@
             <div class='card-page'>
                 <div class='card-body'>
                 <div id="my_camera"></div>
-                    <p>Silahkan menunggu admin untuk melakukan validasi terlebih dahulu sebelum melanjutkan test ke tahap 2</p>
+                    <p>Silahkan menunggu admin untuk melakukan validasi terlebih dahulu sebelum melanjutkan test ke tahap 2, jangan lupa untuk refresh halaman untuk mendapatkan hasil validasi</p>
                 </div>
             </div>
         @endif

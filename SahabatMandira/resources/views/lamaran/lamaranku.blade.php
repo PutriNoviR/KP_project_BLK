@@ -36,11 +36,6 @@ Lamaran Ku
                 <div class="col-4">
                     <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
                         <li class="nav-item w-50">
-                            <a class="nav-link" id="custom-tabs-two-pelatihan-tab" data-toggle="pill"
-                                href="#custom-tabs-two-pelatihan" role="tab" aria-controls="custom-tabs-two-pelatihan"
-                                aria-selected="false">Pelatihan</a>
-                        </li>
-                        <li class="nav-item w-50">
                             <a class="nav-link active" id="custom-tabs-two-lamaran-tab" data-toggle="pill"
                                 href="#custom-tabs-two-lamaran" role="tab" aria-controls="custom-tabs-two-lamaran"
                                 aria-selected="true">Lamaran</a>

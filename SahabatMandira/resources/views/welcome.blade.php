@@ -82,7 +82,7 @@
                         <h1 class="text-black title-heading">VISI</h1>
                     </div>
                     <p class="title-subheading mb-5">
-                        Menjadi suppport system terpadu yang unggul dalam meningkatkan kemandirian dan kesejahteraan
+                        Menjadi support system terpadu yang unggul dalam meningkatkan kemandirian dan kesejahteraan
                         masyarakat
                     </p>
                     <div class="text-center mt-auto">
