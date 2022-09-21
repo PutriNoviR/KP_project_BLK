@@ -55,7 +55,7 @@
                     <p> <b>Hasil Tes Minat Peserta</b></p>
                 </div>
                 <div class="card-body">
-                    <div id="my_camera"></div>
+                    <!-- <div id="my_camera"></div> -->
                     <p><b>Analisa Tes Minat Bakat:</b></p>
 
                     <div class='row'>
@@ -143,43 +143,45 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script>
                 let setting = null
+                let valid = null
                 $(document).ready(function(){
                     setting = "<?php echo $settingValidasi[0]->value;?>"
-                    if(setting==1){
+                    valid = "<?php echo $tesTerbaru->is_validate ?>"
+                    if(setting==1 && valid ==0){
 
-                    Webcam.set({
-                        width: 490,
-                        height: 350,
-                        image_format: 'jpeg',
-                        jpeg_quality: 90
-                    });
-                    Webcam.attach( '#my_camera' );
-                        // alert('dor');
-                    setTimeout(function() {
-                            Webcam.snap( function(data_uri) {
-                            // alert('dar');
-                            let photo = data_uri;
-                            // console.log(photo)
-                            $.ajax({
-                                type: "POST",
-                                url: "{{ route('capture.akhir') }}",
-                                data: {
-                                    '_token': '<?php echo csrf_token(); ?>',
-                                    'image' : photo
-                                },
-                                success: function(data) {
-                                    if(data.msg = "Berhasil"){
-                                        $('#btn-lanjut').prop("disabled", false)
-                                        alert('yey berhasil')
+                        Webcam.set({
+                            width: 490,
+                            height: 350,
+                            image_format: 'jpeg',
+                            jpeg_quality: 90
+                        });
+                        Webcam.attach( '#my_camera' );
+                            // alert('dor');
+                        setTimeout(function() {
+                                Webcam.snap( function(data_uri) {
+                                // alert('dar');
+                                let photo = data_uri;
+                                // console.log(photo)
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ route('capture.akhir') }}",
+                                    data: {
+                                        '_token': '<?php echo csrf_token(); ?>',
+                                        'image' : photo
+                                    },
+                                    success: function(data) {
+                                        if(data.msg = "Berhasil"){
+                                            $('#btn-lanjut').prop("disabled", false)
+                                            alert('yey berhasil')
+                                        }
+                                        else
+                                        {
+                                            $('#btn-lanjut').prop("disabled", true)
+                                        }
                                     }
-                                    else
-                                    {
-                                        $('#btn-lanjut').prop("disabled", true)
-                                    }
-                                }
-                            });
-                        } );
-                    }, 2000);
+                                });
+                            } );
+                        }, 2000);
                     }
                     })
 
