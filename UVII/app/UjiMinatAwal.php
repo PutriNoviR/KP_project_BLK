@@ -310,5 +310,6 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
         }
 
         return $arr_data_akhir;
-    }    
+    } 
+    
 }

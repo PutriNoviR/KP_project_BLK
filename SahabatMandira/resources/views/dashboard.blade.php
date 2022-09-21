@@ -65,7 +65,7 @@ Dashboard
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan anda ! &nbsp;&nbsp;&nbsp;
-        <a href="https://ubayavii.id" class="button btn btn-primary">IKUTI TES SEKARANG !</a>
+        <a href="https://ubayavii.id" class="button btn btn-primary" target="_blank">IKUTI TES SEKARANG !</a>
     </center>
 </div>
 @else
@@ -214,13 +214,13 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
                 <div class="card-body">
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{ $d->link }}" target="_blank" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@ PELATIHAN
                     @if(count($cekDaftar) != null)
                     <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
                     @else
-                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
                     @endif
                 </form>
                 @endif

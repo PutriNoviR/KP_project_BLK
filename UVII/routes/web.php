@@ -124,6 +124,12 @@ Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     Route::post('/capture', 'CameraController@capture')->name('capture');
     Route::post('/capture/akhir', 'CameraController@captureAkhir')->name('capture.akhir');
 
+
+    //bantuan
+    Route::get(
+        '/bantuan', function(){
+    })->name('bantuan.index');
+
 });
 
 
