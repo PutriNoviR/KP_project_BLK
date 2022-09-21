@@ -134,14 +134,7 @@ class UserController extends Controller
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($data->paketprogram);
         $User = User::find($request->id);
-        $validator = $request->validate([
-            'pas_foto' => ['required', 'mimes:png,jpg'],
-            'fotoKtp' => ['required', 'mimes:png,jpg,pdf'],
-            'ksk' => ['required', 'mimes:png,jpg,pdf'],
-            'ijazah' => ['required', 'mimes:png,jpg,pdf'],
-            'nomorIdentitas' => ['required', 'string', 'min:16', 'max:16'],
-            'nomorHp' => ['required', 'string', 'min:12']
-        ]);
+       
         // dd($request);
         // $User->jenis_identitas = $request->jenis_identitas;
         // $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
@@ -322,21 +315,29 @@ class UserController extends Controller
 
     public function updateProfile(Request $request){
         $userLogin = auth()->user()->email;
+        $type = $request->type;
         $update = array(
             'nama_depan'            => $request->nama_depan, 
-            'nama_belakang'            => $request->nama_belakang, 
+            'nama_belakang'         => $request->nama_belakang, 
             'jenis_identitas'       => 'KTP',
-            'pas_foto'              => 'pas foto',
-            'nomor_identitas'       => $request->nik,
             'nomer_hp'              => $request->nomorHp,
-            'kota'                  => $request->kota,
             'alamat'                => $request->domisili,
-            'ktp'                   => 'ktp',
-            'ksk'                   => 'ksk',
-            'ijazah'                => 'ijasah',
             'jenis_kelamin'         => $request->jenis_kelamin,
             'pendidikan_terakhir'   => $request->pendidikan_terakhir        
         );
+
+        if($type =='mentor'){
+            $update['tempat_lahir'] = $request->tgl_lahir;
+            $update['konsentrasi_pendidikan'] = $request->konsentrasi;
+        }
+        else if($type == 'peserta'){
+            $update['pas_foto'] = $request->file('pas_foto')->store('user/pas_foto');
+            $update['nomor_identitas'] = $request->nik;
+            $update['kota'] = $request->kota;
+            $update['ktp'] = $request->file('fotoKtp')->store('user/ktp');
+            $update['ksk'] = $request->file('ksk')->store('user/ksk');
+            $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
+        }
 
         $update =DB::table('users')->where('email',$userLogin)->update($update);
         

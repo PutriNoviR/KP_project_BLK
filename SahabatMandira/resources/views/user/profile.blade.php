@@ -67,6 +67,8 @@ Profile
                             <p class="m-t-10 m-b-20 text-justify"></p>
                             <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('user.profile.update') }}">
                                 @csrf
+                                <input type="hidden" name='type' value='peserta'>
+                                
                                 <div class="form-body">
 
                                     <div class="form-group">
