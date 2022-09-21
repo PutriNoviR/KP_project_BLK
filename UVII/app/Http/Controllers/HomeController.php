@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         $riwayatTes2 = DB::table('minat_user as mu')
                 ->join('kategori_psikometrik as kp','kp.id','=','mu.kategori_psikometrik_id')
-                ->select('kp.kode as nama_klaster')
+                ->select('kp.nama as nama_klaster')
                 ->where('users_email', $email)
                 ->orderBy('peringkat','ASC')
                 ->get();

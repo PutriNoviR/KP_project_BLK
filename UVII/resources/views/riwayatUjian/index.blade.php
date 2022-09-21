@@ -85,7 +85,7 @@
                     </td>
                     <td>
                     {{--    @foreach($data->find($data->id)->hasilRekomAkhir as $d)
-                            {{$d->kode}}
+                            {{$d->nama}}
 
                             @if(!$loop->last)
                                 ,

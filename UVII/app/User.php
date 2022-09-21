@@ -85,7 +85,7 @@ class User extends Authenticatable
                         ->first();
 
                     if($hasil){
-                        array_push($arr_kategori, $dKat->kode);
+                        array_push($arr_kategori, $dKat->nama);
      
                         $hasil_kategori = implode(', ',$arr_kategori);
                     }

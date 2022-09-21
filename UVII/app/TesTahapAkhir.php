@@ -16,7 +16,7 @@ class TesTahapAkhir extends Model
     public static function getDataJawabanAkhir($idSesi){
         $listJawaban2 = DB::table('minat_user as mu')
         ->join('kategori_psikometrik as kp','mu.kategori_psikometrik_id','=','kp.id')
-        ->select('kp.kode','mu.peringkat')
+        ->select('kp.nama','mu.peringkat')
              ->where('users_email', $idSesi)
              ->orderBy('peringkat', 'ASC')
              ->get();
