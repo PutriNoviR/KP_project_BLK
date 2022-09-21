@@ -14,6 +14,7 @@ use App\PelatihanPeserta;
 use App\PelatihanVendor;
 use App\Perusahaan;
 use App\Role;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -49,9 +50,11 @@ class HomeController extends Controller
     public function dashboard()
     {
         $userLogin = auth()->user()->email;
-        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()')
+        $mytime = Carbon::now();
+        $ditawarkan = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
             ->skip(0)
-            ->take(4);
+            ->take(4)
+            ->get();
         // dd($ditawarkan);
         // $disarankan = PelatihanPeserta::join('sesi_pelatihans as P', 'pelatihan_pesertas.sesi_pelatihans_id', '=', 'P.id')
         // ->join('masterblk_db.users as u', 'u.email', '=', $userLogin)

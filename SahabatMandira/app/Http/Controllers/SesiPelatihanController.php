@@ -15,6 +15,7 @@ use File;
 use App\Http\Controllers\Controller;
 use App\MandiraMentoring;
 use App\PelatihanVendor;
+use Carbon\Carbon;
 
 class SesiPelatihanController extends Controller
 {
@@ -234,7 +235,9 @@ class SesiPelatihanController extends Controller
     {
         $userLogin = auth()->user()->email;
         if ($id == '1') {
-            $data = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
+            $mytime = Carbon::now();
+            $data = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
+            ->get();
             $sesi = '0';
         } elseif ($id == '2') {
             $data = MandiraMentoring::join('masterblk_db.users as u','u.email','=','mandira_mentorings.email_mentor')

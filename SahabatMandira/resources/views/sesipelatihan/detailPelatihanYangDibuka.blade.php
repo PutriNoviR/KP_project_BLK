@@ -62,7 +62,7 @@ PELATIHAN
                 <td>{{ $d->tanggal_seleksi }}</td>
                 <td>{{ $d->aktivitas }}</td>
                 <td>
-                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning">{{ __('DAFTAR') }}</a>
+                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
                 </td>
             </tr>
             @endforeach
@@ -101,7 +101,7 @@ PELATIHAN
                 </td>
                 <td>{{ $d->deskripsi }}</td>
                 <td>
-                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning">{{ __('DAFTAR') }}</a>
+                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
                 </td>
             </tr>
             @endforeach
