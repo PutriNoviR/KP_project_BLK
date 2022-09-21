@@ -122,7 +122,7 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($ditawarkan as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3 " style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-primary">

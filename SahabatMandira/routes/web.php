@@ -129,6 +129,7 @@ Route::post('User/suspend/{email}','UserController@suspendUser')->name('User.sus
 Route::get('daftar','UserController@daftar')->name('User.daftar');
 Route::get('/user/mentor','UserController@mentordaftar')->name('User.mentoring');
 Route::get('/user/halaman/{email}','UserController@halamanMentor')->name('User.halamanku');
+Route::post('/user/profil/update',"UserController@updateProfile")->name('user.profile.update');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');
