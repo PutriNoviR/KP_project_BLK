@@ -65,7 +65,7 @@ Profile
                         <div class="card-body">
                             <h4>Data Pribadi</h4>
                             <p class="m-t-10 m-b-20 text-justify"></p>
-                            <form role='form' method="POST" enctype="multipart/form-data" action="">
+                            <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('User.update',$data->email) }}">
                                 @csrf
                                 <div class="form-body">
 
@@ -156,8 +156,11 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
                                         <div class="col-md-12">
                                             <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
-                                                <option value="Laki-Laki">Laki-Laki</option>
-                                                <option value="Perempuan">Perempuan</option>
+                                                <!-- <option value="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan">Perempuan</option> -->
+                                                @foreach(["jenis_kelamin" => "Laki-laki","Perempuan"] AS $jenis => $j)
+                                                <option value="{{ $j }}" {{ ( $data->jenis_kelamin === $j) ? 'selected' : '' }}>{{ $j }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
