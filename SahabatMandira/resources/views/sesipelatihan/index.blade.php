@@ -17,13 +17,13 @@ PELATIHAN
         });
     });
 
-    function modalEdit(paketProgramId) {
+    function modalEdit(sesiPelatihanId) {
         $.ajax({
             type: 'POST',
-            url: '{{ route("paketProgram.getEditForm") }}',
+            url: '{{ route("sesiPelatihan.getEditForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'id': paketProgramId,
+                'id': sesiPelatihanId,
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
@@ -64,31 +64,6 @@ PELATIHAN
             });
         return false;
     }
-
-    $('#selectKejuruan').on('change', function() {
-
-        const idkejuruan = $('#selectKejuruan').val();
-
-        $.ajax({
-            type: 'POST',
-            url: '{{ route("paketProgram.getSubKejuruan") }}',
-            data: {
-                '_token': '<?php echo csrf_token() ?>',
-                'idkejuruan': idkejuruan,
-            },
-            success: function(data) {
-                $('#selectSubKejuruan').empty();
-                data.forEach(e => {
-                    $('#selectSubKejuruan').append(
-                        `<option value="${e['id']}">${e['nama']}</option>`);
-                });
-                $('#selectSubKejuruan').removeAttr('disabled')
-            },
-            error: function(xhr) {
-                console.log(xhr);
-            }
-        })
-    })
 
     function alertShowPeserta(id) {
         $.ajax({
@@ -281,10 +256,10 @@ PELATIHAN
                     <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                         Tambah Instruktur
                     </a>
-                    <a data-toggle="modal" data-target="" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
@@ -295,7 +270,13 @@ PELATIHAN
         </tbody>
     </table>
 </div>
+{{-- BUAT PANGGIL MODAL YANG ADA DI MODAL.BLADE --}}
+<!-- Modal -->
+<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
+    </div>
+</div>
 
 {{-- Modal tambah Instruktur --}}
 @foreach($data as $d)

@@ -104,6 +104,7 @@ Route::get('sesiPelatihan/riwayat','SesiPelatihanController@riwayatPelatihan')->
 Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->name('sesiPelatihan.showMore');
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
 Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
+Route::post('sesiPelatihan/getEditForm','SesiPelatihanController@getEditForm')->name('sesiPelatihan.getEditForm');
 
 //Tugas
 Route::resource('/tugas','TugasController');
