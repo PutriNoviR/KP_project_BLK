@@ -12,6 +12,7 @@ use App\SesiPelatihan;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -112,6 +113,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $User)
     {
+        // return $request;
         //
         // dd($User, $request->id);
         // $this->validate($request, [
@@ -141,20 +143,35 @@ class UserController extends Controller
             'nomorHp' => ['required', 'string', 'min:12']
         ]);
         // dd($request);
-        $User->jenis_identitas = $request->jenis_identitas;
-        $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
-        $User->nomor_identitas = $request->nomorIdentitas;
-        $User->nomer_hp = $request->nomorHp;
-        $User->kota = $request->kota;
-        $User->alamat = $request->alamat;
-        $User->ktp = $request->file('fotoKtp')->store('user/ktp');
-        $User->ksk = $request->file('ksk')->store('user/ksk');
-        $User->ijazah = $request->file('ijazah')->store('user/ijazah');
-        $User->jenis_kelamin = $request->jenis_kelamin;
-        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
+        // $User->jenis_identitas = $request->jenis_identitas;
+        // $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
+        // $User->nomor_identitas = $request->nomorIdentitas;
+        // $User->nomer_hp = $request->nomorHp;
+        // $User->kota = $request->kota;
+        // $User->alamat = $request->alamat;
+        // $User->ktp = $request->file('fotoKtp')->store('user/ktp');
+        // $User->ksk = $request->file('ksk')->store('user/ksk');
+        // $User->ijazah = $request->file('ijazah')->store('user/ijazah');
+        // $User->jenis_kelamin = $request->jenis_kelamin;
+        // $User->pendidikan_terakhir = $request->pendidikan_terakhir;
 
+        // $update = array(
+        //     'jenis_identitas'       => 'KTP',
+        //     'pas_foto'              => 'pas foto',
+        //     'nomor_identitas'       => $request->nomorIdentitas,
+        //     'nomer_hp'              => $request->nomorHp,
+        //     'kota'                  => $request->kota,
+        //     'alamat'                => $request->alamat,
+        //     'ktp'                   => 'ktp',
+        //     'ksk'                   => 'ksk',
+        //     'ijazah'                => 'ijasah',
+        //     'jenis_kelamin'         => $request->jenis_kelamin,
+        //     'pendidikan_terakhir'   => $request->pendidikan_terakhir        
+        // );
 
-        $User->save();
+        // $update =DB::tabel('users')->where('email',$userLogin)->update($update);
+        // return $update; 
+        // $User->save();
         return view('sesipelatihan.detailPelatihan', compact('data', 'cekDaftar'));
     }
 
@@ -301,5 +318,28 @@ class UserController extends Controller
         $mentoring = MandiraMentoring::where('email_mentor', $userLogin)->first();
         $keahlian = Keahlian::all();
         return view('mentor.profile', compact('user', 'mentoring','daftarKeahlian','keahlian'));
+    }
+
+    public function updateProfile(Request $request){
+        $userLogin = auth()->user()->email;
+        $update = array(
+            'nama_depan'            => $request->nama_depan, 
+            'nama_belakang'            => $request->nama_belakang, 
+            'jenis_identitas'       => 'KTP',
+            'pas_foto'              => 'pas foto',
+            'nomor_identitas'       => $request->nik,
+            'nomer_hp'              => $request->nomorHp,
+            'kota'                  => $request->kota,
+            'alamat'                => $request->domisili,
+            'ktp'                   => 'ktp',
+            'ksk'                   => 'ksk',
+            'ijazah'                => 'ijasah',
+            'jenis_kelamin'         => $request->jenis_kelamin,
+            'pendidikan_terakhir'   => $request->pendidikan_terakhir        
+        );
+
+        $update =DB::table('users')->where('email',$userLogin)->update($update);
+        
+        return back();
     }
 }

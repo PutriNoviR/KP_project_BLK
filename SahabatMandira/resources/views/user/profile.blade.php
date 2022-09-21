@@ -65,7 +65,7 @@ Profile
                         <div class="card-body">
                             <h4>Data Pribadi</h4>
                             <p class="m-t-10 m-b-20 text-justify"></p>
-                            <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('User.update',$data->email) }}">
+                            <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('user.profile.update') }}">
                                 @csrf
                                 <div class="form-body">
 
@@ -87,7 +87,7 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Depan') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama" required autocomplete="nama" autofocus>
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama_depan" required autocomplete="nama" autofocus>
 
                                             @error('nama')
                                             <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Belakang') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama" required autocomplete="nama" autofocus>
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama_belakang" required autocomplete="nama" autofocus>
 
                                             @error('nama')
                                             <span class="invalid-feedback" role="alert">
