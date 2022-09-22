@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function redirectTo(){
         $role = Auth::user()->role->nama_role;
         
-        if($role != 'adminuvii' && $role != 'peserta'){
+        if($role != 'adminuvii' && $role != 'peserta' && $role != 'adminblk'){
             Auth::logout();
             return route("login"); 
         }

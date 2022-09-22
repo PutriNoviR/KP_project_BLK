@@ -16,6 +16,7 @@
                 width: 490,
                 height: 350,
                 image_format: 'jpeg',
+                align:'center',
                 jpeg_quality: 90
             });
 
@@ -97,7 +98,7 @@
                             <form action="">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div id="my_camera"></div>
+                                        <div style='min-width:100; min-height:100;' id="my_camera"></div>
                                         <br/>
                                         <!-- <input type=button value="Take Snapshot" onClick="capture()"> -->
                                         <!-- <input type="hidden" name="image" class="image-tag"> -->

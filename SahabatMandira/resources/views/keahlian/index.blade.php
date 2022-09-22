@@ -28,13 +28,13 @@ Daftar Keahlian Mentor
         });
     });
 
-    function modalEdit(id) {
+    function modalEdit(idkeahlians) {
         $.ajax({
             type: 'POST',
-            url: '{{ route("kejuruans.getEditForm") }}',
+            url: '{{ route("keahlian.getEditForm") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'id': id,
+                'id': idkeahlians,
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
@@ -92,7 +92,7 @@ Daftar Keahlian Mentor
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $k->nama}}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditKeahlian" class='btn btn-warning' onclick="modalEdit({{$k->id}})">
+                    <a data-toggle="modal" data-target="#modalEditKeahlian" class='btn btn-warning' onclick="modalEdit({{$k->idkeahlians}})">
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="{{ route('keahlian.destroy',$k->idkeahlians) }}" onsubmit="return submitFormDelete(this);" class="d-inline">

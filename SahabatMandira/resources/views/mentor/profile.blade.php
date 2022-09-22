@@ -108,31 +108,28 @@ Profile
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Tanggal Lahir</span>
-                        <span>{{  }}</span>
+                        <span>{{ $user->tanggal_lahir }}</span>
                     </p>
                     <p>
                         <span class="text-muted d-block">Jenis Kelamin</span>
-                        <span>{{ }}</span>
+                        <span>{{ $user->jenis_kelamin }}</span>
                     </p>
-                </div>
-
-                <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Pendidikan Terakhir</span>
-                        <span>{{  }}</span>
+                        <span>{{ $user->pendidikan_terakhir }}</span>
                     </p>
                     <p>
                         <span class="text-muted d-block">Konsentrasi Pendidikan</span>
-                        <span>{{$user->alamat }}</span>
+                        <span>{{ $user->konsentrasi_pendidikan }}</span>
                     </p>
                 </div>
 
             </div>
             <hr>
         </div>
-        <form class="card p-4 d-none" id="ubahDataMentor" action="{{ route('User.update',$user->email) }}" method="POST">
+        <form class="card p-4 d-none" id="ubahDataMentor" action="{{ route('user.profile.update') }}" method="POST">
             @csrf
-            @method('PUT')
+            <input type="hidden" name='type' value='mentor'>
             <h3 class="mb-4 font-weight-bold">Data Mentor</h3>
             <div class="row">
                 <div class="col-4">
@@ -144,40 +141,37 @@ Profile
                         <span class="text-muted d-block">Nama Belakang Mentor</span>
                         <input type="text" class="form-control" name="nama_belakang" id="nama-user" value="{{ $user->nama_belakang}}">
                     </p>
-                    <p>
+                    <!-- <p>
                         <span class="text-muted d-block">Email Mentor</span>
                         <input type="text" class="form-control" disabled id="email-perusahaan" value="{{ $user->email}}">
-                    </p>
+                    </p> -->
                 </div>
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Nomor Telepon</span>
-                        <input type="text" class="form-control" id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
+                        <input type="text" class="form-control" name='nomorHp' id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Alamat</span>
-                        <textarea class="form-control" name="alamat_perusahaan" id="alamat-perusahaan" rows="2">{{ $user->alamat}}</textarea>
+                        <textarea class="form-control" name="domisili" id="alamat-perusahaan" rows="2">{{ $user->alamat}}</textarea>
                     </p>
                 </div>
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Tanggal Lahir</span>
-                        <span>{{  }}</span>
+                        <input type="text" class="form-control" name='tgl_lahir' id="tgl_lahir" value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Jenis Kelamin</span>
-                        <span>{{ }}</span>
+                        <input type="text" class="form-control" name='jenis_kelamin' id="jenis_kelamin" value="{{ $user->nomer_hp}}">
                     </p>
-                </div>
-
-                <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Pendidikan Terakhir</span>
-                        <span>{{  }}</span>
+                        <input type="text" class="form-control" id="pendidikan" name='pendidikan_terakhir' value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Konsentrasi Pendidikan</span>
-                        <span>{{$user->alamat }}</span>
+                        <input type="text" class="form-control" id="kosentrasi" name='konsentrasi' value="{{ $user->nomer_hp}}">
                     </p>
                 </div>
             </div>

@@ -65,7 +65,7 @@ Dashboard
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan anda ! &nbsp;&nbsp;&nbsp;
-        <a href="https://ubayavii.id" class="button btn btn-primary">IKUTI TES SEKARANG !</a>
+        <a href="https://ubayavii.id" class="button btn btn-primary" target="_blank">IKUTI TES SEKARANG !</a>
     </center>
 </div>
 @else
@@ -122,7 +122,7 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($ditawarkan as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3 " style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-primary">
@@ -214,13 +214,13 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('images/programPelatihan/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
                 <div class="card-body">
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{ $d->link }}" target="_blank" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>
@@ -246,10 +246,14 @@ Dashboard
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Program</h2>
-        @if(count($keahlian) === 0)
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
-            Tambah Program Baru
-        </button>
+        @if(count($keahlian) != 0)
+            @if(Auth::user()->nomor_identitas == null)
+            <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.Auth::user()->email)}}" class="button btn btn-warning">{{ __('TAMBAH PROGRAM')}}</a>
+            @else
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
+                Tambah Program Baru
+            </button>
+            @endif
         @endif
     </div>
     @if (\Session::has('success'))
@@ -280,9 +284,9 @@ Dashboard
                 <td>{{ $m->tgl_dibuka}} - {{ $m->tgl_ditutup}}</td>
                 <td>{{ $m->link_pendaftaran}}</td>
                 <td>@if($m->is_validated == 1)
-                        SUDAH DIVALIDASI
+                    SUDAH DIVALIDASI
                     @else
-                        BELUM DIVALIDASI
+                    BELUM DIVALIDASI
                     @endif
                 </td>
                 <td>

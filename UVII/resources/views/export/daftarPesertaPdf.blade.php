@@ -2,7 +2,7 @@
     <h1>DAFTAR PESERTA</h1>
 
     <div class="portlet-title">
-        <b>Jumlah Peserta: {{ $user->count() }}</b><br><br>
+        <b>Jumlah Peserta: {{ count($user) }}</b><br><br>
         <b>Jumlah Peserta yang Tes: {{ $totalPeserta }}</b><br><br>
     </div>
 
@@ -14,9 +14,10 @@
                         <th style="width: 5%; text-align: left;">No</th>
                         <th style="width: 35%; text-align: center;">Peserta</th>
                         <!-- <th style="width: 15%; text-align: center;">Email</th> -->
-                        <th style="width: 25%; text-align: left;">Pendidikan dan Konsentrasi/Keahlian</th>
-                        <th style="width: 20%; text-align: left;">Kota dan Tanggal Lahir</th>
-                        <th style="width: 15%; text-align: left;">Kota Domisili</th>
+                        <th style="width: 28%; text-align: left;">Pendidikan dan Konsentrasi/Keahlian</th>
+                        <th style="width: 18%; text-align: center;">Kota Domisili</th>
+                        <th style="width: 25%; text-align: center;">Hasil Klaster</th>
+                        <th style="width: 28%; text-align: center;">Hasil Kategori</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,12 +35,24 @@
                         <td data-th="Peserta">
                             <div class="row">
                                 <div class="col-sm-6 hidden-xs"><br>       
-                                    {{$u->nama_depan}} {{$u->nama_belakang}}
+                                    {{$u['nama_depan']}} {{$u['nama_belakang']}}
                                 </div>
                                 <div class="col-sm-6 hidden-xs">
-                                    <small>Email: {{$u->email}}</small><br><br>
-                                    <small>Telepon: {{$u->nomer_hp ?? '-'}}</small><br><br>
-                                    <small>Alamat: {{$u->alamat ?? '-'}}</small>
+                                    <small>Email: {{$u['email']}}</small><br><br>
+                                    <small>Telepon: {{$u['nomer_hp'] ?? '-'}}</small><br><br>
+                                    <small>Alamat: {{$u['alamat'] ?? '-'}}</small><br><br>
+                                    <small>Tempat Tanggal Lahir:<br>
+                                        {{$u['tempat_lahir'] ?? '-'}}
+                                        
+                                        @php
+                                            if($u['tempat_lahir'] != null){
+                                                echo ', ';
+                                            }
+
+                                            echo date('d-m-Y', strtotime($u['tanggal_lahir']));
+                                        @endphp
+                               
+                                    </small>
                                 </div>
                             </div>
                         </td>
@@ -48,36 +61,24 @@
                           
                             <div class="row">
                                 <div class="col-sm-6 hidden-xs">
-                                    <small>Pendidikan: {{$u->pendidikan_terakhir}}</small><br><br>
+                                    <small>Pendidikan: {{$u['pendidikan']}}</small><br><br>
                                 </div>
                                 <div class="col-sm-6 hidden-xs">
-                                    <small>Konsentrasi/Keahlian: {{$u->konsentrasi_pendidikan}}</small>
+                                    <small>Konsentrasi/Keahlian: {{$u['konsentrasi']}}</small>
                                 </div>
                             </div>
                         </td>
                         
-                        <td data-th="Kota dan Tanggal Lahir">
-                            <div class="row">
-                                <div class="col-sm-6 hidden-xs">
-                                    {{$u->tempat_lahir ?? '-'}}
-                                    @php
-                                        if($u->tempat_lahir != null){
-                                            echo ', ';
-                                        }
-                                    @endphp
-                                </div>
-                                <div class="col-sm-6 hidden-xs">
-                                    @php
-                                       
-                                        echo date('d-m-Y', strtotime($u->tanggal_lahir));
-                                    
-                                    @endphp
-                                </div>
-                            </div>
+                        <td data-th="Kota Domisili" style="text-align: center;">
+                            {{$u['kota']}}
                         </td>
-                        
-                        <td data-th="Kota Domisili">
-                            {{$u->kota}}
+
+                        <td data-th="Hasil Klaster" style="text-align: center;">
+                            {{$u['klaster']}}
+                        </td>
+
+                        <td data-th="Hasil Kategori">
+                            {{$u['kategori']}}
                         </td>
                       
                         @php

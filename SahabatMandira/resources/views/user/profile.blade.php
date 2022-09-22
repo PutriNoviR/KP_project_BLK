@@ -29,9 +29,9 @@ Profile
                         <div class="card-body">
                             <p class="overline">Data Pribadi</p>
                             <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
-                            
+
                             <p><br></p>
-                            
+
                             <br>
                             <div>
                                 <div class="m-t-20">
@@ -65,8 +65,10 @@ Profile
                         <div class="card-body">
                             <h4>Data Pribadi</h4>
                             <p class="m-t-10 m-b-20 text-justify"></p>
-                            <form role='form' method="POST" enctype="multipart/form-data" action="">
+                            <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('user.profile.update') }}">
                                 @csrf
+                                <input type="hidden" name='type' value='peserta'>
+                                
                                 <div class="form-body">
 
                                     <div class="form-group">
@@ -87,7 +89,7 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Depan') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama" required autocomplete="nama" autofocus>
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama_depan" required autocomplete="nama" autofocus>
 
                                             @error('nama')
                                             <span class="invalid-feedback" role="alert">
@@ -101,7 +103,7 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Belakang') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama" required autocomplete="nama" autofocus>
+                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama_belakang" required autocomplete="nama" autofocus>
 
                                             @error('nama')
                                             <span class="invalid-feedback" role="alert">
@@ -156,8 +158,11 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
                                         <div class="col-md-12">
                                             <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
-                                                <option value="Laki-Laki">Laki-Laki</option>
-                                                <option value="Perempuan">Perempuan</option>
+                                                <!-- <option value="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan">Perempuan</option> -->
+                                                @foreach(["jenis_kelamin" => "Laki-laki","Perempuan"] AS $jenis => $j)
+                                                <option value="{{ $j }}" {{ ( $data->jenis_kelamin === $j) ? 'selected' : '' }}>{{ $j }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -166,11 +171,14 @@ Profile
                                         <label for="nama" class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
                                         <div class="col-md-12">
                                             <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
-                                                <option value="SD Sederajat">SD Sederajat</option>
-                                                <option value="SMP Sederajat">SMP Sederajat</option>
-                                                <option value="SMA Sederajat">SMA Sederajat</option>
-                                                <option value="S1">S1</option>
-                                                <option value="Pasca Sarjana">Pasca Sarjana</option>
+                                                @foreach(["data_pendidikan" => "SD Sederajat","SMP Sederajat","SMA Sederajat","SMK Sederajat","D1/D2/D3/D4","Sarjana(Strata-1)","Pasca Sarjana"] AS $pendidikan => $p)
+                                                <option value="{{ $p }}" {{ ( $data->pendidikan_terakhir === $p) ? 'selected' : '' }}>{{ $p }}</option>
+                                                @endforeach
+                                                <!-- <option value="SD Sederajat" {{ ( $data->pendidikan_terakhir === 'SD Sederajat') ? 'selected' : '' }} >SD Sederajat</option>
+                                                <option value="SMP Sederajat" {{ ( $data->pendidikan_terakhir === 'SMP Sederajat') ? 'selected' : '' }} >SMP Sederajat</option>
+                                                <option value="SMA Sederajat" {{ ( $data->pendidikan_terakhir === 'SMA Sederajat') ? 'selected' : '' }} >SMA Sederajat</option>
+                                                <option value="S1" {{ ( $data->pendidikan_terakhir === 'S1') ? 'selected' : '' }} >S1</option>
+                                                <option value="Pasca Sarjana" {{ ( $data->pendidikan_terakhir === 'Pasca Sarjana') ? 'selected' : '' }} >Pasca Sarjana</option> -->
                                             </select>
                                         </div>
                                     </div>

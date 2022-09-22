@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use App\KlasterPsikometrik;
+use App\KategoriPsikometrik;
 
 class PesertaController extends Controller
 {
@@ -22,7 +24,8 @@ class PesertaController extends Controller
     {
         $idRole = Role::where('nama_role', 'peserta')->first();
         $data = User::where('roles_id', $idRole->id)->get();
-
+        $hasil= User::hasilTerakhir($data);
+       
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
                     ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
@@ -30,8 +33,8 @@ class PesertaController extends Controller
                     ->where('roles_id', $role_user)
                     ->where('mm.status','Aktif')
                     ->get();
-
-        return view('admin.daftarPeserta', compact('data', 'menu_role'));
+        
+        return view('admin.daftarPeserta', compact('hasil', 'menu_role'));
     }
 
     /**
@@ -321,8 +324,10 @@ class PesertaController extends Controller
 
     public function cetakPDF(){
         $idRole = Role::where('nama_role', 'peserta')->first();
-        $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
+        $data = User::where('roles_id',$idRole->id)->get();
         $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+
+        $user = User::hasilTerakhir($data);
 
         $pdf = PDF::loadview('export.daftarPesertaPdf',compact('user','totalPeserta'))->setOptions(['defaultFont'=>'sans-serif']);
         $name = "laporan-daftar-peserta.pdf";

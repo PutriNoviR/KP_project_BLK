@@ -1,7 +1,7 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Pelatihan Peserta
+Kelengkapan Dokumen
 @endsection
 
 
@@ -88,7 +88,6 @@ Pelatihan Peserta
 
                             <input type="file" name='pas_foto' class="defaults" value="" required>
                         </div>
-
                         <div class="form-group">
                             <label for="fotoKtp" class="col-md-12 col-form-label">{{ __('Dokumen KTP') }}</label>
 

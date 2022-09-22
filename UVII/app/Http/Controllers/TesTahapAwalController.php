@@ -336,6 +336,7 @@ class TesTahapAwalController extends Controller
         return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
 
     }
+    
 
     public function cetakPDF(){
         $idRole = Role::where('nama_role', 'peserta')->first();

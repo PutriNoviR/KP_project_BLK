@@ -105,6 +105,7 @@ Route::get('sesiPelatihan/riwayat','SesiPelatihanController@riwayatPelatihan')->
 Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->name('sesiPelatihan.showMore');
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
 Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
+Route::post('sesiPelatihan/getEditForm','SesiPelatihanController@getEditForm')->name('sesiPelatihan.getEditForm');
 
 //Tugas
 Route::resource('/tugas','TugasController');
@@ -112,6 +113,7 @@ Route::post('/tugas/getDetail','TugasController@getDetail')->name('tugas.getDeta
 
 //Keahlian
 Route::resource('/keahlian','KeahlianController');
+Route::post('/keahlian/getEditForm','KeahlianController@getEditForm')->name('keahlian.getEditForm');
 
 //KeahlianUser
 Route::resource('/keahlianUser','KeahlianUserController');
@@ -129,6 +131,7 @@ Route::post('User/suspend/{email}','UserController@suspendUser')->name('User.sus
 Route::get('daftar','UserController@daftar')->name('User.daftar');
 Route::get('/user/mentor','UserController@mentordaftar')->name('User.mentoring');
 Route::get('/user/halaman/{email}','UserController@halamanMentor')->name('User.halamanku');
+Route::post('/user/profil/update',"UserController@updateProfile")->name('user.profile.update');
 
 Route::get('/helloworld', function () {
     return view('layouts.adminlte');

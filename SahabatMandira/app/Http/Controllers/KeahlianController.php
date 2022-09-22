@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Keahlian;
 use App\KeahlianUser;
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 
 class KeahlianController extends Controller
@@ -77,9 +78,17 @@ class KeahlianController extends Controller
      * @param  \App\Keahlian  $keahlian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keahlian $keahlian)
+    public function update(Request $request, $id)
     {
         //
+        $update = array(
+            'nama' => $request->get('nama'),
+        );
+
+        DB::table('keahlians')
+            ->where('idkeahlians', $id)
+            ->update($update);
+        return redirect()->back()->with('success', 'Program Keahlian berhasil diubah!');
     }
 
     /**
@@ -88,9 +97,27 @@ class KeahlianController extends Controller
      * @param  \App\Keahlian  $keahlian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Keahlian $keahlian)
+    public function destroy($id)
     {
         //
+        $keahlian = Keahlian::where('idkeahlians', $id);
+        try {
+            $keahlian->delete();
+            return redirect()->back()->with('success', 'Keahlian berhasil dihapus!');
+        } catch (\PDOException $e) {
+            $msg = "Data gagal dihapus";
+
+            return redirect()->back()->with('error', $msg);
+        }
     }
 
+    public function getEditForm(Request $request)
+    {
+        $keahlian = Keahlian::where('idkeahlians',$request->id)->first();
+        // dd($request->id);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('keahlian.modal', compact('keahlian'))->render() 
+        ), 200);
+    }
 }

@@ -15,6 +15,7 @@ use File;
 use App\Http\Controllers\Controller;
 use App\MandiraMentoring;
 use App\PelatihanVendor;
+use Carbon\Carbon;
 
 class SesiPelatihanController extends Controller
 {
@@ -187,6 +188,9 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
         $sesiPelatihan->paket_program_id = $request->paket_program_id;
         $sesiPelatihan->aktivitas = $request->aktivitas;
+        $foto = $request->file('fotoPelatihan')->store('programPelatihan');
+
+        $sesiPelatihan->gambar_pelatihan = $foto;
         $sesiPelatihan->save();
         return redirect()->back()->with('success', 'Data sesi berhasil diubah!');
     }
@@ -202,11 +206,11 @@ class SesiPelatihanController extends Controller
         //
         try {
             $sesiPelatihan->delete();
-            return redirect()->route('')->with('success', 'Data BLK berhasil dihapus!');
+            return redirect()->back()->with('success', 'Data Sesi Pelatihan berhasil dihapus!');
         } catch (\PDOException $e) {
             $msg = "Data gagal dihapus";
 
-            return redirect()->route('')->with('error', $msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -234,7 +238,9 @@ class SesiPelatihanController extends Controller
     {
         $userLogin = auth()->user()->email;
         if ($id == '1') {
-            $data = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()');
+            $mytime = Carbon::now();
+            $data = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
+            ->get();
             $sesi = '0';
         } elseif ($id == '2') {
             $data = MandiraMentoring::join('masterblk_db.users as u','u.email','=','mandira_mentorings.email_mentor')
@@ -302,5 +308,14 @@ class SesiPelatihanController extends Controller
             ->get();
         //
         return redirect()->back()->with('success', 'Berhasil Daftar Ulang');
+    }
+
+    public function getEditForm(Request $request)
+    {
+        $sesiPelatihan = SesiPelatihan::find($request->id);
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('sesipelatihan.modal', compact('sesiPelatihan'))->render()
+        ), 200);
     }
 }

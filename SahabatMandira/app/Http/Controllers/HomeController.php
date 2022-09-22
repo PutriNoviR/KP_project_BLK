@@ -14,6 +14,7 @@ use App\PelatihanPeserta;
 use App\PelatihanVendor;
 use App\Perusahaan;
 use App\Role;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -48,22 +49,23 @@ class HomeController extends Controller
     public function dashboard()
     {
         $userLogin = auth()->user()->email;
-        $ditawarkan = SesiPelatihan::all()->Where('tanggal_tutup', '<=', 'CURDATE()')
+        $mytime = Carbon::now();
+        $ditawarkan = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
             ->skip(0)
-            ->take(4);
+            ->take(4)
+            ->get();
         // dd($ditawarkan);
         // $disarankan = PelatihanPeserta::join('sesi_pelatihans as P', 'pelatihan_pesertas.sesi_pelatihans_id', '=', 'P.id')
         // ->join('masterblk_db.users as u', 'u.email', '=', $userLogin)
         // ->WHERE('pelatihan_pesertas.is_sesuai_minat', '=', '1' )
         // ->get();
 
-        $disarankan = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'sesi_pelatihans.id', '=', 'p.sesi_pelatihans_id')
-            ->JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id', '=', 'pp.id')
+        $disarankan = SesiPelatihan::JOIN('masterblk_db.paket_program as pp', 'sesi_pelatihans.paket_program_id', '=', 'pp.id')
             ->JOIN('masterblk_db.sub_kejuruans as sk', 'pp.sub_kejuruans_id', '=', 'sk.id')
             ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
             ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
             ->WHERE('mu.users_email', '=', $userLogin)
-            ->WHERE('p.email_peserta', '=', $userLogin)
+            // ->WHERE('p.email_peserta', '=', $userLogin)
             ->skip(0)
             ->take(4)
             ->get();

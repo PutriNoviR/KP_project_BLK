@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-4">
                             
-                    <p for="kategori">{{$data->kode}}</p>
+                    <p for="kategori">{{$data->nama}}</p>
                             
                 </div>
             </div>       

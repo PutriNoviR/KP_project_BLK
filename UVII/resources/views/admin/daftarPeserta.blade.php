@@ -86,8 +86,17 @@
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
-                        Username
+                        No Handphone
                     </th>
+                    <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending">
+                        Klaster Psikometrik
+                    </th>
+                    <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending">
+                        Kategori Psikometrik
+                    </th>
+
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
                         Detail
@@ -102,35 +111,42 @@
                         $no = 1;
                     @endphp
 
-                    @foreach($data as $key=>$d)
+                    @foreach($hasil as $key=>$d)
                    
                     <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
                         <td>
                             {{$no}}
                         </td>
                         <td>
-                            {{$d->nama_depan." ".$d->nama_belakang}}
+                            {{$d['nama_depan']." ".$d['nama_belakang']}}
                         </td>
                         <td>
-                            {{$d->email}}
+                            {{$d['email']}}
                         </td>
                         <td>
-                            {{$d->username}}
+                            {{$d['No.Hp']}}
+                        </td>
+
+                        <td>
+                            {{$d['klaster']}}
                         </td>
                         <td>
-                            <a data-toggle='modal' data-target='#modal_{{$d->username}}' class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
+                            {{$d['kategori']}}
                         </td>
                         <td>
-                            <a onclick="getEditForm('{{ $d->email }}')" data-toggle='modal' data-target='#editModal' class="btn btn-default btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                            <a data-toggle='modal' data-target="#modal_{{$d['username']}}" class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
+                        </td>
+                        <td>
+                            <a onclick="getEditForm('{{ $d['email']}}')" data-toggle='modal' data-target='#editModal' class="btn btn-default btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                            
-                            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d->username}}">
+                            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d['username']}}">
                                 <i class="fa fa-trash-o"></i> Hapus
                             </a>
                             
-                            <form method='POST' action="{{ url('menu/peserta/'.$d->email) }}">
+                            <form method='POST' action="{{ url('menu/peserta/'.$d['email']) }}">
                                 @csrf
                                 @method('DELETE')
-                                <div id="deleteModal_{{$d->username}}" class="modal fade" tabindex="-1" role="basic">
+                                <div id="deleteModal_{{$d['username']}}" class="modal fade" tabindex="-1" role="basic">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-body" style="text-align: center;">
@@ -138,9 +154,9 @@
                                                     <i style="font-size: 46px; color: #8a6d3b; margin-top: 10px;" class="glyphicon glyphicon-warning-sign"></i>
                                                 </div>
                                                 <p>
-                                                    Apakah Anda yakin ingin menghapus data <b>{{$d->username}}</b>?
+                                                    Apakah Anda yakin ingin menghapus data <b>{{$d['username']}}</b>?
                                                 </p>
-                                                <input type='hidden' name='email' value='{{ $d->email }}'>
+                                                <input type='hidden' name='email' value="{{ $d['email'] }}">
                                             </div>
                                             <div style="border-top: none; text-align: center;" class="modal-footer">
                                                 <button type="submit" class="btn btn-danger">Hapus</button>
@@ -157,34 +173,34 @@
                             $no++;
                         @endphp
 
-                    <div class="modal fade" id="modal_{{$d->username}}" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal fade" id="modal_{{$d['username']}}" tabindex="-1" role="basic" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-user"></i> {{$d->username}}</h4>
-                                    <small>{{$d->email}}</small>
+                                    <h4 class="modal-title"><i style="font-size: 20px" class="fa fa-user"></i> {{$d['username']}}</h4>
+                                    <small>{{$d['email']}}</small>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Alamat</label>
-                                        <input name="alamat" class="form-control" disabled value='{{$d->alamat}}'>
+                                        <input name="alamat" class="form-control" disabled value="{{$d['alamat']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Kota</label>
-                                        <input name="kota" class="form-control" disabled value='{{$d->kota}}'>
+                                        <input name="kota" class="form-control" disabled value="{{$d['kota']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">Nomor Hp</label>
-                                        <input name="nomor_hp" class="form-control" disabled value='{{$d->nomer_hp}}'>
+                                        <input name="nomor_hp" class="form-control" disabled value="{{$d['No.Hp']}}">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label">kewarganegaraan</label>
-                                        <input name="kewarganegaraan" class="form-control" disabled value='{{$d->jenis_identitas == "Pasport"? "Warga Negara Asing":"Warga Negara Indonesia"}}'>
+                                        <input name="kewarganegaraan" class="form-control" disabled value="{{$d['jenis_identitas']== 'Pasport'? 'Warga Negara Asing':'Warga Negara Indonesia'}}">
                                     </div>
-                                    <div class="form-group">
+                                    {{--<div class="form-group">
                                         <label class="col-sm-4 control-label">Nomor Identitas</label>
-                                        <input name="nomor_identitas" class="form-control" disabled value='{{$d->nomor_identitas}}'>
-                                    </div>
+                                        <input name="nomor_identitas" class="form-control" disabled value="{{$d['nomor_identitas']}}">
+                                    </div>--}}
                                 </div>
                                 <div style="border-top: none; text-align: center;" class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
