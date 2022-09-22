@@ -178,6 +178,13 @@ class SesiPelatihanController extends Controller
     public function update(Request $request, SesiPelatihan $sesiPelatihan)
     {
         //
+
+        // $this->validate($request, [
+        //         'fotoPelatihan' => ['required'],
+        //     ]);
+        if (!$request->hasFile('fotoPelatihan')) {
+            return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
+        }
         $sesiPelatihan->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesiPelatihan->tanggal_tutup = $request->tanggal_tutup;
         $sesiPelatihan->lokasi = $request->lokasi;
