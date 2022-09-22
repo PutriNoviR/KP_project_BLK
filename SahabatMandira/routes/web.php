@@ -76,6 +76,7 @@ Route::get('menu/detailPelatihan','Pelatihan\KejuruanController@detailAllPelatih
 //Perusahaan
 Route::resource('menu/perusahaan','Bursa\PerusahaanController');
 Route::get('profile/perusahaan','Bursa\PerusahaanController@profile')->name('perusahaan.profile');
+Route::post('editFotoProfile','Bursa\PerusahaanController@editFoto')->name('perusahaan.editfoto');
 
 //Lowongan
 Route::resource('menu/lowongan','Bursa\LowonganController');

@@ -42,7 +42,6 @@ class HomeController extends Controller
         $totalpendaftar = PelatihanPeserta::all()->count();
         $pesertaditerima = PelatihanPeserta::where('rekom_keputusan','LULUS')->count();
         $persentase = $pesertaditerima/$totalpendaftar * 100;
-        // dd($totalpelatihan);
         return view('welcome', compact('pencaker','mitra','mentor','totalpelatihan','persentase'));
     }
 

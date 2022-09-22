@@ -165,6 +165,26 @@ class PerusahaanController extends Controller
         return view('perusahaan.profile',compact('perusahaan'));
     }
 
+    public function editFoto(Request $request)
+    {
+        $folderPath = storage_path('app/public/logo/');
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $filename = uniqid() . '.'.$image_type;
+        $logo = "$folderPath$filename";
+        file_put_contents($logo, $image_base64);
+
+        $perusahaan = Perusahaan::where('id', Auth::user()->perusahaans_id_admin)->first();
+        $perusahaan->logo = "logo/$filename";
+        $perusahaan->save();
+        // dd($perusahaan);
+        return response()->json(array(
+            'status'=>'oke',
+        ),200);
+    }
+
     // public function posting()
     // {
     //     //compact untuk kirim data
