@@ -90,12 +90,6 @@ PAKET PROGRAM
             <li>{!! \Session::get('success') !!}</li>
         </ul>
     </div>
-    @else
-    <div class="alert alert-error">
-        <ul>
-            <li>{!! \Session::get('error') !!}</li>
-        </ul>
-    </div>
     @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
@@ -119,9 +113,9 @@ PAKET PROGRAM
                     <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-warning'>
                         Tambah Sesi Pelatihan
                     </a>
-                    <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$paketprogram->id}})">
+                    <!-- <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$paketprogram->id}})">
                         <i class="fas fa-pen"></i>
-                    </a>
+                    </a> -->
                     <!-- {{-- <form method="POST" action="{{ route('paketProgram.destroy',$paketprogram->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf

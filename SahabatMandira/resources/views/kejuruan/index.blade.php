@@ -81,9 +81,9 @@ Daftar Kejuruan
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th>NO</th>
-                <th>KEJURUAN</th>
-                <th>AKSI</th>
+                <th style="width: 8%">NO</th>
+                <th style="width: 80%">KEJURUAN</th>
+                <th style="width: 12%">AKSI</th>
             </tr>
         </thead>
         <tbody>

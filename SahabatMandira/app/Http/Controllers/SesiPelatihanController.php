@@ -318,4 +318,15 @@ class SesiPelatihanController extends Controller
             'msg' => view('sesipelatihan.modal', compact('sesiPelatihan'))->render()
         ), 200);
     }
+
+    public function getDetail(Request $request)
+    {
+        $sesi = SesiPelatihan::find($request->id);
+        // dd($sub);
+        $aktivitas = $sesi->aktivitas;
+        return response()->json(array(
+            'status'=>'oke',
+            'data'=> $aktivitas
+        ), 200);
+    }
 }
