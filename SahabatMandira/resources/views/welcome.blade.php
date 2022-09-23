@@ -144,10 +144,11 @@
                             src="{{ asset('landingpage/assets/img/about/4.jpg')}}" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Peluang Kerja</h4>
+                            <h4 class="subheading">Pekerja Professional</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Memberi peluang kerja bagi tenaga kerja</p>
+                            <p class="text-muted">Sebagai wadah pendukung pengembangan karir melalui pelatihan yang
+                                lebih berkualitas dan jaringan persahabatan untuk berkolaborasi</p>
                         </div>
                     </div>
                     <div class="timeline-panel float-end text-start">
@@ -165,18 +166,20 @@
                             src="{{ asset('landingpage/assets/img/about/3.jpg')}}" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Keuntungan</h4>
+                            <h4 class="subheading">Lembaga Pelatihan dan Sertifikasi</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Mendapat peluang kerja </p>
+                            <p class="text-muted">Menjadi media informasi dan sumber peserta bagi kegiatan pelatihan dan
+                                sertifikasi</p>
                         </div>
                     </div>
                     <div class="timeline-panel  float-end text-start">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Mitra</h4>
+                            <h4 class="subheading">Mitra Bisnis</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Mendapat karyawan yang kompeten bagi perusahaan</p>
+                            <p class="text-muted">Mendapatkan calon entrepeneur yang dapat dijadikan mitra dalam
+                                pengembangan bisnis bersama</p>
                         </div>
                     </div>
                 </li>
