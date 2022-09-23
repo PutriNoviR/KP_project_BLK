@@ -115,7 +115,7 @@ Dashboard
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}"
                         style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
-                <div class="card-body">
+                <div class="card-body font-weight-bold">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
@@ -160,7 +160,7 @@ Dashboard
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}"
                         style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
-                <div class="card-body">
+                <div class="card-body font-weight-bold">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
