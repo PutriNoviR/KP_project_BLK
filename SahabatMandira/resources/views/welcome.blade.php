@@ -153,7 +153,7 @@
                     </div>
                     <div class="timeline-panel float-end text-start">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Ketrampilan</h4>
+                            <h4 class="subheading">Keterampilan</h4>
                         </div>
                         <div class="timeline-body">
                             <p class="text-muted">Menghasilkan tenaga kerja yang trampil, semangat dan memiliki
@@ -178,7 +178,7 @@
                             <h4 class="subheading">Mitra Bisnis</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Mendapatkan calon entrepeneur yang dapat dijadikan mitra dalam
+                            <p class="text-muted">Mendapatkan calon-calon entrepeneur yang dapat dijadikan mitra dalam
                                 pengembangan bisnis bersama</p>
                         </div>
                     </div>
