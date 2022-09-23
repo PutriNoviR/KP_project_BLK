@@ -88,7 +88,7 @@ Dashboard
                 <div class="card-header">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -129,10 +129,10 @@ Dashboard
                         {{ $d->paketprogram->blk->nama }}
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header" style="height:20% ;">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body"style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -171,10 +171,10 @@ Dashboard
                         {{ $d->email_mentor }}
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header"style="height:30% ;">
                     <h3 class="card-title">{{ $d->nama_program }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -209,10 +209,10 @@ Dashboard
                         BEST
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header" style="height:30% ;">
                     <h3 class="card-title">{{ $d->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
