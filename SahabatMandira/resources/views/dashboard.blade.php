@@ -77,7 +77,7 @@ Dashboard
 
     <div class="row ">
         @foreach($disarankan as $d)
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="display: flex;">
             @if($d != null)
             <div class="card card-primary">
                 <div class="ribbon-wrapper">
@@ -164,7 +164,7 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($programMentor as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3" style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
@@ -202,7 +202,7 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($other as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3" style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
