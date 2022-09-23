@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
-                <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg">
+                <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
             </div>
             <div class="form-group">
                 <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>

@@ -67,9 +67,6 @@ Daftar User
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar User</h2>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah User Baru
-        </button>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">

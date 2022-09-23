@@ -99,13 +99,14 @@ route::post('paketProgram/getSubKejuruan','PaketProgramPelatihanController@getSu
 
 //Sesi Pelatihan
 Route::resource('/sesiPelatihan','SesiPelatihanController');
-Route::post('sesiPelatihan/getDetail','SesiPelatihanController@getDetailPeserta')->name('sesiPelatihan.getDetailPeserta');
+Route::post('sesiPelatihan/getDetailPeserta','SesiPelatihanController@getDetailPeserta')->name('sesiPelatihan.getDetailPeserta');
 Route::get('sesiPelatihan/{id}','SesiPelatihanController@show')->name('sesiPelatihan.detail');
 Route::get('sesiPelatihan/riwayat','SesiPelatihanController@riwayatPelatihan')->name('sesiPelatihan.peserta');
 Route::get('sesiPelatihan/showMore/{id}','SesiPelatihanController@showMore')->name('sesiPelatihan.showMore');
 Route::get('daftarPelatihan','SesiPelatihanController@daftarPelatihan')->name('sesiPelatihan.daftarPelatihan');
 Route::post('daftarPelatihan/daftarulang','SesiPelatihanController@daftarUlang')->name('sesiPelatihan.daftarulang');
 Route::post('sesiPelatihan/getEditForm','SesiPelatihanController@getEditForm')->name('sesiPelatihan.getEditForm');
+Route::post('sesiPelatihan/getDetail','SesiPelatihanController@getDetail')->name('sesiPelatihan.getDetail');
 
 //Tugas
 Route::resource('/tugas','TugasController');
