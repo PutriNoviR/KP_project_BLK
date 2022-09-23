@@ -127,7 +127,7 @@ Profile
             </div>
             <hr>
         </div>
-        <form class="card p-4 d-none" id="ubahDataMentor" action="{{ route('user.profile.update') }}" method="POST">
+        <form class="card p-4 d-none" id="ubahDataMentor" enctype="multipart/form-data" action="{{ route('user.profile.update') }}" method="POST">
             @csrf
             <input type="hidden" name='type' value='mentor'>
             <h3 class="mb-4 font-weight-bold">Data Mentor</h3>
@@ -141,10 +141,10 @@ Profile
                         <span class="text-muted d-block">Nama Belakang Mentor</span>
                         <input type="text" class="form-control" name="nama_belakang" id="nama-user" value="{{ $user->nama_belakang}}">
                     </p>
-                    <!-- <p>
-                        <span class="text-muted d-block">Email Mentor</span>
-                        <input type="text" class="form-control" disabled id="email-perusahaan" value="{{ $user->email}}">
-                    </p> -->
+                    <p>
+                        <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Pas Foto') }}</label>
+                        <input type="file" name='pas_foto' class="defaults" value="" required>
+                    </p>
                 </div>
                 <div class="col-4">
                     <p>
@@ -155,23 +155,35 @@ Profile
                         <span class="text-muted d-block">Alamat</span>
                         <textarea class="form-control" name="domisili" id="alamat-perusahaan" rows="2">{{ $user->alamat}}</textarea>
                     </p>
+
                 </div>
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Tanggal Lahir</span>
-                        <input type="text" class="form-control" name='tgl_lahir' id="tgl_lahir" value="{{ $user->nomer_hp}}">
+                        <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_lahir" value="<?php echo date('Y-m-d\TH:i:s', strtotime($user->tanggal_lahir)); ?>">
                     </p>
                     <p>
                         <span class="text-muted d-block">Jenis Kelamin</span>
-                        <input type="text" class="form-control" name='jenis_kelamin' id="jenis_kelamin" value="{{ $user->nomer_hp}}">
+                        <!-- <input type="text" class="form-control" name='jenis_kelamin' id="jenis_kelamin" value="{{ $user->jenis_kelamin}}"> -->
+
+                        <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
+                            @foreach(["jenis_kelamin" => "Laki-laki","Perempuan"] AS $jenis => $j)
+                            <option value="{{ $j }}" {{ ( $user->jenis_kelamin === $j) ? 'selected' : '' }}>{{ $j }}</option>
+                            @endforeach
+                        </select>
                     </p>
                     <p>
                         <span class="text-muted d-block">Pendidikan Terakhir</span>
-                        <input type="text" class="form-control" id="pendidikan" name='pendidikan_terakhir' value="{{ $user->nomer_hp}}">
+                        <!-- <input type="text" class="form-control" id="pendidikan" name='pendidikan_terakhir' value="{{ $user->pendidikan_terakhir}}"> -->
+                        <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
+                            @foreach(["data_pendidikan" => "SD Sederajat","SMP Sederajat","SMA Sederajat","SMK Sederajat","D1/D2/D3/D4","Sarjana(Strata-1)","Pasca Sarjana"] AS $pendidikan => $p)
+                            <option value="{{ $p }}" {{ ( $user->pendidikan_terakhir === $p) ? 'selected' : '' }}>{{ $p }}</option>
+                            @endforeach
+                        </select>
                     </p>
                     <p>
                         <span class="text-muted d-block">Konsentrasi Pendidikan</span>
-                        <input type="text" class="form-control" id="kosentrasi" name='konsentrasi' value="{{ $user->nomer_hp}}">
+                        <input type="text" class="form-control" id="kosentrasi" name='konsentrasi' value="{{ $user->konsentrasi_pendidikan}}">
                     </p>
                 </div>
             </div>

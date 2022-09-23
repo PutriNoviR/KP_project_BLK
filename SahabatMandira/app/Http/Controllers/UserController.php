@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blk;
 use App\Keahlian;
+use App\KeahlianUser;
 use App\MandiraMentoring;
 use App\PaketProgram;
 use App\PelatihanPeserta;
@@ -134,7 +135,7 @@ class UserController extends Controller
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($data->paketprogram);
         $User = User::find($request->id);
-       
+
         // dd($request);
         // $User->jenis_identitas = $request->jenis_identitas;
         // $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
@@ -165,7 +166,31 @@ class UserController extends Controller
         // $update =DB::tabel('users')->where('email',$userLogin)->update($update);
         // return $update; 
         // $User->save();
-        return view('sesipelatihan.detailPelatihan', compact('data', 'cekDaftar'));
+
+        $mentoring = MandiraMentoring::where('email_mentor', '=', $userLogin)->get();
+        // dd($mentoring);
+
+        $programMentor = MandiraMentoring::where('is_validated', '=', 1)
+            ->skip(0)
+            ->take(4)
+            ->get();
+
+        $keahlian = KeahlianUser::where('users_email', '=', $userLogin)->get();
+
+        $daftarKeahlian = Keahlian::JOIN('keahlian_users as k', 'k.keahlians_idkeahlians', '=', 'keahlians.idkeahlians')
+            ->where('users_email', '=', $userLogin)->get();
+        // dd($keahlian);
+        $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
+            ->WHERE('R.nama_role', '=', 'verifikator')
+            ->get();
+
+        $suspend = auth()->user()->is_suspend;
+
+        if (auth()->user()->role->nama_role == 'mentor') {
+            return view('dashboard',compact('mentoring','programMentor','keahlian','daftarKeahlian','user','suspend'));
+        } else {
+            return view('sesipelatihan.detailPelatihan', compact('data', 'cekDaftar'));
+        }
     }
 
     /**
@@ -310,27 +335,28 @@ class UserController extends Controller
             ->where('users_email', '=', $userLogin)->get();
         $mentoring = MandiraMentoring::where('email_mentor', $userLogin)->first();
         $keahlian = Keahlian::all();
-        return view('mentor.profile', compact('user', 'mentoring','daftarKeahlian','keahlian'));
+        return view('mentor.profile', compact('user', 'mentoring', 'daftarKeahlian', 'keahlian'));
     }
 
-    public function updateProfile(Request $request){
+    public function updateProfile(Request $request)
+    {
         $userLogin = auth()->user()->email;
         $type = $request->type;
         $update = array(
-            'nama_depan'            => $request->nama_depan, 
-            'nama_belakang'         => $request->nama_belakang, 
+            'nama_depan'            => $request->nama_depan,
+            'nama_belakang'         => $request->nama_belakang,
             'jenis_identitas'       => 'KTP',
             'nomer_hp'              => $request->nomorHp,
             'alamat'                => $request->domisili,
             'jenis_kelamin'         => $request->jenis_kelamin,
-            'pendidikan_terakhir'   => $request->pendidikan_terakhir        
+            'pendidikan_terakhir'   => $request->pendidikan_terakhir
         );
 
-        if($type =='mentor'){
-            $update['tempat_lahir'] = $request->tgl_lahir;
+        if ($type == 'mentor') {
+            $update['pas_foto'] = $request->file('pas_foto')->store('user/pas_foto');
+            $update['tanggal_lahir'] = $request->tanggal_lahir;
             $update['konsentrasi_pendidikan'] = $request->konsentrasi;
-        }
-        else if($type == 'peserta'){
+        } else if ($type == 'peserta') {
             $update['pas_foto'] = $request->file('pas_foto')->store('user/pas_foto');
             $update['nomor_identitas'] = $request->nik;
             $update['kota'] = $request->kota;
@@ -339,8 +365,8 @@ class UserController extends Controller
             $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
         }
 
-        $update =DB::table('users')->where('email',$userLogin)->update($update);
-        
+        $update = DB::table('users')->where('email', $userLogin)->update($update);
+
         return back();
     }
 }
