@@ -45,6 +45,26 @@ Dashboard
             });
         return false;
     }
+
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
 </script>
 @endsection
 
@@ -77,7 +97,7 @@ Dashboard
 
     <div class="row ">
         @foreach($disarankan as $d)
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="display: flex;">
             @if($d != null)
             <div class="card card-primary">
                 <div class="ribbon-wrapper">
@@ -88,7 +108,7 @@ Dashboard
                 <div class="card-header">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -129,10 +149,10 @@ Dashboard
                         {{ $d->paketprogram->blk->nama }}
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header" style="height:20% ;">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body"style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -164,17 +184,17 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($programMentor as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3" style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
                         {{ $d->email_mentor }}
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header"style="height:30% ;">
                     <h3 class="card-title">{{ $d->nama_program }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
@@ -202,17 +222,17 @@ Dashboard
     </div>
     <div class="row ">
         @foreach($other as $d)
-        <div class="col-sm-3 ">
+        <div class="col-sm-3" style="display: flex;">
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
                         BEST
                     </div>
                 </div>
-                <div class="card-header">
+                <div class="card-header" style="height:30% ;">
                     <h3 class="card-title">{{ $d->nama }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
@@ -449,7 +469,8 @@ Dashboard
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
                 <td>{{ $d->tanggal_seleksi }}</td>
-                <td>{{ $d->aktivitas }}</td>
+                <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
+                        <i class="fas fa-eye"></i></td>
                 <td>
                     <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                         Tambah Instruktur

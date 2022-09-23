@@ -16,6 +16,27 @@ PELATIHAN
             "autoWidth": false,
         });
     });
+
+    
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
 </script>
 @endsection
 
@@ -60,7 +81,8 @@ PELATIHAN
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
                 <td>{{ $d->tanggal_seleksi }}</td>
-                <td>{{ $d->aktivitas }}</td>
+                <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
+                        <i class="fas fa-eye"></i></td>
                 <td>
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
                 </td>
