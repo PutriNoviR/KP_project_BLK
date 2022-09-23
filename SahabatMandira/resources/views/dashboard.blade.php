@@ -6,7 +6,7 @@ Dashboard
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -21,10 +21,10 @@ Dashboard
                 '_token': '<?php echo csrf_token() ?>',
                 'id_mentoring': id_mentoring,
             },
-            success: function(data) {
+            success: function (data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
@@ -65,6 +65,7 @@ Dashboard
             }
         });
     }
+
 </script>
 @endsection
 
@@ -84,7 +85,8 @@ Dashboard
 {{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
-    <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan anda ! &nbsp;&nbsp;&nbsp;
+    <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan
+        anda ! &nbsp;&nbsp;&nbsp;
         <a href="https://ubayavii.id" class="button btn btn-primary" target="_blank">IKUTI TES SEKARANG !</a>
     </center>
 </div>
@@ -110,13 +112,14 @@ Dashboard
                 </div>
                 <div class="card-body" style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1>{{-- ganti pake gambar ada di dalam sesi_pelatihans --}} -->
-                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}"
+                        style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p> {{--ini belum ambil dari db--}}
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p> {{--ini belum ambil dari db--}}
                 </div>
                 <div class="card-footer">
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -152,15 +155,16 @@ Dashboard
                 <div class="card-header" style="height:20% ;">
                     <h3 class="card-title">{{ $d->paketprogram->kejuruan->nama }}</h3>
                 </div>
-                <div class="card-body"style="height:80% ;">
+                <div class="card-body" style="height:80% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar_pelatihan.'') }}"
+                        style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -191,15 +195,16 @@ Dashboard
                         {{ $d->email_mentor }}
                     </div>
                 </div>
-                <div class="card-header"style="height:30% ;">
+                <div class="card-header" style="height:30% ;">
                     <h3 class="card-title">{{ $d->nama_program }}</h3>
                 </div>
                 <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
+                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px'
+                        alt="gambar kejuruan">
                 </div>
                 <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,20,'...')}}.</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -234,10 +239,11 @@ Dashboard
                 </div>
                 <div class="card-body" style="height:100% ;">
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
-                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
+                    <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px'
+                        alt="gambar mentoring">
                 </div>
                 <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,20,'...')}}.</p>
+                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{ $d->link }}" target="_blank" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -267,13 +273,14 @@ Dashboard
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Program</h2>
         @if(count($keahlian) != 0)
-            @if(Auth::user()->nomor_identitas == null)
-            <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.Auth::user()->email)}}" class="button btn btn-warning">{{ __('TAMBAH PROGRAM')}}</a>
-            @else
-            <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
-                Tambah Program Baru
-            </button>
-            @endif
+        @if(Auth::user()->nomor_identitas == null)
+        <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.Auth::user()->email)}}"
+            class="button btn btn-warning">{{ __('TAMBAH PROGRAM')}}</a>
+        @else
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahProgram">
+            Tambah Program Baru
+        </button>
+        @endif
         @endif
     </div>
     @if (\Session::has('success'))
@@ -283,7 +290,8 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>NO</th>
@@ -310,13 +318,16 @@ Dashboard
                     @endif
                 </td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalEditMentoring" class='btn btn-warning' onclick="modalEdit({{$m->id_mentoring}})">
+                    <a data-toggle="modal" data-target="#modalEditMentoring" class='btn btn-warning'
+                        onclick="modalEdit({{$m->id_mentoring}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('mandiraMentoring.destroy',$m->id_mentoring) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('mandiraMentoring.destroy',$m->id_mentoring) }}"
+                        onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal"><i
+                                class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
@@ -350,7 +361,8 @@ Dashboard
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Program') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="nama_program" required autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="nama_program" required
+                                    autocomplete="nama">
 
                             </div>
                         </div>
@@ -358,7 +370,8 @@ Dashboard
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Deskripsi Program') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="deskripsi_program" required autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="deskripsi_program" required
+                                    autocomplete="nama">
 
                             </div>
                         </div>
@@ -367,7 +380,8 @@ Dashboard
                             <input type="file" name='gambar' class="defaults" value="" required>
                         </div>
                         <div class="form-group">
-                            <label for="tgl_dibuka" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
+                            <label for="tgl_dibuka"
+                                class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
                             <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_dibuka">
 
                             <div class="col-md-12">
@@ -380,7 +394,8 @@ Dashboard
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tgl_ditutup" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
+                            <label for="tgl_ditutup"
+                                class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
                             <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup">
 
                             <div class="col-md-12">
@@ -396,7 +411,8 @@ Dashboard
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Link Pendaftaran') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nama" type="text" class="form-control " name="link_pendaftaran" required autocomplete="nama">
+                                <input id="nama" type="text" class="form-control " name="link_pendaftaran" required
+                                    autocomplete="nama">
 
                             </div>
                         </div>
@@ -405,7 +421,8 @@ Dashboard
                             <label for="nama" class="col-md-12 col-form-label">{{ __('Keahlian') }}</label>
 
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="keahlians_idkeahlians" id="namaKeahlian" readonly>
+                                <select class="form-control" aria-label="Default select example"
+                                    name="keahlians_idkeahlians" id="namaKeahlian" readonly>
                                     <option id="namaKeahlian" value=""></option>
                                     @foreach($daftarKeahlian as $k)
                                     <option id="namaKeahlian" value="{{$k->idkeahlians}}">{{$k->nama}}</option>
@@ -441,7 +458,8 @@ Dashboard
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -481,7 +499,8 @@ Dashboard
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i
+                                class="fas fa-trash"></i>
                         </button>
                     </form>
             </tr>
@@ -493,7 +512,8 @@ Dashboard
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -517,7 +537,8 @@ Dashboard
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
+                                value="{{$d->id}}">
                         </div>
 
                         <div class="modal-footer">
