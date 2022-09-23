@@ -30,7 +30,7 @@ PELATIHAN
             </div>
             <div class="card-footer">
                 @if(Auth::user()->nomor_identitas == null)
-                <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}" class="button btn btn-warning">{{ __('DAFTAR')}}</a>
+                <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}" class="button btn btn-warning" >{{ __('DAFTAR')}}</a>
                 @else
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf

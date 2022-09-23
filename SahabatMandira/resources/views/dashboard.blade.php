@@ -45,6 +45,26 @@ Dashboard
             });
         return false;
     }
+
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
 </script>
 @endsection
 
@@ -449,7 +469,8 @@ Dashboard
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
                 <td>{{ $d->tanggal_seleksi }}</td>
-                <td>{{ $d->aktivitas }}</td>
+                <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
+                        <i class="fas fa-eye"></i></td>
                 <td>
                     <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                         Tambah Instruktur

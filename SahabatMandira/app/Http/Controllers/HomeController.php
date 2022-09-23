@@ -65,6 +65,7 @@ class HomeController extends Controller
             ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
             ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
             ->WHERE('mu.users_email', '=', $userLogin)
+            ->select('sesi_pelatihans.*')
             // ->WHERE('p.email_peserta', '=', $userLogin)
             ->skip(0)
             ->take(4)
@@ -77,11 +78,11 @@ class HomeController extends Controller
             $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
                 ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
                 ->WHERE('b.id', '=', $adminBlk)
+                ->select('sesi_pelatihans.*')
                 ->get();
         } else {
-            $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
-                ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
-                ->get();
+            $adminDashboard = SesiPelatihan::all();
+                // dd($adminDashboard);
         }
 
 

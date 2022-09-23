@@ -32,7 +32,9 @@ class SesiPelatihanController extends Controller
             
             $blk_id = auth()->user()->blks_id_admin;
             $data = SesiPelatihan::join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
-            ->where('blks_id',$blk_id)->get();
+            ->where('blks_id',$blk_id)
+            ->select('sesi_pelatihans.*')
+            ->get();
 
         } else {
 
@@ -152,7 +154,7 @@ class SesiPelatihanController extends Controller
         $userLogin = auth()->user()->email;
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)->get();
-        // dd($cekDaftar);
+        // dd($data);
         return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar'));
     }
 
@@ -289,7 +291,7 @@ class SesiPelatihanController extends Controller
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
 
-            // dd('mentor');
+            // dd('dataInstruktur');
         return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin'));
     }
 
@@ -329,7 +331,7 @@ class SesiPelatihanController extends Controller
     public function getDetail(Request $request)
     {
         $sesi = SesiPelatihan::find($request->id);
-        // dd($sub);
+        // dd($sesi);
         $aktivitas = $sesi->aktivitas;
         return response()->json(array(
             'status'=>'oke',
