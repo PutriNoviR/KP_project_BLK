@@ -94,22 +94,6 @@ Lowongan
                             </i>
                             View
                         </a>
-                        <a data-toggle="modal" data-target="#modalEditLowongan" class='btn btn-sm btn-warning'
-                            onclick="modalEdit({{$d->id}})">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Edit
-                        </a>
-                        <form class="d-inline" method="POST" action="{{ route('lowongan.destroy',$d->id) }}"
-                            onsubmit="return submitDelete(this);" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-
-                            <button type="submit" class="btn btn-sm btn-danger" data-toggle="modal"
-                                data-toggle="modal"><i class="fas fa-trash">
-                                </i>
-                                Delete</button>
-                        </form>
                     </div>
                 </td>
             </tr>
