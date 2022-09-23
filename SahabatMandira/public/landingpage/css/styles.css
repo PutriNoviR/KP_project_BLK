@@ -12872,6 +12872,8 @@ section#contact form#contactForm :-ms-input-placeholder {
 .visi-img {
     /* width: 300px;
     height: 300px; */
+    max-width: 100%;
+    height: auto;
 }
 
 .misi-section {

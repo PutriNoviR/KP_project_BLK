@@ -56,17 +56,27 @@
     <header class="masthead min-vh-100 pb-0">
         <div class="container d-flex flex-column h-100 justify-content-around d-sm-block">
             {{-- <div class="masthead-subheading">Sahabat <span class="text-info">MANDIRA</span> </div> --}}
-            <div class="masthead-heading mb-0 ">
-                <span class="sahabat" style="color: #0A8AEA">
-                    Sahabat
+            <div class="masthead-subheading pt-4">
+                <span class="font-weight-bold" style="color: #2c5284; font-style: italic !important;">
+                    <strong>Banyak Sahabat Banyak Peluang</strong>
                 </span>
-                <span class="sahabat" style="color: #F06128"> Mandira</span>
+            </div>
+            <div class="masthead-heading mb-0">
+                <div class="">
+                    <img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" class="mb-lg-5"
+                        style="height: 100px;" alt="">
+                    <div class="d-inline-block">
+                        <span class="sahabat" style="color: #0A8AEA">
+                            Sahabat
+                        </span>
+                        <span class="sahabat" style="color: #F06128"> Mandira</span>
+                    </div>
+                </div>
             </div>
             <div class="masthead-subheading pt-4">
                 <span class="text-sm text-decoration-none font-weight-bold" style="color: #212529;">
-                    Melanjutkan Masa Depan yang Mandiri dan Sejahtera
+                    Untuk Masa Depan yang Mandiri dan Sejahtera
                 </span>
-                <p style="color: #212529;">Banyak Sahabat Banyak Peluang</p>
             </div>
             <div>
                 <a class=" btn btn-info btn-xl text-uppercase" href="#tentang">Tentang Kami</a>
@@ -85,9 +95,9 @@
                         Menjadi support system terpadu yang unggul dalam meningkatkan kemandirian dan kesejahteraan
                         masyarakat
                     </p>
-                    <div class="text-center mt-auto">
-                        <img src="{{ asset('landingpage/assets/img/logos/mandirahorizontal.png') }}"
-                            class="visi-img img-thumbnail border-0" alt="">
+                    <div class="w-50 mx-auto">
+                        <img src="{{ asset('landingpage/assets/img/vision.png') }}" class="visi-img mx-auto rounded"
+                            alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -264,14 +274,19 @@
         <div class="mx-3">
             <div class="d-flex justify-content-around">
                 <div class="my-3 d-flex align-items-center">
-                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://www.kemdikbud.go.id"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoKemendikbud.png')}}"
                             aria-label="Kemendikbud Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://kampusmerdeka.kemdikbud.go.id/"><img class="img-fluid  d-block mx-auto"
+                            src="{{ asset('landingpage/assets/img/logos/kampusmerdeka.png')}}"
+                            aria-label="KampusMerdeka Logo" /></a>
+                </div>
+                <div class="my-3 d-flex align-items-center">
+                    <a href="https://kedaireka.id/"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoKedaireka.png')}}"
-                            aria-label="Kemendikbud Logo" /></a>
+                            aria-label="Kedaireka Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
                     <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
@@ -279,7 +294,7 @@
                             aria-label="Ubaya Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="#!"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://disnakertrans.jatimprov.go.id/"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoDisnaker.png')}}"
                             aria-label="Disnaker Logo" /></a>
                 </div>
