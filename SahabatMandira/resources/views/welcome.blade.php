@@ -163,11 +163,10 @@
                     </div>
                     <div class="timeline-panel float-end text-start">
                         <div class="timeline-heading">
-                            <h4 class="subheading">Keterampilan</h4>
+                            <h4 class="subheading">Mitra Perusahaan</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Menghasilkan tenaga kerja yang trampil, semangat dan memiliki
-                                motiviasi untuk berwirausaha serta dapat mengikuti pelatihan-pelatihan yang ada</p>
+                            <p class="text-muted">Mendapatkan talenta terbaik dengan efektif dan efisien dan sumber sumber pengetahuan bagi pengembangan human capital perusahaan</p>
                         </div>
                     </div>
                 </li>
@@ -201,7 +200,7 @@
                             <h4 class="subheading">Mentor</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Menambah softskill dalam kegiatan mengajar</p>
+                            <p class="text-muted">Wadah untuk sharing pengalaman, pengetahuan dan keterampilan serta untuk peningkatan reputasi mentor</p>
                         </div>
                     </div>
                     <div class="timeline-panel  float-end text-start">

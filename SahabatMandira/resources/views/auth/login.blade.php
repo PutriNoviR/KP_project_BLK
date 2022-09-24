@@ -82,7 +82,7 @@ Login
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember"
@@ -93,7 +93,7 @@ Login
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
 
@@ -113,12 +113,7 @@ Login
                                     </div>
                                     @endif
 
-                                    @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Lupa Password') }}
-                                    </a>
-                                    @endif
-                                </div>
+                                                                    </div>
                             </div>
                         </form>
                     </div>

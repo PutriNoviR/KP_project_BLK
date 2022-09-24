@@ -62,15 +62,7 @@
                         onclick="modalEditPelamar({{$pelamar->lowongans_id}},'{{ $pelamar->users_email }}')">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="{{ route('lamaran.destroy',$pelamar->lowongans_id) }}"
-                        onsubmit="return submitFormDelete(this);" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <input type="hidden" value="{{ $users[$i]->email }}" name="users_email">
-                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-toggle="modal"><i
-                                class="fas fa-trash"></i></button>
-                    </form>
-                </td>
+                                    </td>
             </tr>
             @php
             $i++;

@@ -62,7 +62,7 @@ Profile
     <div class="container-fluid">
         <div class="card p-5">
             <div class="d-flex">
-                <img src="{{ asset('storage/'.$user->pas_foto) }}" class="rounded-circle d-block" width="100" height="100" alt="">
+                <img src="{{ asset('storage/logo/default.png') }}" class="rounded-circle d-block" width="100" height="100" alt="">
                 <div class="ml-5 d-flex justify-content-between w-100">
                     <div class="">
                         <h3 class="font-weight-normal">{{ $user->nama_depan }} {{ $user->nama_belakang }}</h3>

@@ -18,7 +18,7 @@ Profile
                     <!-- START card -->
                     <div class="">
                         <div class="card-body text-center">
-                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$data->pas_foto.'') }}" alt="">
+                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/logo/default.png') }}" alt="">
                         </div>
                     </div>
                     <!-- END card -->
