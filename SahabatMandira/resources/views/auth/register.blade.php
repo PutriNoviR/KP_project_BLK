@@ -173,7 +173,7 @@ Register
                         </div>
                     </div>
 
-                    <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
+                    <!-- <input type="hidden" name="g-recaptcha-response" id="recaptcha_token"> -->
 
                     {{-- <div class="form-group col-md-6">
                         <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
