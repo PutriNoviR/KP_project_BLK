@@ -110,6 +110,7 @@
       
         </div>
     </div>
+    <!-- recaptcha v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
     <script>
         setInterval(function () {
@@ -126,6 +127,7 @@
             }, 3000);
 
     </script>
-  
+    
+    @yield('javascript')
 </body>
 </html>

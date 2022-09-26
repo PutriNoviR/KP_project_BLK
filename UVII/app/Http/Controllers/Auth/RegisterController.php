@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Rules\LowercaseRule;
 
 use Session;
 
@@ -62,7 +63,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:250'],
             'lastname' => ['required', 'string', 'max:250'],
-            'username' => ['required', 'string', 'unique:users'],
+            'username' => ['required', 'string', 'unique:users', 'alpha_dash', new LowercaseRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8'],
             'nomer' => ['required', 'numeric', 'min:10'],

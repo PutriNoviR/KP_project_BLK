@@ -49,6 +49,7 @@
             </div>
         </div>
     @else
+        
         @if($settingValidasi[0]->value == 0 || $tesTerbaru->is_validate == 1)
             <div class="card-page">
                 <div class="card-header">
@@ -145,6 +146,18 @@
                 let setting = null
                 let valid = null
                 $(document).ready(function(){
+                    // disable back button in browser
+                
+                    function disableBack() {
+                        window.history.forward()
+                    }
+                    window.onload = disableBack();
+                    
+                    window.onpageshow = function(e) {
+                        if (e.persisted)
+                            disableBack();
+                    }
+
                     setting = "<?php echo $settingValidasi[0]->value;?>"
                     valid = "<?php echo $tesTerbaru->is_validate ?>"
                     if(setting==1 && valid ==0){
@@ -181,9 +194,10 @@
                                     }
                                 });
                             } );
-                        }, 2000);
+                        }, 3000);
                     }
-                    })
+
+                });
 
                 </script>
     @endif

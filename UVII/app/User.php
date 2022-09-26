@@ -65,6 +65,7 @@ class User extends Authenticatable
         $hasil_terakhir="";
 
         foreach($user as $u){
+
             //mencari sesi tes tahap 1 terbaru
             $sesi= DB::connection('uvii')->table('uji_minat_awals as um')
                     ->select('um.id', 'um.klaster_id')
@@ -75,6 +76,7 @@ class User extends Authenticatable
             if($sesi){
                 //mencari hasil kategori 
                 $arr_kategori = [];
+                $hasil_kategori = "Belum Tes";
                 
                 foreach($dataKategori as $dKat){
 
@@ -89,6 +91,7 @@ class User extends Authenticatable
      
                         $hasil_kategori = implode(', ',$arr_kategori);
                     }
+                    
                   
                 }
 

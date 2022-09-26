@@ -1,5 +1,30 @@
 @extends('layouts.app')
 
+@section('javascript')
+    <script>
+
+        function textCounterValidation(id){
+            var no_hp = $(id).val();
+            var digit = 'digit';
+
+            if(no_hp.length > 1){
+                digit = 'digits';
+            }
+
+            $("#counter").html(no_hp.length + ' ' + digit);
+
+            if(no_hp.length >= 10 && no_hp.length < 13){
+               
+                $('#counter').css('color','green');
+            }
+            else{
+                $('#counter').css('color','red');
+            }
+        }
+
+    </script>
+@endsection
+
 @section('content')
 <div class="container">
     @if(count($errors) > 0)
@@ -57,7 +82,7 @@
                                     <label for="name" class="col-md-12 col-form-label">Nama Belakang</label>
 
                                     <div class="col-md-12">
-                                        <input id="name" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" >
+                                        <input id="name" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
 
                                         @error('lastname')
                                             <span class="invalid-feedback" role="alert">
@@ -73,7 +98,8 @@
                             <label for="nomer" class="col-md-12 col-form-label">Nomor Handphone</label>
 
                             <div class="col-md-12">
-                                <input id="nomer" type="text" class="form-control @error('nomer') is-invalid @enderror" name="nomer" value="{{ old('nomer') }}" required autocomplete="nomer" autofocus>
+                                <input id="nomer" type="text" class="form-control @error('nomer') is-invalid @enderror" name="nomer" value="{{ old('nomer') }}" required autocomplete="nomer" autofocus onKeyUp='textCounterValidation(this)'>
+                                <span id='counter' style='color: red; float: right;'></span>
 
                                 @error('nomer')
                                     <span class="invalid-feedback" role="alert">

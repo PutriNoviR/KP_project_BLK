@@ -4,8 +4,6 @@
     Uji Tahap Awal
 @endsection
 
-
-
 @section('contents')
 <div class="card-page">
             <div class="card-header">
@@ -53,11 +51,11 @@
                                         @endif
                                     </div>
                                 </div>
-                            @endif
 
-                            @php
-                                $no++;
-                            @endphp
+                                @php
+                                    $no++;
+                                @endphp
+                            @endif
 
                         @endforeach
                     </div>

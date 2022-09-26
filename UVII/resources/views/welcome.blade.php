@@ -42,6 +42,7 @@
     <script>
         let setting = null
         $(document).ready(function(){
+         
             setting = "<?php echo $settingValidasi[0]->value;?>"
         if(setting == 1){
             Webcam.set({
@@ -106,7 +107,7 @@
             }
             });
         }
-
+             
     </script>
     @endsection
 
