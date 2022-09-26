@@ -264,7 +264,7 @@ class SesiPelatihanController extends Controller
 
         // 
         // dd($data);
-        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi'));
+        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi','id'));
     }
 
     public function daftarPelatihan()

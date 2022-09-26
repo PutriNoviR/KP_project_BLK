@@ -37,13 +37,13 @@ class HomeController extends Controller
     {
         $pencaker = Lamaran::distinct('users_email')->count('users_email');
         $mitra = Perusahaan::distinct('nama')->count('nama');
-        $idmentor = Role::where('nama_role','mentor')->first();
-        $mentor = User::where('roles_id',$idmentor->id)->distinct('email')->count('email');
-        $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran','<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup','>=',date('y-m-d h:i:s', strtotime('now')))->count();
+        $idmentor = Role::where('nama_role', 'mentor')->first();
+        $mentor = User::where('roles_id', $idmentor->id)->distinct('email')->count('email');
+        $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran', '<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup', '>=', date('y-m-d h:i:s', strtotime('now')))->count();
         $totalpendaftar = PelatihanPeserta::all()->count();
-        $pesertaditerima = PelatihanPeserta::where('rekom_keputusan','LULUS')->count();
-        $persentase = $pesertaditerima/$totalpendaftar * 100;
-        return view('welcome', compact('pencaker','mitra','mentor','totalpelatihan','persentase'));
+        $pesertaditerima = PelatihanPeserta::where('rekom_keputusan', 'LULUS')->count();
+        $persentase = $pesertaditerima / $totalpendaftar * 100;
+        return view('welcome', compact('pencaker', 'mitra', 'mentor', 'totalpelatihan', 'persentase'));
     }
 
     public function dashboard()
@@ -82,7 +82,7 @@ class HomeController extends Controller
                 ->get();
         } else {
             $adminDashboard = SesiPelatihan::all();
-                // dd($adminDashboard);
+            // dd($adminDashboard);
         }
 
 
@@ -107,10 +107,14 @@ class HomeController extends Controller
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
 
+        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->WHERE('P.mentors_email', '=', $userLogin)
+            ->get();
+
         $suspend = auth()->user()->is_suspend;
         // dd($suspend);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend','dataInstruktur'));
 
         // return view('dashboard');
     }

@@ -123,7 +123,7 @@ PELATIHAN
                 </td>
                 <td>{{ $d->deskripsi }}</td>
                 <td>
-                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
+                    <a href="{{ $d->link }}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
                 </td>
             </tr>
             @endforeach
