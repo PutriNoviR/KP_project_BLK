@@ -20,7 +20,7 @@ Route::post('/forgotPassword', 'PesertaController@forgotPasswords')->name('passw
 
 Route::get('/forgotPassword', 'PesertaController@getForgotPasswords')->name('password.baru');
 
-Route::get('/', 'HomeController@index')->middleware('auth')->name('home');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
 //search
 Route::get('/search','HomeController@search')->name('search.button')->middleware('auth');
