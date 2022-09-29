@@ -65,6 +65,12 @@ class User extends Authenticatable
         $hasil_terakhir="";
 
         foreach($user as $u){
+            //mencari jumlah sesi tes
+            $jumsesi= DB::connection('uvii')->table('uji_minat_awals as um')
+                ->select('um.id', 'um.klaster_id')
+                ->where('um.users_email',$u->email)
+                ->orderBy('um.tanggal_selesai','DESC')
+                ->count();
 
             //mencari sesi tes tahap 1 terbaru
             $sesi= DB::connection('uvii')->table('uji_minat_awals as um')
@@ -110,7 +116,7 @@ class User extends Authenticatable
                 $hasil_kategori ="Belum Tes";
             }    
              
-            $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir ?? 'Belum tes', 'kategori'=>$hasil_kategori ?? 'Belum tes','kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir,'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan];
+            $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir ?? 'Belum tes', 'kategori'=>$hasil_kategori ?? 'Belum tes','kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir, 'hobi'=>$u->hobi, 'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan,'jumsesi'=>$jumsesi];
             array_push($arr_akhir,$arr_hasil);
 
         }

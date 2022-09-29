@@ -531,7 +531,8 @@
             </div>
         @endif
 
-    @else
+    @else 
+        @if(Auth::user()->role->nama_role == 'adminuvii')
         <div class="portlet">
             <div class="portlet-body">
 
@@ -688,6 +689,20 @@
                     </tbody>
                 </table>
 
+            </div>
+        </div>
+        @endif
+
+        <div class="card-page">
+            <div class="page">
+              
+                <div class="card-body">
+
+                    <p style='text-align:center;'>
+                        Selamat datang di <b>UBAYA VOCATIONAL INTEREST INVENTORY</b>
+                    </p>
+
+                </div>
             </div>
         </div>
     @endif

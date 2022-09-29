@@ -4,6 +4,22 @@
     Uji Tahap Awal
 @endsection
 
+@section('javascript')
+    <script>    
+        // disable back button in browser
+        function disableBack() {
+            window.history.forward()
+        }
+        window.onload = disableBack();
+
+        window.onpageshow = function(e) {
+            if (e.persisted)
+                disableBack();
+        }
+   
+    </script>
+@endsection
+
 @section('contents')
 <div class="card-page">
             <div class="card-header">

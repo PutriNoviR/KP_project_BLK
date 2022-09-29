@@ -96,7 +96,10 @@
                         aria-label="Rendering engine: activate to sort column ascending">
                         Kategori Psikometrik
                     </th>
-
+                    <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                        aria-label="Rendering engine: activate to sort column ascending">
+                        Jumlah Sesi
+                    </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
                         Detail
@@ -132,6 +135,9 @@
                         </td>
                         <td>
                             {{$d['kategori']}}
+                        </td>
+                        <td>
+                            {{$d['jumsesi']}}
                         </td>
                         <td>
                             <a data-toggle='modal' data-target="#modal_{{$d['username']}}" class="btn btn-default btn-xs btn-info"><i class="fa fa-eye"></i> View</a>
