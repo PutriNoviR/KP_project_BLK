@@ -115,7 +115,7 @@ PELATIHAN
 
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Pelatihan Yang Pernah Diikuti</h2>
+        <h2>Riwayat Pelatihan</h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">

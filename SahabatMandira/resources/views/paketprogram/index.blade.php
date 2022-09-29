@@ -139,7 +139,9 @@ PAKET PROGRAM
                                 @csrf
                                 <div class="form-group">
                                     <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
-                                    <input type="text" class="col-md-12 col-form-label" name="deskripsi">
+                                    <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
+                                    <textarea name="deskripsi" class="form-control" required id="deskripsi" cols="40"
+                                    rows="10"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>

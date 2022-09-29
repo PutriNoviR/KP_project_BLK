@@ -24,6 +24,9 @@ class PelatihanPesertaController extends Controller
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->get();
+            
+        // $periode = SesiPelatihan::find($id);
+        // dd($periode);
 
         // dd($data);
         return view('pelatihanpeserta.index', compact('data', 'peserta'));
@@ -133,6 +136,7 @@ class PelatihanPesertaController extends Controller
         //     'hasil_kompetensi' => $request->get('hasil_kompetensi'),
         //     'rekom_is_permanent' => $request->get('rekom_is_permanent'),
         // );
+        
 
         if ($request->get('rekom_keputusan') == 'LULUS') {
             $update = array(

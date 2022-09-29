@@ -49,7 +49,7 @@ class TugasController extends Controller
 
         $userLogin = auth()->user()->email;
         $periode = SesiPelatihan::find($sesiPelatihan_id);
-        // dd($periode);
+        // dd($sesiPelatihan_id);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')

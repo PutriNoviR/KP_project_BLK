@@ -127,7 +127,7 @@ Route::post('/mandiraMentoring/validasi/{id}','MandiraMentoringController@valida
 //User
 Route::resource('User','UserController');
 Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
-Route::post('User/{id}','UserController@update')->name('User.update');
+// Route::post('User/{id}','UserController@update')->name('User.update');
 Route::post('User/suspend/{email}','UserController@suspendUser')->name('User.suspend');
 Route::get('daftar','UserController@daftar')->name('User.daftar');
 Route::get('/user/mentor','UserController@mentordaftar')->name('User.mentoring');
@@ -149,7 +149,7 @@ Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pel
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::post('pelatihanPeserta/getKompetensiForm','PelatihanPesertaController@getKompetensiForm')->name('pelatihanPesertas.getKompetensiForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
-Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
+// Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
 Route::post('pelatihanPeserta/pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 

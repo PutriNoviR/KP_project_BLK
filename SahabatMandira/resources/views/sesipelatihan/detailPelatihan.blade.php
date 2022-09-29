@@ -35,7 +35,7 @@ PELATIHAN
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
-                    @if(count($cekDaftar) != null)
+                    @if(count($cekDaftar) == null)
                     <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
                     @else
                     <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>

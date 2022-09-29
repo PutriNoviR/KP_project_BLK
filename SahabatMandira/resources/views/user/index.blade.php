@@ -83,6 +83,7 @@ Daftar User
                 <th>USERNAME</th>
                 <th>NAMA</th>
                 <th>ROLE</th>
+                <th>TANGGAL PENDAFTARAN</th>
             </tr>
         </thead>
         <tbody>
@@ -93,6 +94,7 @@ Daftar User
                 <td>{{ $d->username}}</td>
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
                 <td>{{ $d->role->nama_role}}</td>
+                <td>{{ $d->created_at}}</td>
             </tr>
             @endforeach
         </tbody>
