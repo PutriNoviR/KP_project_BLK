@@ -35,9 +35,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-  //  protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
     public function redirectTo(){
-        Session::flash('success', 'Pendaftaran peserta berhasil');   
+        Session::flash('success', 'Pendaftaran peserta berhasil');
+        Auth::logout();   
         return route("login");
     } 
  
@@ -65,7 +66,7 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:250'],
             'username' => ['required', 'string', 'unique:users', 'alpha_dash', new LowercaseRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed','string', 'min:8'],
+            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'],
             'nomer' => ['required', 'numeric', 'min:10'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');

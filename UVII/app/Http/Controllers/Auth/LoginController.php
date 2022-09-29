@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "/";
+    // protected $redirectTo = "/";
     protected $username;
 
     public function redirectTo(){
@@ -42,22 +42,6 @@ class LoginController extends Controller
             return route("home");
         }
     }
-    // public function redirectTo(){
-    //     $role = Auth::user()->role->nama_role;
-    //     switch($role){
-    //         case 'Admin':
-    //             return '/admin';
-    //             break;
-    //         case 'Peserta':
-    //             return '/';
-    //             break;
-
-    //         default:
-    //             return '/';
-    //             break;
-    //     }
-    // }
-    
      
     /**
      * Create a new controller instance.
@@ -122,10 +106,5 @@ class LoginController extends Controller
 
             }
         ]);
-    }
-
-    public function logout(){
-        auth()->logout();
-        return redirect('/');
     }
 }

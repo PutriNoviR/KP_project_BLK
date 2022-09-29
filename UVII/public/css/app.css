@@ -87,6 +87,17 @@
   line-height: 6px;
 }
 
+.password-minimum{
+  float: left;
+  margin-left: 20px;
+  font-size: 13px;
+  color: red;
+}
+
+.password-minimum:nth-of-type(1){
+  color: #212529;
+}
+
 .cover{
   width: 225px;
   margin: -5px 0 0px -5px;
