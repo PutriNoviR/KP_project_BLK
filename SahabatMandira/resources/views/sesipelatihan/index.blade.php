@@ -123,12 +123,6 @@ PELATIHAN
             <li>{!! \Session::get('success') !!}</li>
         </ul>
     </div>
-    @elseif (\Session::has('error'))
-    <div class="alert alert-danger">
-        <ul>
-            <li>{!! \Session::get('error') !!}</li>
-        </ul>
-    </div>
     @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
