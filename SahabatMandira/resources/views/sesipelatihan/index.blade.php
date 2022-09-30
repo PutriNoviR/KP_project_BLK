@@ -36,18 +36,18 @@ PELATIHAN
                 'email_user': email_user
             },
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 var profil_data = data['profil'];
                 var sesi_data = data['sesi_data'][0];
                 //console.log(sesi_data);
                 //=============================
                 var lokasi = sesi_data['nama'].substr(8);
-                console.log(lokasi);
+                //console.log(lokasi);
                 var upt_blk = 'UPT BALAI LATIHAN KERJA ' + lokasi;
                 //var no_peserta = '167.04.014.01.2022';
 
                 var pernyataan_atas = 'Kepala Unit Pelaksana Teknis Balai Latihan Kerja '+ titleCase(lokasi) + ' Berdasarkan Surat Keputusan Penyelenggaraan Pelatihan';
-                var eng_pa = "Head of The Technical Unit of " + lokasi + " Vocational Training Center Based on The Decree of Training Organization";
+                var eng_pa = "Head of The Technical Unit of " + titleCase(lokasi) + " Vocational Training Center Based on The Decree of Training Organization";
 
                 var pernyataan_atas2 = 'No.  563 / 051 / 108.7.08 / 2022 Tanggal 21 Februari 2022 menyatakan, bahwa :';
                 var eng_pa2 = "No. 563 / 051 / 108.7.08 / 2022 dated February 21 - 2022 dclares, that :";
@@ -56,11 +56,11 @@ PELATIHAN
                 var profil2 = 'Tempat dan Tanggal Lahir';
                 var profil3 = 'Alamat';
 
-                console.log(profil_data);
+                //console.log(profil_data);
 
                 var nama_peserta = profil_data['nama_depan'] +' '+profil_data['nama_belakang'];
-                var dob = profil_data['tempat_lahir']+", "+profil_data['tanggal_lahir'];
-                var addr = profil_data['alamat'];
+                var dob = profil_data['tempat_lahir']+", "+tgl_lokal(profil_data['tanggal_lahir']);
+                var addr = titleCase(profil_data['alamat']);
 
                 var sep = ':';
 
@@ -69,13 +69,13 @@ PELATIHAN
 
                 var pernyataan_bawah2 = 'Program '+sesi_data['nama_program'];
 
-                var pernyataan_bawah3 = 'dari tanggal '+ sesi_data['tanggal_mulai_pelatihan'] +' sampai dengan '+ sesi_data['tanggal_selesai_pelatihan'] +' (430JP) dan dinyatakan KOMPETEN';
-                var pb3_eng = "from "+ sesi_data['tanggal_mulai_pelatihan'] + " up to " + sesi_data['tanggal_selesai_pelatihan'] + " (340 JP) and Declared Competent";
+                var pernyataan_bawah3 = 'dari tanggal '+ tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +' sampai dengan '+ tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) +' (430JP) dan dinyatakan KOMPETEN';
+                var pb3_eng = "from "+ tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(sesi_data['tanggal_selesai_pelatihan']) + " (340 JP) and Declared Competent";
 
 
                 var tgl = 'Surabaya, 25 April 2022';
-                var jabatan = 'Kepala UPT Balai Latihan Kerja Surabaya';
-                var jabatan_eng = "Head of Surabaya Vocational Training Center";
+                var jabatan = 'Kepala UPT Balai Latihan Kerja '+ titleCase(lokasi);
+                var jabatan_eng = "Head of "+ titleCase(lokasi) +" Vocational Training Center";
                 var nama_pembina = 'SISWANTO, S.Pd., M.M.';
                 var sub_jabatan = 'Pembina';
                 var nip = '19640715 198602 1 007';
@@ -84,7 +84,7 @@ PELATIHAN
                 var image = new Image();
                 image.crossOrigin="anonymous";
                 image.src = "{{ asset('storage/Sertifikat/temp.jpg') }}";
-                
+
                 let img2 = new Image();
                 img2.crossOrigin="anonymous";
                 img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
@@ -158,6 +158,30 @@ PELATIHAN
                 console.log(xhr);
             }
         });
+    }
+
+    function tgl_lokal(tanggal)
+    {
+        var myDate = new Date(tanggal);
+
+		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+		"Juli", "Agustus", "September", "Oktober", "November", "Desember"][myDate.getMonth()];
+
+		var str = myDate.getDate()+ ' ' + month + ' ' + myDate.getFullYear();
+
+        return str;
+    }
+
+    function tgl_eng(tanggal)
+    {
+        var myDate = new Date(tanggal);
+
+        var month = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"][myDate.getMonth()];
+
+        var str = month + ' ' +myDate.getDate() + '=' + myDate.getFullYear();
+
+        return str;
     }
 
     function addImage(ctx, color, font, align, data, x, y) {
