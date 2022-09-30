@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SertifikatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ Route::get('register/mentor', 'Auth\RegisterController@regisMentor')->name('regi
 
 Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 // TESTING SECTION ENDS HERE
+
+
+Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
