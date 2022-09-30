@@ -19,8 +19,10 @@ class SertifikatController extends Controller
         $sesi_full = SesiPelatihan::JOIN('masterblk_db.paket_program as p','sesi_pelatihans.paket_program_id','p.id')
                     ->JOIN('masterblk_db.blks as b','p.blks_id','b.id')
                     ->JOIN('masterblk_db.sub_kejuruans as s','s.id','p.sub_kejuruans_id')
-                    ->WHERE('sesi_pelatihans.id','=',$sesi_pelatihan_id)
-                    ->select('sesi_pelatihans.*','b.*','s.nama as nama_program')
+                    ->JOIN('pelatihan_pesertas as p','sesi_pelatihans.id','p.sesi_pelatihans_id')
+                    ->WHERE('p.sesi_pelatihans_id','=',$sesi_pelatihan_id)
+                    ->WHERE('p.email_peserta','=',$email_peserta)
+                    ->select('sesi_pelatihans.*','b.*','s.nama as nama_program','p.hasil_kompetensi')
                     ->get();
 
         $link = "www.sahabatmandira.id";

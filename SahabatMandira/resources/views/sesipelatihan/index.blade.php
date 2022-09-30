@@ -69,11 +69,18 @@ PELATIHAN
 
                 var pernyataan_bawah2 = 'Program '+sesi_data['nama_program'];
 
-                var pernyataan_bawah3 = 'dari tanggal '+ tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +' sampai dengan '+ tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) +' (430JP) dan dinyatakan KOMPETEN';
-                var pb3_eng = "from "+ tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(sesi_data['tanggal_selesai_pelatihan']) + " (340 JP) and Declared Competent";
+                var hasil_kompetensi = sesi_data['hasil_kompetensi'];
+                var pernyataan_bawah3 = 'dari tanggal '+ tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +' sampai dengan '+ tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) +' (430JP)';
+                var pb3_eng = "from "+ tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(sesi_data['tanggal_selesai_pelatihan']) + " (340 JP)";
 
-
-                var tgl = 'Surabaya, 25 April 2022';
+                if(hasil_kompetensi == "KOMPETEN")
+                {
+                    pernyataan_bawah3+= ' dan dinyatakan '+hasil_kompetensi.toUpperCase();
+                    pb3_eng+=  " and Declared Competent";
+                }
+                
+                
+                var tgl = titleCase(lokasi)+', 25 April 2022';
                 var jabatan = 'Kepala UPT Balai Latihan Kerja '+ titleCase(lokasi);
                 var jabatan_eng = "Head of "+ titleCase(lokasi) +" Vocational Training Center";
                 var nama_pembina = 'SISWANTO, S.Pd., M.M.';
@@ -86,14 +93,14 @@ PELATIHAN
 
                 var image = new Image();
                 image.crossOrigin="anonymous";
-                image.src = "{{ asset('storage/Sertifikat/temp.jpg') }}";
+                image.src = "{{ asset('storage/Sertifikat/cert.png') }}"; /*template kedua => "{{ asset('storage/Sertifikat/temp.jpg') }}" */
 
                 let img2 = new Image();
                 img2.crossOrigin="anonymous";
                 img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img2, 1850, 1930, 300, 400);
+                    ctx.drawImage(img2, 1900, 1950, 300, 400);
                     ctx.drawImage(qr_img, 550, 1950, 350, 350);
 
                     addImage(ctx, '#000','bold 70px TimesNewRoman','center',prov, 1805, 275);
@@ -138,18 +145,18 @@ PELATIHAN
                     addImage(ctx, '#000','bold 53px TimesNewRoman','center',pernyataan_bawah, 1805, 1620);
                     addImage(ctx, '#000','italic 53px TimesNewRoman','center',pb_eng, 1805, 1670);
 
-                    addImage(ctx, '#000','bold 53px TimesNewRoman','center',pernyataan_bawah2, 1805, 1730);
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','"'+pernyataan_bawah2.toUpperCase()+'"', 1805, 1730);
 
                     addImage(ctx, '#000','bold 53px TimesNewRoman','center',pernyataan_bawah3, 1805, 1800);
                     addImage(ctx, '#000','italic 53px TimesNewRoman','center',pb3_eng, 1805, 1850);
 
-                    addImage(ctx, '#000','53px TimesNewRoman','center',tgl, 2705, 1940);
-                    addImage(ctx, '#000','bold 53px TimesNewRoman','center',jabatan, 2705, 2000);
-                    addImage(ctx, '#000','italic 50px TimesNewRoman','center',jabatan_eng, 2705, 2050);
-                    addImage(ctx, '#000','bold 53px TimesNewRoman','center',nama_pembina, 2705, 2200);
-                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','_____________________________', 2705, 2205);
-                    addImage(ctx, '#000','53px TimesNewRoman','center',sub_jabatan, 2705, 2265);
-                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','NIP. '+nip, 2705, 2325);
+                    addImage(ctx, '#000','45px TimesNewRoman','center',tgl, 2705, 1920);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center',jabatan, 2705, 1980);
+                    addImage(ctx, '#000','italic 43px TimesNewRoman','center',jabatan_eng, 2705, 2030);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center',nama_pembina, 2705, 2220);
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','_____________________________', 2705, 2225);
+                    addImage(ctx, '#000','43px TimesNewRoman','center',sub_jabatan, 2705, 2285);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center','NIP. '+nip, 2705, 2335);
 
                     //console.log('fin-download');
                     downloadBtn.href = canvas.toDataURL('image/jpg');
