@@ -23,6 +23,11 @@ class SertifikatController extends Controller
                     ->select('sesi_pelatihans.*','b.*','s.nama as nama_program')
                     ->get();
 
-        return Response::json(['profil' => $profil, 'sesi_data' => $sesi_full]);
+        $link = "www.sahabatmandira.id";
+        
+        $base_qr = \QrCode::size(300)->format('png')->generate($link); 
+        $base64 = 'data:image/png;base64,' . base64_encode($base_qr);
+
+        return Response::json(['profil' => $profil, 'sesi_data' => $sesi_full, 'qr' => $base64]);
     }
 }

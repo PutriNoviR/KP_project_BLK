@@ -36,7 +36,7 @@ PELATIHAN
                 'email_user': email_user
             },
             success: function(data) {
-                //console.log(data);
+                // console.log(data);
                 var profil_data = data['profil'];
                 var sesi_data = data['sesi_data'][0];
                 //console.log(sesi_data);
@@ -80,6 +80,9 @@ PELATIHAN
                 var sub_jabatan = 'Pembina';
                 var nip = '19640715 198602 1 007';
 
+                var qr_img = new Image();
+                qr_img.crossOrigin="anonymous";
+                qr_img.src = data['qr'];
 
                 var image = new Image();
                 image.crossOrigin="anonymous";
@@ -91,6 +94,7 @@ PELATIHAN
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img2, 1850, 1930, 300, 400);
+                    ctx.drawImage(qr_img, 550, 1950, 350, 350);
 
                     addImage(ctx, '#000','bold 70px TimesNewRoman','center',prov, 1805, 275);
                     addImage(ctx, '#000','bold 70px TimesNewRoman','center',disnaker, 1805, 375);
@@ -147,7 +151,7 @@ PELATIHAN
                     addImage(ctx, '#000','53px TimesNewRoman','center',sub_jabatan, 2705, 2265);
                     addImage(ctx, '#000','bold 53px TimesNewRoman','center','NIP. '+nip, 2705, 2325);
 
-                    console.log('fin-download');
+                    //console.log('fin-download');
                     downloadBtn.href = canvas.toDataURL('image/jpg');
 	                downloadBtn.download = 'Certificate - ' + Date.now();
                     downloadBtn.click();
