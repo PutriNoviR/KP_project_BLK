@@ -18,7 +18,7 @@ PELATIHAN
     });
 
 
-    function cetak_sertifikat(sesiPelatihanId, email_user, el)
+    function cetak_sertifikat(sesiPelatihanId, email_user)
     {
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
@@ -84,9 +84,13 @@ PELATIHAN
                 var image = new Image();
                 image.crossOrigin="anonymous";
                 image.src = "{{ asset('storage/Sertifikat/temp.jpg') }}";
+                
+                let img2 = new Image();
+                img2.crossOrigin="anonymous";
+                img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    drawImg(ctx);
+                    ctx.drawImage(img2, 1850, 1930, 300, 400);
 
                     addImage(ctx, '#000','bold 70px TimesNewRoman','center',prov, 1805, 275);
                     addImage(ctx, '#000','bold 70px TimesNewRoman','center',disnaker, 1805, 375);
@@ -163,17 +167,6 @@ PELATIHAN
         ctx.fillStyle = color;
         ctx.textAlign = align;
         ctx.fillText(data, x, y);
-    }
-
-    function drawImg(ctx){
-        let img2 = new Image(); 
-        img2.onload = function(){
-            
-        // Image to draw, x, y, width, height 
-        ctx.drawImage(img2, 1850, 1930, 300, 400); 
-        } 
-        img2.onerror = function(){alert("image load fail"); } 
-        img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
     }
 
     function titleCase(str) {
@@ -337,9 +330,9 @@ PELATIHAN
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
-                    <a class='btn btn-warning' sesi_id="{{ $d->sesi_pelatihans_id }}" email = "{{ Auth::user()->email }}" onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}',this);">
+                    <button class='btn btn-warning' onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
                         Download Sertifikat
-                    </a> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                    </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                     <a href hidden id="download-file"></a>
                 </td>
             </tr>
