@@ -24,12 +24,19 @@ class SertifikatController extends Controller
                     ->WHERE('p.email_peserta','=',$email_peserta)
                     ->select('sesi_pelatihans.*','b.*','s.nama as nama_program','p.hasil_kompetensi')
                     ->get();
+        
+        $data_upt = SesiPelatihan::JOIN('masterblk_db.paket_program as p','sesi_pelatihans.paket_program_id','p.id')
+                    ->JOIN('masterblk_db.blks as b','p.blks_id','b.id')
+                    ->JOIN('masterblk_db.kepalaupt as k','k.blks_id','b.id')
+                    ->WHERE('sesi_pelatihans.id','=',$sesi_pelatihan_id)
+                    ->select('k.*')
+                    ->get();
 
         $link = "www.sahabatmandira.id";
         
         $base_qr = \QrCode::size(300)->format('png')->generate($link); 
         $base64 = 'data:image/png;base64,' . base64_encode($base_qr);
 
-        return Response::json(['profil' => $profil, 'sesi_data' => $sesi_full, 'qr' => $base64]);
+        return Response::json(['profil' => $profil, 'sesi_data' => $sesi_full, 'upt_data' => $data_upt, 'qr' => $base64]);
     }
 }

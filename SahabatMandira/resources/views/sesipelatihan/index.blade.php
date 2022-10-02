@@ -36,9 +36,10 @@ PELATIHAN
                 'email_user': email_user
             },
             success: function(data) {
-                // console.log(data);
+                //console.log(data);
                 var profil_data = data['profil'];
                 var sesi_data = data['sesi_data'][0];
+                var data_upt = data['upt_data'][0];
                 //console.log(sesi_data);
                 //=============================
                 var lokasi = sesi_data['nama'].substr(8);
@@ -83,9 +84,9 @@ PELATIHAN
                 var tgl = titleCase(lokasi)+', 25 April 2022';
                 var jabatan = 'Kepala UPT Balai Latihan Kerja '+ titleCase(lokasi);
                 var jabatan_eng = "Head of "+ titleCase(lokasi) +" Vocational Training Center";
-                var nama_pembina = 'SISWANTO, S.Pd., M.M.';
-                var sub_jabatan = 'Pembina';
-                var nip = '19640715 198602 1 007';
+                var nama_pembina = data_upt['nama'];
+                var sub_jabatan = titleCase(data_upt['jabatan_struktural']);
+                var nip = data_upt['nip'];
 
                 var qr_img = new Image();
                 qr_img.crossOrigin="anonymous";
