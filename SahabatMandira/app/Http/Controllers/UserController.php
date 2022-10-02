@@ -92,7 +92,7 @@ class UserController extends Controller
         // ->get();
         // $a = 'halo';
         // dd($a);
-        return view('user.profile', compact('data',));
+        return view('user.profile', compact('data'));
     }
 
     /**

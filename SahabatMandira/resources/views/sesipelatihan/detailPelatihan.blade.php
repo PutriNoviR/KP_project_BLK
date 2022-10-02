@@ -36,9 +36,9 @@ PELATIHAN
                     @csrf
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
                     @if(count($cekDaftar) == null)
-                    <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
                     @else
-                    <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
                     @endif
                 </form>
                 @endif
