@@ -91,8 +91,22 @@
             setInterval(function () {
                 $('#waktuHabisModal').modal('show',{backdrop:'static',keyboard:'false'});
             },1000);
+            
+            // disable back button in browser
+            function disableBack() {
+                window.history.forward()
+            }
+
+            window.onload = disableBack();
+
+            window.onpageshow = function(e) {
+   
+            if (e.persisted)
+                disableBack();
+            }
         } 
          
+        
     }
 
     $("input[type=radio]").click(function(){
