@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="body-btn">
-                        <input type="submit" class="btn btn-primary button">
+                        <input type="submit" class="btn btn-primary button" value="Submit">
                     </div>
                 </form>
             </div>
@@ -146,7 +146,7 @@
                 let setting = null
                 let valid = null
                 $(document).ready(function(){
-                    
+                
                     setting = "<?php echo $settingValidasi[0]->value;?>"
                     valid = "<?php echo $tesTerbaru->is_validate ?>"
                     if(setting==1 && valid ==0){
@@ -187,7 +187,7 @@
                     }
 
                 });
-
+              
                 </script>
     @endif
 

@@ -94,7 +94,10 @@ class TesTahapAwalController extends Controller
 
     public function menuTesHome(){
         $email = Auth::user()->email;
-        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
+        $tes = UjiMinatAwal::where('users_email', $email)->where(function($query){
+            $query->where('tanggal_selesai', null)->orWhere('klaster_id',0);
+        })->first();
+       
         // --menu manajemen --
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')

@@ -30,7 +30,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $email = Auth::user()->email;
-        $tes = UjiMinatAwal::where('users_email', $email)->where('tanggal_selesai', null)->first();
+        $tes = UjiMinatAwal::where('users_email', $email)->where(function($query){
+                    $query->where('tanggal_selesai', null)->orWhere('klaster_id',0);
+                })->first();
        // $data = $request->session()->get('kelengkapanData');
 
        //--menu manajemen--
@@ -47,6 +49,7 @@ class HomeController extends Controller
         $data3 = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
 
         $riwayatTes1 = UjiMinatAwal::where('users_email',$email)
+                        ->where('klaster_id','!=',0)
                         ->orderBy('tanggal_selesai','DESC')
                         ->first();
 

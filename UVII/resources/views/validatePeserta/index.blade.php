@@ -119,7 +119,7 @@
                     </div> -->
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
-                    <button type="button" class="btn btn-secondary mdl-close" id='btn-close' data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary mdl-close btn-close" data-bs-dismiss="modal" close='1'>Close</button>
                     <button type='button' class="btn btn-primary btn-validasi" usrId='' value='1' >Valid</button>
                     <button type='button' class="btn btn-error btn-validasi" usrId='' value='2' >Tidak valid</button>
                 </div>
@@ -139,7 +139,7 @@
                 </div>
                 <div style="border-top: none; text-align: center;" class="modal-footer">
                     <button type='button' class="btn btn-primary" value="" id='btn-ubah'>Save</button>
-                    <button type="button" class="btn btn-secondary mdl-close" data-bs-dismiss="modal" id='btn-close'>Close</button>
+                    <button type="button" class="btn btn-secondary mdl-close btn-close" data-bs-dismiss="modal" close='2'>Close</button>
                 </div>
             </div>
         </div>
@@ -194,8 +194,18 @@
         });
     })
 
-    $('#btn-close').on('click', function(){
-        $('#modalValidate').hide();
+    $('.btn-close').on('click', function(){
+        var status = $(this).attr('close');
+        if(status == '1'){
+            $('#modalValidate').hide();
+        }
+        else if(status == '2'){
+            $('#modalSetting').hide();
+        }
+        else{
+            $('#modalReview').hide();
+        }
+       
     });
 
     $('#btn-close-info').on('click',function(){
@@ -213,7 +223,7 @@
         }
         $('#setting-mode').text(pesan)
         $('#btn-ubah').val(val)
-        $('#modalSetting').modal('toggle');
+        $('#modalSetting').show();
     })
 
     $('#btn-ubah').on('click',function(){
@@ -226,11 +236,11 @@
                 'val':val
             },
             success:function(data){
-                $('#modalSetting').modal('hide');
+                $('#modalSetting').hide();
                 console.log(data.info)
                 $('#info').html(data.info);
                 $('#btn-close-info').val(data.resCode);
-                $('#modalInfo').modal('toggle');
+                $('#modalInfo').show();
             }
         });
     })
