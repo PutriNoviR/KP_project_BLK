@@ -35,7 +35,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $pencaker = Lamaran::distinct('users_email')->count('users_email');
+        $pencaker = Lamaran::count('users_email');
         $mitra = Perusahaan::distinct('nama')->count('nama');
         $idmentor = Role::where('nama_role', 'mentor')->first();
         $mentor = User::where('roles_id', $idmentor->id)->distinct('email')->count('email');
