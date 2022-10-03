@@ -17,6 +17,10 @@ PELATIHAN
             </div>
 
             <div class="card-body">
+                <h2>Balai Latihan Kerja :</h2>
+                {{ }}
+            </div>
+            <div class="card-body">
                 <h2>Kejuruan :</h2>
                 {{ $d->paketProgram->kejuruan->nama }}
             </div>
@@ -27,6 +31,10 @@ PELATIHAN
             <div class="card-body">
                 <h2>Deskripsi :</h2>
                 <h5>{{ $d->deskripsi}}</h5>
+            </div>
+            <div class="card-body">
+                <h2>Periode Pendaftaran :</h2>
+                <h5></h5>
             </div>
             <div class="card-footer">
                 @if(Auth::user()->nomor_identitas == null)

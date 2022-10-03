@@ -297,6 +297,7 @@ class UserController extends Controller
             $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
                 //->where('r.nama_role', '=', 'peserta')->get();
 ->get();
+            dd($data);
         }
         // dd($dataAdmin);
         return view('user.peserta', compact('data'));
