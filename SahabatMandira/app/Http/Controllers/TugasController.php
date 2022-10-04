@@ -44,12 +44,12 @@ class TugasController extends Controller
         $tugas->email_mentor = $request->email_mentor;
         $tugas->keterangan = $request->keterangan;
         $tugas->bukti = $request->file('bukti')->store('tugas/bukti');
+        
         $tugas->save();
 
-
+        
         $userLogin = auth()->user()->email;
         $periode = SesiPelatihan::find($sesiPelatihan_id);
-        // dd($periode);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')

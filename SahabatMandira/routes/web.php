@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SertifikatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,17 @@ Route::get('/testingDir', function () {
         return view('dummy-testing.dummy');
     });
 
+// Route::get('testing/qrcode/{email}/{sesi_id}', 'SertifikatController@qr');
+
 Route::get('register/mentor', 'Auth\RegisterController@regisMentor')->name('registerMentor');
 
 Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
+
+
 // TESTING SECTION ENDS HERE
+
+
+Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
@@ -127,7 +135,7 @@ Route::post('/mandiraMentoring/validasi/{id}','MandiraMentoringController@valida
 //User
 Route::resource('User','UserController');
 Route::post('User/getEditForm','UserController@getEditForm')->name('user.getEditForm');
-Route::post('User/{id}','UserController@update')->name('User.update');
+// Route::post('User/{id}','UserController@update')->name('User.update');
 Route::post('User/suspend/{email}','UserController@suspendUser')->name('User.suspend');
 Route::get('daftar','UserController@daftar')->name('User.daftar');
 Route::get('/user/mentor','UserController@mentordaftar')->name('User.mentoring');
@@ -149,7 +157,7 @@ Route::get('pelatihanPeserta/{id}','PelatihanPesertaController@show')->name('pel
 Route::post('pelatihanPeserta/getEditForm','PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::post('pelatihanPeserta/getKompetensiForm','PelatihanPesertaController@getKompetensiForm')->name('pelatihanPesertas.getKompetensiForm');
 Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name('pelatihanPesertas.update');
-Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
+// Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
 Route::post('pelatihanPeserta/pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 

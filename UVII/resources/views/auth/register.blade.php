@@ -1,5 +1,64 @@
 @extends('layouts.app')
 
+@section('javascript')
+    <script>
+
+        function textCounterValidation(id){
+            var no_hp = $(id).val();
+            var digit = 'digit';
+
+            if(no_hp.length > 1){
+                digit = 'digits';
+            }
+
+            $("#counter").html(no_hp.length + ' ' + digit);
+
+            if(no_hp.length >= 10 && no_hp.length < 13){
+               
+                $('#counter').css('color','green');
+            }
+            else{
+                $('#counter').css('color','red');
+            }
+        }
+
+         function passwordMinimumValidation(id){
+            var pass = $(id).val().trim();
+            var number = /([0-9])/;
+            var alphabets = /([A-Z])/;
+            var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+   
+            if(pass.length >= 8){
+                $('#passKarakter').css('color','green');
+
+                if(pass.match(number)){
+                    $('#passAngka').css('color','green');
+                }
+
+                if(pass.match(alphabets)){    
+                    $('#passKapital').css('color','green');
+
+                }
+                
+                if(pass.match(special_characters)) {
+                    $('#passSimbol').css('color','green');
+                } 
+            }
+
+            else{
+                $('#passKarakter').css('color','red');
+
+                $('#passAngka').css('color','red');
+                
+                $('#passSimbol').css('color','red');
+
+                $('#passKapital').css('color','red');
+            }
+          
+        }
+    </script>
+@endsection
+
 @section('content')
 <div class="container">
     @if(count($errors) > 0)
@@ -57,7 +116,7 @@
                                     <label for="name" class="col-md-12 col-form-label">Nama Belakang</label>
 
                                     <div class="col-md-12">
-                                        <input id="name" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" >
+                                        <input id="name" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
 
                                         @error('lastname')
                                             <span class="invalid-feedback" role="alert">
@@ -73,7 +132,8 @@
                             <label for="nomer" class="col-md-12 col-form-label">Nomor Handphone</label>
 
                             <div class="col-md-12">
-                                <input id="nomer" type="text" class="form-control @error('nomer') is-invalid @enderror" name="nomer" value="{{ old('nomer') }}" required autocomplete="nomer" autofocus>
+                                <input id="nomer" type="text" class="form-control @error('nomer') is-invalid @enderror" name="nomer" value="{{ old('nomer') }}" required autocomplete="nomer" autofocus onKeyUp='textCounterValidation(this)'>
+                                <span id='counter' style='color: red; float: right;'></span>
 
                                 @error('nomer')
                                     <span class="invalid-feedback" role="alert">
@@ -101,7 +161,12 @@
                             <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" onKeyUp='passwordMinimumValidation(this)'>
+                                <span class="password-minimum">Minimum Password :</span>
+                                <span id='passKarakter' class="password-minimum">8 Karakter</span>
+                                <span id='passAngka' class="password-minimum">1 Angka</span>
+                                <span id='passKapital' class="password-minimum">1 Huruf Kapital</span>
+                                <span id='passSimbol' class="password-minimum">1 Simbol</span><br>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

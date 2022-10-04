@@ -154,7 +154,7 @@ class SesiPelatihanController extends Controller
         $userLogin = auth()->user()->email;
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)->get();
-        // dd($data);
+        // dd($cekDaftar);
         return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar'));
     }
 
@@ -264,7 +264,7 @@ class SesiPelatihanController extends Controller
 
         // 
         // dd($data);
-        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi'));
+        return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi','id'));
     }
 
     public function daftarPelatihan()
@@ -279,11 +279,12 @@ class SesiPelatihanController extends Controller
             $blk_id = auth()->user()->blks_id_admin;
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
-            ->where('blks_id',$blk_id)->get();
+            ->where('blks_id',$blk_id)->select('sesi_pelatihans.*')->get();
 
         } else {
 
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->select('sesi_pelatihans.*')
             ->get();
 
         }

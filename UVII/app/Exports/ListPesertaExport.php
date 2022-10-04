@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use App\User;
 use App\Role;
+use Carbon\Carbon;
 
 class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
 {
@@ -35,6 +36,8 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
                 'nomor handphone'=>$d['No.Hp'],
                 'tempat lahir'=>$d['tempat_lahir'],
                 'tanggal lahir'=>$d['tanggal_lahir'],
+                'usia'=>Carbon::now()->diffInYears(Carbon::parse($d['tanggal_lahir']))." tahun",
+                'hobi'=>$d['hobi'],
                 'kota domisili'=>$d['kota'],
                 'alamat'=>$d['alamat'],
                 'username'=>$d['username'],
@@ -60,6 +63,8 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
             'Nomor Handphone',
             'Kota Lahir',
             'Tanggal Lahir',
+            'Usia',
+            'Hobi',
             'Kota Domisili',
             'Alamat',
             'Username',
@@ -73,7 +78,7 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A1:L1')
+                $event->sheet->getDelegate()->getStyle('A1:P1')
                                 ->getFont()
                                 ->setBold(true);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(32);
@@ -86,7 +91,8 @@ class ListPesertaExport implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(30);
                 $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(13);
                 $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(18);
-   
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(18);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(18);
             },
         ];
     }

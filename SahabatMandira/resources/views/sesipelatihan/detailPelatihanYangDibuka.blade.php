@@ -84,7 +84,7 @@ PELATIHAN
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i></td>
                 <td>
-                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
+                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" >{{ __('DETAIL') }}</a>
                 </td>
             </tr>
             @endforeach
@@ -123,7 +123,7 @@ PELATIHAN
                 </td>
                 <td>{{ $d->deskripsi }}</td>
                 <td>
-                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
+                    <a href="{{ $d->link }}" class="button btn btn-warning" disabled>{{ __('DETAIL') }}</a>
                 </td>
             </tr>
             @endforeach

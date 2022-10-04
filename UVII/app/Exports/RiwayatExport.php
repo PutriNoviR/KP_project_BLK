@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use App\User;
 use App\Role; 
+use Carbon\Carbon;
 
 class RiwayatExport implements FromCollection, WithHeadings, WithEvents
 {
@@ -40,8 +41,10 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
                         'email'=>$user_data->email,
                         'pendidikan'=>$user_data->pendidikan_terakhir??"tidak ada",
                         'konsentrasi'=>$user_data->konsentrasi_pendidikan??"tidak ada",
+                        'hobi'=>$user_data->hobi,
                         'tempat lahir'=>$user_data->tempat_lahir,
                         'tanggal lahir'=>$user_data->tanggal_lahir,
+                        'usia'=>Carbon::now()->diffInYears(Carbon::parse($user_data->tanggal_lahir))." tahun",
                         'kota domisili'=>$user_data->kota,
                         'mulai test'=>$data_test->tanggal_mulai,
                         'selesai test'=>$data_test->tanggal_selesai,
@@ -87,8 +90,10 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
             'Email',
             'Pendidikan',
             'Konsentrasi/Keahlian',
+            'Hobi',
             'Kota Lahir',
             'Tanggal Lahir',
+            'Usia',
             'Kota Domisili',
             'Mulai Tes',
             'Selesai Tes',
@@ -101,7 +106,7 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A1:L1')
+                $event->sheet->getDelegate()->getStyle('A1:N1')
                                 ->getFont()
                                 ->setBold(true);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(31);
@@ -114,8 +119,8 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
                 $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(14);
                 $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(14);
                 $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(40);
-   
+                $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(40);
             },
         ];
     }

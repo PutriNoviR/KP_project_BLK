@@ -10,13 +10,14 @@ Kelengkapan Dokumen
     <div class="col-md-8">
         <div class="card-kelengkapan">
             <div class="card-header">
-                <h1>Kelengkapan Dokumen</h1>
+                <h1>Kelengkapan Dokumen Peserta</h1>
             </div>
 
             <div class="portlet-body form">
                 @foreach($data as $d )
                 <form role='form' method="POST" enctype="multipart/form-data" action="{{url('User/'.$d->email)}}">
                     @csrf
+                    @method('PUT')
                     <div class="form-body">
 
                         <div class="form-group">
@@ -33,7 +34,7 @@ Kelengkapan Dokumen
                             <label for="nomorIdentitas" class="col-md-12 col-form-label">{{ __('Nomor Identitas') }}</label>
 
                             <div class="col-md-12">
-                                <input id="nomorIdentitas" type="text" class="form-control @error('nomorIdentitas') is-invalid @enderror" name="nomorIdentitas" required autocomplete="nomorIdentitas" autofocus>
+                                <input id="nomorIdentitas" type="text" class="form-control @error('nomorIdentitas') is-invalid @enderror" name="nomor_identitas" required autocomplete="nomorIdentitas" autofocus>
 
                                 @error('nomorIdentitas')
                                 <span class="invalid-feedback" role="alert">
@@ -45,7 +46,7 @@ Kelengkapan Dokumen
                         <div class="form-group">
                             <label for="nomorHp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
                             <div class="col-md-12">
-                                <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" name="nomorHp" required autocomplete="nomorHp" autofocus>
+                                <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" name="nomer_hp" required autocomplete="nomorHp" autofocus>
 
                                 @error('nomorHp')
                                 <span class="invalid-feedback" role="alert">
@@ -123,7 +124,7 @@ Kelengkapan Dokumen
                                     <option value="SD Sederajat">SD Sederajat</option>
                                     <option value="SMP Sederajat">SMP Sederajat</option>
                                     <option value="SMA Sederajat">SMA Sederajat</option>
-                                    <option value="S1">S1</option>
+                                    <option value="Sarjana(Strata-1)">S1</option>
                                     <option value="Pasca Sarjana">Pasca Sarjana</option>
                                 </select>
                             </div>

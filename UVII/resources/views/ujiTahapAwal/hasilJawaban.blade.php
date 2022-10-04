@@ -43,12 +43,13 @@
                     </div>
 
                     <div class="body-btn">
-                        <input type="submit" class="btn btn-primary button">
+                        <input type="submit" class="btn btn-primary button" value="Submit">
                     </div>
                 </form>
             </div>
         </div>
     @else
+        
         @if($settingValidasi[0]->value == 0 || $tesTerbaru->is_validate == 1)
             <div class="card-page">
                 <div class="card-header">
@@ -145,6 +146,7 @@
                 let setting = null
                 let valid = null
                 $(document).ready(function(){
+                
                     setting = "<?php echo $settingValidasi[0]->value;?>"
                     valid = "<?php echo $tesTerbaru->is_validate ?>"
                     if(setting==1 && valid ==0){
@@ -181,10 +183,11 @@
                                     }
                                 });
                             } );
-                        }, 2000);
+                        }, 3000);
                     }
-                    })
 
+                });
+              
                 </script>
     @endif
 

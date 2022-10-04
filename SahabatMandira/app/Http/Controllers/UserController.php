@@ -50,6 +50,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        
         $User = new User();
         $User->email = $request->email;
         $User->nama_depan = $request->nama_depan;
@@ -69,6 +70,7 @@ class UserController extends Controller
         $User->ijazah = $request->ijazah;
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
+
         $User->save();
         return view();
     }
@@ -90,7 +92,7 @@ class UserController extends Controller
         // ->get();
         // $a = 'halo';
         // dd($a);
-        return view('user.profile', compact('data',));
+        return view('user.profile', compact('data'));
     }
 
     /**
@@ -134,38 +136,38 @@ class UserController extends Controller
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $request->idPelatihan)
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($data->paketprogram);
-        $User = User::find($request->id);
+        $User = User::find($userLogin);
 
-        // dd($request);
-        // $User->jenis_identitas = $request->jenis_identitas;
-        // $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
-        // $User->nomor_identitas = $request->nomorIdentitas;
-        // $User->nomer_hp = $request->nomorHp;
-        // $User->kota = $request->kota;
-        // $User->alamat = $request->alamat;
-        // $User->ktp = $request->file('fotoKtp')->store('user/ktp');
-        // $User->ksk = $request->file('ksk')->store('user/ksk');
-        // $User->ijazah = $request->file('ijazah')->store('user/ijazah');
-        // $User->jenis_kelamin = $request->jenis_kelamin;
-        // $User->pendidikan_terakhir = $request->pendidikan_terakhir;
+        // dd($request->nomor_identitas);
+        $User->jenis_identitas = $request->jenis_identitas;
+        $User->pas_foto = $request->file('pas_foto')->store('user/pas_foto');
+        $User->nomor_identitas = $request->nomor_identitas;
+        $User->nomer_hp = $request->nomer_hp;
+        $User->kota = $request->kota;
+        $User->alamat = $request->alamat;
+        $User->ktp = $request->file('fotoKtp')->store('user/ktp');
+        $User->ksk = $request->file('ksk')->store('user/ksk');
+        $User->ijazah = $request->file('ijazah')->store('user/ijazah');
+        $User->jenis_kelamin = $request->jenis_kelamin;
+        $User->pendidikan_terakhir = $request->pendidikan_terakhir;
 
         // $update = array(
         //     'jenis_identitas'       => 'KTP',
-        //     'pas_foto'              => 'pas foto',
+        //     'pas_foto'              => $request->file('pas_foto')->store('user/pas_foto'),
         //     'nomor_identitas'       => $request->nomorIdentitas,
         //     'nomer_hp'              => $request->nomorHp,
         //     'kota'                  => $request->kota,
         //     'alamat'                => $request->alamat,
-        //     'ktp'                   => 'ktp',
-        //     'ksk'                   => 'ksk',
-        //     'ijazah'                => 'ijasah',
+        //     'ktp'                   => $request->file('fotoKtp')->store('user/ktp'),
+        //     'ksk'                   => $request->file('ksk')->store('user/ksk'),
+        //     'ijazah'                => $request->file('ijazah')->store('user/ijazah'),
         //     'jenis_kelamin'         => $request->jenis_kelamin,
         //     'pendidikan_terakhir'   => $request->pendidikan_terakhir        
         // );
 
-        // $update =DB::tabel('users')->where('email',$userLogin)->update($update);
-        // return $update; 
-        // $User->save();
+        // $update = DB::tabel('users')->where('email',$userLogin)->update($update);
+        // return $User; 
+        $User->save();
 
         $mentoring = MandiraMentoring::where('email_mentor', '=', $userLogin)->get();
         // dd($mentoring);
@@ -188,8 +190,10 @@ class UserController extends Controller
 
         if (auth()->user()->role->nama_role == 'mentor') {
             return view('dashboard',compact('mentoring','programMentor','keahlian','daftarKeahlian','user','suspend'));
-        } else {
-            return view('sesipelatihan.detailPelatihan', compact('data', 'cekDaftar'));
+        }
+        else {
+            // return $User;
+            return redirect()->route('sesiPelatihan.detail',$request->idPelatihan)->with(compact('data', 'cekDaftar'));
         }
     }
 
