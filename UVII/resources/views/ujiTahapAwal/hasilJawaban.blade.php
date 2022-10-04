@@ -135,7 +135,7 @@
         @else
             <div class='card-page'>
                 <div class='card-body'>
-                <div id="my_camera"></div>
+                <div style='min-width:100; min-height:100;' id="my_camera"></div>
                     <p>Silahkan menunggu admin untuk melakukan validasi terlebih dahulu sebelum melanjutkan test ke tahap 2, jangan lupa untuk refresh halaman untuk mendapatkan hasil validasi</p>
                 </div>
             </div>
@@ -188,6 +188,12 @@
 
                 });
               
+                setInterval(function() {
+                    
+                    $(".page-content-wrapper").load(location.href + " .page-content-wrapper");
+                      
+                }, 15000);
+               
                 </script>
     @endif
 

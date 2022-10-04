@@ -209,7 +209,7 @@ class PertanyaanController extends Controller
       
 
         if($request->has('value')){
-            for($i=0; $i < 4; $i++){
+            for($i=0; $i < 3; $i++){
 
                 $dataSetting = [
                     'key' => $request->key[$i],

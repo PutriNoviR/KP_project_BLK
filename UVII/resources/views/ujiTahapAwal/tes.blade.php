@@ -90,23 +90,20 @@
         else{
             setInterval(function () {
                 $('#waktuHabisModal').modal('show',{backdrop:'static',keyboard:'false'});
+ 
             },1000);
-            
-            // disable back button in browser
-            function disableBack() {
-                window.history.forward()
-            }
 
             window.onload = disableBack();
 
             window.onpageshow = function(e) {
-   
-            if (e.persisted)
-                disableBack();
+                if (e.persisted)
+                    disableBack();
             }
         } 
-         
         
+        function disableBack() {
+            window.history.forward()
+        }
     }
 
     $("input[type=radio]").click(function(){
