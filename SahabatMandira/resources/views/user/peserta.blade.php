@@ -1,4 +1,4 @@
-@extends('layouts.adminlte')
+l@extends('layouts.adminlte')
 
 @section('title')
 Daftar Peserta

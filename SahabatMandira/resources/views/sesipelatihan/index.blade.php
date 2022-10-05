@@ -17,6 +17,205 @@ PELATIHAN
         });
     });
 
+
+    function cetak_sertifikat(sesiPelatihanId, email_user)
+    {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var downloadBtn = document.getElementById('download-file');
+
+        var prov = "PEMERINTAH PROVINSI JAWA TIMUR";
+        var disnaker = "DINAS TENAGA KERJA DAN TRANSMIGRASI";
+        
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("cetak-serti") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id_sesi': sesiPelatihanId,
+                'email_user': email_user
+            },
+            success: function(data) {
+                //console.log(data);
+                var profil_data = data['profil'];
+                var sesi_data = data['sesi_data'][0];
+                var data_upt = data['upt_data'][0];
+                //console.log(sesi_data);
+                //=============================
+                var lokasi = sesi_data['nama'].substr(8);
+                //console.log(lokasi);
+                var upt_blk = 'UPT BALAI LATIHAN KERJA ' + lokasi;
+                //var no_peserta = '167.04.014.01.2022';
+
+                var pernyataan_atas = 'Kepala Unit Pelaksana Teknis Balai Latihan Kerja '+ titleCase(lokasi) + ' Berdasarkan Surat Keputusan Penyelenggaraan Pelatihan';
+                var eng_pa = "Head of The Technical Unit of " + titleCase(lokasi) + " Vocational Training Center Based on The Decree of Training Organization";
+
+                var pernyataan_atas2 = 'No.  563 / 051 / 108.7.08 / 2022 Tanggal 21 Februari 2022 menyatakan, bahwa :';
+                var eng_pa2 = "No. 563 / 051 / 108.7.08 / 2022 dated February 21 - 2022 dclares, that :";
+
+                var profil = 'Nama';
+                var profil2 = 'Tempat dan Tanggal Lahir';
+                var profil3 = 'Alamat';
+
+                //console.log(profil_data);
+
+                var nama_peserta = profil_data['nama_depan'] +' '+profil_data['nama_belakang'];
+                var dob = profil_data['tempat_lahir']+", "+tgl_lokal(profil_data['tanggal_lahir']);
+                var addr = titleCase(profil_data['alamat']);
+
+                var sep = ':';
+
+                var pernyataan_bawah = 'Pelatihan Berbasis Kompetensi (PBK) ';
+                var pb_eng = "Competency Based Training Vocation";
+
+                var pernyataan_bawah2 = 'Program '+sesi_data['nama_program'];
+
+                var hasil_kompetensi = sesi_data['hasil_kompetensi'];
+                var pernyataan_bawah3 = 'dari tanggal '+ tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +' sampai dengan '+ tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) +' (430JP)';
+                var pb3_eng = "from "+ tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(sesi_data['tanggal_selesai_pelatihan']) + " (340 JP)";
+
+                if(hasil_kompetensi == "KOMPETEN")
+                {
+                    pernyataan_bawah3+= ' dan dinyatakan '+hasil_kompetensi.toUpperCase();
+                    pb3_eng+=  " and Declared Competent";
+                }
+                
+                
+                var tgl = titleCase(lokasi)+', 25 April 2022';
+                var jabatan = 'Kepala UPT Balai Latihan Kerja '+ titleCase(lokasi);
+                var jabatan_eng = "Head of "+ titleCase(lokasi) +" Vocational Training Center";
+                var nama_pembina = data_upt['nama'];
+                var sub_jabatan = titleCase(data_upt['jabatan_struktural']);
+                var nip = data_upt['nip'];
+
+                var qr_img = new Image();
+                qr_img.crossOrigin="anonymous";
+                qr_img.src = data['qr'];
+
+                var image = new Image();
+                image.crossOrigin="anonymous";
+                image.src = "{{ asset('storage/Sertifikat/cert.png') }}"; /*template kedua => "{{ asset('storage/Sertifikat/temp.jpg') }}" */
+
+                let img2 = new Image();
+                img2.crossOrigin="anonymous";
+                img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
+                image.onload = function () {
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img2, 1900, 1950, 300, 400);
+                    ctx.drawImage(qr_img, 550, 1950, 350, 350);
+
+                    addImage(ctx, '#000','bold 70px TimesNewRoman','center',prov, 1805, 275);
+                    addImage(ctx, '#000','bold 70px TimesNewRoman','center',disnaker, 1805, 375);
+                    addImage(ctx, '#000','bold 85px TimesNewRoman','center',upt_blk, 1805, 475);
+
+                    addImage(ctx, '#000','bold 100px TimesNewRoman','center','SERTIFIKAT', 1805, 635);
+                    addImage(ctx, '#000','bold 100px TimesNewRoman','center','____________', 1805, 645);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','center','Certificate', 1805, 715);
+
+                    // addImage('#000','bold 50px TimesNewRoman','left',no_peserta, 1805, 773);
+
+                    addImage(ctx, '#000','bold 50px TimesNewRoman','center',pernyataan_atas, 1805, 830);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','center',eng_pa, 1805, 880);
+
+                    addImage(ctx, '#000','bold 50px TimesNewRoman','center',pernyataan_atas2, 1805, 970);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','center',eng_pa2, 1805, 1020);
+
+                    //
+                    addImage(ctx, '#000','70px TimesNewRoman','left',profil, 525, 1115);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','left','Name', 525, 1165);
+
+                    addImage(ctx, '#000','70px TimesNewRoman','left',profil2, 525, 1255);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','left',"Place and date of birth", 525, 1305);
+
+                    addImage(ctx, '#000','70px TimesNewRoman','left',profil3, 525, 1395);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','left',"Address", 525, 1445);
+
+                    addImage(ctx, '#000','70px TimesNewRoman','left',sep, 1425, 1115);
+                    addImage(ctx, '#000','70px TimesNewRoman','left',sep, 1425, 1255);
+                    addImage(ctx, '#000','70px TimesNewRoman','left',sep, 1425, 1395);
+
+                    addImage(ctx, '#000','70px monotype corsiva','left',nama_peserta, 1525, 1115);
+                    addImage(ctx, '#000','70px monotype corsiva','left',dob, 1525, 1255);
+                    addImage(ctx, '#000','70px monotype corsiva','left',addr, 1525, 1395);
+
+                    //
+
+                    addImage(ctx, '#000','bold 65px TimesNewRoman','center',"TELAH MENGIKUTI", 1805, 1510);
+                    addImage(ctx, '#000','italic 50px TimesNewRoman','center',"Have Followed", 1805, 1560);
+
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center',pernyataan_bawah, 1805, 1620);
+                    addImage(ctx, '#000','italic 53px TimesNewRoman','center',pb_eng, 1805, 1670);
+
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','"'+pernyataan_bawah2.toUpperCase()+'"', 1805, 1730);
+
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center',pernyataan_bawah3, 1805, 1800);
+                    addImage(ctx, '#000','italic 53px TimesNewRoman','center',pb3_eng, 1805, 1850);
+
+                    addImage(ctx, '#000','45px TimesNewRoman','center',tgl, 2705, 1920);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center',jabatan, 2705, 1980);
+                    addImage(ctx, '#000','italic 43px TimesNewRoman','center',jabatan_eng, 2705, 2030);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center',nama_pembina, 2705, 2220);
+                    addImage(ctx, '#000','bold 53px TimesNewRoman','center','_____________________________', 2705, 2225);
+                    addImage(ctx, '#000','43px TimesNewRoman','center',sub_jabatan, 2705, 2285);
+                    addImage(ctx, '#000','bold 45px TimesNewRoman','center','NIP. '+nip, 2705, 2335);
+
+                    //console.log('fin-download');
+                    downloadBtn.href = canvas.toDataURL('image/jpg');
+	                downloadBtn.download = 'Certificate - ' + Date.now();
+                    downloadBtn.click();
+                };
+
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function tgl_lokal(tanggal)
+    {
+        var myDate = new Date(tanggal);
+
+		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+		"Juli", "Agustus", "September", "Oktober", "November", "Desember"][myDate.getMonth()];
+
+		var str = myDate.getDate()+ ' ' + month + ' ' + myDate.getFullYear();
+
+        return str;
+    }
+
+    function tgl_eng(tanggal)
+    {
+        var myDate = new Date(tanggal);
+
+        var month = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"][myDate.getMonth()];
+
+        var str = month + ' ' +myDate.getDate() + '=' + myDate.getFullYear();
+
+        return str;
+    }
+
+    function addImage(ctx, color, font, align, data, x, y) {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height)
+        // ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        ctx.font = font;
+        ctx.fillStyle = color;
+        ctx.textAlign = align;
+        ctx.fillText(data, x, y);
+    }
+
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            // You do not need to check if i is larger than splitStr length, as your for does that for you
+            // Assign it back to the array
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+        // Directly return the joined string
+        return splitStr.join(' '); 
+    }
+
     function modalEdit(sesiPelatihanId) {
         $.ajax({
             type: 'POST',
@@ -166,9 +365,11 @@ PELATIHAN
                     </form>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="" class='btn btn-warning' disabled>
+                    <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
+                    <button class='btn btn-warning' onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
                         Download Sertifikat
                     </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                    <a href hidden id="download-file"></a>
                 </td>
             </tr>
             @endforeach

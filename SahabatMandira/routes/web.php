@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SertifikatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,17 @@ Route::get('/testingDir', function () {
         return view('dummy-testing.dummy');
     });
 
+// Route::get('testing/qrcode/{email}/{sesi_id}', 'SertifikatController@qr');
+
 Route::get('register/mentor', 'Auth\RegisterController@regisMentor')->name('registerMentor');
 
 Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
+
+
 // TESTING SECTION ENDS HERE
+
+
+Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');

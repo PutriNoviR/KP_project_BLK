@@ -4,6 +4,16 @@
    Hasil Tes Tahap 2
 @endsection
 
+@section('javascript')
+    <script>
+        setInterval(function() {
+            
+            $(".page-content-wrapper").load(location.href + " .page-content-wrapper");
+         
+        }, 15000);
+    </script>
+@endsection
+
 @section('contents')
     <div class="card-page">
         <div class="card-header">
@@ -11,18 +21,18 @@
         </div>
         <div class="card-body">
             <div class='row'>
-                <div class='col-md-8'>
+                <div class='col-md-6'>
                     <label for="kejuruan"><b>Peringkat</b></label>
                 </div>
                 <div class="col-md-4">
-                    <label for="score"><b>Kategori</b></label>
+                    <label for="kategori"><b>Kategori</b></label>
                 </div>
                         
             </div>
             @foreach($hasil_Tes_2 as $data)
                         
             <div class='row'>
-                <div class='col-md-8'>
+                <div class='col-md-6'>
                                 
                     <p for="peringkat"><b>{{ $data->peringkat }}</b></p>
                                 

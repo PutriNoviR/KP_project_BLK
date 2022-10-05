@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="body-btn">
-                        <input type="submit" class="btn btn-primary button">
+                        <input type="submit" class="btn btn-primary button" value="Submit">
                     </div>
                 </form>
             </div>
@@ -135,7 +135,7 @@
         @else
             <div class='card-page'>
                 <div class='card-body'>
-                <div id="my_camera"></div>
+                <div style='min-width:100; min-height:100;' id="my_camera"></div>
                     <p>Silahkan menunggu admin untuk melakukan validasi terlebih dahulu sebelum melanjutkan test ke tahap 2, jangan lupa untuk refresh halaman untuk mendapatkan hasil validasi</p>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                 let setting = null
                 let valid = null
                 $(document).ready(function(){
-                    
+                
                     setting = "<?php echo $settingValidasi[0]->value;?>"
                     valid = "<?php echo $tesTerbaru->is_validate ?>"
                     if(setting==1 && valid ==0){
@@ -187,7 +187,13 @@
                     }
 
                 });
-
+              
+                setInterval(function() {
+                    
+                    $(".page-content-wrapper").load(location.href + " .page-content-wrapper");
+                      
+                }, 15000);
+               
                 </script>
     @endif
 

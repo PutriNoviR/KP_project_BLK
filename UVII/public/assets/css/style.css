@@ -1554,13 +1554,13 @@ Portlets
 }
 
   .card-body .col-md-6{
-    width: 70%;
+    width: 60%;
     margin-bottom: 2px;
     float: left;
   }
 
   .card-body .col-md-4{
-    width: 30%;
+    width: 40%;
     float: left;
   }
 

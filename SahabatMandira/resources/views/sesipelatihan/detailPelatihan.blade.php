@@ -17,6 +17,10 @@ PELATIHAN
             </div>
 
             <div class="card-body">
+                <h2>Balai Latihan Kerja :</h2>
+                {{ }}
+            </div>
+            <div class="card-body">
                 <h2>Kejuruan :</h2>
                 {{ $d->paketProgram->kejuruan->nama }}
             </div>
@@ -28,6 +32,10 @@ PELATIHAN
                 <h2>Deskripsi :</h2>
                 <h5>{{ $d->deskripsi}}</h5>
             </div>
+            <div class="card-body">
+                <h2>Periode Pendaftaran :</h2>
+                <h5></h5>
+            </div>
             <div class="card-footer">
                 @if(Auth::user()->nomor_identitas == null)
                 <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}" class="button btn btn-warning" >{{ __('DAFTAR')}}</a>
@@ -36,9 +44,9 @@ PELATIHAN
                     @csrf
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
                     @if(count($cekDaftar) == null)
-                    <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
                     @else
-                    <button type="submit" class="button btn btn-info" disabled>{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
                     @endif
                 </form>
                 @endif
