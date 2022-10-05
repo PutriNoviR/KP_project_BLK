@@ -83,12 +83,14 @@
                         -
                     @else
                         {{$data['validate_by']}}
+                    @endif
                 </td>
                 <td>
                     @if($data['validate_at'] == null)
                         -
                     @else
                         {{date("d/m/Y H:i",strtotime($data['validate_at']))}}
+                    @endif
                 </td>
                 <td>
                     @if($data['is_validate'] == 2)

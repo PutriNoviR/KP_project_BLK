@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'unique:users', 'alpha_dash', new LowercaseRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'],
-            'nomer' => ['required', 'numeric', 'min:10'],
+            'nomer' => ['required', 'numeric', 'digits_between:10,12'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');
                 $response = $value;

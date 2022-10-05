@@ -93,7 +93,7 @@ class PesertaController extends Controller
         if($request->tab == 'tab_1'){
             $this->validate($request, [
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->email, 'email')],
-                'no_hp' => ['required', 'numeric', 'digits:12'],
+                'no_hp' => ['required', 'numeric', 'digits_between:10,12'],
             ]);
 
             $peserta = [

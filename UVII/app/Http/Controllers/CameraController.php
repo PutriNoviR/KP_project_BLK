@@ -95,7 +95,6 @@ class CameraController extends Controller
 
         // $data = DB::connection('masterblk_db')->table('users')
         $riwayat_tes= DB::connection('uvii')->table('uji_minat_awals as um')
-            ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','um.is_validate','um.klaster_id', 'um.id')
             //->groupBy('um.users_email')
             ->orderBy('um.tanggal_selesai','DESC')
             ->get();

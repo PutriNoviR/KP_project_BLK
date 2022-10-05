@@ -188,6 +188,18 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
+                                        <label class="col-sm-4 control-label">Jenis Kelamin</label>
+                                        <input name="jenis_kelamin" class="form-control" disabled value="{{$d['jenis_kelamin']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Pendidikan Terakhir</label>
+                                        <input name="pendidikan" class="form-control" disabled value="{{$d['pendidikan']}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">kewarganegaraan</label>
+                                        <input name="kewarganegaraan" class="form-control" disabled value="{{$d['jenis_identitas']== 'Pasport'? 'Warga Negara Asing':'Warga Negara Indonesia'}}">
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-4 control-label">Alamat</label>
                                         <input name="alamat" class="form-control" disabled value="{{$d['alamat']}}">
                                     </div>
@@ -195,14 +207,7 @@
                                         <label class="col-sm-4 control-label">Kota</label>
                                         <input name="kota" class="form-control" disabled value="{{$d['kota']}}">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Hp</label>
-                                        <input name="nomor_hp" class="form-control" disabled value="{{$d['No.Hp']}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">kewarganegaraan</label>
-                                        <input name="kewarganegaraan" class="form-control" disabled value="{{$d['jenis_identitas']== 'Pasport'? 'Warga Negara Asing':'Warga Negara Indonesia'}}">
-                                    </div>
+            
                                     {{--<div class="form-group">
                                         <label class="col-sm-4 control-label">Nomor Identitas</label>
                                         <input name="nomor_identitas" class="form-control" disabled value="{{$d['nomor_identitas']}}">
