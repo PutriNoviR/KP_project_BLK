@@ -161,6 +161,9 @@ Route::put('pelatihanPeserta/{email}','PelatihanPesertaController@update')->name
 Route::post('pelatihanPeserta/pendaftaran/{id}','PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi','PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 
+//Pelaporan
+Route::resource('/pelaporan', 'PelaporanController');
+
 Route::view('/selamatdatang','welcome');
 
 Auth::routes();
