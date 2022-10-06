@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Pelaporan;
+use App\PelatihanPeserta;
 use Illuminate\Http\Request;
+use App\User;
+use App\SesiPelatihan;
+use Auth;
+use DB;
 
 class PelaporanController extends Controller
 {
@@ -15,7 +20,12 @@ class PelaporanController extends Controller
     public function index()
     {
         //
-        return view('pelaporan.laporan');
+        $data = PelatihanPeserta::all();
+
+        $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->get();
+        return view('pelaporan.index', compact('data', 'peserta'));
     }
 
     /**
