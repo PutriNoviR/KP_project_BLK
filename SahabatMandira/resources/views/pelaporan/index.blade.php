@@ -57,7 +57,7 @@ Pelaporan
   <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
-        <h2>Riwayat Pelatihan</h2>
+        <h2>Laporan Pelatihan</h2>
       </div>
       @if (\Session::has('success'))
       <div class="alert alert-success">
@@ -97,7 +97,7 @@ Pelaporan
   <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
   <div class="container">
       <div class="d-flex justify-content-between mb-2">
-        <h2>Riwayat Pelatihan</h2>
+        <h2>Laporan Pelatihan</h2>
       </div>
       @if (\Session::has('success'))
       <div class="alert alert-success">
@@ -137,7 +137,7 @@ Pelaporan
   <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
   <div class="container">
       <div class="d-flex justify-content-between mb-2">
-        <h2>Riwayat Pelatihan</h2>
+        <h2>Laporan Pelatihan</h2>
       </div>
       @if (\Session::has('success'))
       <div class="alert alert-success">
