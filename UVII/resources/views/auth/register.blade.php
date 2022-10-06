@@ -169,7 +169,7 @@
                                 <span id='passSimbol' class="password-minimum">1 Simbol</span><br>
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <br><span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

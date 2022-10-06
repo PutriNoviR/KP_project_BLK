@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $pencaker = Lamaran::distinct('users_email')->count('users_email');
-        $mitra = Perusahaan::distinct('nama')->count('nama');
+        $mitra = Perusahaan::count('nama');
         $idmentor = Role::where('nama_role', 'mentor')->first();
         $mentor = User::where('roles_id', $idmentor->id)->distinct('email')->count('email');
         $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran', '<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup', '>=', date('y-m-d h:i:s', strtotime('now')))->count();

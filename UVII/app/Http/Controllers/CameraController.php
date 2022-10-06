@@ -95,7 +95,6 @@ class CameraController extends Controller
 
         // $data = DB::connection('masterblk_db')->table('users')
         $riwayat_tes= DB::connection('uvii')->table('uji_minat_awals as um')
-            ->select('um.users_email','um.tanggal_mulai','um.tanggal_selesai','um.is_validate','um.klaster_id', 'um.id')
             //->groupBy('um.users_email')
             ->orderBy('um.tanggal_selesai','DESC')
             ->get();
@@ -110,20 +109,22 @@ class CameraController extends Controller
                         ->select('kp.nama')
                         ->where('kp.id',$sesi->klaster_id)
                         ->first();
-                        
+
                 $arr_data = [
                     'users_email'=>$sesi->users_email,
                     'tanggal_mulai'=>$sesi->tanggal_mulai,
                     'tanggal_selesai'=>$sesi->tanggal_selesai,
                     'is_validate'=>$sesi->is_validate,
+                    'validate_by'=>$sesi->validate_by,
+                    'validate_at'=>$sesi->validate_at,
                     'id'=>$sesi->id,
                     'nama_depan'=>$dataUser->nama_depan,
                     'nama_belakang'=>$dataUser->nama_belakang,
                     'nama'=>$dataKlaster->nama,
                 ];
                array_push($data_akhir, $arr_data);
-               
-            } 
+
+            }
 
         $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
 
