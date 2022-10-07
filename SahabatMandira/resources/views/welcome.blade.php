@@ -166,7 +166,8 @@
                             <h4 class="subheading">Mitra Perusahaan</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Mendapatkan talenta terbaik dengan efektif dan efisien dan sumber sumber pengetahuan bagi pengembangan human capital perusahaan</p>
+                            <p class="text-muted">Mendapatkan talenta terbaik dengan efektif dan efisien dan sumber
+                                sumber pengetahuan bagi pengembangan human capital perusahaan</p>
                         </div>
                     </div>
                 </li>
@@ -200,7 +201,8 @@
                             <h4 class="subheading">Mentor</h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Wadah untuk sharing pengalaman, pengetahuan dan keterampilan serta untuk peningkatan reputasi mentor</p>
+                            <p class="text-muted">Wadah untuk sharing pengalaman, pengetahuan dan keterampilan serta
+                                untuk peningkatan reputasi mentor</p>
                         </div>
                     </div>
                     <div class="timeline-panel  float-end text-start">
@@ -325,7 +327,11 @@
             </div>
         </div>
     </footer>
+    <a href="https://api.whatsapp.com/send?phone=6281235597909" class="floating-whatsapp">
+        <i class="fab fa-whatsapp my-float" style="margin-top: 16px;"></i>
+    </a>
     <!-- Bootstrap core JS-->
+    <script src="{{ asset('bantuan/js/jquery-3.5.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('landingpage/js/scripts.js') }}"></script>
@@ -334,6 +340,24 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script>
+        // const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        // const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
+        var options = {
+            html: true,
+            // title: "Optional: HELLO(Will overide the default-the inline title)",
+            //html element
+            //content: $("#popover-content")
+            content: $('[data-name="popover-content"]')
+            //Doing below won't work. Shows title only
+            //content: $("#popover-content").html()
+
+        }
+        var exampleEl = document.getElementById('example')
+        var popover = new bootstrap.Popover(exampleEl, options)
+
+    </script>
 </body>
 
 </html>
