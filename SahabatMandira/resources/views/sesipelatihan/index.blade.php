@@ -459,6 +459,7 @@ PELATIHAN
                 <th>Tanggal Seleksi</th>
                 <th>Aktivitas</th>
                 <th>Aksi</th>
+                <th>Detail</th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -490,6 +491,12 @@ PELATIHAN
                         <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                         </button>
                     </form>
+                </td>
+                <td>
+                    <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-primary'>
+                        Detaiil Pelatihan
+                    </a>
+                </td>
             </tr>
             @endforeach
         </tbody>

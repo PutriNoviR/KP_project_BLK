@@ -35,26 +35,17 @@ Pelaporan
 @endsection
 
 @section('contents')
-<!-- Tabs navs -->
-<ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="ex3-tab-1" data-mdb-toggle="tab" href="#ex3-tabs-1" role="tab" aria-controls="ex3-tabs-1" aria-selected="true">Daftar peserta</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="ex3-tab-2" data-mdb-toggle="tab" href="#ex3-tabs-2" role="tab" aria-controls="ex3-tabs-2" aria-selected="false">Peserta lolos seleksi</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="ex3-tab-3" data-mdb-toggle="tab" href="#ex3-tabs-3" role="tab" aria-controls="ex3-tabs-3" aria-selected="false">Peserta berkompeten</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="ex3-tab-3" data-mdb-toggle="tab" href="#ex3-tabs-3" role="tab" aria-controls="ex3-tabs-3" aria-selected="false">Peserta cadangan</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
 
-<!-- Tabs content -->
-<div class="tab-content" id="ex2-content">
-  <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#daftarPeserta" role="tab" aria-controls="nav-home" aria-selected="true">Daftar peserta</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#pesertaLolosSeleksi" role="tab" aria-controls="nav-profile" aria-selected="false">Peserta lolos seleksi</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#pesertaBerkompeten" role="tab" aria-controls="nav-contact" aria-selected="false">Peserta berkompeten</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#pesertaCadangan" role="tab" aria-controls="nav-contact" aria-selected="false">Peserta cadangan</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="daftarPeserta" role="tabpanel" aria-labelledby="nav-home-tab">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
         <h2>Laporan Pelatihan</h2>
@@ -94,10 +85,10 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
-  <div class="container">
+  <div class="tab-pane fade" id="pesertaLolosSeleksi" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="container">
       <div class="d-flex justify-content-between mb-2">
-        <h2>Laporan Pelatihan</h2>
+        <h2>Daftar Peserta Lolos Seleksi</h2>
       </div>
       @if (\Session::has('success'))
       <div class="alert alert-success">
@@ -134,10 +125,50 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
-  <div class="container">
+  <div class="tab-pane fade" id="pesertaBerkompeten" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div class="container">
       <div class="d-flex justify-content-between mb-2">
-        <h2>Laporan Pelatihan</h2>
+        <h2>Daftar Peserta Kompeten</h2>
+      </div>
+      @if (\Session::has('success'))
+      <div class="alert alert-success">
+        <ul>
+          <li>{!! \Session::get('success') !!}</li>
+        </ul>
+      </div>
+      @endif
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+        <thead>
+          <tr role="row">
+            <th>No</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>No Telepon</th>
+            <th>Tanggal Lahir</th>
+            <th>Jenis Kelamin</th>
+            <th>Pendidikan Terakhir</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          @foreach($peserta as $d)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
+            <td>{{ $d->alamat }}</td>
+            <td>{{ $d->nomer_hp }}</td>
+            <td>{{ $d->tanggal_lahir }}</td>
+            <td>{{ $d->jenis_kelamin }}</td>
+            <td>{{ $d->pendidikan_terakhir }}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="pesertaCadangan" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div class="container">
+      <div class="d-flex justify-content-between mb-2">
+        <h2>Daftar Peserta Cadangan</h2>
       </div>
       @if (\Session::has('success'))
       <div class="alert alert-success">
@@ -175,5 +206,5 @@ Pelaporan
     </div>
   </div>
 </div>
-<!-- Tabs content -->
+</div>
 @endsection

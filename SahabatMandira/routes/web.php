@@ -63,9 +63,6 @@ Route::middleware('super.admin')->group(function () {
     Route::delete('datapegawai/adminblk/hapus/{email}', 'UserController@hapusAdminBlk')->name('super.adminblk.destroy');
     Route::put('datapegawai/adminblk/edit', 'UserController@editAdminBlk')->name('super.adminblk.update');
     Route::post('datapegawai/adminblk/getEditForm', 'UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
-
-    //Pelaporan(
-    Route::resource('pelaporan', 'PelaporanController');
 });
 
 // Dashboard
@@ -165,6 +162,9 @@ Route::post('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@sto
 Route::get('/pelatihanPeserta/jadwalSeleksi', 'PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 Route::post('pelatihanPeserta/getDetail','PelatihanPesertaController@getDetail')->name('pelatihanPeserta.getDetail');
 
+// //Pelaporan(
+Route::resource('pelaporan', 'PelaporanController');
+// Route::resource('/pelaporan', 'PelaporanController');
 
 
 Route::view('/selamatdatang', 'welcome');
