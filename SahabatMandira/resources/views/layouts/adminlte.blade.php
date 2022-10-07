@@ -177,6 +177,16 @@
                                 @endif
                                 @endcan
                                 @can('adminblk-permission')
+                                @if (auth()->user()->role->nama_role == 'superadmin')
+                                <li class="nav-item">
+                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
+                                        <i class="nav-icon fas fa-copy"></i>
+                                        <p>
+                                            Daftar Akun
+                                        </p>
+                                    </a>
+                                </li>
+                                @else
                                 <li class="nav-item">
                                     <a href="{{ route('User.daftar') }}" class="nav-link ">
                                         <i class="nav-icon fas fa-copy"></i>
@@ -185,6 +195,7 @@
                                         </p>
                                     </a>
                                 </li>
+                                @endif
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-copy"></i>

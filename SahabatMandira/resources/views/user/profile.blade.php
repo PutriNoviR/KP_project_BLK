@@ -18,7 +18,11 @@ Profile
                     <!-- START card -->
                     <div class="">
                         <div class="card-body text-center">
+                            @if($data->pas_foto == null)
                             <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/logo/default.png') }}" alt="">
+                            @else
+                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$data->pas_foto) }}" alt="">
+                            @endif
                         </div>
                     </div>
                     <!-- END card -->

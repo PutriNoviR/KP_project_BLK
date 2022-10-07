@@ -50,7 +50,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        
+
         $User = new User();
         $User->email = $request->email;
         $User->nama_depan = $request->nama_depan;
@@ -189,11 +189,10 @@ class UserController extends Controller
         $suspend = auth()->user()->is_suspend;
 
         if (auth()->user()->role->nama_role == 'mentor') {
-            return view('dashboard',compact('mentoring','programMentor','keahlian','daftarKeahlian','user','suspend'));
-        }
-        else {
+            return view('dashboard', compact('mentoring', 'programMentor', 'keahlian', 'daftarKeahlian', 'user', 'suspend'));
+        } else {
             // return $User;
-            return redirect()->route('sesiPelatihan.detail',$request->idPelatihan)->with(compact('data', 'cekDaftar'));
+            return redirect()->route('sesiPelatihan.detail', $request->idPelatihan)->with(compact('data', 'cekDaftar'));
         }
     }
 
@@ -299,8 +298,9 @@ class UserController extends Controller
                 ->get();
         } else {
             $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
-                //->where('r.nama_role', '=', 'peserta')->get();
-            ->get();
+                ->where('r.nama_role', '!=', 'superadmin')
+                ->select('users.*')->get();
+            // ->get();
             // dd($data);
         }
         // dd($dataAdmin);

@@ -99,7 +99,7 @@ Pelatihan Peserta
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
                 <th>Keputusan</th>
-                <th>Rekomendasi</th>
+                <th>Nilai TPA</th>
                 <th>Aksi</th>
                 <th>Kompetensi</th>
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
@@ -126,9 +126,10 @@ Pelatihan Peserta
                     {{ $d->rekom_keputusan  }}
                 </td>
                 <td>
-                    <button class='btn btn-info' onclick="alertShow({{$d->sesi_pelatihans_id}},{{$d->email_peserta}})">
+                    <!-- <button class='btn btn-info' onclick="alertShow({{$d->sesi_pelatihans_id}},{{$d->email_peserta}})">
                         <i class="fas fa-eye"></i>
-                    </button>
+                    </button> -->
+                    {{ $d->rekom_nilai_TPA }}
                 </td>
                 <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
