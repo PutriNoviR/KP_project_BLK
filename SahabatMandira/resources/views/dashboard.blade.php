@@ -503,6 +503,7 @@ Dashboard
                 <th>Tanggal Seleksi</th>
                 <th>Aktivitas</th>
                 <th>Aksi</th>
+                <th>Detail</th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -533,6 +534,12 @@ Dashboard
                         <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                         </button>
                     </form>
+                </td>
+                <td>
+                    <a href="{{ url('pelaporan') }}" class="button btn btn-primary">
+                        Detail Pelatihan</i> {{--PINDAHIN KE UI  --}}
+                    </a>
+                </td>
             </tr>
             @endforeach
         </tbody>

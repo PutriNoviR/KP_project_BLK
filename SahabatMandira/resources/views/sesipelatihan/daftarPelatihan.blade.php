@@ -72,9 +72,6 @@ PELATIHAN
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i></td>
                 <td>
-                    <!-- <a data-toggle="modal" data-target="#modalDetailPeserta{{$d->id}}" class='btn btn-info' value>
-                        <i class="fas fa-eye"></i>
-                    </a> -->
                     @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                     <div class="margin-bottom-15">
                         <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
