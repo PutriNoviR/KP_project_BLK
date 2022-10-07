@@ -123,7 +123,7 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade" id="pesertaLolosSeleksi" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div class="tab-pane fade show active" id="pesertaLolosSeleksi" role="tabpanel" aria-labelledby="nav-profile-tab">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta Lolos Seleksi</h2>
@@ -195,7 +195,7 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade" id="pesertaBerkompeten" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <div class="tab-pane fade show active" id="pesertaBerkompeten" role="tabpanel" aria-labelledby="nav-contact-tab">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta Kompeten</h2>
