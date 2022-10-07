@@ -437,7 +437,7 @@ PELATIHAN
 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Sesi Pelatihan</h2>
+        <h2>Pengelolaan Sesi Pelatihan</h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -493,8 +493,8 @@ PELATIHAN
                     </form>
                 </td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-primary'>
-                        Detaiil Pelatihan
+                    <a href="{{ route('pelaporan.show',$d->id) }}" class="button btn btn-primary">
+                        Daftar Peserta</i>
                     </a>
                 </td>
             </tr>

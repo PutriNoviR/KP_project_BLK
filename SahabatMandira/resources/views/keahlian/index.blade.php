@@ -13,7 +13,7 @@ Daftar Keahlian Mentor
     </li>
 
     <li>
-        <a href="http://127.0.0.1:8000/menu/kejuruan">Kejuruan</a>
+        <a href="http://127.0.0.1:8000/menu/Keahlian">Keahlian</a>
         <i class="fa fa-angle-right"></i>
     </li>
 </ul> --}}
@@ -66,7 +66,7 @@ Daftar Keahlian Mentor
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Kejuruan</h2>
+        <h2>Daftar Keahlian</h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
             Tambah Keahlian Baru
         </button>
@@ -117,7 +117,7 @@ Daftar Keahlian Mentor
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Kejuruan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Keahlian</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -554,8 +554,8 @@ Dashboard
                     </form>
                 </td>
                 <td>
-                    <a href="{{ url('pelaporan') }}" class="button btn btn-primary">
-                        Detail Pelatihan</i> {{--PINDAHIN KE UI  --}}
+                    <a href="{{ route('pelaporan.show',$d->id) }}" class="button btn btn-primary">
+                        Detail Peserta</i>
                     </a>
                 </td>
             </tr>

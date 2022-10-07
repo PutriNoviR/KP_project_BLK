@@ -39,7 +39,7 @@ PELATIHAN
 @section('contents')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Sesi Pelatihan</h2>
+        <h2>Penugasan Admin</h2>
     </div>
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>

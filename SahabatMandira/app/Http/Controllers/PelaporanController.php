@@ -20,12 +20,6 @@ class PelaporanController extends Controller
     public function index()
     {
         //
-        $data = PelatihanPeserta::all();
-
-        $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
-            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
-            ->get();
-        return view('pelaporan.index', compact('data', 'peserta'));
     }
 
     /**
@@ -55,9 +49,42 @@ class PelaporanController extends Controller
      * @param  \App\Pelaporan  $pelaporan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pelaporan $pelaporan)
+    public function show($id)
     {
         //
+
+        $data = PelatihanPeserta::all();
+
+        // $blk_id = auth()->user()->blks_id_admin;
+
+        $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->select('users.*')
+            ->get();
+
+        $lolos = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->where('P.rekom_keputusan', 'LULUS')
+            ->select('users.*')
+            ->get();
+
+        $cadangan = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->where('P.rekom_keputusan', 'CADANGAN')
+            ->select('users.*')
+            ->get();
+
+        $kompeten = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->where('P.hasil_kompetensi', 'KOMPETEN')
+            ->select('users.*')
+            ->get();
+
+        return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten'));
     }
 
     /**

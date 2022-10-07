@@ -54,7 +54,7 @@ Daftar Peserta
         @if(Auth::user()->role->nama_role == 'superadmin')
         <h2>Daftar Akun</h2>
         @else
-        <h2>Daftar Peserta</h2>
+        <h2>Daftar Peserta di semua sesi pelatihan</h2>
         @endif
 
     </div>
