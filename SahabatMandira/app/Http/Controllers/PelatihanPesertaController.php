@@ -326,4 +326,22 @@ class PelatihanPesertaController extends Controller
         // return $data;
         return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
+
+    
+    public function getDetail(Request $request)
+    {
+        $data = explode(",", $request->id);
+        // return $data;
+        $pelatihan = PelatihanPeserta::where('sesi_pelatihans_id',$data[0])
+        ->where('email_peserta',$data[1])
+        ->get();
+        
+        $catatan = $pelatihan->rekom_catatan;
+        $nilai_TPA = $pelatihan->rekom_nilai_TPA;
+        // $keptu
+        return response()->json(array(
+            'status'=>'oke',
+            'data'=> $catatan
+        ), 200);
+    }
 }

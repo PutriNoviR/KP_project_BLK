@@ -51,7 +51,7 @@ Pelatihan Peserta
     function alertShow($id) {
         $.ajax({
             type: 'POST',
-            url: '',
+            url: '{{ route("pelatihanPeserta.getDetail") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
                 'id': $id,
@@ -126,7 +126,7 @@ Pelatihan Peserta
                     {{ $d->rekom_keputusan  }}
                 </td>
                 <td>
-                    <button class='btn btn-info' onclick="alertShow({{$d->sesi_pelatihans_id}})">
+                    <button class='btn btn-info' onclick="alertShow({{$d->sesi_pelatihans_id}},{{$d->email_peserta}})">
                         <i class="fas fa-eye"></i>
                     </button>
                 </td>
