@@ -10,6 +10,18 @@ Pelaporan
       "responsive": true,
       "autoWidth": false,
     });
+    $("#myTable2").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $("#myTable3").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $("#myTable4").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
   });
 
   function alertShow(id) {
@@ -135,7 +147,7 @@ Pelaporan
         </ul>
       </div>
       @endif
-      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable2" role="grid" aria-describedby="sample_1_info">
         <thead>
           <tr role="row">
             <th>No</th>
@@ -207,7 +219,7 @@ Pelaporan
         </ul>
       </div>
       @endif
-      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+      <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable3" role="grid" aria-describedby="sample_1_info">
         <thead>
           <tr role="row">
             <th>No</th>
@@ -316,7 +328,7 @@ Pelaporan
       </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable4" role="grid" aria-describedby="sample_1_info">
       <thead>
         <tr role="row">
           <th>No</th>
