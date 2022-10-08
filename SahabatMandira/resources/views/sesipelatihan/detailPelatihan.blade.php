@@ -18,7 +18,7 @@ PELATIHAN
 
             <div class="card-body">
                 <h2>Balai Latihan Kerja :</h2>
-                {{ }}
+                {{ $d->paketProgram->blk->nama }}
             </div>
             <div class="card-body">
                 <h2>Kejuruan :</h2>
