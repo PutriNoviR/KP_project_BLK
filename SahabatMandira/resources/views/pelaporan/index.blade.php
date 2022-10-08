@@ -88,6 +88,7 @@ Pelaporan
           </tr>
           <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
+            {{-- TEMPAT AWAL MODAL --}}
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
                 <div class="modal-header">
@@ -123,7 +124,9 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade show active" id="pesertaLolosSeleksi" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+
+  <div class="tab-pane fade show" id="pesertaLolosSeleksi" role="tabpanel" aria-labelledby="nav-profile-tab">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta Lolos Seleksi</h2>
@@ -153,12 +156,12 @@ Pelaporan
             <td>{{ $d->tanggal_lahir }}</td>
             <td>{{ $d->jenis_kelamin }}</td>
             <td>
-              <a data-toggle="modal" data-target="#modalInfoAkun{{$d->username}}" class="button btn btn-primary">
+              <a data-toggle="modal" data-target="#modalInfoAkunPesertaLolosSeleksi{{$d->username}}" class="button btn btn-primary">
                 <i class="fas fa-info"></i>
               </a>
             </td>
           </tr>
-          <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalInfoAkunPesertaLolosSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
@@ -195,7 +198,7 @@ Pelaporan
       </table>
     </div>
   </div>
-  <div class="tab-pane fade show active" id="pesertaBerkompeten" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <div class="tab-pane fade show" id="pesertaBerkompeten" role="tabpanel" aria-labelledby="nav-contact-tab">
     <div class="container">
       <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Peserta Kompeten</h2>
@@ -231,12 +234,12 @@ Pelaporan
             <td>{{ $d->jenis_kelamin }}</td>
             <td>{{ $d->pendidikan_terakhir }}</td>
             <td>
-              <a data-toggle="modal" data-target="#modalInfoAkun{{$d->username}}" class="button btn btn-primary">
+              <a data-toggle="modal" data-target="#modalInfoAkunPesertaKompeten{{$d->username}}" class="button btn btn-primary">
                 <i class="fas fa-info"></i>
               </a>
             </td>
           </tr>
-          <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalInfoAkunPesertaKompeten{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
@@ -269,7 +272,7 @@ Pelaporan
             </div>
           </div>
 
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+          <!-- <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
@@ -297,7 +300,7 @@ Pelaporan
 
               </div>
             </div>
-          </div>
+          </div> -->
     </div>
     @endforeach
     </tbody>
@@ -340,12 +343,12 @@ Pelaporan
           <td>{{ $d->jenis_kelamin }}</td>
           <td>{{ $d->pendidikan_terakhir }}</td>
           <td>
-            <a data-toggle="modal" data-target="#modalInfoAkun{{$d->username}}" class="button btn btn-primary">
+            <a data-toggle="modal" data-target="#modalInfoAkunPesertaCadangan{{$d->username}}" class="button btn btn-primary">
               <i class="fas fa-info"></i>
             </a>
           </td>
         </tr>
-        <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalInfoAkunPesertaCadangan{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
             <div class="modal-content">
@@ -372,7 +375,6 @@ Pelaporan
                   <label for="">Pendidikan Terakhir</label><br>
                   <p>{{$d->pendidikan_terakhir}}</p>
                 </div>
-
               </div>
             </div>
           </div>
