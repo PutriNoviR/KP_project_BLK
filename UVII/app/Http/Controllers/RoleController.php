@@ -121,7 +121,7 @@ class RoleController extends Controller
     {
         try{
             $role->delete();
-            return redirect()->back()->with('status','Role berhasil dihapus');
+            return redirect()->back()->with('success','Role berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
@@ -221,7 +221,7 @@ class RoleController extends Controller
         try{
             User::where('email', $request->email)->delete();
           
-            return redirect()->back()->with('status','admin berhasil dihapus');
+            return redirect()->back()->with('success','admin berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 
