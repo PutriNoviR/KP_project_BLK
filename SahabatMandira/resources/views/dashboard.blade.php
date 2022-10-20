@@ -207,7 +207,7 @@ Dashboard
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>
