@@ -1,5 +1,27 @@
 @extends('layouts.app')
 
+@section('javascript')
+    <script>
+        function showPassword(idbtn, idpass)
+        {
+            var tipe = $(idpass).attr('type');
+            $(idbtn).removeClass();
+
+            if(tipe == 'password'){
+                $(idpass).attr('type', 'text');
+            
+                $(idbtn).addClass('fa fa-eye-slash toggleBtn');
+            }
+            else{
+                $(idpass).attr('type', 'password');
+        
+                $(idbtn).addClass('fa fa-eye toggleBtn');
+            }
+     
+        }
+    </script>
+@endsection
+
 @section('content')
 <div class="container">
     @if($message = Session::get('success'))
@@ -53,6 +75,7 @@
                                 <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                                 <div class="col-md-12">
+                                    <i class="fa fa-eye toggleBtn" onclick='showPassword(this, "#password")'></i>
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                     @error('password')

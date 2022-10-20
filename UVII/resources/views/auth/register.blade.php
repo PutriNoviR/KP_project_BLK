@@ -3,6 +3,24 @@
 @section('javascript')
     <script>
 
+        function showPassword(idbtn, idpass)
+        {
+            var tipe = $(idpass).attr('type');
+            $(idbtn).removeClass();
+
+            if(tipe == 'password'){
+                $(idpass).attr('type', 'text');
+            
+                $(idbtn).addClass('fa fa-eye-slash toggleBtn');
+            }
+            else{
+                $(idpass).attr('type', 'password');
+        
+                $(idbtn).addClass('fa fa-eye toggleBtn');
+            }
+     
+        }
+
         function textCounterValidation(id){
             var no_hp = $(id).val();
             var digit = 'digit';
@@ -22,7 +40,7 @@
             }
         }
 
-         function passwordMinimumValidation(id){
+        function passwordMinimumValidation(id){
             var pass = $(id).val().trim();
             var number = /([0-9])/;
             var alphabets = /([A-Z])/;
@@ -56,6 +74,8 @@
             }
           
         }
+
+        
     </script>
 @endsection
 
@@ -161,6 +181,8 @@
                             <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                             <div class="col-md-12">
+                                
+                                <i class="fa fa-eye toggleBtn" onclick='showPassword(this, "#password")'></i>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" onKeyUp='passwordMinimumValidation(this)'>
                                 <span class="password-minimum">Minimum Password :</span>
                                 <span id='passKarakter' class="password-minimum">8 Karakter</span>
@@ -180,6 +202,7 @@
                             <label for="password-confirm" class="col-md-12 col-form-label">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-12">
+                                <i class="fa fa-eye toggleBtn" onclick='showPassword(this, "#password-confirm")'></i>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>

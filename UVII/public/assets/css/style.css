@@ -20,6 +20,43 @@ body {
   direction: ltr;
 }
 
+#togglePass{
+  float: right;
+  cursor: pointer;
+  right: 15px;
+  display: block;
+  position: absolute;
+  margin: 11px 10px 4px 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+
+#toggleConfirmPass{
+  float: right;
+  cursor: pointer;
+  right: 15px;
+  display: block;
+  position: absolute;
+  margin: 11px 10px 4px 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.password-minimum{
+  float: left;
+  margin-left: 20px;
+  font-size: 13px;
+  color: red;
+}
+
+.password-minimum:nth-of-type(1){
+  color: #212529;
+}
+
 /*
 Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't 
 properly apply the media queries in Bootstrap's CSS. To address this, 
@@ -80,7 +117,6 @@ and thus doesn't properly apply the media queries in Bootstrap's CSS. To address
     display: none;
   }
  
-
   .no-page-break {
     page-break-after: avoid;
   }

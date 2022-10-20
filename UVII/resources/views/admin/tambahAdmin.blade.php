@@ -20,6 +20,74 @@
         });
     }
   
+    function passwordMinimumValidation(id){
+        var pass = $(id).val().trim();
+        var number = /([0-9])/;
+        var alphabets = /([A-Z])/;
+        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+
+        if(pass.length >= 8){
+            $('#passKarakter').css('color','green');
+
+            if(pass.match(number)){
+                $('#passAngka').css('color','green');
+            }
+
+            if(pass.match(alphabets)){    
+                $('#passKapital').css('color','green');
+
+            }
+            
+            if(pass.match(special_characters)) {
+                $('#passSimbol').css('color','green');
+            } 
+        }
+
+        else{
+            $('#passKarakter').css('color','red');
+
+            $('#passAngka').css('color','red');
+            
+            $('#passSimbol').css('color','red');
+
+            $('#passKapital').css('color','red');
+        }
+        
+    }
+
+    $('#togglePass').click(function(){
+        var tipe = $('#mypass').attr('type');
+        $(this).removeClass();
+
+        if(tipe == 'password'){
+            $('#mypass').attr('type', 'text');
+           
+            $(this).addClass('fa fa-eye-slash');
+        }
+        else{
+            $('#mypass').attr('type', 'password');
+      
+            $(this).addClass('fa fa-eye');
+        }
+     
+    });
+
+    $('#toggleConfirmPass').click(function(){
+        var tipe = $('#password-confirm').attr('type');
+        $(this).removeClass();
+
+        if(tipe == 'password'){
+            $('#password-confirm').attr('type', 'text');
+           
+            $(this).addClass('fa fa-eye-slash');
+        }
+        else{
+            $('#password-confirm').attr('type', 'password');
+      
+            $(this).addClass('fa fa-eye');
+        }
+     
+    });
 </script>
 @endsection
 @section('page-bar')
@@ -223,11 +291,19 @@
 
                         <div class="form-group">
                             <label>Password</label>
-                            <input name="password" type='password' class="form-control" required>
+                            <i class="fa fa-eye" id='togglePass'></i>
+                            <input id='mypass' name="password" type='password' class="form-control" required onKeyUp='passwordMinimumValidation(this)'>
+                            <span class="password-minimum">Minimum Password :</span>
+                            <span id='passKarakter' class="password-minimum">8 Karakter</span>
+                            <span id='passAngka' class="password-minimum">1 Angka</span>
+                            <span id='passKapital' class="password-minimum">1 Huruf Kapital</span>
+                            <span id='passSimbol' class="password-minimum">1 Simbol</span><br>
+
                         </div>
 
                         <div class="form-group">
-                            <label>Confirm Password</label>
+                            <br><label>Confirm Password</label>
+                            <i class="fa fa-eye" id='toggleConfirmPass'></i>
                             <input id='password-confirm' name="password_confirmation" type='password' class="form-control" required>
                         </div>
                     </div>
