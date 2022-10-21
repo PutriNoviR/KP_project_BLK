@@ -66,9 +66,12 @@ class MandiraMentoringController extends Controller
      * @param  \App\MandiraMentoring  $mandiraMentoring
      * @return \Illuminate\Http\Response
      */
-    public function show(MandiraMentoring $mandiraMentoring)
+    public function show($id)
     {
         //
+        $data = MandiraMentoring::where('id_mentoring', '=', $id)
+            ->get();
+        return view('mandiraMentoring.detailPelatihanMentor', compact('data'));
     }
 
     /**
