@@ -8,18 +8,35 @@ Login
 @section('javascript')
 <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>
-   setInterval(function () {
-        grecaptcha.ready(function() {
-            
-            grecaptcha.execute('{{config("services.recaptcha.site")}}', {action: 'submit'}).then(function(token) {
+    setInterval(function () {
+        grecaptcha.ready(function () {
+
+            grecaptcha.execute('{{config("services.recaptcha.site")}}', {
+                action: 'submit'
+            }).then(function (token) {
                 // Add your logic to submit to your backend server here.
-                if(token){
+                if (token) {
                     $("#recaptcha_token").val(token);
                 }
-               
+
             });
         });
     }, 3000);
+
+    $(document).ready(function () {
+        $("#show_hide_password span ").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
 
 </script>
 @endsection
@@ -70,15 +87,21 @@ Login
                                 <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                                 <div class="col-md-12">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
-
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <div class="input-group mb-3" id="show_hide_password">
+                                        <input id="password" type="password"
+                                            class="form-control  @error('password') is-invalid @enderror"
+                                            name="password" required autocomplete="current-password"
+                                            aria-describedby=" basic-addon2">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text " style="cursor: pointer" id="basic-addon2"><i
+                                                    class="fas fa-eye-slash"></i></span>
+                                        </div>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
@@ -113,7 +136,7 @@ Login
                                     </div>
                                     @endif
 
-                                                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
