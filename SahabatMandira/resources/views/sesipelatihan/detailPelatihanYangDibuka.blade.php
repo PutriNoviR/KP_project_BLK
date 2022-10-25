@@ -150,7 +150,7 @@ PELATIHAN
                 <th>Nama Program</th>
                 <th>Deskripsi</th>
                 <th>Periode</th>
-                <th>Link Pendaftaran</th>
+                <th>Link Terkait</th>
                 <th>Mentor</th>
             </tr>
         </thead>
@@ -161,7 +161,9 @@ PELATIHAN
                 <td>{{ $m->nama_program}}</td>
                 <td>{{ $m->deskripsi_program}}</td>
                 <td>{{ $m->tgl_dibuka}} - {{ $m->tgl_ditutup}}</td>
-                <td>{{ $m->link_pendaftaran}}</td>
+                <!-- <td>{{ $m->link_pendaftaran}}</td> -->
+                <td>
+                <a href="{{ $m->link_pendaftaran }}">LINK</a></td>
                 <td>{{ $m->nama_depan}} {{ $m->nama_belakang}}</td>
             </tr>
             @endforeach

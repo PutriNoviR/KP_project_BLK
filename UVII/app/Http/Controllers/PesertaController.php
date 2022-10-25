@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use PDF;
 use App\KlasterPsikometrik;
 use App\KategoriPsikometrik;
+use App\Rules\LowercaseRule;
 
 class PesertaController extends Controller
 {
@@ -145,7 +146,7 @@ class PesertaController extends Controller
         }
         else{
             $this->validate($request, [
-                'username'=>['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($request->email, 'email')],
+                'username'=>['required', 'string', 'max:255', 'alpha_dash', new LowercaseRule, Rule::unique('users', 'username')->ignore($request->email, 'email')],
                 // 'no_identitas' => ['required', 'numeric', 'digits:16', Rule::unique('users', 'nomor_identitas')->ignore($request->email, 'email')],
       
             ]);

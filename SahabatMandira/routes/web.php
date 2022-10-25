@@ -131,6 +131,7 @@ Route::resource('/keahlianUser', 'KeahlianUserController');
 Route::resource('/mandiraMentoring', 'MandiraMentoringController');
 Route::post('/mandiraMentoring/getEditForm', 'MandiraMentoringController@getEditForm')->name('mandiraMentoring.getEditForm');
 Route::post('/mandiraMentoring/validasi/{id}', 'MandiraMentoringController@validasi')->name('mandiraMentoring.validated');
+Route::get('mandiraMentoring/detail/{id}', 'MandiraMentoringController@show')->name('mandiraMentoring.detail');
 
 //User
 Route::resource('User', 'UserController');
