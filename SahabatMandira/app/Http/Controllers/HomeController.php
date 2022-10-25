@@ -90,6 +90,7 @@ class HomeController extends Controller
         // dd($mentoring);
 
         $programMentor = MandiraMentoring::where('is_validated', '=', 1)
+            ->Where('tgl_ditutup', '>=', $mytime)
             ->skip(0)
             ->take(4)
             ->get();
@@ -114,7 +115,7 @@ class HomeController extends Controller
         $suspend = auth()->user()->is_suspend;
         // dd($suspend);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend','dataInstruktur'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur'));
 
         // return view('dashboard');
     }

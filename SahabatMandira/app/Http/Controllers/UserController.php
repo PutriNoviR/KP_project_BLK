@@ -352,7 +352,7 @@ class UserController extends Controller
             'nama_depan'            => $request->nama_depan,
             'nama_belakang'         => $request->nama_belakang,
             'jenis_identitas'       => 'KTP',
-            'nomer_hp'              => $request->nomorHp,
+            'nomer_hp'              => $request->nomer_hp,
             'alamat'                => $request->domisili,
             'jenis_kelamin'         => $request->jenis_kelamin,
             'pendidikan_terakhir'   => $request->pendidikan_terakhir

@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="modalEditMentoring">Edit Kejuruan</h5>
+        <h5 class="modal-title" id="modalEditMentoring">Edit Mentor Program</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -14,7 +14,7 @@
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Program') }}</label>
 
                 <div class="col-md-12">
-                    <input id="nama" type="text" class="form-control " name="nama_program" value="{{ date('Y-m-d\TH:i:s',$mentoring->nama_program) }}" required autocomplete="nama">
+                    <input id="nama" type="text" class="form-control " name="nama_program" value="{{ $mentoring->nama_program }}" required autocomplete="nama">
 
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <label for="nama" class="col-md-12 col-form-label">{{ __('Deskripsi Program') }}</label>
 
                 <div class="col-md-12">
-                    <textarea class="form-control" name="deskripsi_program" id="deskripsi-program" rows="2" value="{{ $mentoring->deskripsi_program }}"></textarea>
+                    <textarea class="form-control" name="deskripsi_program" id="deskripsi-program" rows="2" value="">{{ $mentoring->deskripsi_program }}</textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="tgl_dibuka" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_dibuka" value="{{ $mentoring->tgl_dibuka }}">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_dibuka" value="{{ date('Y-m-d\TH:i:s',strtotime($mentoring->tgl_dibuka)) }}">
 
                 <div class="col-md-12">
 
@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="tgl_ditutup" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup" value="{{ date('Y-m-d\TH:i:s',strtotime($mentoring->tgl_dibuka)) }}">
 
                 <div class="col-md-12">
 

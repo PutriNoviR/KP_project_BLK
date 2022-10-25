@@ -13,7 +13,7 @@ Dashboard
         });
     });
 
-    function modalEdit(id_mentoring) {
+    function editMentoring(id_mentoring) {
         $.ajax({
             type: 'POST',
             url: '{{ route("mandiraMentoring.getEditForm") }}',
@@ -30,6 +30,23 @@ Dashboard
         });
     }
 
+    function modalEdit(sesiPelatihanId) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getEditForm") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': sesiPelatihanId,
+            },
+            success: function(data) {
+                $("#modalContent").html(data.msg);
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+    
     function submitFormDelete(form) {
         swal({
                 title: "Peringatan!",
@@ -367,7 +384,7 @@ Dashboard
                 </td>
                 <td>
                     <a data-toggle="modal" data-target="#modalEditMentoring" class='btn btn-warning'
-                        onclick="modalEdit({{$m->id_mentoring}})">
+                        onclick="editMentoring({{$m->id_mentoring}})">
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="{{ route('mandiraMentoring.destroy',$m->id_mentoring) }}"
@@ -542,7 +559,7 @@ Dashboard
                     <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                         Tambah Instruktur
                     </a>
-                    <a data-toggle="modal" data-target="" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
@@ -563,7 +580,12 @@ Dashboard
         </tbody>
     </table>
 </div>
+{{-- Modal edit sesi --}}
+<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
+    </div>
+</div>
 
 {{-- Modal tambah Instruktur --}}
 @foreach($adminDashboard as $d)

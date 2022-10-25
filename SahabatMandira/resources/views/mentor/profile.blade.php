@@ -31,12 +31,6 @@ Profile
             $('#ubahDataMentor').addClass('d-none');
         })
 
-        $('#btnsimpan').click(function() {
-            $('#btnubahdata').show();
-            $('#data-mentor').show();
-            $('#ubahDataMentor').addClass('d-none');
-        })
-
         $('#btnSimpanKeahlian').click(function() {
             const nama = $('#namaKeahlian').val();
             const id = $('#namaKeahlian option:selected').attr('id-keahlian');
@@ -62,7 +56,12 @@ Profile
     <div class="container-fluid">
         <div class="card p-5">
             <div class="d-flex">
+                @if($user->pas_foto == null)
                 <img src="{{ asset('storage/logo/default.png') }}" class="rounded-circle d-block" width="100" height="100" alt="">
+                @else
+                <img src="{{ asset('storage/'.$user->pas_foto) }}" class="rounded-circle d-block" width="100" height="100" alt="">
+                @endif
+                
                 <div class="ml-5 d-flex justify-content-between w-100">
                     <div class="">
                         <h3 class="font-weight-normal">{{ $user->nama_depan }} {{ $user->nama_belakang }}</h3>
@@ -149,7 +148,7 @@ Profile
                 <div class="col-4">
                     <p>
                         <span class="text-muted d-block">Nomor Telepon</span>
-                        <input type="text" class="form-control" name='nomorHp' id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
+                        <input type="text" class="form-control" name='nomer_hp' id="notelp-perusahaan" value="{{ $user->nomer_hp}}">
                     </p>
                     <p>
                         <span class="text-muted d-block">Alamat</span>
