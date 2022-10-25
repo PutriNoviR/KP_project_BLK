@@ -363,12 +363,21 @@ class UserController extends Controller
             $update['tanggal_lahir'] = $request->tanggal_lahir;
             $update['konsentrasi_pendidikan'] = $request->konsentrasi;
         } else if ($type == 'peserta') {
-            $update['pas_foto'] = $request->file('pas_foto')->store('user/pas_foto');
+            if ($request->file('pas_foto') != null) {
+                $update['pas_foto'] = $request->file('pas_foto')->store('user/pas_foto');
+            }
+            if ($request->file('ktp') != null) {
+                $update['ktp'] = $request->file('fotoKtp')->store('user/ktp');
+            }
+            if ($request->file('ksk') != null) {
+                $update['ksk'] = $request->file('ksk')->store('user/ksk');
+            }
+            if ($request->file('ijazah') != null) {
+                $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
+            }
+            
             $update['nomor_identitas'] = $request->nik;
             $update['kota'] = $request->kota;
-            $update['ktp'] = $request->file('fotoKtp')->store('user/ktp');
-            $update['ksk'] = $request->file('ksk')->store('user/ksk');
-            $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
         }
 
         $update = DB::table('users')->where('email', $userLogin)->update($update);

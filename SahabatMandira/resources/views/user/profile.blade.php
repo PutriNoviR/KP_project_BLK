@@ -72,7 +72,7 @@ Profile
                             <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('user.profile.update') }}">
                                 @csrf
                                 <input type="hidden" name='type' value='peserta'>
-                                
+
                                 <div class="form-body">
 
                                     <div class="form-group">
@@ -131,12 +131,12 @@ Profile
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="nomorHp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
+                                        <label for="nomer_hp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
 
                                         <div class="col-md-12">
-                                            <input id="nomorHp" type="text" class="form-control @error('nomorHp') is-invalid @enderror" value="{{ $data->nomer_hp }}" name="nomorHp" required autocomplete="nomorHp" autofocus>
+                                            <input id="nomer_hp" type="text" class="form-control @error('nomer_hp') is-invalid @enderror" value="{{ $data->nomer_hp }}" name="nomer_hp" required autocomplete="nomer_hp" autofocus>
 
-                                            @error('nomorHp')
+                                            @error('nomer_hp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -190,25 +190,25 @@ Profile
                                     <div class="form-group">
                                         <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Pas Foto') }}</label>
 
-                                        <input type="file" name='pas_foto' class="defaults" value="" required>
+                                        <input type="file" name='pas_foto' class="defaults" value="">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="fotoKtp" class="col-md-12 col-form-label">{{ __('Dokumen KTP') }}</label>
 
-                                        <input type="file" name='fotoKtp' class="defaults" value="" required>
+                                        <input type="file" name='fotoKtp' class="defaults" value="">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="ksk" class="col-md-12 col-form-label">{{ __('Dokumen KSK') }}</label>
 
-                                        <input type="file" name='ksk' class="defaults" value="" required>
+                                        <input type="file" name='ksk' class="defaults" value="">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="ijazah" class="col-md-12 col-form-label">{{ __('Dokumen Ijazah') }}</label>
 
-                                        <input type="file" name='ijazah' class="defaults" value="" required>
+                                        <input type="file" name='ijazah' class="defaults" value="">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary">SIMPAN</button>

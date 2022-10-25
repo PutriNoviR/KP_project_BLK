@@ -30,7 +30,7 @@ PELATIHAN
             </div>
             <div class="card-body">
                 <h2>LINK PENDAFTARAN PELATIHAN :</h2>
-                <h4><a href="{{ $d->link_pendaftaran }}">KLIK LINK INI UNTUK MELAKUKAN PENDAFTARAN</a></h4>
+                <h4><a href="{{ url($d->link_pendaftaran) }}">KLIK LINK INI UNTUK MELAKUKAN PENDAFTARAN</a></h4>
             </div>
             
         </div>

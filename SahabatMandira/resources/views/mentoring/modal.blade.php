@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="tgl_ditutup" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup" value="{{ date('Y-m-d\TH:i:s',strtotime($mentoring->tgl_dibuka)) }}">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tgl_ditutup" value="{{ date('Y-m-d\TH:i:s',strtotime($mentoring->tgl_ditutup)) }}">
 
                 <div class="col-md-12">
 

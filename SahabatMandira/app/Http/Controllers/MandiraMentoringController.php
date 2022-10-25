@@ -42,7 +42,7 @@ class MandiraMentoringController extends Controller
     {
         //
         $userLogin = auth()->user()->email;
-        // dd($request->gambar);
+        // dd($request->tgl_dibuka);
         // $validator = $request->validate([
         //     'gambar' => ['required','mimes:png,jpg'],
         // ]);
@@ -104,7 +104,15 @@ class MandiraMentoringController extends Controller
             'nama_program' => $request->get('nama_program'),
             'deskripsi_program' => $request->get('deskripsi_program'),
             'link_pendaftaran' => $request->get('link_pendaftaran'),
+            'tgl_dibuka' => $request->get('tgl_dibuka'),
+            'tgl_ditutup' => $request->get('tgl_ditutup'),
+            'keahlians_idkeahlians' => $request->get('keahlians_idkeahlians'),
         );
+
+        if($request->file('gambar') != null)
+        {
+            $update['gambar'] = $request->file('gambar')->store('mentor/gambar');
+        }
 
         DB::connection('mandira')
             ->table('mandira_mentorings')

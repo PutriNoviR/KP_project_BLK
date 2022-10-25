@@ -224,7 +224,7 @@ Dashboard
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{url('mandiraMentoring/detail/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{url('mandiraMentoring/detail/'.$d->id_mentoring)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>

@@ -246,14 +246,15 @@ class SesiPelatihanController extends Controller
     public function showMore($id)
     {
         $userLogin = auth()->user()->email;
+        $mytime = Carbon::now();
         if ($id == '1') {
-            $mytime = Carbon::now();
             $data = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
             ->get();
             $sesi = '0';
         } elseif ($id == '2') {
             $data = MandiraMentoring::join('masterblk_db.users as u','u.email','=','mandira_mentorings.email_mentor')
             ->where('is_validated','=',1)
+            ->Where('tgl_ditutup', '>=', $mytime)
             ->get();
             //
             $sesi = '2';
