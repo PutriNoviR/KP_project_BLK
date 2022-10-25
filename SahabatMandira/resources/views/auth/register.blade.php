@@ -8,18 +8,47 @@ Register
 @section('javascript')
 <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>
-   setInterval(function () {
-        grecaptcha.ready(function() {
-            
-            grecaptcha.execute('{{config("services.recaptcha.site")}}', {action: 'submit'}).then(function(token) {
+    setInterval(function () {
+        grecaptcha.ready(function () {
+
+            grecaptcha.execute('{{config("services.recaptcha.site")}}', {
+                action: 'submit'
+            }).then(function (token) {
                 // Add your logic to submit to your backend server here.
-                if(token){
+                if (token) {
                     $("#recaptcha_token").val(token);
                 }
-               
+
             });
         });
     }, 3000);
+
+    $(document).ready(function () {
+        $("#show_hide_password span").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+        $("#show_hide_password_confirmation span").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password_confirmation input').attr("type") == "text") {
+                $('#show_hide_password_confirmation input').attr('type', 'password');
+                $('#show_hide_password_confirmation i').addClass("fa-eye-slash");
+                $('#show_hide_password_confirmation i').removeClass("fa-eye");
+            } else if ($('#show_hide_password_confirmation input').attr("type") == "password") {
+                $('#show_hide_password_confirmation input').attr('type', 'text');
+                $('#show_hide_password_confirmation i').removeClass("fa-eye-slash");
+                $('#show_hide_password_confirmation i').addClass("fa-eye");
+            }
+        });
+    });
 
 </script>
 @endsection
@@ -151,15 +180,27 @@ Register
                         <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                         <div class="col-md-12">
-                            <input id="password" type="password"
+                            {{-- <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password">
+                                autocomplete="new-password"> --}}
+                            <div class="input-group mb-3" id="show_hide_password">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required aria-describedby="basic-addon-password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon-password" style="cursor: pointer"><i
+                                            class="fas fa-eye-slash"></i></span>
+                                </div>
 
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>'Password anda harus terdiri dari minimal 8 karakter, harus mengandung setidaknya 1 Huruf Besar, 1 Huruf Kecil, 1 Numerik dan 1 karakter khusus(#,?,!,@,$,%,^,&,*,-).'</strong>
-                            </span>
-                            @enderror
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>'Password anda harus terdiri dari minimal 8 karakter, harus mengandung
+                                        setidaknya 1 Huruf Besar, 1 Huruf Kecil, 1 Numerik dan 1 karakter
+                                        khusus(#,?,!,@,$,%,^,&,*,-).'</strong>
+                                </span>
+                                @enderror
+                            </div>
+
                         </div>
                     </div>
 
@@ -168,8 +209,15 @@ Register
                             class="col-md-12 col-form-label">{{ __('Konfirmasi Password') }}</label>
 
                         <div class="col-md-12">
-                            <input id="password-confirm" type="password" class="form-control"
-                                name="password_confirmation" required autocomplete="new-password">
+                            <div class="input-group mb-3" id="show_hide_password_confirmation">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required
+                                    aria-describedby="basic-addon-confirmation-password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text " style="cursor: pointer"
+                                        id="basic-addon-confirmation-password"><i class="fas fa-eye-slash"></i></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -177,9 +225,9 @@ Register
 
                     {{-- <div class="form-group col-md-6">
                         <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
-                        </div>
-                        <br />
-                    </div> --}}
+            </div>
+            <br />
+        </div> --}}
 
         <div class="form-group mb-0 text-center">
             <div class="col-md-12 offset-manual">
@@ -197,7 +245,7 @@ Register
                 </div>
                 @endif
 
-                            </div>
+            </div>
         </div>
         </form>
     </div>
