@@ -42,6 +42,7 @@ class TugasController extends Controller
         $tugas = new Tugas();
         $tugas->email_admin = $request->email_admin;
         $tugas->email_mentor = $request->email_mentor;
+        $tugas->sesi_pelatihans_id = $sesiPelatihan_id;
         $tugas->keterangan = $request->keterangan;
         $tugas->bukti = $request->file('bukti')->store('tugas/bukti');
         
@@ -68,7 +69,7 @@ class TugasController extends Controller
     public function show($id)
     {
         //
-        $data = Tugas::all()->where('id','=',$id);
+        $data = Tugas::all()->where('sesi_pelatihans_id','=',$id);
         // dd($data);
         return view('sesipelatihan.assignTugasVerifikator', compact('data'));
     }

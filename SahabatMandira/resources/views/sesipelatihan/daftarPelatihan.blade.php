@@ -158,7 +158,7 @@ PELATIHAN
                                         <input type="file" name='bukti' class="defaults" value="" required>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary" disabled>SIMPAN</button>
+                                        <button type="submit" class="btn btn-primary" >SIMPAN</button>
                                     </div>
                                 </div>
                             </form>
