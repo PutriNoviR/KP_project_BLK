@@ -324,9 +324,12 @@ class TesTahapAwalController extends Controller
     public function riwayatTesGlobal(){
 
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
-        $riwayat_tes= UjiMinatAwal::all();
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-10-28')->get();
+
+        
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+        $dataRill= 'Data Dummy';
 
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -336,9 +339,33 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
 
     }
+    public function riwayatTesGlobal2(){
+
+        // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+        
+        
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'<','2022-10-28')->get();
+
+        
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+        $dataRill='Data Valid';
+
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
+
+    }
+    
     
 
     public function cetakPDF(){
