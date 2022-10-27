@@ -27,7 +27,7 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
         $data_kategori=[];
         $idRole = Role::where('nama_role', 'peserta')->first();
         $user =User::where('roles_id',$idRole->id)->get();
-        $riwayat_tes= UjiMinatAwal::all();
+        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT('tanggal_mulai','%Y-%m-%d'))"),'>=','2022-10-28')->get();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
         foreach($riwayat_tes as $key=>$data_test){

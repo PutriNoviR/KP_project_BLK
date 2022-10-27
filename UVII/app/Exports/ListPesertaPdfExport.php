@@ -69,17 +69,17 @@ class ListPesertaPdfExport implements FromView, WithEvents
         return [
 
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->mergeCells('A1:H1');
-                $event->sheet->mergeCells('A2:H2');
-                $event->sheet->mergeCells('A3:H3');
-                $event->sheet->mergeCells('A4:H4');
-                $event->sheet->mergeCells('A5:H5');
+                $event->sheet->mergeCells('A1:I1');
+                $event->sheet->mergeCells('A2:I2');
+                $event->sheet->mergeCells('A3:I3');
+                $event->sheet->mergeCells('A4:I4');
+                $event->sheet->mergeCells('A5:I5');
 
                 for($i=6; $i<($event->sheet->getHighestRow() + 1); $i++){
-                    $event->sheet->mergeCells("G".$i.":H".$i); 
+                    $event->sheet->mergeCells("H".$i.":I".$i); 
                 }
 
-                $event->sheet->getDelegate()->getStyle('A6:H6')
+                $event->sheet->getDelegate()->getStyle('A6:I6')
                                 ->getFont()
                                 ->setBold(true)
                                 ->setSize(10);

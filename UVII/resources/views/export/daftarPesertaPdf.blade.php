@@ -13,6 +13,7 @@
                     <tr>
                         <th style="width: 5%; text-align: center;">No</th>
                         <th style="width: 35%; text-align: center;">Peserta</th>
+                        <th style="width: 35%; text-align: center;">Telepon</th>
                         <th style="width: 15%; text-align: center;">Tempat Tanggal Lahir</th>
                         <th style="width: 28%; text-align: center;">Pendidikan dan Konsentrasi/Keahlian</th>
                         <th style="width: 18%; text-align: center;">Kota Domisili</th>
@@ -37,13 +38,16 @@
                                 <div class="col-sm-6 hidden-xs"><br>       
                                     {{$u['nama_depan']}} {{$u['nama_belakang']}}
                                 </div>
-                                <div class="col-sm-6 hidden-xs">
+                                {{--<div class="col-sm-6 hidden-xs">
                                     <br><br><small>{{$u['email']}}</small>
                                     <br><br><small>Telepon: {{$u['nomer_hp'] ?? '-'}}</small>
                                     <br><br><small>Alamat: {{$u['alamat'] ?? '-'}}</small>
                                     
-                                </div>
+                                </div>--}}
                             </div>
+                        </td>
+                        <td data-th="Telepon" style="text-align: center;">
+                            {{$u['No.Hp']}}
                         </td>
 
                         <td data-th='Tempat Tanggal Lahir' style="text-align: center;">
