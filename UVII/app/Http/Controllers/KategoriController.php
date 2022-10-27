@@ -60,7 +60,7 @@ class KategoriController extends Controller
 
         $kategori->save();
 
-        return redirect()->route('kategori.index')->with('status','Kategori berhasil ditambahkan');
+        return redirect()->route('kategori.index')->with('success','Kategori berhasil ditambahkan');
     }
 
     /**
@@ -117,7 +117,7 @@ class KategoriController extends Controller
     {
         try{
             $kategori->delete();
-            return redirect()->back()->with('status','Kategori berhasil dihapus');
+            return redirect()->back()->with('success','Kategori berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 

@@ -364,6 +364,40 @@ jQuery(document).ready(function() {
 				$('#modalValidate').show(); 
 			}	
 		} ); 
+
+		$('#sample_1 tbody').on( 'change', 'input', function (e) {
+			var width = screen.width;
+
+			if(width < 440 && ($(this).attr('soal_id') != null)){
+				// $('input[type=checkbox]').change(); 
+				var old_id = $(this).attr('soal_id');
+    			var value = '0';
+
+				if(this.checked){
+					value ='1';
+				}
+
+				$.ajax({
+					type:'POST',
+					url:'{{ route("update.enable")}}',
+					data:{'_token':'<?php echo csrf_token() ?>',
+							'id':old_id,
+							'value':value
+					},
+					success: function(data){
+						// alert('hi');
+						if(value == 1){
+							$(this).prop('checked', true);
+						}
+						else{
+							$(this).prop('checked', false);
+						}
+
+						document.location.reload();
+					}
+				});
+			}	
+		} ); 
     } );
 </script>
 

@@ -3,6 +3,7 @@
 
     <div class="portlet-title">
         <b>Jumlah Peserta: {{ $totalPeserta }}</b><br><br>
+        <strong>Jumlah Keseluruhan Data: {{$riwayat_tes->count()}}</strong><br><br>
     </div>
 
     <div class="portlet-body">
@@ -10,43 +11,44 @@
             <table id='sample_1' class="table table-striped table-bordered table-hover dataTable no-footer display responsive" style="border-collapse: collapse; width:100%;">
                 <thead>
                     <tr>
-                        <th style="width: 2%; text-align: left;">Kode</th>
-                        <th style="width: 15%; text-align: left;">Peserta</th>
-                        <!-- <th style="width: 15%;">Email</th> -->
+                        <th style="text-align: center;">Kode</th>
+                        <th style="text-align: center;">Nama Lengkap</th>
+                        <th style="text-align: center;">Email</th>
                         <!-- <th>Pendidikan</th>
                         <th>Konsentrasi/Keahlian</th>
                         <th>Kota Lahir</th>
                         <th>Tanggal Lahir</th>
                         <th>Kota Domisili</th> -->
-                        <th style="width: 30%; text-align: left;">Tanggal Tes</th>
-                        <!-- <th style="width: 30%;">Selesai Tes</th> -->
-                        <th style="width: 30%; text-align: center;">Rekom Klaster</th>
-                        <th style="width: 50%; text-align:left;">Rekom Kategori</th>
+                        <th style="text-align: center;">Mulai Tes</th>
+                        <th style="text-align: center;">Selesai Tes</th>
+                        <th style="text-align: center;">Rekom Klaster</th>
+                        <th style="text-align:left;">Rekom Kategori</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($riwayat_tes as $riwayat)
-                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.3)">
-                        <td data-th="Kode">
+                    <tr>
+                        <td data-th="Kode" style="text-align: center; margin: 0 auto;">
                             {{$riwayat->id}}
                         </td>
 
                         @foreach($user as $u)
                             @if($riwayat->users_email == $u->email)
-                                <td data-th="Peserta">
-                                    <div class="row">
-                                        <div class="col-sm-6 hidden-xs">
+                                <td data-th="Nama Lengkap">
+                                    <!-- <div class="row"> -->
+                                        <!-- <div class="col-sm-6 hidden-xs"> -->
                                             
                                             {{$u->nama_depan}} {{$u->nama_belakang}}
                                            
-                                        </div>
+                                        <!-- </div> -->
                                         
-                                        <div class="col-sm-6 hidden-xs">
-                                           
-                                            <small>Email: {{$u->email}}</small>
+                                        <!-- <div class="col-sm-6 hidden-xs"> -->
+                                </td>
+                                <td data-th="Email" style="text-align:center">           
+                                            <small>{{$u->email}}</small>
                                             
-                                        </div>
-                                    </div>
+                                        <!-- </div> -->
+                                    <!-- </div> -->
                                 </td>
 
                                 {{-- <td data-th="Pendidikan">
@@ -71,26 +73,28 @@
                             @endif
                         @endforeach
 
-                        <td data-th="Tanggal Tes"> 
-                            <div class="row">
-                                <div class="col-sm-6 hidden-xs">
-                                   <small>Mulai: {{$riwayat->tanggal_mulai}}</small>
-                                </div><br>
-                                <div class="col-sm-6">
-                                    <small>Selesai: {{$riwayat->tanggal_selesai ?? '-'}}</small>
-                                </div>
-                            </div>
+                        <td data-th="Mulai Tes"> 
+                            <!-- <div class="row"> -->
+                                <!-- <div class="col-sm-6 hidden-xs"> -->
+                                   <small>{{$riwayat->tanggal_mulai}}</small>
+                        </td>
+                        <td data-th="Selesai Tes">
+                                <!-- </div><br> -->
+                                <!-- <div class="col-sm-6"> -->
+                                    <small>{{$riwayat->tanggal_selesai ?? '-'}}</small>
+                                <!-- </div> -->
+                            <!-- </div> -->
                         </td>
    
                         <td data-th="Rekom Klaster" style="text-align: center;">
                             @foreach($dataKlaster as $d)
                                 @if($riwayat->klaster_id == $d->id)
-                                    {{ $d->nama }}
+                                   {{ $d->nama }}
                                 @endif
                             @endforeach
                         </td>
                         
-                        <td data-th="Rekom Kategori">
+                        <td data-th="Rekom Kategori" style="text-align: center;">
                             @if($dataKategori[$riwayat->id] != null)
                                 @foreach($dataKategori[$riwayat->id] as $d)
                                 
@@ -106,14 +110,9 @@
                             @endif
                         </td>
                 
-                        <td class="actions" data-th="">
-                        </td>
                     </tr><br>
                     @endforeach
                 </tbody>
-
-                <strong>Jumlah Keseluruhan Data: {{$riwayat_tes->count()}}</strong>
-               
             </table>
         </div>
     </div>

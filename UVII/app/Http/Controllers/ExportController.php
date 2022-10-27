@@ -10,9 +10,8 @@ use App\KlasterPsikometrik;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-
-
-
+use App\Exports\ListPesertaPdfExport;
+use App\Exports\RiwayatPdfExport;
 
 use Illuminate\Http\Request;
 
@@ -107,6 +106,16 @@ class ExportController extends Controller
     }
     public function exportListPeserta(){
         return Excel::download(new ListPesertaExport, 'DaftarPeserta.xlsx');
+
+    }
+
+    public function exportRiwayatPDF(){
+        return Excel::download(new RiwayatPdfExport, 'RiwayatTesPeserta.pdf');
+
+    }
+
+    public function exportPesertaPDF(){
+        return Excel::download(new ListPesertaPdfExport, 'DaftarPeserta.pdf');
 
     }
 }

@@ -61,6 +61,8 @@ class SoalImport implements ToModel,WithHeadingRow
             'jawaban'=> $row['jawaban'],
             'klaster_id'=>$data_klaster->id,
             'question_id'=>Pertanyaan::orderBy('id','DESC')->first()->id,
+            'created_at'=>$tanggal,
+            'updated_at'=>$tanggal,
         ];
 
         Jawaban::insert($jawaban);

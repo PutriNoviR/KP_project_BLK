@@ -36,6 +36,17 @@
 @endsection
 
 @section('contents')
+@if($message = Session::get('success'))
+    <div class="alert alert-success">
+        <li>{{$message}}</li>
+    </div>
+@endif
+@if($message = Session::get('error'))
+  <div class="alert alert-danger">
+    <li>{{$message}}</li>
+  </div>
+@endif
+
 <a data-target='#tambahModal' data-toggle='modal' class='btn btn-xs btn-success'><i class="fa fa-plus"></i> Tambah Klaster</a><br><br>
 
 <div class="portlet">
@@ -141,7 +152,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="nama" class=" form-control-label">Nama</label>
-                            <input type="text" name="nama" placeholder="Enter role name" class="form-control" required>
+                            <input type="text" name="nama" placeholder="Enter cluster name" class="form-control" required>
                         </div>
                    
                         <div class="form-group">

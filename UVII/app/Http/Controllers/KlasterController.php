@@ -56,7 +56,7 @@ class KlasterController extends Controller
 
         $klaster->save();
 
-        return redirect()->route('klaster.index')->with('status','Klaster berhasil ditambahkan');
+        return redirect()->route('klaster.index')->with('success','Klaster berhasil ditambahkan');
        
     }
 
@@ -110,7 +110,7 @@ class KlasterController extends Controller
     {
         try{
             $klaster->delete();
-            return redirect()->back()->with('status','Kategori berhasil dihapus');
+            return redirect()->back()->with('success','Kategori berhasil dihapus');
         }catch (\PDOException $e) {
             $msg="Data gagal dihapus. Pastikan data child sudah hilang atau tidak berhubungan";
 

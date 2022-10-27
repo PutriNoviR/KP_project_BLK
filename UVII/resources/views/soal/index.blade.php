@@ -339,7 +339,7 @@
         <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
-              <input type="file" name="file" class="form-control">
+              <input type="file" name="file" class="form-control" accept=".xlsx, .csv" required>
               <br>
               <p>Ketentuan:</p>
               <li>Data Pertanyaan Tidak Boleh sama</li>

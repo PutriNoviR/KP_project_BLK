@@ -263,7 +263,7 @@
               
                   <label for="menu_manajemen" class="col-md-2">Nama:</label>
                   <div class="col-md-8">
-                    <input type="text" class='form-control' name='nama' placeholder="nama menu">
+                    <input type="text" class='form-control' name='nama' placeholder="nama menu" required>
                   </div>
                 
               </div>
@@ -271,7 +271,7 @@
                 <!-- <div class="row col-md-12"> -->
                     <label for="menu_manajemen" class="col-md-2">Deskripsi :</label>
                     <div class="col-md-8">
-                      <textarea class='form-control' name='deskripsi' rows='3'></textarea>
+                      <textarea class='form-control' name='deskripsi' rows='3' required></textarea>
                     </div>
                 <!-- </div> -->
               </div>
@@ -283,7 +283,7 @@
                       <div class="col-md-8">
                         <div class="radio-list">
                           <label>
-                            <input type="radio" name='status' value="Aktif">
+                            <input type="radio" name='status' value="Aktif" required>
                             Aktif
                           </label>
                           <label>
@@ -299,7 +299,7 @@
                 <!-- <div class="row col-md-12"> -->
                     <label for="menu_manajemen" class="col-md-2">URL :</label>
                     <div class="col-md-8">
-                      <textarea class='form-control' name='url' rows='2'></textarea>
+                      <textarea class='form-control' name='url' rows='2' required></textarea>
                     </div>
                 <!-- </div> -->
               </div>

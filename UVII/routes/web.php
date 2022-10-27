@@ -44,12 +44,15 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::post('import','ImportController@import')->name('import');
 
     //cetak
-    Route::get('riwayat/tes_global/peserta/cetak','TesTahapAwalController@cetakPDF')->name('riwayat_tes_global.cetak');
+    // Route::get('riwayat/tes_global/peserta/cetak','TesTahapAwalController@cetakPDF')->name('riwayat_tes_global.cetak');
     Route::resource('ex/excel','ExportController');
     Route::get('/export/excel', 'ExportController@exportExcel')->name('export');
     Route::get('/listPeserta/excel', 'ExportController@exportListPeserta')->name('export.listPeserta');
-    Route::get('menu/peserta/cetak','PesertaController@cetakPDF')->name('daftar_peserta.cetak');
-    
+    // Route::get('menu/peserta/cetak','PesertaController@cetakPDF')->name('daftar_peserta.cetak');
+
+    Route::get('/listPeserta/pdf', 'ExportController@exportPesertaPDF')->name('export.cetakPeserta');
+    Route::get('/riwayatPeserta/pdf', 'ExportController@exportRiwayatPDF')->name('export.cetakRiwayatPeserta');
+
     //CRUD
     Route::resource('menu/blk', 'BlkController');
     Route::resource('soal', "PertanyaanController");

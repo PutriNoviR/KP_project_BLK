@@ -12,7 +12,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="nama" class=" form-control-label">Nama</label>
-            <input type="text" name="nama" placeholder="Enter role name" class="form-control" value="{{ $data->nama }}" required>
+            <input type="text" name="nama" placeholder="Enter cluster name" class="form-control" value="{{ $data->nama }}" required>
             <input type="hidden" name="id" value="{{$data->id}}">
         </div>
     

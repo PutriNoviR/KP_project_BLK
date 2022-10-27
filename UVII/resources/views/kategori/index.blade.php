@@ -36,6 +36,17 @@
 @endsection
 
 @section('contents')
+@if($message = Session::get('success'))
+    <div class="alert alert-success">
+        <li>{{$message}}</li>
+    </div>
+@endif
+@if($message = Session::get('error'))
+  <div class="alert alert-danger">
+    <li>{{$message}}</li>
+  </div>
+@endif
+
 <a data-target='#tambahModal' data-toggle='modal' class='btn btn-xs btn-success'><i class="fa fa-plus"></i> Tambah Kategori</a><br><br>
 
 <div class="portlet">
@@ -156,15 +167,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="nama" class=" form-control-label">Nama</label>
-                            <input type="text" name="nama" placeholder="Enter role name" class="form-control" required>
+                            <input type="text" name="nama" placeholder="Enter category name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="nama" class=" form-control-label">Kode</label>
-                            <input type="text" name="kode" placeholder="Enter role name" class="form-control" required>
+                            <input type="text" name="kode" placeholder="Enter code name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="nama" class=" form-control-label">Kode poin</label>
-                            <input type="number" name="kode_poin" placeholder="Enter role name" class="form-control" step="any"  required>
+                            <input type="number" name="kode_poin" placeholder="Using comma (.)" class="form-control" step="any"  required>
                         </div>
                         <div class="form-group">
                         <label for="nama" class=" form-control-label">Klaster</label>

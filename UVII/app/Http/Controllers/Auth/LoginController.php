@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Rules\LowercaseRule;
 
 class LoginController extends Controller
 {
@@ -61,7 +62,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            $this->username() => 'required', 
+            $this->username() => ['required', new LowercaseRule], 
             'password' => 'required',
             // recaptcha
             'g-recaptcha-response' => function($attribute, $value, $fail){

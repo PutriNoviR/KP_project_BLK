@@ -109,7 +109,7 @@ class CameraController extends Controller
                         ->select('kp.nama')
                         ->where('kp.id',$sesi->klaster_id)
                         ->first();
-
+             
                 $arr_data = [
                     'users_email'=>$sesi->users_email,
                     'tanggal_mulai'=>$sesi->tanggal_mulai,
@@ -118,9 +118,9 @@ class CameraController extends Controller
                     'validate_by'=>$sesi->validate_by,
                     'validate_at'=>$sesi->validate_at,
                     'id'=>$sesi->id,
-                    'nama_depan'=>$dataUser->nama_depan,
-                    'nama_belakang'=>$dataUser->nama_belakang,
-                    'nama'=>$dataKlaster->nama,
+                    'nama_depan'=>$dataUser->nama_depan??'-',
+                    'nama_belakang'=>$dataUser->nama_belakang??'',
+                    'nama'=>$dataKlaster->nama??'-',
                 ];
                array_push($data_akhir, $arr_data);
 

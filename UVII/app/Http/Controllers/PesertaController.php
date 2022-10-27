@@ -146,7 +146,7 @@ class PesertaController extends Controller
         }
         else{
             $this->validate($request, [
-                'username'=>['required', 'string', 'max:255', 'alpha_dash', new LowercaseRule, Rule::unique('users', 'username')->ignore($request->email, 'email')],
+                'username'=>['required', 'string', 'max:255', 'alpha_dash', new LowercaseRule, Rule::unique('users', 'username')->ignore($request->username, 'username')],
                 // 'no_identitas' => ['required', 'numeric', 'digits:16', Rule::unique('users', 'nomor_identitas')->ignore($request->email, 'email')],
       
             ]);
