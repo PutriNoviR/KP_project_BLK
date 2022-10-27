@@ -10,6 +10,10 @@ Assign Tugas
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
     });
 
@@ -31,6 +35,26 @@ Assign Tugas
                 })
             },
             error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
                 console.log(xhr);
             }
         });

@@ -28,6 +28,17 @@ Daftar Kejuruan
         });
     });
 
+    $(function() {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
     function modalEdit(id) {
         $.ajax({
             type: 'POST',

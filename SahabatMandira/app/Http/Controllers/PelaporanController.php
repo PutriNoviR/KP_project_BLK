@@ -53,7 +53,9 @@ class PelaporanController extends Controller
     {
         //
 
-        $data = PelatihanPeserta::all();
+        $data = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+        ->select('users.*','P.*')
+        ->get();
 
         // $blk_id = auth()->user()->blks_id_admin;
 

@@ -14,6 +14,10 @@ PELATIHAN
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
     });
 
@@ -264,6 +268,26 @@ PELATIHAN
         return false;
     }
 
+    function alertShow(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getDetail") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function (data) {
+                swal({
+                    title: "Aktivitas",
+                    text: data.data,
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
     function alertShowPeserta(id) {
         $.ajax({
             type: 'POST',
@@ -284,25 +308,7 @@ PELATIHAN
         });
     }
 
-    function alertShow(id) {
-        $.ajax({
-            type: 'POST',
-            url: '{{ route("sesiPelatihan.getDetail") }}',
-            data: {
-                '_token': '<?php echo csrf_token() ?>',
-                'id': id,
-            },
-            success: function (data) {
-                swal({
-                    title: "Aktivitas",
-                    text: data.data,
-                })
-            },
-            error: function (xhr) {
-                console.log(xhr);
-            }
-        });
-    }
+    
 </script>
 @endsection
 

@@ -10,6 +10,10 @@ PELATIHAN
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
         });
     });
 
@@ -75,12 +79,12 @@ PELATIHAN
                     @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                     <div class="margin-bottom-15">
                         <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-plus">Tambah Penugasan</i>
                         </a>
                     </div>
                     <div>
                         <a href="{{ route('tugas.show',$d->id) }}" class="button btn btn-warning">
-                            <i class="fas fa-eye"> View</i>
+                            <i class="fas fa-eye">Lihat Riwayat</i>
                         </a>
                     </div>
                     @else
