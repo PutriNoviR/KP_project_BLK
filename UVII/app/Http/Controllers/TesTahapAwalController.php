@@ -322,7 +322,8 @@ class TesTahapAwalController extends Controller
       return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori','settingValidasi'));
     }
     public function riwayatTesGlobal(){
-
+        
+       
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
         $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-10-28')->get();
 

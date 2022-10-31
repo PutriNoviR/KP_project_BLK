@@ -72,6 +72,7 @@
                       Selesai Tes
             </th>
             
+            
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Rekomendasi Klaster
             </th>
@@ -93,6 +94,7 @@
                 <td>
                     {{$data->users_email }}
                 </td>
+                
                 <td>
                     {{$data->tanggal_mulai }}
                 </td>
