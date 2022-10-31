@@ -159,7 +159,7 @@ class RoleController extends Controller
 
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'no_hp' => ['required', 'numeric', 'digits_between:10,12'],
+            'no_hp' => ['required', 'numeric', 'digits_between:9,13'],
             'username' => ['required', 'string', 'alpha_dash', new LowercaseRule, 'unique:users'],
             'password' => ['required', 'string', 'confirmed', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/']
         ]);
@@ -197,7 +197,7 @@ class RoleController extends Controller
        
         $this->validate($request, [
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->email, 'email')],
-            'no_hp' => ['required', 'numeric', 'digits_between:10,12'],
+            'no_hp' => ['required', 'numeric', 'digits_between:9,13'],
             'username' => ['required', 'string', 'alpha_dash', new LowercaseRule,Rule::unique('users', 'username')->ignore($request->username, 'username')],
         ]);
 

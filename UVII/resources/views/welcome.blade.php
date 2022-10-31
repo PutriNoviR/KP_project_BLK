@@ -457,6 +457,7 @@
                             <p>Hal Penting tentang Tes Minat Kejuruan:</p>
                         </div>
                         <div class="body-content">
+                            
                         @if($settingValidasi[0]->value == 1)
                         <div class='container'>
                             <!-- <h1 class="text-center">Tolong perlihatkan wajah ke kamera.</h1> -->
@@ -475,7 +476,7 @@
                                 </div>
                             </form>
                         </div>
-                    @endif
+                        @endif
                             <ul class="tulisan_rata">
                                 <li>
                                     Tes minat kejuruan ini akan memberikan masukan mengenai kejuruan dari pelatihan yang nantinya dapat Anda ambil di Balai Latihan Kerja (BLK).
@@ -571,10 +572,10 @@
             
             
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Klaster
+                      Rekomendasi Klaster Terakhir
             </th>
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Kategori
+                      Rekomendasi Kategori Terakhir
             </th>
             
           </tr>

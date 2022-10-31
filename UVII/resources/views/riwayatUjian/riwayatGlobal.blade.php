@@ -74,10 +74,10 @@
             
             
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Klaster
+                      Rekomendasi Klaster Terakhir
             </th>
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Kategori
+                      Rekomendasi Kategori Terakhir
             </th>
             
           </tr>

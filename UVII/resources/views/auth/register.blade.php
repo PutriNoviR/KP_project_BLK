@@ -31,7 +31,7 @@
 
             $("#counter").html(no_hp.length + ' ' + digit);
 
-            if(no_hp.length >= 10 && no_hp.length < 13){
+            if(no_hp.length >= 9 && no_hp.length < 14){
                
                 $('#counter').css('color','green');
             }
