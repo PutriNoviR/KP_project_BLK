@@ -408,7 +408,7 @@
 
         @else
             @if($riwayatTes1)
-                @if($settingValidasi[0]->value == 1 && $riwayatTes1->is_validate==1)
+               {{-- @if($settingValidasi[0]->value == 1 && $riwayatTes1->is_validate==1) --}}
                 <div class="card-page">
                     <div class="page">
                         <!-- <div class="card-header">
@@ -416,7 +416,9 @@
                         </div> -->
                         <div class="card-body">
 
-                            <p>
+                            <p>Hai, {{ Auth::user()->nama_depan }} {{ Auth::user()->nama_belakang }} dari {{ Auth::user()->kota }}. <br> Selamat datang kembali. 
+                                Anda telah mengikuti jenjang pendidikan {{ Auth::user()->pendidikan_terakhir }} dengan hobi {{ Auth::user()->hobi }}. 
+                                Apabila ada update informasi terkini, silahkan klik tombol berikut <a href="{{ route('profile') }}" class="btn btn-info">update profile</a> <br><br>
                                 Anda telah melakukan tes minat kejuruan pada
                                 <b> {{$riwayatTes1->tanggal_mulai}} </b>(UTC +7)
 
@@ -442,7 +444,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
+               {{-- @endif--}}
             @endif
             <div class="card-page">
                 <div class="page">
