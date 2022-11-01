@@ -20,7 +20,14 @@ class TesTahapAkhir extends Model
                             ->where('users_email', $idSesi)
                             ->orderBy('peringkat', 'ASC')
                             ->get();
+
+        $tesTahap2 = DB::connection('uvii')->table('hasil_rekomendasi_tes_tahap_2 as hrt')
+                        ->select('hrt.tanggal_mulai', 'hrt.tanggal_selesai')
+                        ->join('uji_minat_awals as uma', 'uma.id', '=', 'hrt.uji_minat_awals_id')
+                        ->where('uma.users_email', $idSesi)
+                        ->orderBy('hrt.tanggal_selesai', 'DESC')
+                        ->first();
         
-         return $listJawaban2;
+         return ["listjawaban"=>$listJawaban2, "testahap2"=>$tesTahap2];
     }
 }
