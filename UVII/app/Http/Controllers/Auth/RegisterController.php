@@ -61,12 +61,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // #?!@$%^&*-_()+,./:;<=>\^`{|}~"'[]
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:250'],
             'lastname' => ['required', 'string', 'max:250'],
             'username' => ['required', 'string', 'unique:users', 'alpha_dash', new LowercaseRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'],
+            'password' => ['required', 'confirmed','string', 'min:8', 'alpha_dash', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/'],
             'nomer' => ['required', 'numeric', 'digits_between:9,13'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');
