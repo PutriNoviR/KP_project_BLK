@@ -18,6 +18,7 @@ class TesTahapAkhir extends Model
                         ->join('kategori_psikometrik as kp','mu.kategori_psikometrik_id','=','kp.id')
                         ->select('kp.nama','mu.peringkat')
                             ->where('users_email', $idSesi)
+                            ->where('kp.nama','!=','BELUM_ADA')
                             ->orderBy('peringkat', 'ASC')
                             ->get();
 

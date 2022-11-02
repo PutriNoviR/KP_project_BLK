@@ -82,6 +82,13 @@
             
                 @endforeach
             </div>
+         
+            <br>
+            <p>
+                <b>Berikut adalah link <a href="https://bit.ly/EvaluasiTesMinatKerjaUVII" target=_blank class="btn btn-primary">Kuesioner</a> Evaluasi Tes Minat Kejuruan UVII. 
+	            Mohon kesediaan untuk mengisi kuesioner tersebut.</b>
+            </p>
+
         </div>
     </div>
 
