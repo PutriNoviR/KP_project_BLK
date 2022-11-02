@@ -161,7 +161,7 @@ class RoleController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'no_hp' => ['required', 'numeric', 'digits_between:9,13'],
             'username' => ['required', 'string', 'alpha_dash', new LowercaseRule, 'unique:users'],
-            'password' => ['required', 'string', 'confirmed', 'min:8', 'alpha_dash', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/']
+            'password' => ['required', 'string', 'confirmed', 'min:8', 'regex:/^(?=.*?[A-Z]\S)(?=.*?[0-9]\S)(?=.*?[#?!@$%^&*-_~+=]\S).{8,}$/']
         ]);
 
         $admin = new User();
