@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // $pencaker = Lamaran::distinct('users_email')->count('users_email');
-        $pencaker = User::where('roles_id', 1)->whereNull('is_suspend')->distinct('email')->count('email');
+        $pencaker = User::where('roles_id', 1)->where('is_suspend','<>',1)->distinct('email')->count('email');
         $mitra = Perusahaan::count('nama');
         $idmentor = Role::where('nama_role', 'mentor')->first();
         $mentor = User::where('roles_id', $idmentor->id)->distinct('email')->count('email');
@@ -94,6 +94,7 @@ class HomeController extends Controller
 
         $programMentor = MandiraMentoring::where('is_validated', '=', 1)
             ->Where('tgl_ditutup', '>=', $mytime)
+            ->orderBy('id_mentoring','DESC')
             ->skip(0)
             ->take(4)
             ->get();
