@@ -38,6 +38,8 @@ Auth::routes();
 Route::middleware(['can:admin-permission','auth'])->group(function(){
     //riwayat tes
     Route::get('riwayat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal')->name('riwayat_tes_global.user');
+    Route::get('riwayat_dat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal2')->name('dat.rill');
+
 
     //import
     Route::get('importView','ImportController@importView');

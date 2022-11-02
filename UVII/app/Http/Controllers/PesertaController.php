@@ -101,6 +101,7 @@ class PesertaController extends Controller
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
                 "email" => $request->email,
+                "hobi" => $request->hobi,
                 "nomer_hp" => $request->no_hp,
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,

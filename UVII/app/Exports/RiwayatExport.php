@@ -27,7 +27,7 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
         $data_kategori=[];
         $idRole = Role::where('nama_role', 'peserta')->first();
         $user =User::where('roles_id',$idRole->id)->get();
-        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT('tanggal_mulai','%Y-%m-%d'))"),'>=','2022-10-28')->get();
+        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-10-28')->get();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
         foreach($riwayat_tes as $key=>$data_test){
@@ -39,6 +39,7 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
                         'id'=>$data_test->id,
                         'nama'=>$user_data->nama_depan." ".$user_data->nama_belakang,
                         'email'=>$user_data->email,
+                        'jenis kelamin'=>$user_data->jenis_kelamin,
                         'pendidikan'=>$user_data->pendidikan_terakhir??"tidak ada",
                         'konsentrasi'=>$user_data->konsentrasi_pendidikan??"tidak ada",
                         'hobi'=>$user_data->hobi,
@@ -88,6 +89,7 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
             'Kode',
             'Nama Lengkap',
             'Email',
+            'Jenis Kelamin',
             'Pendidikan',
             'Konsentrasi/Keahlian',
             'Hobi',
@@ -106,21 +108,23 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A1:N1')
+                $event->sheet->getDelegate()->getStyle('A1:O1')
                                 ->getFont()
                                 ->setBold(true);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(31);
                 $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(30);
                 $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(13);
+                $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(15);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(13);
-                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(15);
-                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(14);
+                $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(13);
+                $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(15);
                 $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(14);
                 $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(14);
-                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(14);
+                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(14);
                 $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(20);
-                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(40);
+                $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('O')->setWidth(40);
             },
         ];
     }

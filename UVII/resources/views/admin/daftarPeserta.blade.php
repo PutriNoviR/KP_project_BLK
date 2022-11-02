@@ -91,11 +91,11 @@
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
-                        Klaster Psikometrik
+                        Klaster Psikometrik Terakhir
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
-                        Kategori Psikometrik
+                        Kategori Psikometrik Terakhir
                     </th>
                     <th  class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
                         aria-label="Rendering engine: activate to sort column ascending">
