@@ -44,7 +44,7 @@ class HomeController extends Controller
                    ->where('mm.status','Aktif')
                    ->get();
 
-        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-10-28')->get();
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
 
         
         $dataKlaster = KlasterPsikometrik::where('id','!=',0)->get();
