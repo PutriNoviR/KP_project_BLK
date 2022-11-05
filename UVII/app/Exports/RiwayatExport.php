@@ -27,16 +27,18 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
         $data_kategori=[];
         $idRole = Role::where('nama_role', 'peserta')->first();
         $user =User::where('roles_id',$idRole->id)->get();
-        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-10-28')->get();
+        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+
+        $no = 1;
         foreach($riwayat_tes as $key=>$data_test){
 
             foreach($user as $key=>$user_data){
                 
                 if($user_data->email ==$data_test->users_email){
                     $datas=[
-                        'id'=>$data_test->id,
+                        'id'=>$no,
                         'nama'=>$user_data->nama_depan." ".$user_data->nama_belakang,
                         'email'=>$user_data->email,
                         'jenis kelamin'=>$user_data->jenis_kelamin,
@@ -80,6 +82,8 @@ class RiwayatExport implements FromCollection, WithHeadings, WithEvents
             $datas['rekomendasi kategori']=$koma;
            
             array_push($seluruh_data,$datas);
+
+            $no++;
         }
 
         return collect($seluruh_data);//collect(['user','riwayat_tes','dataKlaster','dataKategori']);

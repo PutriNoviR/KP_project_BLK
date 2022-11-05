@@ -59,6 +59,7 @@ class HomeController extends Controller
                 ->join('kategori_psikometrik as kp','kp.id','=','mu.kategori_psikometrik_id')
                 ->select('kp.nama as nama_klaster')
                 ->where('users_email', $email)
+                ->where('kp.id', '!=',0)
                 ->orderBy('peringkat','ASC')
                 ->get();
 

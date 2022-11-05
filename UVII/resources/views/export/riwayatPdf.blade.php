@@ -26,10 +26,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $no = 1;
+                    @endphp
+
                     @foreach($riwayat_tes as $riwayat)
                     <tr>
                         <td data-th="Kode" style="text-align: center; margin: 0 auto;">
-                            {{$riwayat->id}}
+                            {{$no}}
                         </td>
 
                         @foreach($user as $u)
@@ -71,6 +75,7 @@
                                     {{$u->kota}}
                                 </td> --}}
                             @endif
+
                         @endforeach
 
                         <td data-th="Mulai Tes"> 
@@ -109,7 +114,9 @@
                                 Belum tes
                             @endif
                         </td>
-                
+                        @php
+                            $no++;
+                        @endphp
                     </tr><br>
                     @endforeach
                 </tbody>
