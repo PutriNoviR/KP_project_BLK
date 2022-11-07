@@ -81,6 +81,7 @@ class HomeController extends Controller
             $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
                 ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
                 ->WHERE('b.id', '=', $adminBlk)
+                ->Where('tanggal_tutup', '>=', $mytime)
                 ->select('sesi_pelatihans.*')
                 ->get();
         } else {

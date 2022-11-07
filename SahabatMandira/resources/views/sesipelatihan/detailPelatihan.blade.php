@@ -38,16 +38,36 @@ PELATIHAN
             </div>
             <div class="card-footer">
                 @if(Auth::user()->nomor_identitas == null)
-                <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}" class="button btn btn-warning" >{{ __('DAFTAR')}}</a>
+                <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}"
+                    class="button btn btn-warning">{{ __('DAFTAR')}}</a>
                 @else
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf
-                    <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
+                    <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label"
+                        value="{{ $d->tanggal_seleksi }}">
+
+                    @if ($cekTanggalDaftarUlang != null)
+                    @php
+                    $tanggalHariIni = strtotime("now");
+                    $tanggalTahunDepanSetelahDaftarUlang = strtotime("$cekTanggalDaftarUlang +1 year");
+                    @endphp
+                    @if ($tanggalHariIni >= $tanggalTahunDepanSetelahDaftarUlang)
                     @if(count($cekDaftar) == null)
-                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
+                    <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
                     @else
-                    <button type="submit" class="button btn btn-info" >{{ __('DAFTAR')}}</button>
+                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
                     @endif
+                    @else
+                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
+                    @endif
+                    @else
+                    @if(count($cekDaftar) == null)
+                    <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+                    @else
+                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
+                    @endif
+                    @endif
+
                 </form>
                 @endif
             </div>

@@ -146,7 +146,6 @@ class SesiPelatihanController extends Controller
         //         ->join('sesi_pelatihans as s', 'pm.sesi_pelatihans_id', '=', 's.id')
         //         ->where('sesi_pelatihans_id',$id)
         //         ->get();
-
         // dd($data);
         $mentor = PelatihanMentor::where('sesi_pelatihans_id', '=', $id)
             ->get();
@@ -155,7 +154,8 @@ class SesiPelatihanController extends Controller
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($cekDaftar);
-        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar'));
+        $cekTanggalDaftarUlang = PelatihanPeserta::where('email_peserta', $userLogin)->max('tanggal_daftar_ulang');
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang'));
     }
 
     /**

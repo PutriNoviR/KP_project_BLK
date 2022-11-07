@@ -38,15 +38,15 @@ Dashboard
                 '_token': '<?php echo csrf_token() ?>',
                 'id': sesiPelatihanId,
             },
-            success: function(data) {
+            success: function (data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
     }
-    
+
     function submitFormDelete(form) {
         swal({
                 title: "Peringatan!",
@@ -111,7 +111,8 @@ Dashboard
 <div class="container">
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>
-        <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti</h6>
+        <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti pada Balai Latihan Kerja Disanertran Jawa
+            Timur</h6>
     </div>
 
     <div class="row ">
@@ -224,7 +225,8 @@ Dashboard
                     <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')}}.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{url('mandiraMentoring/detail/'.$d->id_mentoring)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
+                    <a href="{{url('mandiraMentoring/detail/'.$d->id_mentoring)}}"
+                        class="button btn btn-primary">{{ __('DETAIL') }}</a>
                 </div>
             </div>
         </div>
@@ -559,7 +561,8 @@ Dashboard
                     <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                         Tambah Instruktur
                     </a>
-                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning'
+                        onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
                     <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
@@ -581,7 +584,8 @@ Dashboard
     </table>
 </div>
 {{-- Modal edit sesi --}}
-<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
