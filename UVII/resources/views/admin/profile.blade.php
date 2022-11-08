@@ -119,7 +119,14 @@
                             
                                 </div>
 
-                                <div class="form-group"><label for="no_hp" class=" form-control-label">Nomor Handphone</label><input type="text" name="no_hp" placeholder="Enter your phone number" class="form-control" value="{{$data->nomer_hp}}" required></div>
+                                <div class="form-group">
+                            
+                                    <label for="hobi" class="form-control-label">Hobi</label>
+                                    <textarea id="txt_hobi" rows='3' class="form-control" name="hobi" required autocomplete="hobi" autofocus>{{ $data->hobi }}</textarea>
+
+                                </div>
+
+                                <div class="form-group"><label for="no_hp" class="form-control-label">Nomor Handphone</label><input type="text" name="no_hp" placeholder="Enter your phone number" class="form-control" value="{{$data->nomer_hp}}" required></div>
 
                                 <div class="form-group"><label for="alamat" class="form-control-label">Alamat</label><input type="text" name="alamat" placeholder="Enter your address" class="form-control" value="{{$data->alamat}}" required></div>
                                 

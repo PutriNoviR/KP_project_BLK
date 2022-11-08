@@ -192,7 +192,7 @@
                     
                     $(".page-content-wrapper").load(location.href + " .page-content-wrapper");
                       
-                }, 15000);
+                }, 10000);
                
                 </script>
     @endif

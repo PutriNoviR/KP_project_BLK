@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
+use App\User;
 use PDF;
 use App\Role;
 
@@ -322,11 +323,15 @@ class TesTahapAwalController extends Controller
       return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori','settingValidasi'));
     }
     public function riwayatTesGlobal(){
-
+        
+       
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
-        $riwayat_tes= UjiMinatAwal::all();
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
+
+        
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+        $dataRill= 'Data Dummy';
 
         $role_user = Auth::user()->roles_id;
         $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
@@ -336,10 +341,32 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori'));
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
 
     }
-    
+    public function riwayatTesGlobal2(){
+
+        // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
+        
+        
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'<','2022-11-02')->get();
+
+        
+        $dataKlaster = KlasterPsikometrik::all();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+        $dataRill='Data Valid';
+
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+
+        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
+
+    }
 
     public function cetakPDF(){
         $idRole = Role::where('nama_role', 'peserta')->first();
@@ -353,5 +380,47 @@ class TesTahapAwalController extends Controller
         $pdf = PDF::loadview('export.riwayatPdf',compact('riwayat_tes','dataKlaster','dataKategori', 'totalPeserta', 'user'))->setOptions(['defaultFont'=>'sans-serif']);
         $name = "laporan-tes-peserta.pdf";
         return $pdf->download($name);
+    }
+
+    public function reviewAttemptTest(Request $request){
+        $role_user = Auth::user()->roles_id;
+        $menu_role = DB::table('menu_manajemens_has_roles as mmhs')
+                    ->join('menu_manajemens as mm','mmhs.menu_manajemens_id','=','mm.id')
+                    ->select('mm.nama', 'mm.url')
+                    ->where('roles_id', $role_user)
+                    ->where('mm.status','Aktif')
+                    ->get();
+
+        //waktu pengerjaan
+        $data = UjiMinatAwal::selisihDurasiPengerjaan($request->idsesi);
+        $waktu = explode(':', $data->durasi);
+        $waktu1 = $waktu[0];
+        $waktu2 = $waktu[1];
+
+        //hasil klaster + score
+        $dataHasil = UjiMinatAwal::HitungScoreMultiServer($request->idsesi);
+
+        $dataHasilTes = UjiMinatAwal::scoreTertinggi($dataHasil['hasil'], $request->idsesi);
+
+        // soal + jawaban peserta
+        $dataSoal = Pertanyaan::all();
+        $dataJawaban = UjiMinatAwal::getDataJawaban($request->idsesi);
+
+        //klaster
+        $dataKlaster = KlasterPsikometrik::all();
+
+        //Mengecek apakah ada hasil score klaster yang sama
+        $klasters = UjiMinatAwal::HasilKlasterSama($dataHasil['hasil']);
+        $jumKlaster = $klasters['jmlKlaster'];
+
+        //sudah tes
+        $tgl = UjiMinatAwal::where('id', $request->idsesi)->first();
+        
+
+       
+        $data = User::where('email',$request->email)->first();
+        $usia= Carbon::now()->diffInYears(Carbon::parse($data->tanggal_lahir));
+
+        return view('admin.reviewHasilTes', compact('menu_role','dataHasilTes','waktu1', 'waktu2','dataSoal','dataJawaban','dataKlaster', 'jumKlaster','data', 'usia','tgl'));
     }
 }

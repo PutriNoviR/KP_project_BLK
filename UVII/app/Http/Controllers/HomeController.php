@@ -44,10 +44,12 @@ class HomeController extends Controller
                    ->where('mm.status','Aktif')
                    ->get();
 
-        $data = Pertanyaan::all();
-        $data2 = Jawaban::all();
-        $data3 = DB::table('klaster_psikometrik')->where('id','!=',0)->get();
+        $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
 
+        
+        $dataKlaster = KlasterPsikometrik::where('id','!=',0)->get();
+        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+       
         $riwayatTes1 = UjiMinatAwal::where('users_email',$email)
                         ->where('klaster_id','!=',0)
                         ->orderBy('tanggal_selesai','DESC')
@@ -57,6 +59,7 @@ class HomeController extends Controller
                 ->join('kategori_psikometrik as kp','kp.id','=','mu.kategori_psikometrik_id')
                 ->select('kp.nama as nama_klaster')
                 ->where('users_email', $email)
+                ->where('kp.id', '!=',0)
                 ->orderBy('peringkat','ASC')
                 ->get();
 
@@ -74,7 +77,7 @@ class HomeController extends Controller
         }
         $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
 
-        return view('welcome', compact('tes','menu_role', 'data', 'data2', 'data3', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi'));
+        return view('welcome', compact('tes','menu_role', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi','riwayat_tes', 'dataKlaster', 'dataKategori'));
     }
 
     public function search(Request $request){

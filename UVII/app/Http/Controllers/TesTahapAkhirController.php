@@ -95,9 +95,11 @@ class TesTahapAkhirController extends Controller
                     ->get();
                     
         $user = Auth::user()->email;
-        $hasil_Tes_2 = TesTahapAkhir::getDataJawabanAkhir($user);
+        $tes_2 = TesTahapAkhir::getDataJawabanAkhir($user);
+        $hasil_Tes_2 = $tes_2['listjawaban'];
+        $tanggal_tes = $tes_2['testahap2'];
 
-        return view('hasilTesTahap2.index',compact('hasil_Tes_2','menu_role'));
+        return view('hasilTesTahap2.index',compact('hasil_Tes_2','menu_role','tanggal_tes'));
 
 
     }

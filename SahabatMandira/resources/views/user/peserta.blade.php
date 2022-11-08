@@ -6,10 +6,10 @@ Daftar Peserta
 
 @section('javascript')
 <script>
-    $(function() {
+    $(function () {
         $("#myTable").DataTable({
             "responsive": true,
-            "autoWidth": false,
+            "autoWidth": true,
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
@@ -25,10 +25,10 @@ Daftar Peserta
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function(data) {
+            success: function (data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.log(xhr);
             }
         });
@@ -49,6 +49,7 @@ Daftar Peserta
             });
         return false;
     }
+
 </script>
 @endsection
 
@@ -69,7 +70,8 @@ Daftar Peserta
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
+        aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>NO</th>
@@ -98,35 +100,42 @@ Daftar Peserta
                 </td>
                 <td>
                     @if( $d->is_suspend == '1')
-                    <form method="POST" action="{{ route('User.suspend',$d->email) }}" onsubmit="return submitFormSuspend(this);" class="d-inline">
+                    <form method="POST" action="{{ route('User.suspend',$d->email) }}"
+                        onsubmit="return submitFormSuspend(this);" class="d-inline">
                         @csrf
-                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-success' onclick="modalEdit('{{$d->email_peserta}}')">
+                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-success'
+                            onclick="modalEdit('{{$d->email_peserta}}')">
                             UNSUSPEND
                         </button>
                     </form>
                     @else
-                    <form method="POST" action="{{ route('User.suspend',$d->email) }}" onsubmit="return submitFormSuspend(this);" class="d-inline">
+                    <form method="POST" action="{{ route('User.suspend',$d->email) }}"
+                        onsubmit="return submitFormSuspend(this);" class="d-inline">
                         @csrf
-                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-danger' onclick="modalEdit('{{$d->email_peserta}}')">
+                        <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-danger'
+                            onclick="modalEdit('{{$d->email_peserta}}')">
                             SUSPEND
                         </button>
                     </form>
                     @endif
                 </td>
             </tr>
-            <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
 
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}}
+                                {{ $d->nama_belakang}}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div>
-                                <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                                <img class="image-responsive-width" style="height: 90%; width: 90%;"
+                                    src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                             </div>
                             <hr>
                             <div>

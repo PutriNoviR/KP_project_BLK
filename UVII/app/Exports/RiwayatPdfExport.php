@@ -102,7 +102,7 @@ class RiwayatPdfExport implements WithEvents, FromView
     {
         $idRole = Role::where('nama_role', 'peserta')->first();
         $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
-        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT('tanggal_mulai','%Y-%m-%d'))"),'>=','2022-10-28')->get();
+        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
 

@@ -13,6 +13,7 @@ use PDF;
 use App\KlasterPsikometrik;
 use App\KategoriPsikometrik;
 use App\Rules\LowercaseRule;
+use App\UjiMinatAwal;
 
 class PesertaController extends Controller
 {
@@ -94,13 +95,14 @@ class PesertaController extends Controller
         if($request->tab == 'tab_1'){
             $this->validate($request, [
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->email, 'email')],
-                'no_hp' => ['required', 'numeric', 'digits_between:10,12'],
+                'no_hp' => ['required', 'numeric', 'digits_between:9,13'],
             ]);
 
             $peserta = [
                 'nama_depan' => $request->nama_depan,
                 'nama_belakang' => $request->nama_belakang,
                 "email" => $request->email,
+                "hobi" => $request->hobi,
                 "nomer_hp" => $request->no_hp,
                 "alamat" => $request->alamat,
                 "kota" => $request->kota,
@@ -172,14 +174,13 @@ class PesertaController extends Controller
                 "konsentrasi_pendidikan" => $request->konsentrasi,
             ];
         }
-        
+
         User::where('email', $request->old_email)->update($peserta);
-  
-        $dataUjiMinat = User::find($request->old_email)->ujiMinatAwals()->get();
-        
-       
-        if($dataUjiMinat){
-            User::find($request->old_email)->ujiMinatAwals()->update(['users_email'=>$request->email]);
+
+        $dataUjiMinat = UjiMinatAwal::where('users_email',$request->old_email)->get() ?? null;
+
+        if(!empty($dataUjiMinat)){
+            UjiMinatAwal::where('users_email',$request->old_email)->update(['users_email'=>$request->email]);
         }
        
         return redirect()->back()->with("status", "data telah diubah!");

@@ -6,6 +6,7 @@ use App\Keahlian;
 use App\KeahlianUser;
 use App\Lamaran;
 use App\MandiraMentoring;
+use App\PelatihanMentor;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
 use App\User;
@@ -35,11 +36,13 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $pencaker = Lamaran::distinct('users_email')->count('users_email');
+        // $pencaker = Lamaran::distinct('users_email')->count('users_email');
+        $pencaker = User::where('roles_id', 1)->where('is_suspend','<>',1)->distinct('email')->count('email');
         $mitra = Perusahaan::count('nama');
         $idmentor = Role::where('nama_role', 'mentor')->first();
         $mentor = User::where('roles_id', $idmentor->id)->distinct('email')->count('email');
-        $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran', '<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup', '>=', date('y-m-d h:i:s', strtotime('now')))->count();
+        // $totalpelatihan = SesiPelatihan::where('tanggal_pendaftaran', '<=', date('y-m-d h:i:s', strtotime('now')))->where('tanggal_tutup', '>=', date('y-m-d h:i:s', strtotime('now')))->count();
+        $totalpelatihan = SesiPelatihan::count() + PelatihanVendor::count() + PelatihanMentor::count();
         $totalpendaftar = PelatihanPeserta::all()->count();
         $pesertaditerima = PelatihanPeserta::where('rekom_keputusan', 'LULUS')->count();
         $persentase = $pesertaditerima / $totalpendaftar * 100;
@@ -78,6 +81,7 @@ class HomeController extends Controller
             $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
                 ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
                 ->WHERE('b.id', '=', $adminBlk)
+                ->Where('tanggal_tutup', '>=', $mytime)
                 ->select('sesi_pelatihans.*')
                 ->get();
         } else {
@@ -91,6 +95,7 @@ class HomeController extends Controller
 
         $programMentor = MandiraMentoring::where('is_validated', '=', 1)
             ->Where('tgl_ditutup', '>=', $mytime)
+            ->orderBy('id_mentoring','DESC')
             ->skip(0)
             ->take(4)
             ->get();

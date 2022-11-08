@@ -262,11 +262,11 @@
                         <span>{{ number_format($totalpelatihan,0,"",".") }}</span>
                     </div>
                 </div>
-                <div class="col-lg-6 info-section rounded mb-5 p-5  title-informasi-pelatihan d-flex flex-column align-items-center"
+                <!-- <div class="col-lg-6 info-section rounded mb-5 p-5  title-informasi-pelatihan d-flex flex-column align-items-center"
                     id="pelatihanditerima">
                     <p class="text-start">Peserta pelatihan yang diterima</p>
                     <span>{{ floor($persentase) }}%</span>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>

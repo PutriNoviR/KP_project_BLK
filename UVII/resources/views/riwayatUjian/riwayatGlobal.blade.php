@@ -3,6 +3,30 @@
 @section('title')
     Riwayat Tes
 @endsection
+@section('javascript')
+
+<script>
+    //$('#myTable').DataTable();
+
+  function getRiwayat(){
+    var data= $('#btnData').html();
+
+    if(data=='Data Valid'){
+        
+        $('#btnData').attr('href','{{route("riwayat_tes_global.user")}}');
+                
+    }else{
+        
+        $('#btnData').attr('href','{{route("dat.rill")}}');
+        
+    }
+        
+  }
+ 
+
+</script>
+
+@endsection
 
 @section('page-bar')
     <ul class="page-breadcrumb">
@@ -23,7 +47,7 @@
 <a href="{{route('export')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
 {{--<a href="{{route('riwayat_tes_global.cetak')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>--}}
 <a href="{{route('export.cetakRiwayatPeserta')}}" target=_blank class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
-
+<a href="{{route('dat.rill')}}" id='btnData' class='btn btn-xs btn-success' onclick="getRiwayat()">{{$dataRill}}</a>
 
 
 <div class="portlet">
@@ -49,12 +73,12 @@
             </th>
             
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Klaster
+                      Rekomendasi Klaster Terakhir
             </th>
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Kategori
+                      Rekomendasi Kategori Terakhir
             </th>
-            
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">Detail Tes</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +93,7 @@
                 <td>
                     {{$data->users_email }}
                 </td>
+                
                 <td>
                     {{$data->tanggal_mulai }}
                 </td>
@@ -107,6 +132,9 @@
                     @else
                         Belum tes
                     @endif
+                </td>
+                <td>
+                    <a href='{{ route("review_soal",["idsesi"=>$data->id,"email"=>$data->users_email]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
                 </td>
             </tr>
             @php

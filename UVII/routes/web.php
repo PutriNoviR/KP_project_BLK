@@ -25,6 +25,9 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 //search
 Route::get('/search','HomeController@search')->name('search.button')->middleware('auth');
 
+//review attempt
+Route::get('/reviewAttempt/{idsesi}/{email}','TesTahapAwalController@reviewAttemptTest')->name('review_soal')->middleware('auth');
+
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';
 });
@@ -38,6 +41,8 @@ Auth::routes();
 Route::middleware(['can:admin-permission','auth'])->group(function(){
     //riwayat tes
     Route::get('riwayat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal')->name('riwayat_tes_global.user');
+    Route::get('riwayat_dat/tes_global/peserta', 'TesTahapAwalController@riwayatTesGlobal2')->name('dat.rill');
+
 
     //import
     Route::get('importView','ImportController@importView');
@@ -95,7 +100,6 @@ Route::middleware(['can:admin-permission','auth'])->group(function(){
     Route::post('/validate/setting', 'CameraController@validateSetting')->name('validateSetting');
     Route::get('/validate', 'CameraController@adminValidate')->name('admin.validate');
 
-
 });
 
 Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
@@ -126,7 +130,6 @@ Route::middleware(['can:peserta-permission', 'auth'])->group(function(){
     Route::get('menu/tes/camera', 'CameraController@camera')->name('peserta.camera');
     Route::post('/capture', 'CameraController@capture')->name('capture');
     Route::post('/capture/akhir', 'CameraController@captureAkhir')->name('capture.akhir');
-
 
     //bantuan
     Route::get(
