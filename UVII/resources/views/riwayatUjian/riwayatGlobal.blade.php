@@ -72,14 +72,13 @@
                       Selesai Tes
             </th>
             
-            
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Rekomendasi Klaster Terakhir
             </th>
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Rekomendasi Kategori Terakhir
             </th>
-            
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">Detail Tes</th>
           </tr>
         </thead>
         <tbody>
@@ -133,6 +132,9 @@
                     @else
                         Belum tes
                     @endif
+                </td>
+                <td>
+                    <a href='{{ route("review_soal",["idsesi"=>$data->id,"email"=>$data->users_email]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
                 </td>
             </tr>
             @php
