@@ -513,22 +513,14 @@ PELATIHAN
                     @php
                     date_default_timezone_set("Asia/Bangkok");
                     @endphp
-                    @if (strtotime($d->tanggal_tutup) <= strtotime("now")) <a data-toggle="modal"
-                        data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning disabled'>
+                    @if (strtotime($d->tanggal_tutup) <= strtotime("now")) <button class='btn btn-secondary disabled'>
                         Tambah Instruktur
-                        </a>
-                        <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning disabled'
-                            onclick="modalEdit({{$d->id}})">
+                        </button>
+                        <button class='btn btn-secondary disabled'>
                             <i class="fas fa-pen"></i>
-                        </a>
-                        <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}"
-                            onsubmit="return submitFormDelete(this);" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger disabled" data-toggle="modal" href=""
-                                data-toggle="modal"><i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        </button>
+                        <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
+                        </button>
                         @else
                         <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
                             Tambah Instruktur
