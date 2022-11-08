@@ -340,4 +340,17 @@ class SesiPelatihanController extends Controller
             'data'=> $aktivitas
         ), 200);
     }
+
+    public function getTambahInstruktr(Request $request)
+    {
+        $idsesipelatihan = $request->id;
+        $instrukturs = User::join('roles as R', 'users.roles_id', '=', 'R.id')
+        ->WHERE('R.nama_role', '=', 'verifikator')
+        ->get();
+        // dd($instrukturs);
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('instrukturs','idsesipelatihan'))->render() 
+        ), 200);
+    }
 }

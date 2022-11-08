@@ -7,6 +7,7 @@ use App\Keahlian;
 use App\KeahlianUser;
 use App\MandiraMentoring;
 use App\PaketProgram;
+use App\PelatihanMentor;
 use App\PelatihanPeserta;
 use App\Role;
 use App\SesiPelatihan;
@@ -383,5 +384,22 @@ class UserController extends Controller
         $update = DB::table('users')->where('email', $userLogin)->update($update);
 
         return back();
+    }
+
+    public function riwayatVerifikator(Request $request)
+    {
+        // dd($request->id);
+        $riwayats = PelatihanMentor::where('mentors_email', $request->mentors_email)->get();
+        // dd($riwayats);
+        $pelatihan_mentor = [];
+        foreach ($riwayats as $riwayat ) {
+            $sesi = SesiPelatihan::where('id',$riwayat->sesi_pelatihans_id)->first();
+            $pelatihan_mentor[] = $sesi->paketprogram->kejuruan->nama;
+        }
+        // $id = $request->id;
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('user.riwayatverifikator', compact('pelatihan_mentor'))->render() 
+        ), 200);
     }
 }

@@ -24,6 +24,11 @@ class SesiPelatihan extends Model
         return $this->hasMany('App\PelatihanPeserta','sesi_pelatihans_id','id');
     }
 
+    public function pelatihanmentor()
+    {
+        return $this->hasMany('App\PelatihanMentor','sesi_pelatihans_id','id');
+    }
+
     public $timestamps=false;
 
 }
