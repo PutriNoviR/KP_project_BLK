@@ -577,7 +577,9 @@
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Rekomendasi Kategori Terakhir
             </th>
-            
+            <th>
+
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -631,6 +633,9 @@
                     @else
                         Belum tes
                     @endif
+                </td>
+                <td>
+                    <a href='{{ route("review_soal",["idsesi"=>$data->id]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
                 </td>
             </tr>
             @php
