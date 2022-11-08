@@ -78,7 +78,7 @@
             <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
                       Rekomendasi Kategori Terakhir
             </th>
-            <th></th>
+            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">Detail Tes</th>
           </tr>
         </thead>
         <tbody>
