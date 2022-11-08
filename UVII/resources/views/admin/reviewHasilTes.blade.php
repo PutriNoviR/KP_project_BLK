@@ -11,6 +11,9 @@
         </div>
 
         <div class="card-body">
+           
+            <p>Berikut adalah detail test <b>{{$data->nama_depan}} {{$data->nama_belakang}}</b> dengan email <b>{{$data->email}}</b> berusia <b>{{$usia}}</b> tahun.</p>
+            <p>Memiliki Hobi <b>{{$data->hobi}}</b>, Pendidikan terakhirnya adalah <b>{{$data->pendidikan_terakhir}}({{$data->konsentrasi_pendidikan}})</b>.</p><br>
             <ul class="nav nav-tabs">
                 <li class="active">
                     <a href="#tab_1" data-toggle="tab">Tes Tahap 1</a>
@@ -21,7 +24,10 @@
             </ul>   
             <!-- tab 1 -->
             <div class="tab-pane fade active in" id="tab_1">
-                <p><b>Durasi Pengerjaan selama:</b> {{$waktu1}} menit {{$waktu2}} detik</p><br>
+                <P>Tanggal dan Waktu pengerjaan tes <b>@php
+                        echo date('d M Y h:i:s', strtotime($tgl->tanggal_mulai)).' - '.date('d M Y h:i:s', strtotime($tgl->tanggal_selesai));
+                    @endphp</b></p>
+                    <p>Durasi Pengerjaan selama <b> {{$waktu1}}</b> menit <b>{{$waktu2}}</b> detik</p><br>
 
                 <p><b>Hasil Tes Minat Bakat:</b></p>
 
@@ -115,7 +121,7 @@
 
                     @endforeach
                     
-                    @if($jumKlaster > 1 && $tanggal_tes != null)
+                    @if($jumKlaster > 1 && $tgl->tanggal_selesai != null)
                         
                         <div class="row detailJawabanSuccess">
                                 

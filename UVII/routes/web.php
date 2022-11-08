@@ -26,7 +26,7 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/search','HomeController@search')->name('search.button')->middleware('auth');
 
 //review attempt
-Route::get('/reviewAttempt/{idsesi}','TesTahapAwalController@reviewAttemptTest')->name('review_soal')->middleware('auth');
+Route::get('/reviewAttempt/{idsesi}/{email}','TesTahapAwalController@reviewAttemptTest')->name('review_soal')->middleware('auth');
 
 Route::get('/helloworld', function () {
     return 'Hello World, Pak Dosen';

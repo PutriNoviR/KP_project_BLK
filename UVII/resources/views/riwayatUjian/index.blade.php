@@ -107,7 +107,7 @@
                         @endif
                     </td>
                     <td>
-                    <a href='{{ route("review_soal",["idsesi"=>$data->id]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
+                    <a href='{{ route("review_soal",["idsesi"=>$data->id,"email"=>$data->users_email]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
                 </td>
                 @endif
             </tr>

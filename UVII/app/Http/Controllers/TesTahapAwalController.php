@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
+use App\User;
 use PDF;
 use App\Role;
 
@@ -414,8 +415,12 @@ class TesTahapAwalController extends Controller
 
         //sudah tes
         $tgl = UjiMinatAwal::where('id', $request->idsesi)->first();
-        $tanggal_tes = $tgl->tanggal_selesai;
+        
 
-        return view('admin.reviewHasilTes', compact('menu_role','dataHasilTes','waktu1', 'waktu2','dataSoal','dataJawaban','dataKlaster', 'jumKlaster', 'tanggal_tes'));
+       
+        $data = User::where('email',$request->email)->first();
+        $usia= Carbon::now()->diffInYears(Carbon::parse($data->tanggal_lahir));
+
+        return view('admin.reviewHasilTes', compact('menu_role','dataHasilTes','waktu1', 'waktu2','dataSoal','dataJawaban','dataKlaster', 'jumKlaster','data', 'usia','tgl'));
     }
 }
