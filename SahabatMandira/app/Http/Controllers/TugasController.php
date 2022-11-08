@@ -57,7 +57,8 @@ class TugasController extends Controller
             ->where('sesi_pelatihans_id', $sesiPelatihan_id)
             ->get();
 
-        return view('pelatihanpeserta.index', compact('data', 'periode'));
+        // return view('pelatihanpeserta.index', compact('data', 'periode'));
+        return redirect()->route('pelatihanPesertas.show',$sesiPelatihan_id);
     }
 
     /**
