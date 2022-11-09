@@ -10,15 +10,29 @@ PELATIHAN
 
 @section('javascript')
 <script>
+    let role = "<?= Auth::user()->role->nama_role ?>"
     $(function () {
-        $("#myTable").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
+        let parameter = {};
+        if(role == 'superadmin' || role == 'adminblk'){
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5,6,7]
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+            alert('odar')
+            console.log(parameter)
+        }
+        $("#myTable").DataTable(parameter);
     });
 
 
