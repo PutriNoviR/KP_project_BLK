@@ -605,7 +605,7 @@ Pelaporan
         </tr>
       </thead>
       <tbody id="myTable">
-        @foreach($cadangan as $d)
+        @foreach($daftarUlang as $d)
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>

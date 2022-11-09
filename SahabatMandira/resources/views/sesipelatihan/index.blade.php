@@ -327,6 +327,44 @@ PELATIHAN
         });
     }
 
+    function modalTambahInstuktur(idsesipelatihan) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getTambahInstruktur") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': idsesipelatihan
+            },
+            success: function (data) {
+                $(`#modalContentTambahInstruktur`).html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function modalShowRiwayatInstruktur(email) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("sesiPelatihan.getRiwayatInstruktur") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'mentors_email': email,
+            },
+            success: function (data) {
+                $(`#modalContentRiwayatInstruktur`).html(data.msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+    $('body').on('change', '#nama_instruktur', function () {
+        var email = $('#nama_instruktur').val();
+        $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
+    });
+
 </script>
 @endsection
 
@@ -522,7 +560,8 @@ PELATIHAN
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
                         @else
-                        <a data-toggle="modal" data-target="#modalTambahInstruktur{{$d->id}}" class='btn btn-warning'>
+                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
+                            onclick="modalTambahInstuktur({{$d->id}})">
                             Tambah Instruktur
                         </a>
                         <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning'
@@ -560,46 +599,18 @@ PELATIHAN
 </div>
 
 {{-- Modal tambah Instruktur --}}
-@foreach($data as $d)
-<div class="modal fade" id="modalTambahInstruktur{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modalTambahInstruktur" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContentTambahInstruktur">
+
+    </div>
+</div>
+<div class="modal fade" id="modalRiwayatInstuktur" tabindex="-1" aria-labelledby="modalRiwayatInstukturLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContentRiwayatInstruktur">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Email Instruktur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
 
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-                    <form method="POST" action="{{ route('pelatihanMentors.store') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Instruktur') }}</label>
-                            <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="mentors_email">
-                                    <option selected>Nama Instruktur</option>
-                                    @foreach($user as $us)
-                                    <option value="{{$us->email}}">{{$us->username}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
-                                value="{{$d->id}}">
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-@endforeach
 @endif
 @endsection
