@@ -234,6 +234,45 @@ PAKET PROGRAM
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kuota" class="col-md-12 col-form-label">{{ __('Nomor Surat') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="nomorSurat" value="-">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanggalSurat" class="col-md-12 col-form-label">{{ __('Tanggal Surat') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSurat" value="<?php echo date('Y-m-d\TH:i', strtotime('+0 hours')); ?>">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanggalSertif" class="col-md-12 col-form-label">{{ __('Tanggal Sertifikat') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSertif" value="<?php echo date('Y-m-d\TH:i', strtotime('+0 hours')); ?>">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
                                     <textarea class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>

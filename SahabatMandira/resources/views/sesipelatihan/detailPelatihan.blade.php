@@ -47,25 +47,26 @@ PELATIHAN
                         value="{{ $d->tanggal_seleksi }}">
 
                     @if ($cekTanggalDaftarUlang != null)
-                    @php
-                    $tanggalHariIni = strtotime("now");
-                    $tanggalTahunDepanSetelahDaftarUlang = strtotime("$cekTanggalDaftarUlang +1 year");
-                    @endphp
-                    @if ($tanggalHariIni >= $tanggalTahunDepanSetelahDaftarUlang)
-                    @if(count($cekDaftar) == null)
-                    <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+                        @php
+                            $tanggalHariIni = strtotime("now");
+                            $tanggalTahunDepanSetelahDaftarUlang = strtotime("$cekTanggalDaftarUlang +1 year");
+                        @endphp
+
+                        @if ($tanggalHariIni >= $tanggalTahunDepanSetelahDaftarUlang)
+                            @if(count($cekDaftar) == null)
+                            <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+                            @else
+                            <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
+                            @endif
+                        @else
+                            <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
+                        @endif
                     @else
-                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
-                    @endif
-                    @else
-                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
-                    @endif
-                    @else
-                    @if(count($cekDaftar) == null)
-                    <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
-                    @else
-                    <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
-                    @endif
+                        @if(count($cekDaftar) == null)
+                            <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+                        @else
+                            <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
+                        @endif
                     @endif
 
                 </form>

@@ -113,8 +113,13 @@ class SesiPelatihanController extends Controller
         $sesi->kuota = $request->kuota;
         $sesi->tanggal_seleksi = $request->tanggal_seleksi;
         $sesi->paket_program_id = $request->paket_program_id;
+        $sesi->jamPelajaran = $request->jamPelajaran;
+        $sesi->nomorSurat = $request->nomorSurat;
+        $sesi->tanggalSurat = $request->tanggalSurat;
+        $sesi->tanggalSertif = $request->tanggalSertif;
         $sesi->aktivitas = $request->aktivitas;
         $sesi->deskripsi = $request->deskripsi;
+
 
         //insert foto (maaf gk bisa elequent [yobong])
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
@@ -196,6 +201,10 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->kuota = $request->kuota;
         $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
         $sesiPelatihan->paket_program_id = $request->paket_program_id;
+        $sesiPelatihan->jamPelajaran = $request->jamPelajaran;
+        $sesiPelatihan->nomorSurat = $request->nomorSurat;
+        $sesiPelatihan->tanggalSurat = $request->tanggalSurat;
+        $sesiPelatihan->tanggalSertif = $request->tanggalSertif;
         $sesiPelatihan->aktivitas = $request->aktivitas;
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
 
