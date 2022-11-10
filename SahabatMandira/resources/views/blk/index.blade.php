@@ -10,6 +10,17 @@ BLK
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
+            dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                        }
+                    },
+                    'colvis'
+                ]
         });
     });
 

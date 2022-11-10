@@ -26,13 +26,15 @@ PELATIHAN
             </div>
             <div class="card-body">
                 <h2>Periode Pendaftaran :</h2>
-                <h4>{{$d->tgl_dibuka}} - {{$d->tgl_ditutup}}</h4>
+                <h4>{{ date('d-M-y', strtotime($d->tgl_dibuka)) }} -
+                    {{ date('d-M-y', strtotime($d->tgl_ditutup)) }}
+                </h4>
             </div>
             <div class="card-body">
                 <h2>LINK PENDAFTARAN PELATIHAN :</h2>
                 <h4><a href="{{ url($d->link_pendaftaran) }}">KLIK LINK INI UNTUK MELAKUKAN PENDAFTARAN</a></h4>
             </div>
-            
+
         </div>
     </div>
 </div>

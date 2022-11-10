@@ -29,7 +29,7 @@ PELATIHAN
                     'colvis'
                 ]
             }
-            alert('odar')
+            // alert('odar')
             console.log(parameter)
         }
         $("#myTable").DataTable(parameter);

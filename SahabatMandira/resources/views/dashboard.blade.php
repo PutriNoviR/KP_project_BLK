@@ -6,11 +6,44 @@ Dashboard
 
 @section('javascript')
 <script>
+    let role = "<?= Auth::user()->role->nama_role ?>"
     $(function () {
-        $("#myTable").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
+        let parameter = {};
+        if(role == 'verifikator'  || role == 'adminblk' || role=='superadmin'){
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,8]
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+        }
+        else if (role == 'mentor'){
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+        }
+        $("#myTable").DataTable(parameter);
     });
 
     function editMentoring(id_mentoring) {
@@ -281,8 +314,8 @@ Dashboard
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
-        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK DARI UBAYA GLOBAL ACADEMY</h4><br>
-        <h6>Berikut adalah program pelatihan yang ditawarkan oleh UBAYA</h6>
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK DARI UBAYA</h4><br>
+        <h6>Berikut adalah program pelatihan yang ditawarkan oleh UBAYA GLOBAL ACADEMY</h6>
     </div>
     <div class="row ">
         @foreach($other as $d)
@@ -290,7 +323,7 @@ Dashboard
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
-                        BEST
+                        UGA
                     </div>
                 </div>
                 <div class="card-header" style="height:30% ;">

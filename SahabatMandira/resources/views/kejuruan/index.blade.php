@@ -21,12 +21,12 @@ Daftar Kejuruan
 
 @section('javascript')
 <script>
-    $(function() {
-        $("#myTable").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-    });
+    // $(function() {
+    //     $("#myTable").DataTable({
+    //         "responsive": true,
+    //         "autoWidth": false,
+    //     });
+    // });
 
     $(function() {
         $("#myTable").DataTable({
@@ -34,8 +34,15 @@ Daftar Kejuruan
             "autoWidth": false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1]
+                        }
+                    },
+                    'colvis'
+                ]
         });
     });
 

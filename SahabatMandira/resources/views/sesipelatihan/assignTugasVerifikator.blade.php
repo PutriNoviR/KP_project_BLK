@@ -1,4 +1,4 @@
-@extends('layouts.adminlte')
+    @extends('layouts.adminlte')
 
 @section('title')
 Assign Tugas
