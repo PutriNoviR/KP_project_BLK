@@ -124,8 +124,11 @@ PELATIHAN
 
                 let img2 = new Image();
                 img2.crossOrigin = "anonymous";
-                var foto_profil = profil_data['pas_foto']
-                img2.src = "{{ asset('storage/"+foto_profil+"') }}";
+                var pas_foto = profil_data['pas_foto'];
+                var fotoprofil = 'storage/'+pas_foto;
+                var linkfoto = "asset("+fotoprofil+")";
+                console.log(fotoprofil);
+                img2.src = fotoprofil;
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img2, 1900, 1950, 300, 400);
