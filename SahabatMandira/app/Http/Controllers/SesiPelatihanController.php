@@ -314,7 +314,6 @@ class SesiPelatihanController extends Controller
         $update = array(
             'is_daftar_ulang' => 1,
             'tanggal_daftar_ulang' => date('Y-m-d H:i:s'),
-            'status_fase' => 'SEDANG PROSES PELATIHAN',
         );
 
         DB::connection('mandira')

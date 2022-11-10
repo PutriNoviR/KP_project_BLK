@@ -104,7 +104,7 @@ Pelatihan Peserta
                 <th>Aksi</th>
                 <th>Kompetensi</th>
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
-                <th>Daftar Ulang</th>
+                <th>Daftar Ulangkan</th>
                 @endif
             </tr>
         </thead>

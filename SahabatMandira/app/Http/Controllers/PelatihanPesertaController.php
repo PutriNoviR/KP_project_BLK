@@ -132,7 +132,7 @@ class PelatihanPesertaController extends Controller
                 'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
                 'rekom_keputusan' => $request->get('rekom_keputusan'),
                 'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'DALAM SELEKSI',
+                'status_fase' => 'PESERTA CADANGAN',
             );
         }
         
