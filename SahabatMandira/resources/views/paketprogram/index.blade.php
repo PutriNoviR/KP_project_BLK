@@ -237,12 +237,12 @@ PAKET PROGRAM
 
                                 <div class="form-group">
                                     <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
-                                    <input type="text" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
+                                    <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="kuota" class="col-md-12 col-form-label">{{ __('Nomor Surat') }}</label>
-                                    <input type="text" class="col-md-12 col-form-label" name="nomorSurat" value="-">
+                                    <input type="text" class="col-md-12 col-form-label" name="nomorSurat" value="No. - / - / - . - . - / -">
                                 </div>
 
                                 <div class="form-group">

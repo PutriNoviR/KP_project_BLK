@@ -106,7 +106,7 @@
 
             <div class="form-group">
                 <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
-                <input type="text" class="col-md-12 col-form-label" name="jamPelajaran" value="{{$sesiPelatihan->jamPelajaran}}">
+                <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="{{$sesiPelatihan->jamPelajaran}}">
             </div>
 
             <div class="form-group">

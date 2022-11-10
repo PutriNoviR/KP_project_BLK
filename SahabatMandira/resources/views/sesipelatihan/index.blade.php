@@ -50,14 +50,17 @@ PELATIHAN
                 var upt_blk = 'UPT BALAI LATIHAN KERJA ' + lokasi;
                 //var no_peserta = '167.04.014.01.2022';
 
+                var noSurat = sesi_data['nomorSurat'];
+                var tgl_surat = sesi_data['tanggalSurat'];
+
                 var pernyataan_atas = 'Kepala Unit Pelaksana Teknis Balai Latihan Kerja ' + titleCase(
                     lokasi) + ' Berdasarkan Surat Keputusan Penyelenggaraan Pelatihan';
                 var eng_pa = "Head of The Technical Unit of " + titleCase(lokasi) +
                     " Vocational Training Center Based on The Decree of Training Organization";
 
                 var pernyataan_atas2 =
-                    'No.  563 / 051 / 108.7.08 / 2022 Tanggal 21 Februari 2022 menyatakan, bahwa :';
-                var eng_pa2 = "No. 563 / 051 / 108.7.08 / 2022 dated February 21 - 2022 dclares, that :";
+                    titleCase(noSurat)+' Tanggal '+tgl_lokal(tgl_surat)+' menyatakan, bahwa :';
+                var eng_pa2 = titleCase(noSurat)+" dated "+tgl_eng(tgl_surat)+" dclares, that :";
 
                 var profil = 'Nama';
                 var profil2 = 'Tempat dan Tanggal Lahir';
@@ -77,18 +80,19 @@ PELATIHAN
                 var pernyataan_bawah2 = 'Program ' + sesi_data['nama_program'];
 
                 var hasil_kompetensi = sesi_data['hasil_kompetensi'];
+                var jam_pelajaran = sesi_data['jamPelajaran'];
                 var pernyataan_bawah3 = 'dari tanggal ' + tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +
-                    ' sampai dengan ' + tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) + ' (430JP)';
+                    ' sampai dengan ' + tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) + ' ('+jam_pelajaran+'JP)';
                 var pb3_eng = "from " + tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(
-                    sesi_data['tanggal_selesai_pelatihan']) + " (340 JP)";
+                    sesi_data['tanggal_selesai_pelatihan']) + " ("+jam_pelajaran+" JP)";
 
                 if (hasil_kompetensi == "KOMPETEN") {
                     pernyataan_bawah3 += ' dan dinyatakan ' + hasil_kompetensi.toUpperCase();
                     pb3_eng += " and Declared Competent";
                 }
 
-
-                var tgl = titleCase(lokasi) + ', 25 April 2022';
+                var tgl_sertif = sesi_data['tanggalSertif'];
+                var tgl = titleCase(lokasi) + ', '+tgl_lokal(tgl_sertif);
                 var jabatan = 'Kepala UPT Balai Latihan Kerja ' + titleCase(lokasi);
                 var jabatan_eng = "Head of " + titleCase(lokasi) + " Vocational Training Center";
                 var nama_pembina = data_upt['nama'];
@@ -106,7 +110,8 @@ PELATIHAN
 
                 let img2 = new Image();
                 img2.crossOrigin = "anonymous";
-                img2.src = "{{ asset('storage/Sertifikat/profil.jpg') }}";
+                var pas_foto = profil_data['pas_foto']
+                img2.src = "{{ asset('storage/'.pas_foto) }}";
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img2, 1900, 1950, 300, 400);
