@@ -281,8 +281,8 @@ Dashboard
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
-        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK DARI UBAYA GLOBAL ACADEMY</h4><br>
-        <h6>Berikut adalah program pelatihan yang ditawarkan oleh UBAYA</h6>
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK DARI UBAYA</h4><br>
+        <h6>Berikut adalah program pelatihan yang ditawarkan oleh UBAYA GLOBAL ACADEMY</h6>
     </div>
     <div class="row ">
         @foreach($other as $d)
@@ -290,7 +290,7 @@ Dashboard
             <div class="card card-primary ">
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-info">
-                        BEST
+                        UGA
                     </div>
                 </div>
                 <div class="card-header" style="height:30% ;">

@@ -134,12 +134,12 @@ Kelengkapan Dokumen
                             <div class="row">
                                 <div class="col-md-6 pull-right">
                                     <a class="col-md-6 btn btn-primary" href="{{ route('home') }}">
-                                        {{ __('Back') }}
+                                        {{ __('Batal') }}
                                     </a>
                                 </div>
                                 <div class="col-md-6 pull-left">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Submit') }}
+                                    <button type="submit" class="col-md-6 btn btn-primary">
+                                        {{ __('Simpan') }}
                                     </button>
                                 </div>
                             </div>
