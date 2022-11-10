@@ -13,7 +13,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
+                        <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftarannnn') }}</label>
                         <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_pendaftaran">
 
                         <div class="col-md-12">
@@ -135,7 +135,7 @@
                         <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                     </div>
                 </form>

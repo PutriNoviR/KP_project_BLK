@@ -194,6 +194,7 @@ class SesiPelatihanController extends Controller
         }
         $sesiPelatihan->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesiPelatihan->tanggal_tutup = $request->tanggal_tutup;
+        $sesiPelatihan->deskripsi = $request->deskripsi;
         $sesiPelatihan->lokasi = $request->lokasi;
         $sesiPelatihan->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
         $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
