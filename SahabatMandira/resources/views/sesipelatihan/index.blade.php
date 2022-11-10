@@ -431,18 +431,18 @@ PELATIHAN
                 <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
-                <td>{{ $d->status_fase}}</td> {{-- lulus / tidak lulus--}}
+                <td>{{ $d->status_fase}}</td> {{-- lulus/ cadangan / tidak lulus--}}
                 <td>
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
                                 value="{{$d->sesi_pelatihans_id}}">
-                            @if($d->status_fase == 'DITERIMA')
+                            @if($d->status_fase == 'DITERIMA' || $d->status_fase == 'PESERTA CADANGAN')
                             <button data-toggle="modal" data-target="" class='btn btn-success'
                                 {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
                                 Daftar Ulang
-                            </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
+                            </button> {{-- kalau lolos atau cadangan di enable kalo ga lolos disable--}}
                             @else
                             <button data-toggle="modal" data-target="" class='btn btn-danger' disabled
                                 {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
