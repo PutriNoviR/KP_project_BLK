@@ -6,11 +6,44 @@ Dashboard
 
 @section('javascript')
 <script>
+    let role = "<?= Auth::user()->role->nama_role ?>"
     $(function () {
-        $("#myTable").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
+        let parameter = {};
+        if(role == 'verifikator'  || role == 'adminblk' || role=='superadmin'){
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,8]
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+        }
+        else if (role == 'mentor'){
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'print',
+                    {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5]
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+        }
+        $("#myTable").DataTable(parameter);
     });
 
     function editMentoring(id_mentoring) {
