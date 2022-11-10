@@ -122,7 +122,7 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiPelaporanPelatihan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
                 Update Hasil Seleksi
               </button>
             </td>
@@ -162,7 +162,7 @@ Pelaporan
           </div>
 
 
-          <div class="modal fade" id="modalUpdateHasilSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalUpdateHasilSeleksiPelaporanPelatihan{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
@@ -258,7 +258,7 @@ Pelaporan
             <td>{{ $d->tanggal_lahir }}</td>
             <td>{{ $d->jenis_kelamin }}</td>
             <td>
-              <a data-toggle="modal" data-target="#modalInfoAkunPesertaLolosSeleksi{{$d->username}}" class="button btn btn-primary">
+              <a data-toggle="modal" data-target="#modalInfoAkunPesertaLolosSeleksiDaftarP{{$d->username}}" class="button btn btn-primary">
                 <i class="fas fa-info"></i>
               </a>
             </td>
@@ -479,7 +479,7 @@ Pelaporan
             </a>
           </td>
           <td>
-            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
               Update Hasil Seleksi
             </button>
           </td>
@@ -515,7 +515,7 @@ Pelaporan
             </div>
           </div>
         </div>
-        <div class="modal fade" id="modalUpdateHasilSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
             <div class="modal-content">
@@ -547,7 +547,6 @@ Pelaporan
                       <select class="form-control" aria-label="Default select example" name="rekom_keputusan" value="{{$d->rekom_keputusan}}">
                         <option value="LULUS">Diterima</option>
                         <option value="TIDAK LULUS">Tidak Diterima</option>
-                        <option value="CADANGAN">Cadangan</option>
                         <option value="MENGUNDURKAN DIRI">Mengundurkan Diri</option>
                       </select>
 

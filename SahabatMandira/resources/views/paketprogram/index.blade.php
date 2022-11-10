@@ -5,15 +5,24 @@ PAKET PROGRAM
 @endsection
 
 
+
 @section('javascript')
+
 <script>
-    $(function() {
+    $(document).ready(function () {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                'copy', 'csv', 'excel', 'print',
+                {
+                extend: 'pdfHtml5',
+                 exportOptions: {
+                    columns: [ 0, 1, 2,3 ]
+                    }
+                },
+                'colvis'
             ]
         });
     });
@@ -105,7 +114,7 @@ PAKET PROGRAM
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody id="myTable">
+        <tbody >
             @foreach($paketprograms as $paketprogram)
             {{-- @dd($paketprogram->subkejuruan) --}}
             <tr>

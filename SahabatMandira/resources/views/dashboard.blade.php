@@ -151,7 +151,7 @@ Dashboard
 <div class="container">
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>
-        <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti pada Balai Latihan Kerja Disanertran Jawa
+        <h6>Berikut adalah program pelatihan yang disarankan untuk diikuti pada Balai Latihan Kerja Disnakertrans Jawa
             Timur</h6>
     </div>
 
@@ -198,8 +198,8 @@ Dashboard
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
-        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG DITAWARKAN</h4><br>
-        <h6>Berikut adalah program pelatihan yang ditawarkan</h6>
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG DITAWARKAN DARI BALAI LATIHAN KERJA</h4><br>
+        <h6>Berikut adalah program pelatihan yang ditawarkan oleh Balai Latihan Kerja</h6>
     </div>
     <div class="row ">
         @foreach($ditawarkan as $d)
@@ -281,8 +281,8 @@ Dashboard
         {{ __('SHOW MORE') }}
     </a>
     <div class="col-sm-6">
-        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK</h4><br>
-        <h6>Berikut adalah program pelatihan Terbaik</h6>
+        <h4 class="m-0 text-dark">PROGRAM PELATIHAN YANG TERBAIK DARI UBAYA GLOBAL ACADEMY</h4><br>
+        <h6>Berikut adalah program pelatihan yang ditawarkan oleh UBAYA</h6>
     </div>
     <div class="row ">
         @foreach($other as $d)

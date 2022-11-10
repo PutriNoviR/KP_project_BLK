@@ -57,40 +57,41 @@ class PelaporanController extends Controller
         ->select('users.*','P.*')
         ->get();
 
+        // dd($id);
         // $blk_id = auth()->user()->blks_id_admin;
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
-            ->select('users.*')
+            ->select('users.*','P.*')
             ->get();
-
+        // dd($peserta);
         $lolos = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.rekom_keputusan', 'LULUS')
-            ->select('users.*')
+            ->select('users.*','P.*')
             ->get();
 
         $cadangan = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.rekom_keputusan', 'CADANGAN')
-            ->select('users.*')
+            ->select('users.*', 'P.*')
             ->get();
 
         $kompeten = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.hasil_kompetensi', 'KOMPETEN')
-            ->select('users.*')
+            ->select('users.*','P.*')
             ->get();
 
         $daftarUlang = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.is_daftar_ulang', '1')
-            ->select('users.*')
+            ->select('users.*','P.*')
             ->get();
         return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten','daftarUlang'));
     }
