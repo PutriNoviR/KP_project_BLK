@@ -126,6 +126,14 @@ class PelatihanPesertaController extends Controller
                 'rekom_is_permanent' => $request->get('rekom_is_permanent'),
                 'status_fase' => 'DITOLAK',
             );
+        } elseif (($request->get('rekom_keputusan') == 'CADANGAN')) {
+            $update = array(
+                'rekom_catatan' => $request->get('rekom_catatan'),
+                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                'rekom_keputusan' => $request->get('rekom_keputusan'),
+                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                'status_fase' => 'PESERTA CADANGAN',
+            );
         } else {
             $update = array(
                 'rekom_catatan' => $request->get('rekom_catatan'),
@@ -135,7 +143,7 @@ class PelatihanPesertaController extends Controller
                 'status_fase' => 'PESERTA CADANGAN',
             );
         }
-        
+
         DB::connection('mandira')
             ->table('pelatihan_pesertas')
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
@@ -205,7 +213,7 @@ class PelatihanPesertaController extends Controller
 
     public function storePendaftar(Request $request, $id)
     {
-        
+
         $emailValidator = DB::connection('mandira')
             ->table('pelatihan_mentors')
             ->where('sesi_pelatihans_id', $id)
@@ -287,21 +295,21 @@ class PelatihanPesertaController extends Controller
         return redirect()->back()->with('success', 'Berhasil Mengupdate');
     }
 
-    
+
     public function getDetail(Request $request)
     {
         $data = explode(",", $request->id);
         // return $data;
-        $pelatihan = PelatihanPeserta::where('sesi_pelatihans_id',$data[0])
-        ->where('email_peserta',$data[1])
-        ->get();
-        
+        $pelatihan = PelatihanPeserta::where('sesi_pelatihans_id', $data[0])
+            ->where('email_peserta', $data[1])
+            ->get();
+
         $catatan = $pelatihan->rekom_catatan;
         $nilai_TPA = $pelatihan->rekom_nilai_TPA;
         // $keptu
         return response()->json(array(
-            'status'=>'oke',
-            'data'=> $catatan
+            'status' => 'oke',
+            'data' => $catatan
         ), 200);
     }
 }
