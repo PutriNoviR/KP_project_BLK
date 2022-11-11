@@ -73,8 +73,8 @@ PELATIHAN
                     " Vocational Training Center Based on The Decree of Training Organization";
 
                 var pernyataan_atas2 =
-                    titleCase(noSurat)+' Tanggal '+tgl_lokal(tgl_surat)+' menyatakan, bahwa :';
-                var eng_pa2 = titleCase(noSurat)+" dated "+tgl_eng(tgl_surat)+" dclares, that :";
+                    noSurat+' Tanggal '+tgl_lokal(tgl_surat)+' menyatakan, bahwa :';
+                var eng_pa2 = noSurat+" dated "+tgl_eng(tgl_surat)+" dclares, that :";
 
                 var profil = 'Nama';
                 var profil2 = 'Tempat dan Tanggal Lahir';
