@@ -113,6 +113,13 @@ PELATIHAN
                 var sub_jabatan = titleCase(data_upt['jabatan_struktural']);
                 var nip = data_upt['nip'];
 
+                let img2 = new Image();
+                img2.crossOrigin = "anonymous";
+                var pas_foto = profil_data['pas_foto'];
+                var fotoprofil = 'storage/'+pas_foto;
+                console.log(fotoprofil);
+                img2.src = fotoprofil;
+                
                 var qr_img = new Image();
                 qr_img.crossOrigin = "anonymous";
                 qr_img.src = data['qr'];
@@ -122,15 +129,9 @@ PELATIHAN
                 image.src =
                     "{{ asset('storage/Sertifikat/cert.png') }}"; /*template kedua => "{{ asset('storage/Sertifikat/temp.jpg') }}" */
 
-                let img2 = new Image();
-                img2.crossOrigin = "anonymous";
-                var pas_foto = profil_data['pas_foto'];
-                var fotoprofil = 'storage/'+pas_foto;
-                console.log(fotoprofil);
-                img2.src = fotoprofil;
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img2, 1000, 1950, 300, 400);
+                    ctx.drawImage(img2, 800, 1950, 300, 400);
                     ctx.drawImage(qr_img, 550, 1950, 350, 350);
 
                     addImage(ctx, '#000', 'bold 70px TimesNewRoman', 'center', prov, 1805, 275);
