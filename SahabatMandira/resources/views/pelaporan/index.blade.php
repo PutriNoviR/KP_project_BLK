@@ -258,7 +258,7 @@ Pelaporan
             <td>{{ $d->tanggal_lahir }}</td>
             <td>{{ $d->jenis_kelamin }}</td>
             <td>
-              <a data-toggle="modal" data-target="#modalInfoAkunPesertaLolosSeleksiDaftarP{{$d->username}}" class="button btn btn-primary">
+              <a data-toggle="modal" data-target="#modalInfoAkunPesertaLolosSeleksi{{$d->username}}" class="button btn btn-primary">
                 <i class="fas fa-info"></i>
               </a>
             </td>

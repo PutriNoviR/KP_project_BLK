@@ -56,6 +56,29 @@ Kelengkapan Dokumen
                             </div>
 
                         </div>
+
+                        <div class="form-group">
+                        <label for="tempatLahir" class="col-md-12 col-form-label">{{ __('Tempat Lahir') }}</label>
+                            <input id="tempatLahir" type="text" class="form-control @error('tempatLahir') is-invalid @enderror" name="tempatLahir" value="{{ old('tempatLahir') }}" required autocomplete="tempatLahir" autofocus>
+                            @error('tempatLahir')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                        <label for="tanggalLahir" class="col-md-12 col-form-label">{{ __('Tangal Lahir') }}</label>
+
+                            <input id="tanggalLahir" type="date" class="form-control @error('tanggalLahir') is-invalid @enderror" name="tanggalLahir" value="{{ old('tanggalLahir') }}" required autocomplete="tanggalLahir" autofocus>
+
+                            @error('tanggalLahir')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                        </div>
                         <div class="form-group">
                             <label for="kota" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
 
