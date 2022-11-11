@@ -34,8 +34,8 @@ class SertifikatController extends Controller
 
         $link = "www.sahabatmandira.id";
         
-        $base_qr = \QrCode::size(300)->format('png')->generate($link); 
-        $base64 = 'data:image/png;base64,' . base64_encode($base_qr);
+        // $base_qr = \QrCode::size(300)->format('png')->generate($link); 
+        // $base64 = 'data:image/png;base64,' . base64_encode($base_qr);
 
         return Response::json(['profil' => $profil, 'sesi_data' => $sesi_full, 'upt_data' => $data_upt]);
     }

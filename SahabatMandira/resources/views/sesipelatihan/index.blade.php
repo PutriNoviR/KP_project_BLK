@@ -113,9 +113,9 @@ PELATIHAN
                 var sub_jabatan = titleCase(data_upt['jabatan_struktural']);
                 var nip = data_upt['nip'];
 
-                var qr_img = new Image();
-                qr_img.crossOrigin = "anonymous";
-                qr_img.src = data['qr'];
+                // var qr_img = new Image();
+                // qr_img.crossOrigin = "anonymous";
+                // qr_img.src = data['qr'];
 
                 var image = new Image();
                 image.crossOrigin = "anonymous";
@@ -132,7 +132,7 @@ PELATIHAN
                 image.onload = function () {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img2, 1900, 1950, 300, 400);
-                    ctx.drawImage(qr_img, 550, 1950, 350, 350);
+                    // ctx.drawImage(qr_img, 550, 1950, 350, 350);
 
                     addImage(ctx, '#000', 'bold 70px TimesNewRoman', 'center', prov, 1805, 275);
                     addImage(ctx, '#000', 'bold 70px TimesNewRoman', 'center', disnaker, 1805, 375);
