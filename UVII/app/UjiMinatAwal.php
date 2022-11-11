@@ -312,4 +312,118 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
         return $arr_data_akhir;
     } 
     
+
+    public static function getHasilTahap2($idsesi){
+        $kategori = DB::table('kategori_psikometrik as kat')
+                    ->select('kat.id as id','kat.nama as nama', 'klas.nama as klaster')
+                    ->where('kat.id','!=','0')
+                    ->join('klaster_psikometrik as klas','klas.id','kat.klaster_psikometrik_id')
+                    ->get();
+
+        $arr_data = [];
+        $arr_data_akhir = [];
+    
+        foreach($kategori as $k){
+
+            $hasilTesTahap2 = DB::connection('uvii')->table('hasil_rekomendasi_tes_tahap_2')
+                            ->selectRaw('TIMEDIFF(tanggal_selesai,tanggal_mulai) as durasi')
+                            ->addSelect('tanggal_mulai', 'score', 'tanggal_selesai')
+                            ->where('uji_minat_awals_id',$idsesi)
+                            ->where('kategori_id',$k->id)
+                            ->first();
+
+            if($hasilTesTahap2 != null){
+                $arr_data=[
+                    'nama' => $k->nama,
+                    'score' => $hasilTesTahap2->score,
+                    'tanggal_mulai' => $hasilTesTahap2->tanggal_mulai,
+                    'tanggal_selesai' => $hasilTesTahap2->tanggal_selesai,
+                    'durasi' => $hasilTesTahap2->durasi,
+                    'klaster' => $k->klaster,
+                ];
+
+                array_push($arr_data_akhir, $arr_data);
+            }
+     
+        }
+
+        if(empty($arr_data_akhir)){
+            return null;
+        }
+
+        return collect($arr_data_akhir)->sortByDesc('score')->all();
+    } 
+
+
+    public static function getSoalTahap2($hasil2, $email){
+        $arr_data = [];
+        $arr_data_akhir = [];
+
+        $iduser = DB::connection('moodle')->table('mdl_user')
+                    ->where('email',$email)
+                    ->first();
+
+        if($hasil2 != null){
+           
+            foreach(array_slice($hasil2, 0, 1) as $d){
+                $klaster = $d['klaster'];
+            }
+
+            $course = KlasterPsikometrik::where('nama', $klaster)->first();
+            $idCourse = (int)substr($course->link_kejuruan_tes_2, -2);
+
+            $idQuiz = DB::connection('moodle')->table('mdl_course_modules')
+                    ->select('instance')
+                    ->where('id',$idCourse)
+                    ->first();
+
+            //cari id tes
+            $idtes2 = DB::connection('moodle')->table('mdl_quiz_attempts as qz')
+                    ->select('qz.uniqueid')
+                    ->where('qz.quiz',$idQuiz->instance)
+                    ->where('qz.userid',$iduser->id)
+                    ->orderBy('qz.attempt','DESC')
+                    ->first();
+        
+            //ambil soal tahap 2
+            $soal = DB::connection('moodle')->table('mdl_question_attempts')
+                        ->select('questionsummary as soal', 'responsesummary as jawaban', 'questionid')
+                        ->where('questionusageid',$idtes2->uniqueid)
+                        ->get();
+
+            foreach($soal as $s){
+        
+                $fract = DB::connection('moodle')->table('mdl_question_answers')
+                            ->select('fraction')
+                            ->where('answer', $s->jawaban)
+                            ->where('question',$s->questionid)
+                            ->first();
+                                    
+                $kategori = DB::table('kategori_psikometrik')
+                            ->select('id','nama')
+                            ->where('kode_poin',$fract->fraction)
+                            ->where('klaster_psikometrik_id',$course->id)
+                            ->first();
+
+                if($kategori != null){
+                    $pertanyaan = explode(':',$s->soal);
+
+                    $arr_data = [
+                        'soal'=>$pertanyaan[0],
+                        'jawaban'=>$s->jawaban,
+                        'kategori'=>$kategori->nama,
+                        'fraction'=>$fract->fraction,
+                    ];
+
+                    array_push($arr_data_akhir, $arr_data);
+                }
+            }
+        }
+
+        if(empty($arr_data_akhir)){
+            return null;
+        }
+        
+        return $arr_data_akhir;
+    }
 }

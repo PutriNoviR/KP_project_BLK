@@ -415,12 +415,17 @@ class TesTahapAwalController extends Controller
 
         //sudah tes
         $tgl = UjiMinatAwal::where('id', $request->idsesi)->first();
-        
-
        
+        //data peserta
         $data = User::where('email',$request->email)->first();
         $usia= Carbon::now()->diffInYears(Carbon::parse($data->tanggal_lahir));
 
-        return view('admin.reviewHasilTes', compact('menu_role','dataHasilTes','waktu1', 'waktu2','dataSoal','dataJawaban','dataKlaster', 'jumKlaster','data', 'usia','tgl'));
+        //hasil tes tahap 2
+        $hasiltahap2 = UjiMinatAwal::getHasilTahap2($request->idsesi);
+
+        //soal tes tahap 2
+        $soaltes2 = UjiMinatAwal::getSoalTahap2($hasiltahap2, $request->email);
+
+        return view('admin.reviewHasilTes', compact('menu_role','dataHasilTes','waktu1', 'waktu2','dataSoal','dataJawaban','dataKlaster', 'jumKlaster','data', 'usia','tgl','hasiltahap2', 'soaltes2'));
     }
 }
