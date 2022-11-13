@@ -64,11 +64,22 @@ Register
 @endif --}}
 
 <div class="row justify-content-center">
-
-    <div class="col-md-8">
-        <div class="card-register">
+    <div class="col-md-4">
+        <div class="card-register" style="width: 100%;">
             <div class="card-header">
-                <h4>Daftar Akun Baru</h4>
+                <h4>Benefit Bergabung Menjadi Sahabat</h4>
+            </div>
+
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card-register" style="width: 100%;">
+            <div class="card-header">
+                <h4>Formulir Pendaftaran Akun Baru</h4>
             </div>
 
             <div class="card-body">
@@ -180,9 +191,6 @@ Register
                         <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                         <div class="col-md-12">
-                            {{-- <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password"> --}}
                             <div class="input-group mb-3" id="show_hide_password">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
@@ -225,29 +233,31 @@ Register
 
                     {{-- <div class="form-group col-md-6">
                         <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
-            </div>
-            <br />
-        </div> --}}
+                        </div>
+                        <br />
+                    </div> --}}
 
-        <div class="form-group mb-0 text-center">
-            <div class="col-md-12 offset-manual">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
-                </button>
-                <br>
+                    <div class="form-group mb-0 text-center">
+                        <div class="col-md-12 offset-manual">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Register') }}
+                            </button>
+                            <br>
 
-                @if (Route::has('login'))
-                <div class="text-center mt-3">
-                    <span>Sudah punya akun? </span>
-                    <a class="btn btn-link d-inline" href="{{ route('login') }}">
-                        {{ __('Masuk') }}
-                    </a>
-                </div>
-                @endif
+                            @if (Route::has('login'))
+                            <div class="text-center mt-3">
+                                <span>Sudah punya akun? </span>
+                                <a class="btn btn-link d-inline" href="{{ route('login') }}">
+                                    {{ __('Masuk') }}
+                                </a>
+                            </div>
+                            @endif
 
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        </form>
     </div>
 </div>
 </div>
