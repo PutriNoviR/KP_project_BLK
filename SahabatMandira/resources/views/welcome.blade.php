@@ -19,6 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('landingpage/css/styles.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500&display=swap');
 
@@ -100,6 +104,53 @@
             </div>
         </div>
     </section>
+
+    {{-- Carousel Slider Start --}}
+    <section>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @foreach($slider as $s)
+            @if($loop->first)
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="active"></li>
+            @else
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}"></li>
+            @endif
+            @endforeach
+          {{-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
+        </ol>
+        <div class="carousel-inner">
+            @foreach($slider as $s)
+                @if($loop->first)
+                <div class="carousel-item active">
+                    <img class="mx-auto d-block w-100" src="{{ asset('storage/'.$s->gambar) }}" alt="First slide">
+                    <div class="carousel-caption">
+                        <h5>{{ $s->nama }}</h5>
+                        <p>{{ $s->deskripsi }}</p>
+                    </div>
+                </div>
+                @else
+                <div class="carousel-item">
+                    <img class="max-auto d-block w-100" src="{{ asset('storage/'.$s->gambar) }}" alt="First slide">
+                    <div class="carousel-caption">
+                        <h5>{{ $s->nama }}</h5>
+                        <p>{{ $s->deskripsi }}</p>
+                    </div>
+                </div>
+                @endif
+            @endforeach
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </section>
+    {{-- Carousel Slider End --}}
+
     <section class="page-section pt-5 " id="tentang">
         <div class="container">
             <div class="row">
@@ -372,6 +423,11 @@
         }
         var exampleEl = document.getElementById('example')
         var popover = new bootstrap.Popover(exampleEl, options)
+
+        $('#carouselExampleIndicators').carousel({
+            interval: 5000
+        })
+
 
     </script>
 </body>
