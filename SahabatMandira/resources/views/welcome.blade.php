@@ -119,10 +119,10 @@
         <div class="carousel-inner" style="background-image: linear-gradient(130deg, rgba(29, 83, 199, 0.4) , rgba(189, 146, 28, 0.4));"> 
             @foreach($slider as $s)
                 <div @if($loop->first) class="carousel-item active" @else class="carousel-item" @endif>
-                    <div class="card mb-5 mt-3 mx-auto" style="width: 30%; height: 450px;">
+                    <div class="card mb-5 mt-3 mx-auto" style="width: 50%;">
                         <img class="card-img-top" style="height: 200px; width: auto;" src="{{ asset('storage/'.$s->gambar) }}" alt="Card image cap">
                         <div class="card-body">
-                          <center><h5 class="card-title"><b>{{$s->nama}}</b></h5></center>
+                          <center><P class="card-title"><b>{{$s->nama}}</b></p></center>
                           <hr>
                           <p class="card-text" style="overflow: auto; height: 100px;">{{$s->deskripsi}}</p>
                           <a href="#" class="btn btn-primary btn-block">Detail</a>
