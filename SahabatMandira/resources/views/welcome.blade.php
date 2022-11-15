@@ -107,36 +107,28 @@
 
     {{-- Carousel Slider Start --}}
     <section>
+    <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
+        <h1 class="text-black title-heading">Pelatihan</h1>
+    </div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             @foreach($slider as $s)
-            @if($loop->first)
-            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" class="active"></li>
-            @else
-            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}"></li>
-            @endif
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" @if($loop->first) class="active" @endif></li>
             @endforeach
-          {{-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
         </ol>
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="background-image: linear-gradient(130deg, rgba(29, 83, 199, 0.4) , rgba(189, 146, 28, 0.4));"> 
             @foreach($slider as $s)
-                @if($loop->first)
-                <div class="carousel-item active">
-                    <img class="mx-auto d-block w-100" src="{{ asset('storage/'.$s->gambar) }}" alt="First slide">
-                    <div class="carousel-caption">
-                        <h5>{{ $s->nama }}</h5>
-                        <p>{{ $s->deskripsi }}</p>
+                <div @if($loop->first) class="carousel-item active" @else class="carousel-item" @endif>
+                    <div class="card mb-5 mt-3 mx-auto" style="width: 30%; height: 450px;">
+                        <img class="card-img-top" style="height: 200px; width: auto;" src="{{ asset('storage/'.$s->gambar) }}" alt="Card image cap">
+                        <div class="card-body">
+                          <center><h5 class="card-title"><b>{{$s->nama}}</b></h5></center>
+                          <hr>
+                          <p class="card-text" style="overflow: auto; height: 100px;">{{$s->deskripsi}}</p>
+                          <a href="#" class="btn btn-primary btn-block">Detail</a>
+                        </div>
                     </div>
                 </div>
-                @else
-                <div class="carousel-item">
-                    <img class="max-auto d-block w-100" src="{{ asset('storage/'.$s->gambar) }}" alt="First slide">
-                    <div class="carousel-caption">
-                        <h5>{{ $s->nama }}</h5>
-                        <p>{{ $s->deskripsi }}</p>
-                    </div>
-                </div>
-                @endif
             @endforeach
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -425,7 +417,7 @@
         var popover = new bootstrap.Popover(exampleEl, options)
 
         $('#carouselExampleIndicators').carousel({
-            interval: 5000
+            interval: 10000
         })
 
 

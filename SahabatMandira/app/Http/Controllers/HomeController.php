@@ -50,7 +50,7 @@ class HomeController extends Controller
             ) AS X 
             order by headline_priority");
         
-        //  dd($slider);
+        // dd($slider);
         //carousel data-end
 
         // $pencaker = Lamaran::distinct('users_email')->count('users_email');

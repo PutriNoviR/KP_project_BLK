@@ -65,19 +65,41 @@ Register
 
 <div class="row justify-content-center">
     <div class="col-md-4">
-        <div class="card-register" style="width: 100%;">
+        <div class="card mt-4" style="width: 100%;">
             <div class="card-header">
                 <h4>Benefit Bergabung Menjadi Sahabat</h4>
             </div>
 
             <div class="card-body">
+                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Primary card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
 
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Success card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Info card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
     <div class="col-md-8">
-        <div class="card-register" style="width: 100%;">
+        <div class="card mt-4" style="width: 100%;">
             <div class="card-header">
                 <h4>Formulir Pendaftaran Akun Baru</h4>
             </div>
