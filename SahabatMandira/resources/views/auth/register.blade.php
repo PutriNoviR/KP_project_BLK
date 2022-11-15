@@ -71,27 +71,32 @@ Register
             </div>
 
             <div class="card-body">
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Sebagai Pencari Kerja</div>
                     <div class="card-body">
-                      <h5 class="card-title">Primary card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <ol style="text-align: justify;">
+                            <li><p class="card-text">Mendapatkan informasi seputar pelatihan yang difasilitasi oleh BLK, Mitra, dan UBAYA.</p></li>
+                            <li><p class="card-text">Mendapatkan informasi seputar lowongan pekerjaan yang disediakan oleh mitra perusahaan.</p></li>
+                            <li><p class="card-text">Akses terhadap berbagai pelatihan bersertifikat.</p></li>
+                        </ol>
                     </div>
                 </div>
 
-                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Sebagai Mentor</div>
                     <div class="card-body">
-                      <h5 class="card-title">Success card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <ol style="text-align: justify;">
+                            <li><p class="card-text">Akses fasilitas untuk penawaran pelatihan</p></li>
+                        </ol>
                     </div>
                 </div>
 
-                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">Sebagai Perusahaan</div>
                     <div class="card-body">
-                      <h5 class="card-title">Info card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <ol style="text-align: justify;">
+                            <li><p class="card-text">Akses fasilitas untuk membuka lowongan pekerjaan sesuai dengan kebutuhan perusahaan.</p></li>
+                        </ol>
                     </div>
                 </div>
             </div>
