@@ -106,7 +106,7 @@
     </section>
 
     {{-- Carousel Slider Start --}}
-    <section>
+    <section class="page-section pt-5 ">
     <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
         <h1 class="text-black title-heading">Pelatihan</h1>
     </div>
