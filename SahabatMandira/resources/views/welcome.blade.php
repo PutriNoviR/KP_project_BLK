@@ -7,6 +7,15 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Sahabat Mandira</title>
+
+    {{-- Owl-Carousel Start --}}
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('carousel/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('carousel/css/owl.theme.default.min.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+	<link rel="stylesheet" href="{{ asset('carousel/css/style.css') }}">
+    {{-- Owl-Carousel End --}}
+
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('landingpage/assets/favicon.ico')}}" />
     <!-- Font Awesome icons (free version)-->
@@ -106,40 +115,41 @@
     </section>
 
     {{-- Carousel Slider Start --}}
-    <section class="page-section pt-5 ">
-    <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
-        <h1 class="text-black title-heading">Pelatihan</h1>
-    </div>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            @foreach($slider as $s)
-            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $loop->index }}" @if($loop->first) class="active" @endif></li>
-            @endforeach
-        </ol>
-        <div class="carousel-inner" style="background-image: linear-gradient(130deg, rgba(29, 83, 199, 0.4) , rgba(189, 146, 28, 0.4));"> 
-            @foreach($slider as $s)
-                <div @if($loop->first) class="carousel-item active" @else class="carousel-item" @endif>
-                    <div class="card mb-5 mt-3 mx-auto" style="width: 50%;">
-                        <img class="card-img-top" style="height: 200px; width: auto;" src="{{ asset('storage/'.$s->gambar) }}" alt="Card image cap">
-                        <div class="card-body">
-                          <center><P class="card-title"><b>{{$s->nama}}</b></p></center>
-                          <hr>
-                          <p class="card-text" style="overflow: auto; height: 100px;">{{$s->deskripsi}}</p>
-                          <a href="#" class="btn btn-primary btn-block">Detail</a>
+    <section class="page-section pt-5" style="background-image: linear-gradient(190deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="heading-section mb-5 pb-md-4">Pelatihan</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        @foreach($slider as $s)
+                        <div class="item">
+                            <div class="blog-entry">
+                                <a href="#" class="block-20 d-flex align-items-start" style="background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                    {{-- <div class="meta-date text-center p-2">
+                                        <span class="day">26</span>
+                                        <span class="mos">Nov.</span>
+                                        <span class="yr">2019</span>
+                                    </div> --}}
+                                </a>
+                                <div class="text border border-top-0 p-4">
+                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
+                                    
+                                    <div class="d-flex align-items-center mt-4">
+                                        <p class="mb-0"><a href="#" class="btn btn-primary">Detail <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        @endforeach
+                        
+                        
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
     </section>
     {{-- Carousel Slider End --}}
 
@@ -389,6 +399,7 @@
     <a href="https://api.whatsapp.com/send?phone=6281235597909" class="floating-whatsapp">
         <i class="fab fa-whatsapp my-float" style="margin-top: 16px;"></i>
     </a>
+
     <!-- Bootstrap core JS-->
     <script src="{{ asset('bantuan/js/jquery-3.5.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -399,6 +410,13 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    
+    {{-- Carousel JS Start --}}
+    <script src="{{ asset('carousel/js/popper.js') }}"></script>
+    <script src="{{ asset('carousel/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('carousel/js/main.js') }}"></script>
+    {{-- Carousel JS End --}}
+    
     <script>
         // const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
         // const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
