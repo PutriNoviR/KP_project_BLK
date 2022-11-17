@@ -122,7 +122,7 @@
     <section class="page-section pt-5 " style="background-color: #F2F2F2 !important" id="aktivitas">
         <div class="container">
             <div class="row">
-                   <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
+                    <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
                         <h1 class="text-black title-heading">Kegiatan kami</h1>
                     </div>
                     <div class="col-md-12">
@@ -201,8 +201,8 @@
     <section class="page-section pt-5" style="background-image: linear-gradient(190deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2 class="heading-section mb-5 pb-md-4">Pelatihan</h2>
+                <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
+                    <h1 class="text-black title-heading">Pelatihan</h1>
                 </div>
                 <div class="col-md-12">
                     <div class="featured-carousel owl-carousel">
@@ -440,7 +440,7 @@
                             aria-label="Kedaireka Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="http:://www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                    <a href="//www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoUbaya.png')}}"
                             aria-label="Ubaya Logo" /></a>
                 </div>
