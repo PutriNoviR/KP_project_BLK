@@ -198,15 +198,16 @@
     </section>
 
     {{-- Carousel Slider Start --}}
-    <section class="page-section pt-5" style="background-image: linear-gradient(190deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+    @if(count($sliderblk) > 0)
+    <section class="page-section pt-5" style="background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
         <div class="container">
             <div class="row">
                 <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
-                    <h1 class="text-black title-heading">Pelatihan</h1>
+                    <h1 class="text-black title-heading">Pelatihan Balai Latihan Kerja(BLK)</h1>
                 </div>
                 <div class="col-md-12">
                     <div class="featured-carousel owl-carousel">
-                        @foreach($slider as $s)
+                        @foreach($sliderblk as $s)
                         <div class="item">
                             <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
                                 <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
@@ -232,6 +233,81 @@
             </div>
         </div>
     </section>
+    @endif
+
+    @if(count($slidermentor) > 0)
+    <section class="page-section pt-5" style="background-image: linear-gradient(360deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+        <div class="container">
+            <div class="row">
+                <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
+                    <h1 class="text-black title-heading">Pelatihan dari Mentor</h1>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        @foreach($slidermentor as $s)
+                        <div class="item">
+                            <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
+                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                    {{-- <div class="meta-date text-center p-2">
+                                        <span class="day">26</span>
+                                        <span class="mos">Nov.</span>
+                                        <span class="yr">2019</span>
+                                    </div> --}}
+                                </a>
+                                <div class="text p-4">
+                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
+                                    
+                                    <div class="d-flex align-items-center mt-4">
+                                        <p class="mb-0"><a href="#" class="btn btn-primary">Detail <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    @if(count($slidervendor) > 0)
+    <section class="page-section pt-5" style="background-image: linear-gradient(180deg,rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+        <div class="container">
+            <div class="row">
+                <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
+                    <h1 class="text-black title-heading">Pelatihan Ubaya Global Academy(UGA)</h1>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        @foreach($slidervendor as $s)
+                        <div class="item">
+                            <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
+                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                    {{-- <div class="meta-date text-center p-2">
+                                        <span class="day">26</span>
+                                        <span class="mos">Nov.</span>
+                                        <span class="yr">2019</span>
+                                    </div> --}}
+                                </a>
+                                <div class="text p-4">
+                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
+                                    
+                                    <div class="d-flex align-items-center mt-4">
+                                        <p class="mb-0"><a href="#" class="btn btn-primary">Detail <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
     {{-- Carousel Slider End --}}
 
     <section class="page-section pt-5 " id="tentang">
