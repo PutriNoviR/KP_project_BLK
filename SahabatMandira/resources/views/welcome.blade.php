@@ -218,7 +218,7 @@
                                     </div> --}}
                                 </a>
                                 <div class="text p-4">
-                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <center><b><p style="height: 50px;" class="text-muted"><a href="#">{{ $s->nama }}</a></p></b></center>
                                     <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
                                     
                                     <div class="d-flex align-items-center mt-4">
@@ -255,7 +255,7 @@
                                     </div> --}}
                                 </a>
                                 <div class="text p-4">
-                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <center><b><p style="height: 50px;" class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
                                     <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
                                     
                                     <div class="d-flex align-items-center mt-4">
@@ -292,7 +292,7 @@
                                     </div> --}}
                                 </a>
                                 <div class="text p-4">
-                                    <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
+                                    <center><b><p style="height: 50px;" class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
                                     <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
                                     
                                     <div class="d-flex align-items-center mt-4">
