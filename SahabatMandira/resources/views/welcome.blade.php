@@ -58,8 +58,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-2" id="mainNav">
         <div class="container">
             <a class="navbar-brand p-0" href="#page-top">
-                <p class="m-0"><img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}"
-                        style="height: 50px;" alt=""></p>
+                <p class="m-0">
+                    <img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" style="height: 50px;" alt="">
+                </p>   
+            </a>
+            <a class="navbar-brand p-0 d-none d-lg-block d-xl-block" href="//www.ubaya.ac.id" target="_blank">
+                <p class="m-0">
+                    <img src="{{ asset('landingpage/assets/img/logos/LogoUbaya.png')}}" style="height: 50px;" alt="">
+                </p>   
+            </a>
+            <a class="navbar-brand p-0 d-none d-lg-block d-xl-block" href="//disnakertrans.jatimprov.go.id/" target="_blank">
+                <p class="m-0">
+                    <img src="{{ asset('landingpage/assets/img/logos/LogoDisnaker.png')}}" style="width: 50%; height: auto" alt="">
+                </p>   
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -410,7 +421,7 @@
         </div>
     </section>
     <!-- Clients-->
-    <div class="py-5 bg-info">
+    <div class="py-5" style="background-image: linear-gradient(to, rgba(247, 139, 17, 0.486), rgba(12, 138, 241, 0.562))">
         <div class="mx-3">
             <div class="d-flex justify-content-around">
                 <div class="my-3 d-flex align-items-center">
