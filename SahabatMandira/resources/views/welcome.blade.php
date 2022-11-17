@@ -421,7 +421,7 @@
         </div>
     </section>
     <!-- Clients-->
-    <div class="py-5" style="background-image: linear-gradient(to, rgba(247, 139, 17, 0.486), rgba(12, 138, 241, 0.562))">
+    <div class="py-5" style="background-image: linear-gradient(to right, rgba(247, 139, 17, 0.486), rgba(12, 138, 241, 0.562))">
         <div class="mx-3">
             <div class="d-flex justify-content-around">
                 <div class="my-3 d-flex align-items-center">
