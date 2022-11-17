@@ -210,7 +210,7 @@
                         @foreach($sliderblk as $s)
                         <div class="item">
                             <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
-                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                <a href="#" class="block-20 d-flex align-items-start" style="object-fit: cover; object-position: center; border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
                                     {{-- <div class="meta-date text-center p-2">
                                         <span class="day">26</span>
                                         <span class="mos">Nov.</span>
@@ -247,7 +247,7 @@
                         @foreach($slidermentor as $s)
                         <div class="item">
                             <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
-                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                <a href="#" class="block-20 d-flex align-items-start" style="object-fit: cover; object-position: center; border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
                                     {{-- <div class="meta-date text-center p-2">
                                         <span class="day">26</span>
                                         <span class="mos">Nov.</span>
@@ -284,7 +284,7 @@
                         @foreach($slidervendor as $s)
                         <div class="item">
                             <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
-                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                                <a href="#" class="block-20 d-flex align-items-start" style="object-fit: cover; object-position: center; border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
                                     {{-- <div class="meta-date text-center p-2">
                                         <span class="day">26</span>
                                         <span class="mos">Nov.</span>
