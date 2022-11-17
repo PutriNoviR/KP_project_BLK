@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <div id="app" style="height: 100%; margin: 0px; padding: 0px; background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+    <div id="app" style="height: 100%; position: relative; top:0px; right:0px; bottom:0px; left:0px; background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
     <main class="py-4">
         @yield('content')
     </main>
