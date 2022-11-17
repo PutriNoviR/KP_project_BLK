@@ -240,7 +240,7 @@
         <div class="container">
             <div class="row">
                 <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
-                    <h1 class="text-black title-heading">Pelatihan dari Mentor</h1>
+                    <h1 class="text-black title-heading">Seminar, Webinar dan Workshop</h1>
                 </div>
                 <div class="col-md-12">
                     <div class="featured-carousel owl-carousel">
