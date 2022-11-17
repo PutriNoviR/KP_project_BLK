@@ -20,6 +20,19 @@ use App\Http\Controllers\SertifikatController;
 // })
 
 // FOR TESTING PURPOSE ONLY - TESTING SECTION STARTS
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail from Rumah Mandira UBAYA',
+        'body' => 'This is just testing'
+    ];
+   
+    \Mail::to('fikribaharuddin@gmail.com')->send(new \App\Mail\TestMail($details));
+   
+    dd("Email is Sent.");
+});
+
 Route::get('/testingDir', function () {
     return view('dummy-testing.dummy');
 });
