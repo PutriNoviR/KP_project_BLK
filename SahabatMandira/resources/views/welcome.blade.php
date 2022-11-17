@@ -115,7 +115,7 @@
                         <h1 class="text-black title-heading">Kegiatan kami</h1>
                     </div>
                     <div class="col-md-12">
-                        <div class="featured-carousel owl-carousel">
+                        <div class="ig-carousel owl-carousel">
                             <div class="item ig">
                                 <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/CkxXKUMvXPh/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
                                     <div style="padding:16px;">
@@ -197,15 +197,15 @@
                     <div class="featured-carousel owl-carousel">
                         @foreach($slider as $s)
                         <div class="item">
-                            <div class="blog-entry">
-                                <a href="#" class="block-20 d-flex align-items-start" style="background-image: url('{{ asset('storage/'.$s->gambar) }}')">
+                            <div class="blog-entry" style="border-top-left-radius: 40px; border-bottom-right-radius: 40px;">
+                                <a href="#" class="block-20 d-flex align-items-start" style="border-top-left-radius: 40px; background-image: url('{{ asset('storage/'.$s->gambar) }}')">
                                     {{-- <div class="meta-date text-center p-2">
                                         <span class="day">26</span>
                                         <span class="mos">Nov.</span>
                                         <span class="yr">2019</span>
                                     </div> --}}
                                 </a>
-                                <div class="text border border-top-0 p-4">
+                                <div class="text p-4">
                                     <center><b><p class="text-muted"><a href="#">{{ $s->nama }}</a></h3></b></center>
                                     <p style="height: 100px; overflow: auto;">{{ $s->deskripsi }}</p>
                                     
@@ -486,6 +486,35 @@
     <script src="{{ asset('carousel/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('carousel/js/main.js') }}"></script>
     {{-- Carousel JS End --}}
+
+    {{-- IG Carousel Start --}}
+    <script>
+        $('.ig-carousel').owlCarousel({
+	    loop:true,
+	    autoplay: true,
+	    margin:30,
+	    animateOut: 'fadeOut',
+		autoplayTimeout: 15000,
+	    animateIn: 'fadeIn',
+	    nav:true,
+	    dots: true,
+	    autoplayHoverPause: false,
+	    items: 1,
+	    navText : ["<span class='ion-ios-arrow-back'></span>","<span class='ion-ios-arrow-forward'></span>"],
+	    responsive:{
+	      0:{
+	        items:1
+	      },
+	      600:{
+	        items:2
+	      },
+	      1000:{
+	        items:2
+	      }
+	    }
+		});
+    </script>
+    {{-- IG Carousel End --}}
     
     <script>
         // const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
