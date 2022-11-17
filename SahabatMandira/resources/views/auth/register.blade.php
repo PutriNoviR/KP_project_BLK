@@ -114,7 +114,7 @@ Register
                     @csrf
 
                     <div class="form-group">
-                        <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                        <label for="email" class="col-md-12 col-form-label">{{ __('Email') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Email aktif yang anda gunakan sehari-hari." src="{{ asset('quest-mark.png') }}"></label>
 
                         <div class="col-md-12">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -132,7 +132,7 @@ Register
                         <div class="row">
 
                             <div class="col-md-6">
-                                <label for="name" class="col-md-12 col-form-label">Nama Depan</label>
+                                <label for="name" class="col-md-12 col-form-label">Nama Depan <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Nama depan anda." src="{{ asset('quest-mark.png') }}"></label>
 
                                 <div class="col-md-12">
                                     <input id="name" type="text"
@@ -148,7 +148,7 @@ Register
                             </div>
 
                             <div class="col-md-6">
-                                <label for="name" class="col-md-12 col-form-label">Nama Belakang</label>
+                                <label for="name" class="col-md-12 col-form-label">Nama Belakang <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Nama belakang anda." src="{{ asset('quest-mark.png') }}"></label>
 
                                 <div class="col-md-12">
                                     <input id="name" type="text"
@@ -165,7 +165,7 @@ Register
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="username" class="col-md-12 col-form-label">{{ __('Username') }}</label>
+                        <label for="username" class="col-md-12 col-form-label">{{ __('Username') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Nama pengguna yang akan digunakan untuk akses Sahabat Mandira." src="{{ asset('quest-mark.png') }}"></label>
 
                         <div class="col-md-12">
                             <input id="username" type="text"
@@ -181,7 +181,7 @@ Register
                     </div>
 
                     <div class="form-group">
-                        <label for="nomer_hp" class="col-md-12 col-form-label">{{ __('Nomor Telepon') }}</label>
+                        <label for="nomer_hp" class="col-md-12 col-form-label">{{ __('Nomor Telepon') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Nomor telepon aktif yang dapat dihubungi dan terdaftar di aplikasi WhatsApp." src="{{ asset('quest-mark.png') }}"></label>
                         <div class="col-md-12">
                             <input id="nomer_hp" type="text"
                                 class="form-control @error('nomer_hp') is-invalid @enderror" name="nomer_hp" required
@@ -196,7 +196,7 @@ Register
                     </div>
 
                     <div class="form-group">
-                        <label for="role" class="col-md-12 col-form-label">{{ __('Sebagai') }}</label>
+                        <label for="role" class="col-md-12 col-form-label">{{ __('Sebagai') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Status anda sebagai pengguna fasilitas Sahabat Mandira." src="{{ asset('quest-mark.png') }}"></label>
 
                         <div class="col-md-12">
                             <select name="role" id="role" class="form-control">
@@ -215,7 +215,7 @@ Register
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
+                        <label for="password" class="col-md-12 col-form-label">{{ __('Password') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Password yang akan digunakan untuk akses Sahabat Mandira. Minimal 8 karakter. Pastikan password anda terdiri dari gabungan huruf kapital, huruf kecil, numerik(angka), serta simbol." src="{{ asset('quest-mark.png') }}"></label>
 
                         <div class="col-md-12">
                             <div class="input-group mb-3" id="show_hide_password">
@@ -241,7 +241,7 @@ Register
 
                     <div class="form-group">
                         <label for="password-confirm"
-                            class="col-md-12 col-form-label">{{ __('Konfirmasi Password') }}</label>
+                            class="col-md-12 col-form-label">{{ __('Konfirmasi Password') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Masukkan kembali password  yang telah anda tentukan sebelumnya." src="{{ asset('quest-mark.png') }}"></label>
 
                         <div class="col-md-12">
                             <div class="input-group mb-3" id="show_hide_password_confirmation">
@@ -288,4 +288,11 @@ Register
     </div>
 </div>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+    });
+</script>
 @endsection
