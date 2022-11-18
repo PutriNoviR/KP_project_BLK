@@ -83,7 +83,7 @@
                     <li class="nav-item"><a class="nav-link text" href="#blk" style="color: #0A8AEA">Pelatihan BLK</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#seminar" style="color: #0A8AEA">Seminar dan Workshop</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#uga" style="color: #0A8AEA">Pelatihan UGA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tentang" style="color: #0A8AEA">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link text" href="#tentang" style="color: #0A8AEA">Tentang</a></li>
                     <li class="nav-item"><a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Login</a></li>
                 </ul>
             </div>
