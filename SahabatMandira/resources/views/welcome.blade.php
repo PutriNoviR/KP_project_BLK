@@ -55,7 +55,7 @@
 
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-2" id="mainNav">
+    <nav class="navbar navbar-light fixed-top p-2 bg-light" id="mainNav">
         <div class="container">
             <a class="navbar-brand p-0" href="#page-top">
                 <p class="m-0">
@@ -77,12 +77,14 @@
                 Menu
                 <i class="fas fa-bars ms-1"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="navbar-collapse collapse" style="padding: 30px;" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link text" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link btn-danger rounded-3 px-3" href="{{ route('login') }}"
-                            id="btnlogin">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text" href="#" style="color: #0A8AEA">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text" href="#blk" style="color: #0A8AEA">Pelatihan BLK</a></li>
+                    <li class="nav-item"><a class="nav-link text" href="#seminar" style="color: #0A8AEA">Seminar dan Workshop</a></li>
+                    <li class="nav-item"><a class="nav-link text" href="#uga" style="color: #0A8AEA">Pelatihan UGA</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang" style="color: #0A8AEA">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -199,7 +201,7 @@
 
     {{-- Carousel Slider Start --}}
     @if(count($sliderblk) > 0)
-    <section class="page-section pt-5" style="background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+    <section id="blk" class="page-section pt-5" style="background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
         <div class="container">
             <div class="row">
                 <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
@@ -236,7 +238,7 @@
     @endif
 
     @if(count($slidermentor) > 0)
-    <section class="page-section pt-5" style="background-image: linear-gradient(360deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+    <section id="seminar" class="page-section pt-5" style="background-image: linear-gradient(360deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
         <div class="container">
             <div class="row">
                 <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
@@ -273,7 +275,7 @@
     @endif
 
     @if(count($slidervendor) > 0)
-    <section class="page-section pt-5" style="background-image: linear-gradient(180deg,rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+    <section id="uga" class="page-section pt-5" style="background-image: linear-gradient(180deg,rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
         <div class="container">
             <div class="row">
                 <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
