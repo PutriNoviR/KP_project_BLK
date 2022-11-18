@@ -54,7 +54,9 @@ Login
             <div class="col-md-8">
                 <div class="content">
                     <div class="title">
-                        <img class="mb-2" src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" style="height: 60px;" alt="">
+                        <a href="//sahabatmandira.id">
+                            <img class="mb-2" src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" style="height: 60px;" alt="">
+                        </a>
                         <p>Selamat Datang Di <b style="color: #0A8AEA">Sahabat</b> <b style="color: #F06128">Mandira</b></p>
                     </div>
 
