@@ -56,9 +56,12 @@
                                 @endif
 
                                 @if (Route::has('login'))
-                                    <a class="btn btn-link" href="{{ route('login') }}">
-                                        {{ __('Login') }}
-                                    </a>
+                                    <div class="register">
+                                        <span> Sudah punya akun? </span>
+                                        <a class="btn btn-link" href="{{ route('login') }}">
+                                            {{ __('Login') }}
+                                        </a>
+                                    </div>
                                 @endif
                             </div>
                         </div>

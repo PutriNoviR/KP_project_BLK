@@ -139,13 +139,11 @@ Login
                                         </div>
                                         @endif
 
-                                        
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                                 {{ __('Lupa Password ?') }}
                                             </a>
                                         @endif
-
                                     </div>
                                 </div>
                             </form>
