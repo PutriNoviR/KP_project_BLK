@@ -139,7 +139,7 @@
                     <a href="{{ route('dashboard') }}" class="brand-link">
                         <img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}"
                             alt="SahabatMandira Logo" class="brand-image" style="opacity: .8">
-                        <span class="brand-text font-weight-light">Rumah Mandira</span>
+                        <span class="brand-text font-weight-light">Sahabat Mandira</span>
                     </a>
 
                     <!-- Sidebar -->

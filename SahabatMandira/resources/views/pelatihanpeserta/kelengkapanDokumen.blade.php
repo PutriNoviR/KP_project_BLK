@@ -80,7 +80,7 @@ Kelengkapan Dokumen
 
                         </div>
                         <div class="form-group">
-                            <label for="kota" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
+                            <label for="kota" class="col-md-12 col-form-label">{{ __('Alamat Domisili') }}</label>
 
                             <div class="col-md-12">
                                 <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" required autocomplete="kota" autofocus>
@@ -94,7 +94,7 @@ Kelengkapan Dokumen
                         </div>
 
                         <div class="form-group">
-                            <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
+                            <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat Sesuai KTP') }}</label>
 
                             <div class="col-md-12">
                                 <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" required autocomplete="alamat" autofocus>

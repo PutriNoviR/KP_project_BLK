@@ -37,6 +37,7 @@ Route::get('/testingDir', function () {
     return view('dummy-testing.dummy');
 });
 
+
 // Route::get('testing/qrcode/{email}/{sesi_id}', 'SertifikatController@qr');
 
 Route::get('register/mentor', 'Auth\RegisterController@regisMentor')->name('registerMentor');
