@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('carousel/css/owl.theme.default.min.css') }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
 	<link rel="stylesheet" href="{{ asset('carousel/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('montana-master/css/style.css') }}">
     {{-- Owl-Carousel End --}}
 
 
@@ -57,17 +58,17 @@
     <!-- Navigation-->
     <nav class="navbar navbar-light fixed-top p-2 bg-light" id="mainNav">
         <div class="container">
-            <a class="navbar-brand p-0" href="#page-top">
+            <a class="navbar-brand p-0 d-none d-xl-block" href="#page-top">
                 <p class="m-0">
                     <img src="{{ asset('landingpage/assets/img/logos/sahabatmandira.png') }}" style="height: 50px;" alt="">
                 </p>   
             </a>
-            <a class="navbar-brand p-0 d-none d-lg-block d-xl-block" href="//www.ubaya.ac.id" target="_blank">
+            <a class="navbar-brand p-0 d-none d-xl-block" href="//www.ubaya.ac.id" target="_blank">
                 <p class="m-0">
                     <img src="{{ asset('landingpage/assets/img/logos/LogoUbaya.png')}}" style="height: 50px;" alt="">
                 </p>   
             </a>
-            <a class="navbar-brand p-0 d-none d-lg-block d-xl-block" href="//disnakertrans.jatimprov.go.id/" target="_blank">
+            <a class="navbar-brand p-0 d-none d-xl-block" href="//disnakertrans.jatimprov.go.id/" target="_blank">
                 <p class="m-0">
                     <img src="{{ asset('landingpage/assets/img/logos/LogoDisnaker.png')}}" style="width: 50%; height: auto" alt="">
                 </p>   
@@ -77,14 +78,14 @@
                 Menu
                 <i class="fas fa-bars ms-1"></i>
             </button>
-            <div class="navbar-collapse collapse" style="padding: 30px;" id="navbarResponsive">
+            <a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Login &nbsp;<i class="fa fa-sign-in"></i></a>
+            <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link text" href="#" style="color: #0A8AEA">Home</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#blk" style="color: #0A8AEA">Pelatihan BLK</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#seminar" style="color: #0A8AEA">Seminar dan Workshop</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#uga" style="color: #0A8AEA">Pelatihan UGA</a></li>
                     <li class="nav-item"><a class="nav-link text" href="#tentang" style="color: #0A8AEA">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -458,6 +459,59 @@
 
             </ul>
         </div>
+    </section>
+
+    <section class="page-section pt-5 " id="galeri">
+            <div class="text-center">
+                <h2 class="title-heading text-uppercase">Galeri Kegiatan</h2>
+                <h3 class="section-subheading text-muted"></h3>
+            </div>
+            
+            <div class="instragram_area">
+                <div class="single_instagram">
+                    <img src="{{ asset('montana-master/img/instragram/1.png') }}" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="single_instagram">
+                    <img src="{{ asset('montana-master/img/instragram/2.png') }}" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="single_instagram">
+                    <img src="{{ asset('montana-master/img/instragram/3.png') }}" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="single_instagram">
+                    <img src="{{ asset('montana-master/img/instragram/4.png') }}" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="single_instagram">
+                    <img src="{{ asset('montana-master/img/instragram/5.png') }}" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <!-- instragram_area_start -->
+        
+        <!-- instragram_area_end -->
     </section>
 
     <!-- Statistik -->
