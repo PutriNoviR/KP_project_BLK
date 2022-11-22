@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<main class="py-4" style="position: absolute; top:0px; right:0px; bottom:0px; left:0px; background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -10,8 +11,8 @@
 
             <div class="card-forgot">
                 <div class="card-header">
-                    <h4>{{ __('Forgot Your Password') }}</h4>
-                    <p>Please enter your email address, so we can send you link to reset your password</p>
+                    <h4>{{ __('Permintaan Reset Password') }}</h4>
+                    <p>Harap masukkan alamat email yang terdaftar, sehingga kami dapat mengirimkan link untuk reset password anda.</p>
                 </div>
 
                 <div class="card-body">
@@ -25,7 +26,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                            <label for="email" class="col-md-12 col-form-label">{{ __('Email') }} <img class="ml-1 mb-2" style="width: 15px;" data-toggle="tooltip" data-placement="top" title="Email yang anda gunakan saat mendaftar." src="{{ asset('quest-mark.png') }}"></label>
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -41,23 +42,26 @@
                         <div class="form-group mb-0 rata_tengah">
                             <div class="col-md-12 offset-manual">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                    {{ __('Kirim Link Reset Password') }}
                                 </button>
                                 <br>
 
                                 @if (Route::has('register'))
                                     <div class="register">
-                                        <span> Don't have account? </span>
-                                        <a class="btn btn-link" href="{{ route('register') }}">
-                                            {{ __('Register') }}
-                                        </a>
+                                        <span> Tidak punya akun? </span>
+                                            <a class="btn btn-link" href="{{ route('register') }}">
+                                                {{ __('Daftar') }}
+                                            </a>
                                     </div>
                                 @endif
 
                                 @if (Route::has('login'))
-                                    <a class="btn btn-link" href="{{ route('login') }}">
-                                        {{ __('Login') }}
-                                    </a>
+                                    <div class="register">
+                                        <span> Sudah punya akun? </span>
+                                        <a class="btn btn-link" href="{{ route('login') }}">
+                                            {{ __('Login') }}
+                                        </a>
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -67,4 +71,5 @@
         </div>
     </div>
 </div>
+</main>
 @endsection

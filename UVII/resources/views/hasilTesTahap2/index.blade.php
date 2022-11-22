@@ -62,7 +62,7 @@
             
                 <p>
                     @php
-                        echo date('d-m-Y h:i:s', strtotime($tanggal_tes->tanggal_mulai)).' - '.date('d-m-Y h:i:s', strtotime($tanggal_tes->tanggal_selesai));
+                        echo date('d M Y H:i:s', strtotime($tanggal_tes->tanggal_mulai)).' - '.date('d M Y H:i:s', strtotime($tanggal_tes->tanggal_selesai));
                     @endphp
                 </p>
             </div>

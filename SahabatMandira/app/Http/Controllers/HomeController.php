@@ -16,6 +16,7 @@ use App\PelatihanVendor;
 use App\Perusahaan;
 use App\Role;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,31 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        // carousel data-start
+        // DB::connection("mandira")->statement(DB::raw("SET @mentor = 'mentor', @blk = 'blk', @vend = 'vend'"));
+
+        $slidervendor = DB::connection("mandira")
+                        ->select("select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority from pelatihan_vendor where is_headline=1");
+
+        $sliderblk = DB::connection("mandira")
+                        ->select("select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1");
+
+        $slidermentor = DB::connection("mandira")
+                        ->select("select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority from mandira_mentorings where is_headline=1"); 
+        
+        // $slider = DB::connection("mandira")
+        // ->select("select * from (
+        //     (select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority, @vend AS status from pelatihan_vendor where is_headline=1) 
+        //     UNION 
+        //     (select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority, @blk as status from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1) 
+        //     UNION 
+        //     (select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority, @mentor as status from mandira_mentorings where is_headline=1)
+        //     ) AS X 
+        //     order by headline_priority");
+        
+        // dd($slidermentor);
+        //carousel data-end
+
         // $pencaker = Lamaran::distinct('users_email')->count('users_email');
         $pencaker = User::where('roles_id', 1)->where('is_suspend','<>',1)->distinct('email')->count('email');
         $mitra = Perusahaan::count('nama');
@@ -46,7 +72,8 @@ class HomeController extends Controller
         $totalpendaftar = PelatihanPeserta::all()->count();
         $pesertaditerima = PelatihanPeserta::where('rekom_keputusan', 'LULUS')->count();
         $persentase = $pesertaditerima / $totalpendaftar * 100;
-        return view('welcome', compact('pencaker', 'mitra', 'mentor', 'totalpelatihan', 'persentase'));
+
+        return view('welcome', compact('pencaker', 'mitra', 'mentor', 'totalpelatihan', 'persentase', 'slidermentor', 'sliderblk', 'slidervendor'));
     }
 
     public function dashboard()
@@ -68,6 +95,7 @@ class HomeController extends Controller
             ->JOIN('masterblk_db.kategori_psikometrik as kp', 'kp.id', '=', 'sk.kode_kategori')
             ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
             ->WHERE('mu.users_email', '=', $userLogin)
+            ->WHERE('tanggal_tutup', '>=', $mytime)
             ->select('sesi_pelatihans.*')
             // ->WHERE('p.email_peserta', '=', $userLogin)
             ->skip(0)
