@@ -82,6 +82,7 @@ class PelatihanPesertaController extends Controller
     {
         $userLogin = auth()->user()->email;
         $periode = SesiPelatihan::find($id);
+        // $pelatihan = ::find($id);
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
@@ -110,47 +111,65 @@ class PelatihanPesertaController extends Controller
      */
     public function update(Request $request, $email)
     {
-        if ($request->get('rekom_keputusan') == 'LULUS') {
-            $update = array(
-                'rekom_catatan' => $request->get('rekom_catatan'),
-                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'DITERIMA',
-            );
-        } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
-            $update = array(
-                'rekom_catatan' => $request->get('rekom_catatan'),
-                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'DITOLAK',
-            );
-        } elseif (($request->get('rekom_keputusan') == 'CADANGAN')) {
-            $update = array(
-                'rekom_catatan' => $request->get('rekom_catatan'),
-                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'PESERTA CADANGAN',
-            );
+        $idSesiPelatihan = $request->get('sesi_pelatihans_id');
+        $listditerima = DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('sesi_pelatihans_id', $idSesiPelatihan)
+            ->where('status_fase', 'DITERIMA')
+            ->get();
+
+        $countDiterima = $listditerima->count();
+
+        $kuota = DB::connection('mandira')
+        ->table('sesi_pelatihans')
+        ->where('id',$idSesiPelatihan)->value('kuota');
+        // dd($kuota);
+
+        if ($countDiterima >= $kuota) {
+            // dd('1');
+            if ($request->get('rekom_keputusan') == 'LULUS') {
+                $update = array(
+                    'rekom_catatan' => $request->get('rekom_catatan'),
+                    'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                    'rekom_keputusan' => $request->get('rekom_keputusan'),
+                    'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                    'status_fase' => 'DITERIMA',
+                );
+            } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
+                $update = array(
+                    'rekom_catatan' => $request->get('rekom_catatan'),
+                    'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                    'rekom_keputusan' => $request->get('rekom_keputusan'),
+                    'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                    'status_fase' => 'DITOLAK',
+                );
+            } elseif (($request->get('rekom_keputusan') == 'CADANGAN')) {
+                $update = array(
+                    'rekom_catatan' => $request->get('rekom_catatan'),
+                    'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                    'rekom_keputusan' => $request->get('rekom_keputusan'),
+                    'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                    'status_fase' => 'PESERTA CADANGAN',
+                );
+            }
+
+            DB::connection('mandira')
+                ->table('pelatihan_pesertas')
+                ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
+                ->where('email_peserta', $email)
+                ->update($update);
+
+            return redirect()->back()->with('success', 'Berhasil Mengupdate');
+
         } else {
-            $update = array(
-                'rekom_catatan' => $request->get('rekom_catatan'),
-                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'PESERTA CADANGAN',
-            );
+
+            return redirect()->back()->with('failed', 'Gagal Update! Jumlah diterima sudah max kuota!.');
+
         }
 
-        DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->where('email_peserta', $email)
-            ->update($update);
+
         //
-        return redirect()->back()->with('success', 'Berhasil Mengupdate');
+        
     }
 
     /**

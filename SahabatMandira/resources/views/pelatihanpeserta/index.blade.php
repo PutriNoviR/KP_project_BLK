@@ -9,7 +9,7 @@ Pelatihan Peserta
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
-           
+
         });
     });
 
@@ -78,15 +78,25 @@ Pelatihan Peserta
 
 @section('contents')
 <div class="container">
-    <div class="d-flex justify-content-between mb-2">
-        <h2>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
-            {{ date('M y', strtotime($periode->tanggal_tutup)) }}
-        </h2>
+    <div class="info-box mb-2 bg-info">
+        <h2>{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
     </div>
+    <div class="d-flex justify-content-between mb-2">
+        <h4>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
+            {{ date('M y', strtotime($periode->tanggal_tutup)) }}
+        </h4>
+    </div>
+
     @if (\Session::has('success'))
     <div class="alert alert-success">
         <ul>
             <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @elseif (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('failed') !!}</li>
         </ul>
     </div>
     @endif
