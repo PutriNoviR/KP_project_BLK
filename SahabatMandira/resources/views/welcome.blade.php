@@ -78,7 +78,7 @@
                 Menu
                 <i class="fas fa-bars ms-1"></i>
             </button>
-            <a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Login &nbsp;<i class="fa fa-sign-in"></i></a>
+            <a class="nav-link btn-primary rounded-3 px-3" href="{{ route('login') }}" id="btnlogin">Masuk &nbsp;<i class="fa fa-sign-in"></i></a>
             <div class="navbar-collapse collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link text" href="#" style="color: #0A8AEA">Home</a></li>
