@@ -42,7 +42,7 @@ Login
 @endsection
 
 @section('content')
-<main class="py-4" style="position: fixed; top:0px; right:0px; bottom:0px; left:0px; background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
+<main class="py-4" style="height: 100vh; position: fixed; top:0px; right:0px; bottom:0px; left:0px; background-image: linear-gradient(180deg, rgba(0, 0, 255, 0.315), rgba(255, 166, 0, 0.37))">
     <div class="container">
         @if($message = Session::get('success'))
         <div class="alert alert-success">
