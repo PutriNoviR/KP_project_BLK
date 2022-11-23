@@ -69,7 +69,7 @@ Pelatihan
                 <td>{{ $d->nama }}</td>
                 <td>{{ $d->kejuruan }}</td>
                 <td>{{ $d->sub_kejuruan }}</td>
-                <td>{{ $d->periode</td>
+                <td>{{ $d->periode }}</td>
                 <td>{{ $d->status}}</td> {{-- lulus / tidak lulus--}}
                 <td>
                     <a data-toggle="modal" data-target="" class='btn btn-warning'>

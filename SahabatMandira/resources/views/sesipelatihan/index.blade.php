@@ -32,6 +32,14 @@ PELATIHAN
             // alert('odar')
             console.log(parameter)
         }
+        else
+        {
+            parameter ={
+                "responsive": true,
+                "autoWidth": false,
+                dom: 'frtip'
+            }
+        }
         $("#myTable").DataTable(parameter);
     });
 
