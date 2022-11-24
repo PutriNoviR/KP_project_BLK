@@ -11,7 +11,7 @@
             <div class="card-forgot">
                 <div class="card-header">
                     <h4>{{ __('Forgot Your Password') }}</h4>
-                    <p>Please enter your email address, so we can send you link to reset your password</p>
+                    <p>Please enter your email, so we can send you link to reset your password</p>
                 </div>
 
                 <div class="card-body">
@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ route('password.send_otp') }}">
                         @csrf
 
                         <div class="form-group">
@@ -41,7 +41,7 @@
                         <div class="form-group mb-0 rata_tengah">
                             <div class="col-md-12 offset-manual">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                    {{ __('Send Token') }}
                                 </button>
                                 <br>
 

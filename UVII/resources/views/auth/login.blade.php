@@ -116,11 +116,11 @@
                                         </div>
                                     @endif
 
-                                    <!-- @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.baru') }}">
+                                    @if (Route::has('password.request'))
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Password') }}
                                         </a>
-                                    @endif -->
+                                    @endif
                                 </div>
                             </div>
                         </form>

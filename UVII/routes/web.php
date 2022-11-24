@@ -18,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 // })
 Route::post('/forgotPassword', 'PesertaController@forgotPasswords')->name('password.updates');
 
-Route::get('/forgotPassword', 'PesertaController@getForgotPasswords')->name('password.baru');
+Route::post('/password/send_token', 'PesertaController@sendOtpToken')->name('password.send_otp');
+
+Route::get('/password/send_token', 'PesertaController@getVerifyToken');
+Route::post('/password/validate_token', 'PesertaController@validateOtpToken')->name('password.verify_otp');
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 

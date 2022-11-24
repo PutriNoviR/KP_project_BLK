@@ -15,6 +15,9 @@ use App\KategoriPsikometrik;
 use App\Rules\LowercaseRule;
 use App\UjiMinatAwal;
 
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+
 class PesertaController extends Controller
 {
     /**
@@ -181,6 +184,7 @@ class PesertaController extends Controller
 
         if(!empty($dataUjiMinat)){
             UjiMinatAwal::where('users_email',$request->old_email)->update(['users_email'=>$request->email]);
+            DB::connection('moodle')->table('mdl_user')->where('email',$request->old_email)->update(['email'=>$request->email]);
         }
        
         return redirect()->back()->with("status", "data telah diubah!");
@@ -296,6 +300,10 @@ class PesertaController extends Controller
     }
 
     public function forgotPasswords(Request $request){
+        $this->validate($request, [
+            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/']
+        ]);
+        
         if($request->password == $request->password_confirmation){
             User::where('email',$request->email)->update(['password'=>Hash::make($request->password)]);
             return redirect()->route('login')->with('success','Password Berhasil dirubah');
@@ -305,7 +313,7 @@ class PesertaController extends Controller
         }
 
     }
-    public function getForgotPasswords(){
+    public function getForgotPassword(){
         return view('auth.passwords.reset');
 
     }
@@ -336,4 +344,71 @@ class PesertaController extends Controller
         return $pdf->download($name);
     }
 
+    public function getVerifyToken(){
+        return view('auth.passwords.confirm');
+    }
+
+    public function sendOtpToken(Request $request){
+        if($request->email != null){
+            $this->validate($request, [
+                'email' => ['required', 'string', 'email', 'max:255', 'exists:users']
+            ]);
+    
+            $email = $request->email;
+            //token 6 digit
+            $token = random_int(100000, 999999);
+    
+            DB::connection('mysql')->table('password_resets')
+                        ->insert([
+                                    'email'=>$email, 
+                                    'token'=>$token, 
+                                    'created_at'=>Carbon::now()
+                                ]);
+    
+            Mail::send('auth.passwords.verifyToken', ['token'=>$token], function($message) use($request){
+                $message->to($request->email);
+                $message->from('caniliem76@gmail.com', 'UBAYA VOCATIONAL INTEREST INVENTORY');
+                $message->subject('Reset Password Account UVII');
+            });
+    
+            return view('auth.passwords.confirm', compact('email'));
+    
+        }
+        else{
+            return redirect()->route('password.request')->with('error','please try again!');
+        }
+    }
+
+    public function validateOtpToken(Request $request){
+        if($request->email != null){
+            $this->validate($request, [
+                'token' => ['required', 'numeric','digits:6']
+            ]);
+    
+            $email = $request->email;
+            $token = $request->token;
+    
+            $data = DB::connection('mysql')->table('password_resets')
+                        ->where('email',$email)
+                        ->where('token',$token)
+                        ->first();
+               
+            if($data){
+                DB::connection('mysql')->table('password_resets')
+                        ->where('email',$email)
+                        ->delete();
+    
+                return view('auth.passwords.reset', compact('email'));
+            }      
+            else{
+    
+                return redirect()->back()->with('error','token is invalid!');
+            }
+        }
+        else{
+            return redirect()->route('password.request')->with('error','please try again!');
+        }
+      
+
+    }
 }
