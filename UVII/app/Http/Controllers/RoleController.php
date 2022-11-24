@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\LowercaseRule;
+use App\Rules\NoWhitespaceRule;
 
 class RoleController extends Controller
 {
@@ -161,7 +162,7 @@ class RoleController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'no_hp' => ['required', 'numeric', 'digits_between:9,13'],
             'username' => ['required', 'string', 'alpha_dash', new LowercaseRule, 'unique:users'],
-            'password' => ['required', 'string', 'confirmed', 'min:8', 'regex:/^(?=.*?[A-Z]\S)(?=.*?[0-9]\S)(?=.*?[#?!@$%^&*-_~+=]\S).{8,}$/']
+            'password' => ['required', 'string', 'confirmed', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_~+=]).{8,}$/', new NoWhitespaceRule]
         ]);
 
         $admin = new User();

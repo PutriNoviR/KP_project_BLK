@@ -122,7 +122,7 @@
         </div>
     </header>
     <!-- Services-->
-    <section class="page-section pt-5 " style="background-color: #F2F2F2 !important" id="aktivitas">
+    <section class="page-section pt-5 " style="background-image: linear-gradient(180deg,rgba(190,191,193,255), rgba(0, 0, 255, 0.315))" id="aktivitas">
         <div class="container">
             <div class="row">
                     <div class="text-center text-lg pt-0 pt-lg-5 mb-5">
@@ -313,7 +313,7 @@
     @endif
     {{-- Carousel Slider End --}}
 
-    <section class="page-section pt-5 " id="tentang">
+    <section class="page-section pt-5" style="background-image: linear-gradient(180deg,rgba(255, 166, 0, 0.37), #F2F2F2)" id="tentang">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
@@ -461,7 +461,7 @@
         </div>
     </section>
 
-    <section class="page-section pt-5 " id="galeri">
+    <section class="page-section pt-5" style="background-color: #F2F2F2 !important" id="galeri">
             <div class="text-center">
                 <h2 class="title-heading text-uppercase">Galeri Kegiatan</h2>
                 <h3 class="section-subheading text-muted"></h3>

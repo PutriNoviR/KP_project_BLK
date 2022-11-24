@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Rules\LowercaseRule;
+use App\Rules\NoWhitespaceRule;
 
 use Session;
 
@@ -67,7 +68,7 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:250'],
             'username' => ['required', 'string', 'unique:users', 'alpha_dash', new LowercaseRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z]\S)(?=.*?[0-9]\S)(?=.*?[#?!@$%^&*-_~+=]\S).{8,}$/'],
+            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_~+=]).{8,}$/', new NoWhitespaceRule],
             'nomer' => ['required', 'numeric', 'digits_between:9,13'],
             'g-recaptcha-response' => function($attribute, $value, $fail){
                 $secretKey = config('services.recaptcha.secret');

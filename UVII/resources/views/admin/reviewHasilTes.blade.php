@@ -250,7 +250,7 @@
                                     
                                     <div class="emblem label-info">
                                         <span>{{$d['kategori']}}</span>
-                                        <span>({{$d['fraction']}})</span>
+                                        <!-- <span>({{$d['fraction']}})</span> -->
                                     </div>        
                                 
                                 </div>

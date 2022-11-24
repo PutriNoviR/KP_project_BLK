@@ -398,25 +398,28 @@ public static function updateHasilTesSama($idSesi, $data, $jawaban){
                             ->where('answer', $s->jawaban)
                             ->where('question',$s->questionid)
                             ->first();
-                                    
-                $kategori = DB::table('kategori_psikometrik')
-                            ->select('id','nama')
-                            ->where('kode_poin',$fract->fraction)
-                            ->where('klaster_psikometrik_id',$course->id)
-                            ->first();
+               
+                if($fract != null){
+                    $kategori = DB::table('kategori_psikometrik')
+                                ->select('id','nama')
+                                ->where('kode_poin',$fract->fraction)
+                                ->where('klaster_psikometrik_id',$course->id)
+                                ->first();
 
-                if($kategori != null){
-                    $pertanyaan = explode(':',$s->soal);
+                    if($kategori != null){
+                        $pertanyaan = explode(':',$s->soal);
 
-                    $arr_data = [
-                        'soal'=>$pertanyaan[0],
-                        'jawaban'=>$s->jawaban,
-                        'kategori'=>$kategori->nama,
-                        'fraction'=>$fract->fraction,
-                    ];
+                        $arr_data = [
+                            'soal'=>$pertanyaan[0],
+                            'jawaban'=>$s->jawaban,
+                            'kategori'=>$kategori->nama,
+                            'fraction'=>$fract->fraction,
+                        ];
 
-                    array_push($arr_data_akhir, $arr_data);
-                }
+                        array_push($arr_data_akhir, $arr_data);
+                    }
+                }         
+               
             }
         }
 

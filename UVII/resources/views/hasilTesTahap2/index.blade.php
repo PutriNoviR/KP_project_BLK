@@ -58,13 +58,17 @@
 
             <br>
             <div>
-                <p><b>Tanggal dan Waktu Tes Terakhir:</b></p>
+                @if($tanggal_tes != null)
+                  <p><b>Tanggal dan Waktu Tes Terakhir:</b></p>
             
-                <p>
+                  <p>
                     @php
                         echo date('d M Y H:i:s', strtotime($tanggal_tes->tanggal_mulai)).' - '.date('d M Y H:i:s', strtotime($tanggal_tes->tanggal_selesai));
                     @endphp
-                </p>
+                  </p>
+                @else
+                    <p style='text-align:center;'><b>Mohon menunggu sekitar +/- 1 menit terdapat data yang masih diproses</b></p>
+                @endif
             </div>
          
             <br>
