@@ -125,7 +125,7 @@ class PelatihanPesertaController extends Controller
         ->where('id',$idSesiPelatihan)->value('kuota');
         // dd($kuota);
 
-        if ($countDiterima >= $kuota) {
+        if ($countDiterima <= $kuota) {
             // dd('1');
             if ($request->get('rekom_keputusan') == 'LULUS') {
                 $update = array(
