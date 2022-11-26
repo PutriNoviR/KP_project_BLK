@@ -323,14 +323,17 @@ class TesTahapAwalController extends Controller
       return view('riwayatUjian.index', compact('menu_role', 'daftarRiwayat', 'dataKlaster', 'dataKategori','settingValidasi'));
     }
     public function riwayatTesGlobal(){
-        
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user =User::where('roles_id',$idRole->id)->get();
        
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
         $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
 
-        
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+
+        $hasil_final = User::hasilTesSemuaPeserta($user, $riwayat_tes, $dataKlaster, $dataKategori);
+
         $dataRill= 'Data Dummy';
 
         $role_user = Auth::user()->roles_id;
@@ -341,19 +344,22 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
+        return view('riwayatUjian.riwayatGlobal', compact('hasil_final','menu_role','dataRill'));
 
     }
     public function riwayatTesGlobal2(){
 
         // $riwayat_tes= UjiMinatAwal::riwayatTesGlobal();
-        
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user =User::where('roles_id',$idRole->id)->get();
         
         $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'<','2022-11-02')->get();
 
-        
         $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+
+        $hasil_final = User::hasilTesSemuaPeserta($user, $riwayat_tes, $dataKlaster, $dataKategori);
+
         $dataRill='Data Valid';
 
         $role_user = Auth::user()->roles_id;
@@ -364,7 +370,7 @@ class TesTahapAwalController extends Controller
                     ->where('mm.status','Aktif')
                     ->get();
 
-        return view('riwayatUjian.riwayatGlobal', compact('riwayat_tes','menu_role','dataKlaster','dataKategori','dataRill'));
+        return view('riwayatUjian.riwayatGlobal', compact('hasil_final','menu_role','dataRill'));
 
     }
 

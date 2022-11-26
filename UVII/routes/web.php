@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // })
+
+//forgot password process
 Route::post('/forgotPassword', 'PesertaController@forgotPasswords')->name('password.updates');
+Route::get('/password/validate_token', 'PesertaController@getForgotPassword');
 
 Route::post('/password/send_token', 'PesertaController@sendOtpToken')->name('password.send_otp');
 
