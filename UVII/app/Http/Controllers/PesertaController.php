@@ -17,6 +17,7 @@ use App\UjiMinatAwal;
 
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use App\Rules\NoWhitespaceRule;
 
 class PesertaController extends Controller
 {
@@ -301,7 +302,7 @@ class PesertaController extends Controller
 
     public function forgotPasswords(Request $request){
         $this->validate($request, [
-            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/']
+            'password' => ['required', 'confirmed','string', 'min:8', 'regex:/^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_~+=]).{8,}$/', new NoWhitespaceRule]
         ]);
         
         if($request->password == $request->password_confirmation){
@@ -361,7 +362,7 @@ class PesertaController extends Controller
             DB::connection('mysql')->table('password_resets')
                         ->insert([
                                     'email'=>$email, 
-                                    'token'=>$token, 
+                                    'token'=>Hash::make($token), 
                                     'created_at'=>Carbon::now()
                                 ]);
     
@@ -387,18 +388,21 @@ class PesertaController extends Controller
     
             $email = $request->email;
             $token = $request->token;
-    
+           
             $data = DB::connection('mysql')->table('password_resets')
                         ->where('email',$email)
-                        ->where('token',$token)
+                        ->orderBy('created_at','DESC')
                         ->first();
-               
+            
             if($data){
-                DB::connection('mysql')->table('password_resets')
-                        ->where('email',$email)
-                        ->delete();
-    
-                return view('auth.passwords.reset', compact('email'));
+                if(Hash::check($token,$data->token)){
+                    DB::connection('mysql')->table('password_resets')
+                    ->where('email',$email)
+                    ->delete();
+
+                    return view('auth.passwords.reset', compact('email'));
+                }
+                
             }      
             else{
     

@@ -146,9 +146,9 @@
                         <td>
                             <a onclick="getEditForm('{{ $d['email']}}')" data-toggle='modal' data-target='#editModal' class="btn btn-default btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                            
-                            <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d['username']}}">
+                          {{--  <a class="btn btn-default btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal_{{$d['username']}}">
                                 <i class="fa fa-trash-o"></i> Hapus
-                            </a>
+                            </a> --}}
                             
                             <form method='POST' action="{{ url('menu/peserta/'.$d['email']) }}">
                                 @csrf

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\KlasterPsikometrik;
 use App\KategoriPsikometrik;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -126,4 +127,66 @@ class User extends Authenticatable
     }  
 
 
+    public static function hasilTesSemuaPeserta($user, $riwayat_tes, $dataKlaster, $dataKategori){
+        $datas = [];
+        $seluruh_data=[];
+
+        $no = 1;
+        foreach($riwayat_tes as $key=>$data_test){
+
+            foreach($user as $key=>$user_data){
+                
+                if($user_data->email ==$data_test->users_email){
+                    $datas=[
+                        'no'=>$no,
+                        'id tes'=>$data_test->id,
+                        'nama'=>$user_data->nama_depan." ".$user_data->nama_belakang,
+                        'email'=>$user_data->email,
+                        'jenis kelamin'=>$user_data->jenis_kelamin,
+                        'pendidikan'=>$user_data->pendidikan_terakhir??"tidak ada",
+                        'konsentrasi'=>$user_data->konsentrasi_pendidikan??"tidak ada",
+                        'hobi'=>$user_data->hobi,
+                        'tempat lahir'=>$user_data->tempat_lahir,
+                        'tanggal lahir'=>$user_data->tanggal_lahir,
+                        'usia'=>Carbon::now()->diffInYears(Carbon::parse($user_data->tanggal_lahir))." tahun",
+                        'kota domisili'=>$user_data->kota,
+                        'mulai test'=>$data_test->tanggal_mulai,
+                        'selesai test'=>$data_test->tanggal_selesai,
+               
+                    ];
+                }
+
+            }
+            foreach($dataKlaster as $d){
+                if($data_test->klaster_id == $d->id){
+                    $datas['rekomendasi klaster']=$d->nama;
+                }
+
+            }
+            if($dataKategori[$data_test->id] != null){
+                // foreach($dataKategori[$data_test->id] as $d){
+                    $koma=implode(',',$dataKategori[$data_test->id]);
+                  
+                    // if(!$loop->last){
+                      
+                    // }
+                    
+                   // array_push($data_kategori,$koma);
+                   
+                // }
+            }
+            else {
+                $koma= "Belum tes";
+                //array_push($data_kategori,$koma);
+            }
+            //array_push($datas,$data_kategori);
+            $datas['rekomendasi kategori']=$koma;
+           
+            array_push($seluruh_data,$datas);
+
+            $no++;
+        }
+
+        return collect($seluruh_data);
+    }
 }
