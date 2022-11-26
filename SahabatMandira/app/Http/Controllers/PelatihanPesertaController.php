@@ -285,13 +285,18 @@ class PelatihanPesertaController extends Controller
             //
             $data = DB::connection('mandira')
                 ->table('pelatihan_pesertas as pp')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
                 ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-                ->where('sesi_pelatihans_id', $id)
+                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                ->join('masterblk_db.paket_program as pr', 'pr.id', '=', 's.paket_program_id')
+                ->join('masterblk_db.blks as b','pr.blks_id','b.id')
+                ->join('masterblk_db.sub_kejuruans as sk','pr.sub_kejuruans_id','sk.id')
+                ->join('masterblk_db.kejuruans as k','pr.kejuruans_id','k.id')
+                ->where('s.id', $id)
+                ->where('u.email',$emailUser)
+                ->selectRaw("CONCAT(u.nama_depan,' ',u.nama_belakang) AS nama, b.nama as blk, k.nama as kejuruan, sk.nama as subkejuruan, s.lokasi, s.tanggal_mulai_pelatihan as mulai, s.tanggal_selesai_pelatihan as selesai")
                 ->first();
 
             //
-            // dd($data);
 
             DB::connection('mandira')
                 ->table('pelatihan_pesertas')
