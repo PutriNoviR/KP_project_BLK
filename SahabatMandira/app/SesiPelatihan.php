@@ -26,7 +26,7 @@ class SesiPelatihan extends Model
 
     public function pelatihanmentor()
     {
-        return $this->hasMany('App\PelatihanMentor','sesi_pelatihans_id','id');
+        return $this->belongsToMany('App\User','mandira_db.pelatihan_mentors','sesi_pelatihans_id','mentors_email');
     }
 
     public $timestamps=false;

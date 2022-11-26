@@ -62,6 +62,16 @@ class User extends Authenticatable
         return $this->belongsTo('App\Blk','blks_id_admin','id');
     }
 
+    public function sesi_pelatihan()
+    {
+        return $this->belongsToMany('App\SesiPelatihan','mandira_db.pelatihan_mentors');
+    }
+
+    public function sesi_pelatihan_mentor()
+    {
+        return $this->setConnection('mysql')->belongsToMany('App\SesiPelatihan','mandira_db.pelatihan_mentors','mentors_email','sesi_pelatihans_id');
+    }
+
     public function hasRole($roleName)
     {
         return $this->roles_id ==$roleName;

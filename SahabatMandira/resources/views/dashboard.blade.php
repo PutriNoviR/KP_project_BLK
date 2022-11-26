@@ -607,6 +607,7 @@ Dashboard
                 <th>Kejuruan</th>
                 <th>Sub Kejuruan</th>
                 <th>Periode Pendaftaran</th>
+                <th>Instruktur/Verifikator</th>
                 <th>Lokasi</th>
                 <th>Kuota</th>
                 <th>Tanggal Seleksi</th>
@@ -624,6 +625,17 @@ Dashboard
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
                 <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
+                </td>
+                <td>
+                    @foreach($d->pelatihanmentor as $pm)
+                        @if($loop->last)
+                            {{$pm->nama_depan ." ".$pm->nama_belakang}}
+                        @else
+                            {{$pm->nama_depan ." ".$pm->nama_belakang.", "}}
+                            <br>
+                        @endif
+
+                    @endforeach
                 </td>
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>

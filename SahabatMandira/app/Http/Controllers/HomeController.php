@@ -112,6 +112,8 @@ class HomeController extends Controller
                 ->Where('tanggal_tutup', '>=', $mytime)
                 ->select('sesi_pelatihans.*')
                 ->get();
+
+                //dd($adminDashboard);
         } else {
             $adminDashboard = SesiPelatihan::all();
             // dd($adminDashboard);
