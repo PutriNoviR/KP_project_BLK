@@ -232,45 +232,76 @@ class PelatihanPesertaController extends Controller
 
     public function storePendaftar(Request $request, $id)
     {
+        $userLogin = auth()->user()->email;
+        
+        $cekdaftartahunan = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
+        ->whereRaw("pelatihan_pesertas.email_peserta = '$userLogin' AND YEAR(s.tanggal_tutup) = YEAR(CURDATE()) AND pelatihan_pesertas.rekom_keputusan IN ('LULUS', 'CADANGAN', 'MENGUNDURKAN DIRI')")
+        ->count();
 
-        $emailValidator = DB::connection('mandira')
+        $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
+        ->where('email_peserta', '=', $userLogin)
+        ->count();
+
+        $cekseleksiaktif = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
+        ->whereRaw("pelatihan_pesertas.email_peserta = '$userLogin' AND (YEAR(s.tanggal_mulai_pelatihan) = YEAR(CURDATE()) AND s.tanggal_mulai_pelatihan > CURDATE()) AND pelatihan_pesertas.status_fase = 'DALAM SELEKSI'")
+        ->count();
+
+        if($cekdaftartahunan > 0)
+        {
+            return redirect()->back()->with('error', 'Anda pernah mengikuti/menyelesaikan/mengundurkan diri dari pelatihan pada tahun yang sama. Silahkan anda join pada pelatihan tahun mendatang !');
+        }
+        elseif($cekseleksiaktif > 0)
+        {
+            if($cekDaftar > 0)
+            {
+                return redirect()->back()->with('error', 'Anda sudah terdaftar pada pelatihan ini. Silahkan ikuti prosedur untuk menyelesaikan proses seleksi !');    
+            }
+            else
+            {
+                return redirect()->back()->with('error', 'Anda sedang dalam proses seleksi sebuah pelatihan. Mohon selesaikan seleksi terlebih dahulu !');
+            }
+        }
+        else
+        {
+            $emailValidator = DB::connection('mandira')
             ->table('pelatihan_mentors')
             ->where('sesi_pelatihans_id', $id)
             ->value('mentors_email');
 
-        $emailUser = auth()->user()->email;
-        // dd($emailValidator);
+            $emailUser = auth()->user()->email;
+            // dd($emailValidator);
 
-        $insert = array(
-            'email_peserta' => $emailUser,
-            'sesi_pelatihans_id' => $id,
-            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
-            'rekom_validator' => $emailValidator,
-        );
+            $insert = array(
+                'email_peserta' => $emailUser,
+                'sesi_pelatihans_id' => $id,
+                'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+                'rekom_validator' => $emailValidator,
+            );
 
-        DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->insert($insert);
+            DB::connection('mandira')
+                ->table('pelatihan_pesertas')
+                ->insert($insert);
 
-        //
-        $data = DB::connection('mandira')
-            ->table('pelatihan_pesertas as pp')
-            ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-            ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-            ->where('sesi_pelatihans_id', $id)
-            ->first();
+            //
+            $data = DB::connection('mandira')
+                ->table('pelatihan_pesertas as pp')
+                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+                ->where('sesi_pelatihans_id', $id)
+                ->first();
 
-        //
-        // dd($data);
+            //
+            // dd($data);
 
-        DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->where('email_peserta', $emailUser)
-            ->update(['status_fase' => 'DALAM SELEKSI',]);
+            DB::connection('mandira')
+                ->table('pelatihan_pesertas')
+                ->where('sesi_pelatihans_id', $id)
+                ->where('email_peserta', $emailUser)
+                ->update(['status_fase' => 'DALAM SELEKSI']);
 
-        // return $data2;
-        return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+            // return $data2;
+            return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+        }
     }
 
     public function urutan($id)

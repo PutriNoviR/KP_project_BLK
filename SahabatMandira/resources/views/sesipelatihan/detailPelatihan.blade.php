@@ -6,6 +6,11 @@ PELATIHAN
 
 @section('contents')
 <div style="margin:auto;">
+    @if (\Session::has('error'))
+      <div class="alert alert-danger text-center" role="alert">
+        <h3>{!! \Session::get('error') !!}</h3>
+      </div>
+    @endif
     <div class="col-sm-12 text-center">
         <h2 class="m-0 text-dark">Detail Program Pelatihan</h2><br>
     </div>
@@ -68,8 +73,8 @@ PELATIHAN
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
-
-                    @if ($cekTanggalDaftarUlang != null)
+                    <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
+                    {{-- @if ($cekTanggalDaftarUlang != null)
                     @php
                     $tanggalHariIni = strtotime("now");
                     $tanggalTahunDepanSetelahDaftarUlang = strtotime("$cekTanggalDaftarUlang +1 year");
@@ -90,7 +95,7 @@ PELATIHAN
                     @else
                     <button class="button btn btn-info " disabled>{{ __('DAFTAR')}}</button>
                     @endif
-                    @endif
+                    @endif --}}
 
                 </form>
                 @endif
