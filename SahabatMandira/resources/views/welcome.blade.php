@@ -557,27 +557,27 @@
         <div class="mx-3">
             <div class="d-flex justify-content-around">
                 <div class="my-3 d-flex align-items-center">
-                    <a href="https://www.kemdikbud.go.id"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://www.kemdikbud.go.id" target="_blank"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoKemendikbud.png')}}"
                             aria-label="Kemendikbud Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="https://kampusmerdeka.kemdikbud.go.id/"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://kampusmerdeka.kemdikbud.go.id/" target="_blank"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/kampusmerdeka.png')}}"
                             aria-label="KampusMerdeka Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="https://kedaireka.id/"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://kedaireka.id/" target="_blank"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoKedaireka.png')}}"
                             aria-label="Kedaireka Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="//www.ubaya.ac.id"><img class="img-fluid  d-block mx-auto"
+                    <a href="//www.ubaya.ac.id" target="_blank"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoUbaya.png')}}"
                             aria-label="Ubaya Logo" /></a>
                 </div>
                 <div class="my-3 d-flex align-items-center">
-                    <a href="https://disnakertrans.jatimprov.go.id/"><img class="img-fluid  d-block mx-auto"
+                    <a href="https://disnakertrans.jatimprov.go.id/" target="_blank"><img class="img-fluid  d-block mx-auto"
                             src="{{ asset('landingpage/assets/img/logos/LogoDisnaker.png')}}"
                             aria-label="Disnaker Logo" /></a>
                 </div>

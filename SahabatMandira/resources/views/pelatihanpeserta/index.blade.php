@@ -105,7 +105,7 @@ Pelatihan Peserta
             <tr role="row">
                 <th>No</th>
                 <th>Nama Peserta</th>
-                <th>Email</th>
+                <th>Profil Peserta</th>
                 <th>Status</th>
                 <th>Minat</th>
                 <th>Daftar Ulang</th>
@@ -123,7 +123,11 @@ Pelatihan Peserta
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
-                <td>{{ $d->email_peserta }}</td>
+                <td class="text-center">
+                  <a data-toggle="modal" data-target="#modalInfoPeserta{{$d->username}}" class="btn btn-info">
+                    <i class="fas fa-info-circle"></i>
+                  </a>
+                </td>
                 <td>{{ $d->status_fase }}</td>
                 @if( $d->is_sesuai_minat == 1 )
                 <td> Ya </td>
@@ -160,6 +164,37 @@ Pelatihan Peserta
                 </td>
                 @endif
             </tr>
+            <div class="modal fade" id="modalInfoPeserta{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div>
+                        <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                      </div>
+                      <hr>
+                      <div>
+                        <label for="">Nomor Identitas</label><br>
+                        <p>{{$d->nomor_identitas}}</p>
+                        <label for="">Nomor HP</label><br>
+                        <p>{{$d->nomer_hp}}</p>
+                        <label for="">Domisili</label><br>
+                        <p>{{$d->kota}}</p>
+                        <label for="">Alamat</label><br>
+                        <p>{{$d->alamat}}</p>
+                        <label for="">Pendidikan Terakhir</label><br>
+                        <p>{{$d->pendidikan_terakhir}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             @endforeach
         </tbody>
     </table>
