@@ -179,7 +179,7 @@
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('lowongan.index') }}"
                                         class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-home"></i>
+                                        <i class="nav-icon fas fa-suitcase"></i>
                                         <p>
                                             List Lowongan
                                         </p>
@@ -190,7 +190,7 @@
                                 @can('adminblk-permission')
                                 @if (auth()->user()->role->nama_role == 'superadmin')
                                 <li class="nav-item">
-                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
+                                    <a href="{{ route('User.daftar') }}" class="nav-link {{ Request::is('daftar') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-users"></i>
                                         <p>
                                             Daftar Akun
@@ -199,7 +199,7 @@
                                 </li>
                                 @else
                                 <li class="nav-item">
-                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
+                                    <a href="{{ route('User.daftar') }}" class="nav-link {{ Request::is('daftar') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-user-graduate"></i>
                                         <p>
                                             Daftar Peserta
@@ -208,7 +208,7 @@
                                 </li>
                                 @endif
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
+                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-cogs"></i>
                                         <p>
                                             Pelatihan
@@ -218,7 +218,7 @@
                                 @endcan
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item treeview">
-                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
+                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-tasks"></i>
                                         <p>
                                             Pelatihan
@@ -228,7 +228,7 @@
                                 @endif
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('listKerja.index') }}" class="nav-link">
+                                    <a href="{{ route('listKerja.index') }}" class="nav-link {{ Request::is('bursa/listKerja') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-briefcase"></i>
                                         <p>
                                             Bursa Kerja
@@ -238,7 +238,7 @@
                                 @endif
                                 {{-- Admin BLK --}}
                                 @can('adminblk-permission')
-                                <li class="nav-item has-treeview">
+                                <li class="nav-item has-treeview {{ Request::is('paketProgram') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fas fa-school"></i>
                                         <p>
@@ -248,7 +248,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('paketProgram.index') }}" class="nav-link ">
+                                            <a href="{{ route('paketProgram.index') }}" class="nav-link {{ Request::is('paketProgram') ? 'active' : '' }}">
                                                 <i class="fas fa-graduation-cap nav-icon"></i>
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
@@ -256,7 +256,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
+                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link {{ Request::is('daftarPelatihan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-users-cog"></i>
                                         <p>
                                             Penugasan Admin
@@ -290,7 +290,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('subkejuruan.index') }}" class="nav-link">
+                                            <a href="{{ route('subkejuruan.index') }}" class="nav-link {{ Request::routeIs('subkejuruan.*') ? 'active' : '' }}">
                                                 <i class="fas fa-tags nav-icon"></i>
                                                 <p>SubKejuruan</p>
                                             </a>
@@ -321,7 +321,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('User.index') }}" class="nav-link">
+                                            <a href="{{ route('User.index') }}" class="nav-link {{ Request::routeIs('User.*') ? 'active' : '' }}">
                                                 <i class="fas fa-user-circle nav-icon"></i>
                                                 <p>Daftar User</p>
                                             </a>
@@ -462,6 +462,10 @@
     <script src="{{ asset('adminlte/pdfmake.min.js') }}"></script>
     <script src="{{ asset('adminlte/vfs_fonts.js') }}"></script>
     {{-- Datatbles Fix --}}
+
+    <script>
+
+    </script>
 
     @yield('javascript')
 </body>
