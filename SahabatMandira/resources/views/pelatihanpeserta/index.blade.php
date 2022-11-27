@@ -78,11 +78,11 @@ Pelatihan Peserta
 
 @section('contents')
 <div class="container">
-    <div class="info-box mb-2 bg-info">
-        <h2>{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
+    <div class="info-box bg-info">
+        <h2 class="mx-auto">{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
     </div>
     <div class="d-flex justify-content-between mb-2">
-        <h4>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
+        <h4 class="mx-auto">Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
             {{ date('M y', strtotime($periode->tanggal_tutup)) }}
         </h4>
     </div>
