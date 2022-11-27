@@ -91,12 +91,17 @@
                                 @if (auth()->user()->role->nama_role == 'superadmin')
                                 <button class="btn dropdown-toggle btn-dark" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    {{Auth::user()->username}}
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
+                                </button>
+                                @elseif (auth()->user()->role->nama_role == 'peserta')
+                                <button class="btn dropdown-toggle btn-white" type="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @else
-                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-primary" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    {{Auth::user()->username}}
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @endif
                                 <div class="dropdown-menu">
@@ -108,7 +113,7 @@
                                     </a>
                                     @endif
                                     @can('peserta-permission')
-                                    <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
+                                    <a href="{{ route('User.show', Auth::user()->email) }}" class="dropdown-item">
                                         Akun
                                     </a>
                                     <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
@@ -116,9 +121,9 @@
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                                        <p>
-                                            Logout
-                                        </p>
+                                        <i class="fas fa-power-off">
+                                            &nbsp;Logout
+                                        </i>
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -154,7 +159,7 @@
                                     @if (Auth::user()->perusahaans_id_admin !=null)
                                     <a href="{{ route('perusahaan.profile') }}"
                                         class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-home"></i>
+                                        <i class="nav-icon fas fa-building"></i>
                                         <p>
                                             Profile Perusahaan
                                         </p>
@@ -187,7 +192,7 @@
                                 @if (auth()->user()->role->nama_role == 'superadmin')
                                 <li class="nav-item">
                                     <a href="{{ route('User.daftar') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>
                                             Daftar Akun
                                         </p>
@@ -196,7 +201,7 @@
                                 @else
                                 <li class="nav-item">
                                     <a href="{{ route('User.daftar') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-user-graduate"></i>
                                         <p>
                                             Daftar Peserta
                                         </p>
@@ -205,7 +210,7 @@
                                 @endif
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-cogs"></i>
                                         <p>
                                             Pelatihan
                                         </p>
@@ -215,7 +220,7 @@
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item treeview">
                                     <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-tasks"></i>
                                         <p>
                                             Pelatihan
                                         </p>
@@ -225,7 +230,7 @@
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('listKerja.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-briefcase"></i>
                                         <p>
                                             Bursa Kerja
                                         </p>
@@ -236,7 +241,7 @@
                                 @can('adminblk-permission')
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-school"></i>
                                         <p>
                                             Administrasi BLK
                                             <i class="fas fa-angle-left right"></i>
@@ -245,7 +250,7 @@
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('paketProgram.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-graduation-cap nav-icon"></i>
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
                                         </li>
@@ -253,7 +258,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-users-cog"></i>
                                         <p>
                                             Penugasan Admin
                                         </p>
@@ -264,7 +269,7 @@
                                 @can('super.admin-permission')
                                 <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-cog"></i>
                                         <p>
                                             Master Management
                                             <i class="fas fa-angle-left right"></i>
@@ -274,20 +279,20 @@
                                         <li class="nav-item">
                                             <a href="{{ route('blk.index') }}"
                                                 class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-map-marker-alt nav-icon"></i>
                                                 <p>BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('kejuruans.index') }}"
                                                 class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-tag nav-icon"></i>
                                                 <p>Kejuruan</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('subkejuruan.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-tags nav-icon"></i>
                                                 <p>SubKejuruan</p>
                                             </a>
                                         </li>
@@ -295,7 +300,7 @@
                                 </li>
                                 <li class="nav-item has-treeview {{ Request::is('datapegawai/*') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-user-tie"></i>
                                         <p>
                                             Data Pegawai
                                             <i class="fas fa-angle-left right"></i>
@@ -305,20 +310,20 @@
                                         <li class="nav-item">
                                             <a href="{{ route('super.adminblk') }}"
                                                 class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-school nav-icon"></i>
                                                 <p>Admin BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#"
                                                 class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('User.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-user-circle nav-icon"></i>
                                                 <p>Daftar User</p>
                                             </a>
                                         </li>
@@ -326,7 +331,7 @@
                                 </li>
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fas fa-chalkboard"></i>
                                         <p>
                                             Mentor
                                             <i class="fas fa-angle-left right"></i>
@@ -335,19 +340,19 @@
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('keahlian.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-user-tag nav-icon"></i>
                                                 <p>Daftar Keahlian</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('User.mentoring') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-chalkboard-teacher  nav-icon"></i>
                                                 <p>Daftar Mentor</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('mandiraMentoring.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-clipboard-check nav-icon"></i>
                                                 <p>Validasi Program</p>
                                             </a>
                                         </li>
@@ -356,7 +361,7 @@
                                 @endcan
                                 <li class="nav-item has-treeview">
                                     <a href="{{url('https://sahabatmandira.id/bantuan')}}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-question-circle"></i>
                                         <p>
                                             Bantuan
                                         </p>
