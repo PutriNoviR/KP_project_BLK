@@ -41,7 +41,7 @@ Pelatihan Peserta
                 'sesi_pelatihans_id': id
             },
             success: function(data) {
-                $("#modalContent").html(data.msg);
+                $("#modalContent2").html(data.msg);
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -152,13 +152,13 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
+                    <button data-toggle="modal" data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
+                    <button data-toggle="modal" data-target="#" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
                         Daftar Ulang
                     </button>
                 </td>
@@ -208,7 +208,7 @@ Pelatihan Peserta
 </div>
 
 <div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
-    <div class="modal-dialog" id="modalContent">
+    <div class="modal-dialog" id="modalContent2">
 
     </div>
 </div>

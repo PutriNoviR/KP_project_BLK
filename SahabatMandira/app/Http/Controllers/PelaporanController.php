@@ -93,7 +93,14 @@ class PelaporanController extends Controller
             ->where('P.is_daftar_ulang', '1')
             ->select('users.*','P.*')
             ->get();
-        return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten','daftarUlang'));
+
+         $mengikutiSeleksi = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+            ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('sesi_pelatihans_id', $id)
+            ->whereNotNull('P.rekom_keputusan')
+            ->select('users.*','P.*')
+            ->get();
+        return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten','daftarUlang','mengikutiSeleksi'));
     }
 
     /**

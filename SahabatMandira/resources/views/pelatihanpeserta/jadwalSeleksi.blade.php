@@ -85,7 +85,7 @@ PELATIHAN PESERTA
             <h4><b>{{ tgl_indo($tgl_mulai) }}</b> s.d <b>{{ tgl_indo($tgl_selesai) }}</b></h4>
         </div>
         <div class="card-body">
-            <h2>Alamat Seleksi :</h2>
+            <h2>Tempat Seleksi :</h2>
             <h4><b>{{ $data->lokasi}}</b></h4>
         </div>
     </div>
@@ -113,7 +113,7 @@ PELATIHAN PESERTA
         <h4>Periode Pelatihan :</h4>
         <h5><b>{{ tgl_indo($tgl_mulai) }}</b> s.d <b>{{ tgl_indo($tgl_selesai) }}</b></h5>
         <br>
-        <h4>Alamat Seleksi :</h4>
+        <h4>Tempat Seleksi :</h4>
         <h5><b>{{ $data->lokasi}}</b></h5>
     </center>
 
