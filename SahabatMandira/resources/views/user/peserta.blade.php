@@ -82,6 +82,12 @@ Daftar Peserta
         return false;
     }
 
+    function showImg(header,src){
+        $('#modalImg-header').text(header)
+        $('#modal-img').attr(src,src)
+        $('#modalValidate').show();
+    }
+
 </script>
 @endsection
 
@@ -112,7 +118,7 @@ Daftar Peserta
                 <th>NAMA</th>
                 <th>INFO</th>
                 <th>AKSI</th>
-                <!-- <th>NO</th>
+                 <!-- <th>NO</th>
                 <th>NAMA</th>
                 <th>KTP</th>
                 <th>FC IJAZAH</th>
@@ -131,9 +137,9 @@ Daftar Peserta
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
                 <!-- <td>{{ $loop->iteration }}</td>
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
-                <td>KTP</td>
-                <td>FC IJAZAH</td>
-                <td>FOTO</td>
+                <td><button class="button btn btn-primary" onclick="showImg('KTP','{{ $d->ktp}}')">SHOW</button></td>
+                <td><button class="button btn btn-primary" onclick="showImg('FC IJAZAH','{{ $d->ijazah}}')">SHOW</button></td>
+                <td><button class="button btn btn-primary" onclick="showImg('FOTO','{{ $d->pas_foto}}')">SHOW</button></td>
                 <td>{{ $d->alamat}}</td>
                 <td>ALAMAT KTP</td>
             -->
@@ -207,4 +213,22 @@ Daftar Peserta
         </tbody>
     </table>
 </div>
+
+<div id='modalImg' class="modal" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id='modalImg-header'>
+
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <div>
+                       <img id='modal-img' src="" alt="">
+                    </div>
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <button type="button" class="btn btn-secondary mdl-close btn-close" data-bs-dismiss="modal" close='2'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
