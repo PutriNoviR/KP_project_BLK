@@ -112,6 +112,14 @@ Daftar Peserta
                 <th>NAMA</th>
                 <th>INFO</th>
                 <th>AKSI</th>
+                <!-- <th>NO</th>
+                <th>NAMA</th>
+                <th>KTP</th>
+                <th>FC IJAZAH</th>
+                <th>FOTO</th>
+                <th>ALAMAT DOMILISI</th>
+                <th>ALAMAT KTP</th>
+                <th>AKSI</th> -->
             </tr>
         </thead>
         <tbody>
@@ -121,6 +129,14 @@ Daftar Peserta
                 <td>{{ $d->email}}</td>
                 <td>{{ $d->username}}</td>
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
+                <!-- <td>{{ $loop->iteration }}</td>
+                <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
+                <td>KTP</td>
+                <td>FC IJAZAH</td>
+                <td>FOTO</td>
+                <td>{{ $d->alamat}}</td>
+                <td>ALAMAT KTP</td>
+            -->
                 <td>
                     <!-- <a data-toggle="modal" data-target="#modalInfoAkun{{$d->email}}" class="button btn btn-info">
                         <i class="fas fa-info"></i>
