@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -37,13 +37,13 @@
 
 
     {{-- Datatables Fix --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('adminlte/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminlte/responsive.bootstrap4.min.css')}}">
     {{-- Datatables Fix --}}
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    <script src="{{ asset('adminlte/ckeditor.js') }}"></script>
     {{-- cropperjs --}}
     <link href="{{ asset('js/cropper/cropper.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -450,17 +450,17 @@
     <script src="{{ asset('js/cropper/cropper.min.js') }}"></script>
 
     {{-- Datatables Fix --}}
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ asset('adminlte/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('adminlte/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('adminlte/jszip.min.js') }}"></script>
+    <script src="{{ asset('adminlte/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('adminlte/vfs_fonts.js') }}"></script>
     {{-- Datatbles Fix --}}
 
     @yield('javascript')
