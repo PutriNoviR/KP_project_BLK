@@ -166,7 +166,7 @@ Pelatihan Peserta
             </tr>
             <div class="modal fade" id="modalInfoPeserta{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
@@ -201,20 +201,16 @@ Pelatihan Peserta
 </div>
 
 <!-- Modal -->
-@foreach($data as $d)
 <div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
 </div>
-@endforeach
 
-@foreach($data as $d)
 <div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
 </div>
-@endforeach
 
 @endsection
