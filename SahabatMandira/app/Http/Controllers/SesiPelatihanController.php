@@ -27,14 +27,15 @@ class SesiPelatihanController extends Controller
     public function index()
     {
         //
-        
+        $blk = null;
         if (auth()->user()->role->nama_role == 'adminblk') {
-            
+
             $blk_id = auth()->user()->blks_id_admin;
             $data = SesiPelatihan::join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
             ->where('blks_id',$blk_id)
             ->select('sesi_pelatihans.*')
             ->get();
+            $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get();
 
         } else {
 
@@ -77,7 +78,7 @@ class SesiPelatihanController extends Controller
         //     ->get();
         // dd($dataPeserta);
 
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta'));
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk'));
     }
 
     /**
@@ -273,7 +274,7 @@ class SesiPelatihanController extends Controller
             $sesi = '1';
         }
 
-        // 
+        //
         // dd($data);
         return view('sesipelatihan.detailPelatihanYangDibuka', compact('data', 'sesi','id'));
     }
@@ -284,13 +285,14 @@ class SesiPelatihanController extends Controller
         // $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
         //     ->get();
         //
-
+        $blk = null;
         if (auth()->user()->role->nama_role == 'adminblk') {
-            
+
             $blk_id = auth()->user()->blks_id_admin;
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
             ->where('blks_id',$blk_id)->select('sesi_pelatihans.*')->get();
+            $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get();
 
         } else {
 
@@ -304,7 +306,7 @@ class SesiPelatihanController extends Controller
             ->get();
 
             // dd('dataInstruktur');
-        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin'));
+        return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin','blk'));
     }
 
     public function daftarUlang(Request $request)
@@ -359,7 +361,7 @@ class SesiPelatihanController extends Controller
         // dd($instrukturs);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('instrukturs','idsesipelatihan'))->render() 
+            'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('instrukturs','idsesipelatihan'))->render()
         ), 200);
     }
 }

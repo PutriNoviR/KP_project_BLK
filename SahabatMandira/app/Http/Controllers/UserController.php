@@ -167,11 +167,11 @@ class UserController extends Controller
         //     'ksk'                   => $request->file('ksk')->store('user/ksk'),
         //     'ijazah'                => $request->file('ijazah')->store('user/ijazah'),
         //     'jenis_kelamin'         => $request->jenis_kelamin,
-        //     'pendidikan_terakhir'   => $request->pendidikan_terakhir        
+        //     'pendidikan_terakhir'   => $request->pendidikan_terakhir
         // );
 
         // $update = DB::tabel('users')->where('email',$userLogin)->update($update);
-        // return $User; 
+        // return $User;
         $User->save();
 
         $mentoring = MandiraMentoring::where('email_mentor', '=', $userLogin)->get();
@@ -296,6 +296,7 @@ class UserController extends Controller
     {
 
         $adminBlk = auth()->user()->blks_id_admin;
+        $blk=null;
 
         if (auth()->user()->role->nama_role == 'adminblk') {
             $data = User::JOIN('mandira_db.pelatihan_pesertas as p', 'users.email', '=', 'p.email_peserta')
@@ -303,6 +304,7 @@ class UserController extends Controller
                 ->JOIN('paket_program as m', 's.paket_program_id', '=', 'm.id')
                 ->WHERE('m.blks_id', '=', $adminBlk)
                 ->get();
+            $blk = DB::table('blks')->select('nama')->where('id',$adminBlk)->get();
         } else {
             $data = User::JOIN('roles as r', 'r.id', '=', 'users.roles_id')
                 ->where('r.nama_role', '!=', 'superadmin')
@@ -311,7 +313,7 @@ class UserController extends Controller
             // dd($data);
         }
         // dd($dataAdmin);
-        return view('user.peserta', compact('data'));
+        return view('user.peserta', compact('data','blk'));
     }
 
     public function mentordaftar()
@@ -382,7 +384,7 @@ class UserController extends Controller
             if ($request->file('ijazah') != null) {
                 $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
             }
-            
+
             $update['nomor_identitas'] = $request->nik;
             $update['kota'] = $request->kota;
         }
@@ -405,7 +407,7 @@ class UserController extends Controller
         // $id = $request->id;
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('user.riwayatverifikator', compact('pelatihan_mentor'))->render() 
+            'msg'=>view('user.riwayatverifikator', compact('pelatihan_mentor'))->render()
         ), 200);
     }
 }

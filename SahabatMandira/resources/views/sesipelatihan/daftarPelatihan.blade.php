@@ -12,7 +12,37 @@ PELATIHAN
             "autoWidth": false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                'copy', 'csv', 'excel', 'print',
+                {
+                    extend: 'pdfHtml5',
+                    customize: function ( doc ) {
+                    doc.content.splice( 1, 0 );
+                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                    doc.pageMargins = [20,60,20,30];
+                    doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: logo,
+										width: 45
+									},
+									{
+										alignment: 'center',
+										text: '<?= $blk[0]->nama ?>',
+										fontSize: 18,
+										margin: [10,0]
+									},
+								],
+								margin: 20
+							}
+						});
+
+                },
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5,6,7]
+                        }
+                    },
+                    'colvis'
             ]
         });
     });

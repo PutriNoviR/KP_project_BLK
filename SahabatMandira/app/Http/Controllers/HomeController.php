@@ -47,18 +47,18 @@ class HomeController extends Controller
                         ->select("select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1");
 
         $slidermentor = DB::connection("mandira")
-                        ->select("select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority from mandira_mentorings where is_headline=1"); 
-        
+                        ->select("select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority from mandira_mentorings where is_headline=1");
+
         // $slider = DB::connection("mandira")
         // ->select("select * from (
-        //     (select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority, @vend AS status from pelatihan_vendor where is_headline=1) 
-        //     UNION 
-        //     (select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority, @blk as status from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1) 
-        //     UNION 
+        //     (select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority, @vend AS status from pelatihan_vendor where is_headline=1)
+        //     UNION
+        //     (select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority, @blk as status from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1)
+        //     UNION
         //     (select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority, @mentor as status from mandira_mentorings where is_headline=1)
-        //     ) AS X 
+        //     ) AS X
         //     order by headline_priority");
-        
+
         // dd($slidermentor);
         //carousel data-end
 
@@ -104,6 +104,7 @@ class HomeController extends Controller
         // dd($disarankan);
 
         $adminBlk = auth()->user()->blks_id_admin;
+        $blk = DB::table('blks')->select('nama')->where('id',$adminBlk)->get();
 
         if (auth()->user()->role->nama_role == 'adminblk') {
             $adminDashboard = SesiPelatihan::JOIN('masterblk_db.paket_program as p', 'sesi_pelatihans.paket_program_id', '=', 'p.id')
@@ -154,7 +155,7 @@ class HomeController extends Controller
         // $sesi = SesiPelatihan::where('id',$pelatihans[0]->sesi_pelatihans_id)->first();
         // dd($sesi->paketprogram->kejuruan->nama);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk'));
 
         // return view('dashboard');
     }
