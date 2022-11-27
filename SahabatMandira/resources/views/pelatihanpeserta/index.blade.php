@@ -78,11 +78,11 @@ Pelatihan Peserta
 
 @section('contents')
 <div class="container">
-    <div class="info-box mb-2 bg-info">
-        <h2>{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
+    <div class="info-box bg-info text-center">
+        <h2 class="mx-auto">{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
     </div>
     <div class="d-flex justify-content-between mb-2">
-        <h4>Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
+        <h4 class="mx-auto">Daftar Peserta Dari {{ date('M y', strtotime($periode->tanggal_pendaftaran)) }} -
             {{ date('M y', strtotime($periode->tanggal_tutup)) }}
         </h4>
     </div>
@@ -166,7 +166,7 @@ Pelatihan Peserta
             </tr>
             <div class="modal fade" id="modalInfoPeserta{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
@@ -201,20 +201,16 @@ Pelatihan Peserta
 </div>
 
 <!-- Modal -->
-@foreach($data as $d)
 <div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
 </div>
-@endforeach
 
-@foreach($data as $d)
 <div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
     <div class="modal-dialog" id="modalContent2">
 
     </div>
 </div>
-@endforeach
 
 @endsection

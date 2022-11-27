@@ -6,12 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
     @yield('style')
+
+    <script src="{{ asset('js/jquery-3.6.1.js') }}" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -31,16 +35,15 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     {{-- datatables --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     {{-- Datatables Fix --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('adminlte/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('adminlte/responsive.bootstrap4.min.css')}}">
     {{-- Datatables Fix --}}
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    <script src="{{ asset('adminlte/ckeditor.js') }}"></script>
     {{-- cropperjs --}}
     <link href="{{ asset('js/cropper/cropper.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -89,12 +92,17 @@
                                 @if (auth()->user()->role->nama_role == 'superadmin')
                                 <button class="btn dropdown-toggle btn-dark" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    {{Auth::user()->username}}
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
+                                </button>
+                                @elseif (auth()->user()->role->nama_role == 'peserta')
+                                <button class="btn dropdown-toggle btn-white" type="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @else
-                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-primary" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
-                                    {{Auth::user()->username}}
+                                    <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @endif
                                 <div class="dropdown-menu">
@@ -106,7 +114,7 @@
                                     </a>
                                     @endif
                                     @can('peserta-permission')
-                                    <a href="{{ route('User.show',Auth::user()->email) }}" class="dropdown-item">
+                                    <a href="{{ route('User.show', Auth::user()->email) }}" class="dropdown-item">
                                         Akun
                                     </a>
                                     <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
@@ -114,9 +122,7 @@
                                     @endcan
                                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                                        <p>
-                                            Logout
-                                        </p>
+                                        Keluar &nbsp; <i class="fas fa-sign-out-alt"></i>
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -152,7 +158,7 @@
                                     @if (Auth::user()->perusahaans_id_admin !=null)
                                     <a href="{{ route('perusahaan.profile') }}"
                                         class="nav-link {{ Request::is('profile/perusahaan') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-home"></i>
+                                        <i class="nav-icon fas fa-building"></i>
                                         <p>
                                             Profile Perusahaan
                                         </p>
@@ -173,7 +179,7 @@
                                 <li class="nav-item has-treeview">
                                     <a href="{{ route('lowongan.index') }}"
                                         class="nav-link {{ Request::is('menu/lowongan') ? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-home"></i>
+                                        <i class="nav-icon fas fa-suitcase"></i>
                                         <p>
                                             List Lowongan
                                         </p>
@@ -184,8 +190,8 @@
                                 @can('adminblk-permission')
                                 @if (auth()->user()->role->nama_role == 'superadmin')
                                 <li class="nav-item">
-                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('User.daftar') }}" class="nav-link {{ Request::is('daftar') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>
                                             Daftar Akun
                                         </p>
@@ -193,8 +199,8 @@
                                 </li>
                                 @else
                                 <li class="nav-item">
-                                    <a href="{{ route('User.daftar') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('User.daftar') }}" class="nav-link {{ Request::is('daftar') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-user-graduate"></i>
                                         <p>
                                             Daftar Peserta
                                         </p>
@@ -202,8 +208,8 @@
                                 </li>
                                 @endif
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-cogs"></i>
                                         <p>
                                             Pelatihan
                                         </p>
@@ -212,8 +218,8 @@
                                 @endcan
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item treeview">
-                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('sesiPelatihan.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-tasks"></i>
                                         <p>
                                             Pelatihan
                                         </p>
@@ -222,8 +228,8 @@
                                 @endif
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
-                                    <a href="{{ route('listKerja.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('listKerja.index') }}" class="nav-link {{ Request::is('bursa/listKerja') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-briefcase"></i>
                                         <p>
                                             Bursa Kerja
                                         </p>
@@ -232,9 +238,9 @@
                                 @endif
                                 {{-- Admin BLK --}}
                                 @can('adminblk-permission')
-                                <li class="nav-item has-treeview">
+                                <li class="nav-item has-treeview {{ Request::is('paketProgram') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-school"></i>
                                         <p>
                                             Administrasi BLK
                                             <i class="fas fa-angle-left right"></i>
@@ -242,16 +248,16 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('paketProgram.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                            <a href="{{ route('paketProgram.index') }}" class="nav-link {{ Request::is('paketProgram') ? 'active' : '' }}">
+                                                <i class="fas fa-graduation-cap nav-icon"></i>
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link ">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                    <a href="{{ route('sesiPelatihan.daftarPelatihan') }}" class="nav-link {{ Request::is('daftarPelatihan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-users-cog"></i>
                                         <p>
                                             Penugasan Admin
                                         </p>
@@ -262,7 +268,7 @@
                                 @can('super.admin-permission')
                                 <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-cog"></i>
                                         <p>
                                             Master Management
                                             <i class="fas fa-angle-left right"></i>
@@ -272,20 +278,20 @@
                                         <li class="nav-item">
                                             <a href="{{ route('blk.index') }}"
                                                 class="nav-link {{ Request::routeIs('blk.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-map-marker-alt nav-icon"></i>
                                                 <p>BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('kejuruans.index') }}"
                                                 class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-tag nav-icon"></i>
                                                 <p>Kejuruan</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('subkejuruan.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                            <a href="{{ route('subkejuruan.index') }}" class="nav-link {{ Request::routeIs('subkejuruan.*') ? 'active' : '' }}">
+                                                <i class="fas fa-tags nav-icon"></i>
                                                 <p>SubKejuruan</p>
                                             </a>
                                         </li>
@@ -293,7 +299,7 @@
                                 </li>
                                 <li class="nav-item has-treeview {{ Request::is('datapegawai/*') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-user-tie"></i>
                                         <p>
                                             Data Pegawai
                                             <i class="fas fa-angle-left right"></i>
@@ -303,20 +309,20 @@
                                         <li class="nav-item">
                                             <a href="{{ route('super.adminblk') }}"
                                                 class="nav-link {{ Request::routeIs('super.adminblk*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-school nav-icon"></i>
                                                 <p>Admin BLK</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#"
                                                 class="nav-link {{ Request::routeIs('kejuruans.*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>Admin Bursa</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('User.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                            <a href="{{ route('User.index') }}" class="nav-link {{ Request::routeIs('User.*') ? 'active' : '' }}">
+                                                <i class="fas fa-user-circle nav-icon"></i>
                                                 <p>Daftar User</p>
                                             </a>
                                         </li>
@@ -324,7 +330,7 @@
                                 </li>
                                 <li class="nav-item has-treeview">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fas fa-chalkboard"></i>
                                         <p>
                                             Mentor
                                             <i class="fas fa-angle-left right"></i>
@@ -333,19 +339,19 @@
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('keahlian.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-user-tag nav-icon"></i>
                                                 <p>Daftar Keahlian</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('User.mentoring') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-chalkboard-teacher  nav-icon"></i>
                                                 <p>Daftar Mentor</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('mandiraMentoring.index') }}" class="nav-link ">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="fas fa-clipboard-check nav-icon"></i>
                                                 <p>Validasi Program</p>
                                             </a>
                                         </li>
@@ -354,7 +360,7 @@
                                 @endcan
                                 <li class="nav-item has-treeview">
                                     <a href="{{url('https://sahabatmandira.id/bantuan')}}" class="nav-link">
-                                        <i class="nav-icon fas fa-copy"></i>
+                                        <i class="nav-icon fas fa-question-circle"></i>
                                         <p>
                                             Bantuan
                                         </p>
@@ -444,18 +450,22 @@
     <script src="{{ asset('js/cropper/cropper.min.js') }}"></script>
 
     {{-- Datatables Fix --}}
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ asset('adminlte/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('adminlte/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('adminlte/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('adminlte/jszip.min.js') }}"></script>
+    <script src="{{ asset('adminlte/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('adminlte/vfs_fonts.js') }}"></script>
     {{-- Datatbles Fix --}}
+
+    <script>
+
+    </script>
 
     @yield('javascript')
 </body>

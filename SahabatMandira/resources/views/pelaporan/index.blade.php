@@ -54,6 +54,12 @@ Pelaporan
         'copy', 'csv', 'excel', 'pdf', 'print'
       ]
     });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust()
+           .responsive.recalc();
+    });
   });
 
   function alertShow(id) {
@@ -259,7 +265,7 @@ Pelaporan
             <th>UPDATE HASIL SELEKSI</th>
           </tr>
         </thead>
-        <tbody id="myTable">
+        <tbody id="myTable2">
           @foreach($lolos as $d)
           <tr>
             <td>{{ $loop->iteration }}</td>
