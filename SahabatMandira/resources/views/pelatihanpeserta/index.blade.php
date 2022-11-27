@@ -78,7 +78,7 @@ Pelatihan Peserta
 
 @section('contents')
 <div class="container">
-    <div class="info-box bg-info">
+    <div class="info-box bg-info text-center">
         <h2 class="mx-auto">{{ ($periode->paketprogram->subkejuruan->nama) }} dari {{ ($periode->paketprogram->blk->nama) }}</h2>
     </div>
     <div class="d-flex justify-content-between mb-2">
