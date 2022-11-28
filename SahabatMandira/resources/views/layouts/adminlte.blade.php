@@ -104,7 +104,7 @@
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @endif
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu w-100">
                                     @if(Auth::user()->role->nama_role == 'mentor')
                                     <a href="{{ route('User.halamanku',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
