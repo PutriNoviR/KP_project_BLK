@@ -6,10 +6,11 @@ Dashboard
 
 @section('javascript')
 <script>
-    let role = "<?= Auth::user()->role->nama_role ?>"
+    let role = "<?= Auth::user()->role->nama_role ?>";
+    console.log(role);
     $(function () {
         let parameter = {};
-        if(role == 'verifikator'  || role == 'adminblk' || role=='superadmin'){
+        if(role == 'adminblk'){
             parameter ={
                 "responsive": true,
                 "autoWidth": false,
@@ -31,16 +32,16 @@ Dashboard
 									},
 									{
 										alignment: 'center',
-										text: '<?= $blk[0]->nama ?>',
+										text: @if(count($blk) > 0) '{{$blk[0]->nama}}' @else "" @endif,
 										fontSize: 18,
 										margin: [10,0]
 									},
 								],
-								margin: 20
+								margin: 40
 							}
 						});
 
-                },
+                    },
                     exportOptions: {
                         columns: [0,1,2,3,4,8]
                         }
@@ -49,7 +50,7 @@ Dashboard
                 ]
             }
         }
-        else if (role == 'mentor'){
+        else if(role == 'mentor' || role == 'verifikator'  || role=='superadmin'){
             parameter ={
                 "responsive": true,
                 "autoWidth": false,
@@ -71,7 +72,7 @@ Dashboard
 									},
 									{
 										alignment: 'center',
-										text: '<?= $blk[0]->nama ?>',
+										text: 'Laporan '+role,
 										fontSize: 18,
 										margin: [10,0]
 									},
@@ -80,7 +81,7 @@ Dashboard
 							}
 						});
 
-                },
+                    },
                     exportOptions: {
                         columns: [0,1,2,3,4,5]
                         }
