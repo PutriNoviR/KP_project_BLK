@@ -89,17 +89,17 @@
                         <li class="nav-item">
                             <div class="dropdown">
                                 @if (auth()->user()->role->nama_role == 'superadmin')
-                                <button class="btn dropdown-toggle btn-dark" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-dark text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @elseif (auth()->user()->role->nama_role == 'peserta')
-                                <button class="btn dropdown-toggle btn-white" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-white text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @else
-                                <button class="btn dropdown-toggle btn-primary" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-primary text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>

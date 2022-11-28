@@ -7,7 +7,6 @@ Dashboard
 @section('javascript')
 <script>
     let role = "<?= Auth::user()->role->nama_role ?>";
-    console.log(role);
     $(function () {
         let parameter = {};
         if(role == 'adminblk'){
@@ -22,7 +21,7 @@ Dashboard
                     customize: function ( doc ) {
                     doc.content.splice( 1, 0 );
                     var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
-                    doc.pageMargins = [20,60,20,30];
+                    doc.pageMargins = [20,100,20,30]; //left,bottom,right,up
                     doc['header']=(function() {
 							return {
 								columns: [
@@ -37,7 +36,7 @@ Dashboard
 										margin: [10,0]
 									},
 								],
-								margin: 40
+								margin: 20
 							}
 						});
 
@@ -62,7 +61,7 @@ Dashboard
                     customize: function ( doc ) {
                     doc.content.splice( 1, 0 );
                     var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
-                    doc.pageMargins = [20,60,20,30];
+                    doc.pageMargins = [20,100,20,30];
                     doc['header']=(function() {
 							return {
 								columns: [
