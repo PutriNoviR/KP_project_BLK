@@ -29,7 +29,7 @@ Daftar Peserta
 									},
 									{
 										alignment: 'center',
-										text: '<?= $blk[0]->nama ?>',
+										text: @if(isset($blk)) '{{$blk[0]->nama}}' @else "" @endif,
 										fontSize: 18,
 										margin: [10,0]
 									},

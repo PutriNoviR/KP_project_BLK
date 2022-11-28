@@ -28,7 +28,7 @@ PELATIHAN
 									},
 									{
 										alignment: 'center',
-										text: '<?= $blk[0]->nama ?>',
+										text: @if(isset($blk)) '{{$blk[0]->nama}}' @else "" @endif,
 										fontSize: 18,
 										margin: [10,0]
 									},
@@ -107,20 +107,22 @@ PELATIHAN
                         <i class="fas fa-eye"></i></td>
                 <td>
                     @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
-                    <div class="margin-bottom-15">
+                    <div class="mb-3">
                         <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
                             <i class="fas fa-plus">Tambah Penugasan</i>
                         </a>
                     </div>
-                    <div>
+                    <div  class="mb-3">
                         <a href="{{ route('tugas.show',$d->id) }}" class="button btn btn-warning">
                             <i class="fas fa-eye">Lihat Riwayat</i>
                         </a>
                     </div>
                     @else
-                    <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
-                        <i class="fas fa-eye"></i> {{--PINDAHIN KE UI  --}}
-                    </a>
+                    <div  class="mb-3">
+                        <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-primary">
+                            <i class="fas fa-eye"></i> {{--PINDAHIN KE UI  --}}
+                        </a>
+                    </div>
                     @endif
 
                 </td>
