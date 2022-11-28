@@ -18,7 +18,7 @@ PELATIHAN
                     customize: function ( doc ) {
                     doc.content.splice( 1, 0 );
                     var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
-                    doc.pageMargins = [20,60,20,30];
+                    doc.pageMargins = [20,100,20,30];
                     doc['header']=(function() {
 							return {
 								columns: [
