@@ -210,6 +210,35 @@ Profile
 
                                         <input type="file" name='ijazah' class="defaults" value="">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="dokumen_satu" class="col-md-12 col-form-label">{{ __('Dokumen Dua') }}</label>
+
+                                        <input type="file" name='dokumen_satu' class="defaults" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dokumen_dua" class="col-md-12 col-form-label">{{ __('Dokumen Dua') }}</label>
+
+                                        <input type="file" name='dokumen_dua' class="defaults" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dokumen_tiga" class="col-md-12 col-form-label">{{ __('Dokumen Tiga') }}</label>
+
+                                        <input type="file" name='dokumen_tiga' class="defaults" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dokumen_empat" class="col-md-12 col-form-label">{{ __('Dokumen Empat') }}</label>
+
+                                        <input type="file" name='dokumen_empat' class="defaults" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dokumen_lima" class="col-md-12 col-form-label">{{ __('Dokumen Lima') }}</label>
+
+                                        <input type="file" name='dokumen_lima' class="defaults" value="">
+                                    </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary">SIMPAN</button>
                                     </div>
