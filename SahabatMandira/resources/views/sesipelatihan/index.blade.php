@@ -1,3 +1,7 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+?>
 @extends('layouts.adminlte')
 
 @section('title')
@@ -11,42 +15,44 @@ PELATIHAN
 @section('javascript')
 <script>
     let role = "<?= Auth::user()->role->nama_role ?>"
-    $(function () {
+    $(function() {
         let parameter = {};
-        if(role == 'superadmin' || role == 'adminblk'){
-            parameter ={
+        if (role == 'superadmin' || role == 'adminblk') {
+            parameter = {
                 "responsive": true,
                 "autoWidth": false,
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'print',
                     {
-                    extend: 'pdfHtml5',
-                    customize: function ( doc ) {
-                    doc.content.splice( 1, 0 );
-                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
-                    doc.pageMargins = [20,100,20,30];
-                    doc['header']=(function() {
-							return {
-								columns: [
-									{
-										image: logo,
-										width: 45
-									},
-									{
-										alignment: 'center',
-										text: @if(isset($blk)) '{{$blk[0]->nama}}' @else "" @endif,
-										fontSize: 18,
-										margin: [10,0]
-									},
-								],
-								margin: 20
-							}
-						});
+                        extend: 'pdfHtml5',
+                        customize: function(doc) {
+                            doc.content.splice(1, 0);
+                            var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                            doc.pageMargins = [20, 100, 20, 30];
+                            doc['header'] = (function() {
+                                return {
+                                    columns: [{
+                                            image: logo,
+                                            width: 45
+                                        },
+                                        {
+                                            alignment: 'center',
+                                            text: @if(isset($blk))
+                                            '{{$blk[0]->nama}}'
+                                            @else ""
+                                            @endif,
+                                            fontSize: 18,
+                                            margin: [10, 0]
+                                        },
+                                    ],
+                                    margin: 20
+                                }
+                            });
 
-                },
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5,6,7]
+                        },
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
                         }
                     },
                     'colvis'
@@ -54,10 +60,8 @@ PELATIHAN
             }
             // alert('odar')
             console.log(parameter)
-        }
-        else
-        {
-            parameter ={
+        } else {
+            parameter = {
                 "responsive": true,
                 "autoWidth": false,
                 dom: 'frtip'
@@ -83,7 +87,7 @@ PELATIHAN
                 'id_sesi': sesiPelatihanId,
                 'email_user': email_user
             },
-            success: function (data) {
+            success: function(data) {
                 //console.log(data);
                 var profil_data = data['profil'];
                 var sesi_data = data['sesi_data'][0];
@@ -104,8 +108,8 @@ PELATIHAN
                     " Vocational Training Center Based on The Decree of Training Organization";
 
                 var pernyataan_atas2 =
-                    noSurat+' Tanggal '+tgl_lokal(tgl_surat)+' menyatakan, bahwa :';
-                var eng_pa2 = noSurat+" dated "+tgl_eng(tgl_surat)+" dclares, that :";
+                    noSurat + ' Tanggal ' + tgl_lokal(tgl_surat) + ' menyatakan, bahwa :';
+                var eng_pa2 = noSurat + " dated " + tgl_eng(tgl_surat) + " dclares, that :";
 
                 var profil = 'Nama';
                 var profil2 = 'Tempat dan Tanggal Lahir';
@@ -127,9 +131,9 @@ PELATIHAN
                 var hasil_kompetensi = sesi_data['hasil_kompetensi'];
                 var jam_pelajaran = sesi_data['jamPelajaran'];
                 var pernyataan_bawah3 = 'dari tanggal ' + tgl_lokal(sesi_data['tanggal_mulai_pelatihan']) +
-                    ' sampai dengan ' + tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) + ' ('+jam_pelajaran+'JP)';
+                    ' sampai dengan ' + tgl_lokal(sesi_data['tanggal_selesai_pelatihan']) + ' (' + jam_pelajaran + 'JP)';
                 var pb3_eng = "from " + tgl_eng(sesi_data['tanggal_mulai_pelatihan']) + " up to " + tgl_eng(
-                    sesi_data['tanggal_selesai_pelatihan']) + " ("+jam_pelajaran+" JP)";
+                    sesi_data['tanggal_selesai_pelatihan']) + " (" + jam_pelajaran + " JP)";
 
                 if (hasil_kompetensi == "KOMPETEN") {
                     pernyataan_bawah3 += ' dan dinyatakan ' + hasil_kompetensi.toUpperCase();
@@ -137,7 +141,7 @@ PELATIHAN
                 }
 
                 var tgl_sertif = sesi_data['tanggalSertif'];
-                var tgl = titleCase(lokasi) + ', '+tgl_lokal(tgl_sertif);
+                var tgl = titleCase(lokasi) + ', ' + tgl_lokal(tgl_sertif);
                 var jabatan = 'Kepala UPT Balai Latihan Kerja ' + titleCase(lokasi);
                 var jabatan_eng = "Head of " + titleCase(lokasi) + " Vocational Training Center";
                 var nama_pembina = data_upt['nama'];
@@ -147,7 +151,7 @@ PELATIHAN
                 let img2 = new Image();
                 img2.crossOrigin = "anonymous";
                 var pas_foto = profil_data['pas_foto'];
-                var fotoprofil = 'storage/'+pas_foto;
+                var fotoprofil = 'storage/' + pas_foto;
                 console.log(fotoprofil);
                 img2.src = fotoprofil;
 
@@ -160,7 +164,7 @@ PELATIHAN
                 image.src =
                     "{{ asset('storage/Sertifikat/cert.png') }}"; /*template kedua => "{{ asset('storage/Sertifikat/temp.jpg') }}" */
 
-                image.onload = function () {
+                image.onload = function() {
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img2, 1800, 1950, 300, 400);
                     ctx.drawImage(qr_img, 550, 1950, 350, 350);
@@ -242,7 +246,7 @@ PELATIHAN
                 };
 
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -300,10 +304,10 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': sesiPelatihanId,
             },
-            success: function (data) {
+            success: function(data) {
                 $("#modalContent").html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -348,13 +352,13 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function (data) {
+            success: function(data) {
                 swal({
                     title: "Aktivitas",
                     text: data.data,
                 })
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -368,13 +372,13 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': id,
             },
-            success: function (data) {
+            success: function(data) {
                 swal({
                     title: "Data Peserta",
                     text: data.data,
                 })
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -388,10 +392,10 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'id': idsesipelatihan
             },
-            success: function (data) {
+            success: function(data) {
                 $(`#modalContentTambahInstruktur`).html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
@@ -405,19 +409,18 @@ PELATIHAN
                 '_token': '<?php echo csrf_token() ?>',
                 'mentors_email': email,
             },
-            success: function (data) {
+            success: function(data) {
                 $(`#modalContentRiwayatInstruktur`).html(data.msg);
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.log(xhr);
             }
         });
     }
-    $('body').on('change', '#nama_instruktur', function () {
+    $('body').on('change', '#nama_instruktur', function() {
         var email = $('#nama_instruktur').val();
         $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
     });
-
 </script>
 @endsection
 
@@ -438,8 +441,7 @@ PELATIHAN
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -467,16 +469,13 @@ PELATIHAN
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
                         @csrf
                         <div class="form-group">
-                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
-                                value="{{$d->sesi_pelatihans_id}}">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->sesi_pelatihans_id}}">
                             @if($d->status_fase == 'DITERIMA' || $d->status_fase == 'PESERTA CADANGAN')
-                            <button data-toggle="modal" data-target="" class='btn btn-success'
-                                {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
+                            <button data-toggle="modal" data-target="" class='btn btn-success' {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
                                 Daftar Ulang
                             </button> {{-- kalau lolos atau cadangan di enable kalo ga lolos disable--}}
                             @else
-                            <button data-toggle="modal" data-target="" class='btn btn-danger' disabled
-                                {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
+                            <button data-toggle="modal" data-target="" class='btn btn-danger' disabled {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
                                 Daftar Ulang
                             </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                             @endif
@@ -485,8 +484,7 @@ PELATIHAN
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
-                    <button class='btn btn-warning' {{ $d->hasil_kompetensi == NULL ? 'disabled' : ''}}
-                        onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
+                    <button class='btn btn-warning' {{ $d->hasil_kompetensi == NULL ? 'disabled' : ''}} onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
                         Download Sertifikat
                     </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                     <a href hidden id="download-file"></a>
@@ -505,8 +503,7 @@ PELATIHAN
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
     </div>
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -567,8 +564,7 @@ PELATIHAN
         </ul>
     </div>
     @endif
-    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid"
-        aria-describedby="sample_1_info">
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
                 <th>No</th>
@@ -597,12 +593,12 @@ PELATIHAN
                 </td>
                 <td>
                     @foreach($d->pelatihanmentor as $pm)
-                        @if($loop->last)
-                            {{$pm->nama_depan ." ".$pm->nama_belakang}}
-                        @else
-                            {{$pm->nama_depan ." ".$pm->nama_belakang.", "}}
-                            <br>
-                        @endif
+                    @if($loop->last)
+                    {{$pm->nama_depan ." ".$pm->nama_belakang}}
+                    @else
+                    {{$pm->nama_depan ." ".$pm->nama_belakang.", "}}
+                    <br>
+                    @endif
 
                     @endforeach
                 </td>
@@ -625,20 +621,16 @@ PELATIHAN
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
                         @else
-                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
-                            onclick="modalTambahInstuktur({{$d->id}})">
+                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
                             Tambah Instruktur
                         </a>
-                        <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning'
-                            onclick="modalEdit({{$d->id}})">
+                        <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                             <i class="fas fa-pen"></i>
                         </a>
-                        <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}"
-                            onsubmit="return submitFormDelete(this);" class="d-inline">
+                        <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" href=""
-                                data-toggle="modal"><i class="fas fa-trash"></i>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
                             </button>
                         </form>
                         @endif
@@ -656,8 +648,7 @@ PELATIHAN
 </div>
 {{-- BUAT PANGGIL MODAL YANG ADA DI MODAL.BLADE --}}
 <!-- Modal -->
-<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalEditSesiPelatihan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
 
     </div>
@@ -669,8 +660,7 @@ PELATIHAN
 
     </div>
 </div>
-<div class="modal fade" id="modalRiwayatInstuktur" tabindex="-1" aria-labelledby="modalRiwayatInstukturLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalRiwayatInstuktur" tabindex="-1" aria-labelledby="modalRiwayatInstukturLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContentRiwayatInstruktur">
         <div class="modal-content">
 
