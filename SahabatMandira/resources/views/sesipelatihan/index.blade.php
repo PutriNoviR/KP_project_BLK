@@ -302,6 +302,18 @@ PELATIHAN
             },
             success: function (data) {
                 $("#modalContent").html(data.msg);
+
+                ClassicEditor
+                        .create( document.querySelector( '#deskripsi' ) )
+                        .catch( error => {
+                            console.error( error );
+                        } );
+
+                ClassicEditor
+                        .create( document.querySelector( '#activity' ) )
+                        .catch( error => {
+                            console.error( error );
+                        } );
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -390,6 +402,13 @@ PELATIHAN
             },
             success: function (data) {
                 $(`#modalContentTambahInstruktur`).html(data.msg);
+
+                $('.ins-select2').select2({
+                    dropdownParent: '#modalTambahInstruktur',
+                    width: '100%',
+                    placeholder: 'Silahkan Tentukan Nama Instruktur',
+                    allowClear: true
+                });
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -616,7 +635,7 @@ PELATIHAN
                     @php
                     date_default_timezone_set("Asia/Bangkok");
                     @endphp
-                    @if (strtotime($d->tanggal_tutup) <= strtotime("now")) <button class='btn btn-secondary disabled'>
+                    {{-- @if (strtotime($d->tanggal_tutup) <= strtotime("now")) <button class='btn btn-secondary disabled'>
                         Tambah Instruktur
                         </button>
                         <button class='btn btn-secondary disabled'>
@@ -624,7 +643,7 @@ PELATIHAN
                         </button>
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
-                        @else
+                        @else --}}
                         <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
                             onclick="modalTambahInstuktur({{$d->id}})">
                             Tambah Instruktur
@@ -641,7 +660,7 @@ PELATIHAN
                                 data-toggle="modal"><i class="fas fa-trash"></i>
                             </button>
                         </form>
-                        @endif
+                        {{-- @endif --}}
 
                 </td>
                 <td>

@@ -96,6 +96,7 @@ PAKET PROGRAM
             },
             success: function(data) {
                 $('#selectSubKejuruan').empty();
+                $('#selectSubKejuruan').append('<option></option>');
                 data.forEach(e => {
                     $('#selectSubKejuruan').append(
                         `<option value="${e['id']}">${e['nama']}</option>`);
@@ -106,7 +107,40 @@ PAKET PROGRAM
                 console.log(xhr);
             }
         })
-    })
+    });
+
+    $('.blk-select2').select2({
+        dropdownParent: '#modalTambahPaketProgram',
+        width: '100%',
+        placeholder: 'Silahkan Tentukan UPT BLK',
+        allowClear: true
+    });
+
+    $('.kjr-select2').select2({
+        dropdownParent: '#modalTambahPaketProgram',
+        width: '100%',
+        placeholder: 'Silahkan Tentukan Kejuruan',
+        allowClear: true
+    });
+
+    $('.skjr-select2').select2({
+        dropdownParent: '#modalTambahPaketProgram',
+        width: '100%',
+        placeholder: 'Silahkan Tentukan Sub-Kejuruan',
+        allowClear: true
+    });
+
+    ClassicEditor
+            .create( document.querySelector( '#deskripsi' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+
+    ClassicEditor
+            .create( document.querySelector( '#activity' ) )
+            .catch( error => {
+                console.error( error );
+            } );
 </script>
 @endsection
 
@@ -116,7 +150,7 @@ PAKET PROGRAM
         <h2>Daftar Paket Program dari BLK
         </h2>
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahPaketProgram">
-            Tambah Paket Program Baru
+            <i class="fas fa-plus-circle"></i> &nbsp;Paket Program Baru
         </button>
 
     </div>
@@ -244,13 +278,18 @@ PAKET PROGRAM
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="kuota" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
+                                    <label for="harga" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
                                     <input type="text" class="col-md-12 col-form-label" name="harga">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
-                                    <input type="text" class="col-md-12 col-form-label" name="kuota">
+                                    <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota Pelatihan') }}</label>
+                                    <input type="number" class="col-md-12 col-form-label" name="kuota">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota Pendaftaran') }}</label>
+                                    <input type="number" class="col-md-12 col-form-label" name="kuota_daftar">
                                 </div>
 
                                 <div class="form-group">
@@ -307,7 +346,7 @@ PAKET PROGRAM
 
                                 <div class="form-group">
                                     <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                                    <textarea class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+                                    <textarea class="col-md-12 col-form-label" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
                                     <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
                                 </div>
                                 <div class="modal-footer">
@@ -342,7 +381,8 @@ PAKET PROGRAM
                             <div class="col-md-12">
 
                                 @if (Auth::user()->role->nama_role == 'superadmin')
-                                <select class="form-control" aria-label="Default select example" name="blks_id">
+                                <select class="blk-select2 form-control" aria-label="Default select example" name="blks_id">
+                                    <option></option>
                                     @foreach($blk as $d)
                                     <option value="{{$d->id}}">
                                         {{$d->nama}}
@@ -351,7 +391,8 @@ PAKET PROGRAM
                                     @endforeach
                                 </select>
                                 @else
-                                <select class="form-control" aria-label="Default select example" name="blks_id" readonly>
+                                <select class="blk-select2 form-control " aria-label="Default select example" name="blks_id" readonly>
+                                    <option></option>
                                     @foreach($blk as $d)
                                     <option value="{{$d->id}}">
                                         {{$d->nama}}
@@ -366,8 +407,8 @@ PAKET PROGRAM
                         <div class="form-group">
                             <label for="kejuruan" class="col-md-12 col-form-label">{{ __('Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="kejuruans_id" id="selectKejuruan">
-                                    <option selected>Pilih Kejuruan</option>
+                                <select class="form-control kjr-select2" aria-label="Default select example" name="kejuruans_id" id="selectKejuruan">
+                                    <option></option>
                                     @foreach($kejuruan as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
                                     @endforeach
@@ -378,8 +419,8 @@ PAKET PROGRAM
                         <div class="form-group">
                             <label class="col-md-12 col-form-label">{{ __('Sub Kejuruan') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control" aria-label="Default select example" name="sub_kejuruans_id" id="selectSubKejuruan" readonly>
-                                    <option selected>Pilih Sub Kejuruan</option>
+                                <select class="form-control skjr-select2" aria-label="Default select example" name="sub_kejuruans_id" id="selectSubKejuruan" readonly>
+                                    <option></option>
                                     @foreach($subKejuruan as $d)
                                     <option value="{{$d->id}}" name="sub_kejuruans_id">{{$d->nama}}</option>
                                     @endforeach

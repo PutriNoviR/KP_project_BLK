@@ -13,8 +13,9 @@
                 <div class="form-group">
                     <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Instruktur') }}</label>
                     <div class="col-md-12">
-                        <select class="form-control" aria-label="Default select example" name="mentors_email"
+                        <select class="form-control ins-select2" aria-label="Default select example" name="mentors_email"
                             id="nama_instruktur">
+                            <option></option>
                             @foreach($instrukturs as $us)
                             <option value="{{$us->email}}">{{$us->username}}</option>
                             @endforeach

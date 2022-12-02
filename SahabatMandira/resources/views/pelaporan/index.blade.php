@@ -225,8 +225,8 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -278,7 +278,7 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
                 Update Hasil Seleksi
               </button>
           </tr>
@@ -362,8 +362,9 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -414,7 +415,7 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiIkut{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
                 Update Hasil Seleksi
               </button>
           </tr>
@@ -451,7 +452,7 @@ Pelaporan
             </div>
           </div>
 
-          <div class="modal fade" id="modalUpdateHasilSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalUpdateHasilSeleksiIkut{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
@@ -499,8 +500,9 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -631,7 +633,7 @@ Pelaporan
             </a>
           </td>
           <td>
-            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
               Update Hasil Seleksi
             </button>
           </td>
@@ -713,8 +715,9 @@ Pelaporan
                     <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                     <div class="modal-footer">
                       <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                        {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                       </div>
                     </div>
                   </div>
@@ -852,8 +855,9 @@ Pelaporan
                     <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                     <div class="modal-footer">
                       <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                        {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                       </div>
                     </div>
                   </div>

@@ -235,6 +235,16 @@ class PelatihanPesertaController extends Controller
     public function storePendaftar(Request $request, $id)
     {
         $userLogin = auth()->user()->email;
+
+        $cnt_daftar = DB::connection('mandira')
+        ->table('sesi_pelatihans as s')
+        ->LEFTJOIN('pelatihan_pesertas as p','s.id','p.sesi_pelatihans_id')
+        ->where('s.id',$id)
+        ->selectRaw("IFNULL(COUNT(p.email_peserta),0) as pendaftar, s.kuota_daftar")
+        ->GROUPBY('s.kuota_daftar')
+        ->first();
+
+        // dd($cnt_daftar);
         
         $cekdaftartahunan = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
         ->whereRaw("pelatihan_pesertas.email_peserta = '$userLogin' AND YEAR(s.tanggal_tutup) = YEAR(CURDATE()) AND pelatihan_pesertas.rekom_keputusan IN ('LULUS', 'CADANGAN', 'MENGUNDURKAN DIRI')")
@@ -265,49 +275,58 @@ class PelatihanPesertaController extends Controller
         }
         else
         {
-            $emailValidator = DB::connection('mandira')
-            ->table('pelatihan_mentors')
-            ->where('sesi_pelatihans_id', $id)
-            ->value('mentors_email');
 
-            $emailUser = auth()->user()->email;
-            // dd($emailValidator);
-
-            $insert = array(
-                'email_peserta' => $emailUser,
-                'sesi_pelatihans_id' => $id,
-                'tanggal_seleksi' => $request->get('tanggal_seleksi'),
-                'rekom_validator' => $emailValidator,
-            );
-
-            DB::connection('mandira')
-                ->table('pelatihan_pesertas')
-                ->insert($insert);
-
-            //
-            $data = DB::connection('mandira')
-                ->table('pelatihan_pesertas as pp')
-                ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
-                ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
-                ->join('masterblk_db.paket_program as pr', 'pr.id', '=', 's.paket_program_id')
-                ->join('masterblk_db.blks as b','pr.blks_id','b.id')
-                ->join('masterblk_db.sub_kejuruans as sk','pr.sub_kejuruans_id','sk.id')
-                ->join('masterblk_db.kejuruans as k','pr.kejuruans_id','k.id')
-                ->where('s.id', $id)
-                ->where('u.email',$emailUser)
-                ->selectRaw("CONCAT(u.nama_depan,' ',u.nama_belakang) AS nama, b.nama as blk, k.nama as kejuruan, sk.nama as subkejuruan, s.lokasi, s.tanggal_mulai_pelatihan as mulai, s.tanggal_selesai_pelatihan as selesai")
-                ->first();
-
-            //
-
-            DB::connection('mandira')
-                ->table('pelatihan_pesertas')
+            if($cnt_daftar->pendaftar >= $cnt_daftar->kuota_daftar)
+            {
+                return redirect()->back()->with('error', 'Mohon maaf, jumlah pendaftar untuk sesi pelatihan ini telah mencapai batas kuota !');
+            }
+            else
+            {
+                $emailValidator = DB::connection('mandira')
+                ->table('pelatihan_mentors')
                 ->where('sesi_pelatihans_id', $id)
-                ->where('email_peserta', $emailUser)
-                ->update(['status_fase' => 'DALAM SELEKSI']);
+                ->value('mentors_email');
 
-            // return $data2;
-            return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+                $emailUser = auth()->user()->email;
+                // dd($emailValidator);
+
+                $insert = array(
+                    'email_peserta' => $emailUser,
+                    'sesi_pelatihans_id' => $id,
+                    'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+                    'rekom_validator' => $emailValidator,
+                );
+
+                DB::connection('mandira')
+                    ->table('pelatihan_pesertas')
+                    ->insert($insert);
+
+                //
+                $data = DB::connection('mandira')
+                    ->table('pelatihan_pesertas as pp')
+                    ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+                    ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+                    ->join('masterblk_db.paket_program as pr', 'pr.id', '=', 's.paket_program_id')
+                    ->join('masterblk_db.blks as b','pr.blks_id','b.id')
+                    ->join('masterblk_db.sub_kejuruans as sk','pr.sub_kejuruans_id','sk.id')
+                    ->join('masterblk_db.kejuruans as k','pr.kejuruans_id','k.id')
+                    ->where('s.id', $id)
+                    ->where('u.email',$emailUser)
+                    ->selectRaw("CONCAT(u.nama_depan,' ',u.nama_belakang) AS nama, b.nama as blk, k.nama as kejuruan, sk.nama as subkejuruan, s.lokasi, s.tanggal_mulai_pelatihan as mulai, s.tanggal_selesai_pelatihan as selesai")
+                    ->first();
+
+                //
+
+                DB::connection('mandira')
+                    ->table('pelatihan_pesertas')
+                    ->where('sesi_pelatihans_id', $id)
+                    ->where('email_peserta', $emailUser)
+                    ->update(['status_fase' => 'DALAM SELEKSI']);
+
+                // return $data2;
+                return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
+            }
+            
         }
     }
 

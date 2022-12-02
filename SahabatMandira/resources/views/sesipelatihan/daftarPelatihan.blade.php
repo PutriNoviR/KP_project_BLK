@@ -66,6 +66,12 @@ PELATIHAN
             }
         });
     }
+
+    $('.verif-select2').select2({
+        width: '100%',
+        placeholder: 'Silahkan Pilih Nama Instruktur',
+        allowClear: true
+    });
 </script>
 @endsection
 
@@ -108,13 +114,13 @@ PELATIHAN
                 <td>
                     @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                     <div class="mb-3">
-                        <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="button btn btn-primary">
-                            <i class="fas fa-plus">Tambah Penugasan</i>
+                        <a data-toggle="modal" data-target="#modalPenugasanAdmin{{$d->id}}" class="btn btn-primary text-white">
+                            <i class="fas fa-plus-circle"> &nbsp;Tambah Penugasan</i>
                         </a>
                     </div>
                     <div  class="mb-3">
                         <a href="{{ route('tugas.show',$d->id) }}" class="button btn btn-warning">
-                            <i class="fas fa-eye">Lihat Riwayat</i>
+                            <i class="fas fa-eye"> &nbsp;Lihat Riwayat</i>
                         </a>
                     </div>
                     @else
@@ -128,7 +134,7 @@ PELATIHAN
                 </td>
             </tr>
             {{-- MODAL UNTUK PENUGASAN ADMIN --}}
-            <div class="modal fade" id="modalPenugasanAdmin{{$d->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade modalVerifikator" id="modalPenugasanAdmin{{$d->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
                     <div class="modal-content">
@@ -161,7 +167,8 @@ PELATIHAN
                                         <label for="namaVerifikator" class="col-md-12 col-form-label">{{ __('Nama Verifikator') }}</label>
 
                                         <div class="col-md-12">
-                                            <select class="form-control" aria-label="Default select example" name="email_mentor">
+                                            <select class="form-control verif-select2" aria-label="Default select example" name="email_mentor">
+                                                <option></option>
                                                 @foreach($mentor as $d)
                                                 <option value="{{$d->email}}">
                                                     {{$d->nama_depan}} {{$d->nama_belakang}}

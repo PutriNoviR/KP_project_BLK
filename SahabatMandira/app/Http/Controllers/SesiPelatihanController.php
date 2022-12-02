@@ -112,6 +112,7 @@ class SesiPelatihanController extends Controller
         $sesi->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
         $sesi->harga = $request->harga;
         $sesi->kuota = $request->kuota;
+        $sesi->kuota_daftar = $request->kuota_daftar;
         $sesi->tanggal_seleksi = $request->tanggal_seleksi;
         $sesi->paket_program_id = $request->paket_program_id;
         $sesi->jamPelajaran = $request->jamPelajaran;
@@ -185,8 +186,6 @@ class SesiPelatihanController extends Controller
      */
     public function update(Request $request, SesiPelatihan $sesiPelatihan)
     {
-        //
-
         // $this->validate($request, [
         //         'fotoPelatihan' => ['required'],
         //     ]);
@@ -201,6 +200,7 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
         $sesiPelatihan->harga = $request->harga;
         $sesiPelatihan->kuota = $request->kuota;
+        $sesiPelatihan->kuota_daftar = $request->kuota_daftar;
         $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
         $sesiPelatihan->paket_program_id = $request->paket_program_id;
         $sesiPelatihan->jamPelajaran = $request->jamPelajaran;
@@ -223,8 +223,11 @@ class SesiPelatihanController extends Controller
      */
     public function destroy(SesiPelatihan $sesiPelatihan)
     {
-        //
+        $id_sesi = $sesiPelatihan->id;
+
         try {
+            $delete_peserta = PelatihanPeserta::WHERE('sesi_pelatihans_id', $id_sesi)->delete();
+
             $sesiPelatihan->delete();
             return redirect()->back()->with('success', 'Data Sesi Pelatihan berhasil dihapus!');
         } catch (\PDOException $e) {
