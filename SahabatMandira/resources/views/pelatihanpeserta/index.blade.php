@@ -147,7 +147,7 @@ Pelatihan Peserta
                     {{ $d->rekom_nilai_TPA }}
                 </td>
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
                         Update Hasil Seleksi
                     </button>
                 </td>

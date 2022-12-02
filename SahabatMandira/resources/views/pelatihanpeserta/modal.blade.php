@@ -68,11 +68,20 @@
                 <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                 <div class="modal-footer">
                     <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        @php
+                            $temp = explode(" ",$data->tgl_seleksi);
+                            $seleksi = $temp[0];
+
+                            $today = strtotime("now");
+                            $stlh_seleksi = strtotime($seleksi."+ 2 days");
+                        @endphp
+                        
+                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1" @if(Auth::user()->role->nama_role == 'verifikator' && $today > $stlh_seleksi) disabled @endif>Simpan</button>
+                        {{-- <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                     </div>
-
-
+                    @if(Auth::user()->role->nama_role == 'verifikator' && $today > $stlh_seleksi)
+                    <p class="text-red w-100 text-bold">*Periode update hasil seleksi sudah berakhir. Silahkan hubungi admin untuk update data.</p>
+                    @endif
                 </div>
             </div>
         </form>

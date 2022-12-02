@@ -200,8 +200,10 @@ class PelatihanPesertaController extends Controller
         $id = $request->sesi_pelatihans_id;
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
+            ->JOIN('sesi_pelatihans as s','pp.sesi_pelatihans_id','s.id')
             ->where('email_peserta', $email)
             ->where('sesi_pelatihans_id', $id)
+            ->SELECT('pp.*','s.tanggal_seleksi as tgl_seleksi')
             ->first();
         //
         $check = '1';
