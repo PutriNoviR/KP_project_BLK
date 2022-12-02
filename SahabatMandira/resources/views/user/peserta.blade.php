@@ -7,6 +7,7 @@ Daftar Peserta
 @section('javascript')
 <script>
     $(function () {
+
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": true,
@@ -15,9 +16,33 @@ Daftar Peserta
                 'copy', 'csv', 'excel', 'print',
                 {
                 extend: 'pdfHtml5',
+                customize: function ( doc ) {
+                    doc.content.splice( 1, 0 );
+                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                    doc.pageMargins = [20,100,20,30];
+                    doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: logo,
+										width: 45
+									},
+									{
+										alignment: 'center',
+										text: @if(isset($blk)) '{{$blk[0]->nama}}' @else "" @endif,
+										fontSize: 18,
+										margin: [10,0]
+									},
+								],
+								margin: 20
+							}
+						});
+
+                },
                  exportOptions: {
                     columns: [ 0, 1, 2,3 ]
-                    }
+                    },
+
                 },
                 'colvis'
             ]
@@ -57,6 +82,12 @@ Daftar Peserta
         return false;
     }
 
+    function showImg(header,src){
+        $('#modalImg-header').text(header)
+        $('#modal-img').attr(src,src)
+        $('#modalValidate').show();
+    }
+
 </script>
 @endsection
 
@@ -87,6 +118,14 @@ Daftar Peserta
                 <th>NAMA</th>
                 <th>INFO</th>
                 <th>AKSI</th>
+                 <!-- <th>NO</th>
+                <th>NAMA</th>
+                <th>KTP</th>
+                <th>FC IJAZAH</th>
+                <th>FOTO</th>
+                <th>ALAMAT DOMILISI</th>
+                <th>ALAMAT KTP</th>
+                <th>AKSI</th> -->
             </tr>
         </thead>
         <tbody>
@@ -96,6 +135,14 @@ Daftar Peserta
                 <td>{{ $d->email}}</td>
                 <td>{{ $d->username}}</td>
                 <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
+                <!-- <td>{{ $loop->iteration }}</td>
+                <td>{{ $d->nama_depan}} {{ $d->nama_belakang}}</td>
+                <td><button class="button btn btn-primary" onclick="showImg('KTP','{{ $d->ktp}}')">SHOW</button></td>
+                <td><button class="button btn btn-primary" onclick="showImg('FC IJAZAH','{{ $d->ijazah}}')">SHOW</button></td>
+                <td><button class="button btn btn-primary" onclick="showImg('FOTO','{{ $d->pas_foto}}')">SHOW</button></td>
+                <td>{{ $d->alamat}}</td>
+                <td>ALAMAT KTP</td>
+            -->
                 <td>
                     <!-- <a data-toggle="modal" data-target="#modalInfoAkun{{$d->email}}" class="button btn btn-info">
                         <i class="fas fa-info"></i>
@@ -166,4 +213,22 @@ Daftar Peserta
         </tbody>
     </table>
 </div>
+
+<div id='modalImg' class="modal" tabindex="-1" role="basic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id='modalImg-header'>
+
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <div>
+                       <img id='modal-img' src="" alt="">
+                    </div>
+                </div>
+                <div style="border-top: none; text-align: center;" class="modal-footer">
+                    <button type="button" class="btn btn-secondary mdl-close btn-close" data-bs-dismiss="modal" close='2'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -6,10 +6,10 @@ Dashboard
 
 @section('javascript')
 <script>
-    let role = "<?= Auth::user()->role->nama_role ?>"
+    let role = "<?= Auth::user()->role->nama_role ?>";
     $(function () {
         let parameter = {};
-        if(role == 'verifikator'  || role == 'adminblk' || role=='superadmin'){
+        if(role == 'adminblk'){
             parameter ={
                 "responsive": true,
                 "autoWidth": false,
@@ -18,6 +18,29 @@ Dashboard
                     'copy', 'csv', 'excel', 'print',
                     {
                     extend: 'pdfHtml5',
+                    customize: function ( doc ) {
+                    doc.content.splice( 1, 0 );
+                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                    doc.pageMargins = [20,100,20,30]; //left,bottom,right,up
+                    doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: logo,
+										width: 45
+									},
+									{
+										alignment: 'center',
+										text: @if(count($blk) > 0) '{{$blk[0]->nama}}' @else "" @endif,
+										fontSize: 18,
+										margin: [10,0]
+									},
+								],
+								margin: 20
+							}
+						});
+
+                    },
                     exportOptions: {
                         columns: [0,1,2,3,4,8]
                         }
@@ -26,7 +49,7 @@ Dashboard
                 ]
             }
         }
-        else if (role == 'mentor'){
+        else if(role == 'mentor' || role == 'verifikator'  || role=='superadmin'){
             parameter ={
                 "responsive": true,
                 "autoWidth": false,
@@ -35,6 +58,29 @@ Dashboard
                     'copy', 'csv', 'excel', 'print',
                     {
                     extend: 'pdfHtml5',
+                    customize: function ( doc ) {
+                    doc.content.splice( 1, 0 );
+                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                    doc.pageMargins = [20,100,20,30];
+                    doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: logo,
+										width: 45
+									},
+									{
+										alignment: 'center',
+										text: 'Laporan '+role,
+										fontSize: 18,
+										margin: [10,0]
+									},
+								],
+								margin: 20
+							}
+						});
+
+                    },
                     exportOptions: {
                         columns: [0,1,2,3,4,5]
                         }

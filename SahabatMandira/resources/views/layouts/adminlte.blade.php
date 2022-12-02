@@ -7,8 +7,7 @@
     <title>@yield('title')</title>
     @yield('style')
 
-    <script src="{{ asset('js/jquery-3.6.1.js') }}" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,22 +89,22 @@
                         <li class="nav-item">
                             <div class="dropdown">
                                 @if (auth()->user()->role->nama_role == 'superadmin')
-                                <button class="btn dropdown-toggle btn-dark" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-dark text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @elseif (auth()->user()->role->nama_role == 'peserta')
-                                <button class="btn dropdown-toggle btn-white" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-white text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @else
-                                <button class="btn dropdown-toggle btn-primary" type="button" data-toggle="dropdown"
+                                <button class="btn dropdown-toggle btn-primary text-uppercase" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fas fa-user-circle"></i> &nbsp; {{Auth::user()->username}}
                                 </button>
                                 @endif
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu w-100">
                                     @if(Auth::user()->role->nama_role == 'mentor')
                                     <a href="{{ route('User.halamanku',Auth::user()->email) }}" class="dropdown-item">
                                         <p>
