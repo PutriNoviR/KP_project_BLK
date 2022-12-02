@@ -384,6 +384,21 @@ class UserController extends Controller
             if ($request->file('ijazah') != null) {
                 $update['ijazah'] = $request->file('ijazah')->store('user/ijazah');
             }
+            if ($request->file('dokumen_satu') != null) {
+                $update['dokumen_satu'] = $request->file('dokumen_satu')->store('user/dokumen_satu');
+            }
+            if ($request->file('dokumen_dua') != null) {
+                $update['dokumen_dua'] = $request->file('dokumen_dua')->store('user/dokumen_dua');
+            }
+            if ($request->file('dokumen_tiga') != null) {
+                $update['dokumen_tiga'] = $request->file('dokumen_tiga')->store('user/dokumen_tiga');
+            }
+            if ($request->file('dokumen_empat') != null) {
+                $update['dokumen_empat'] = $request->file('dokumen_empat')->store('user/dokumen_empat');
+            }
+            if ($request->file('dokumen_lima') != null) {
+                $update['dokumen_lima'] = $request->file('dokumen_lima')->store('user/dokumen_lima');
+            }
 
             $update['nomor_identitas'] = $request->nik;
             $update['kota'] = $request->kota;

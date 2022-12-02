@@ -251,6 +251,33 @@ PAKET PROGRAM
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="tanggalMulaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Daftar Ulang') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalMulaiDaftarUlang">
+
+                                    <div class="col-md-12">
+
+                                        @error('tanggalMulaiDaftarUlang')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggalSelesaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Daftar Ulang') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang">
+
+                                    <div class="col-md-12">
+
+                                        @error('tanggalSelesaiDaftarUlang')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="tanggalMulaiPelatihan" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Pelatihan') }}</label>
                                     <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_mulai_pelatihan">
 

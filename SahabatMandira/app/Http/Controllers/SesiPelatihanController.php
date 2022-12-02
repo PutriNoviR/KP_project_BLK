@@ -121,6 +121,8 @@ class SesiPelatihanController extends Controller
         $sesi->tanggalSertif = $request->tanggalSertif;
         $sesi->aktivitas = $request->aktivitas;
         $sesi->deskripsi = $request->deskripsi;
+        $sesi->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
+        $sesi->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
 
 
         //insert foto (maaf gk bisa elequent [yobong])
@@ -208,6 +210,8 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->tanggalSurat = $request->tanggalSurat;
         $sesiPelatihan->tanggalSertif = $request->tanggalSertif;
         $sesiPelatihan->aktivitas = $request->aktivitas;
+        $sesiPelatihan->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
+        $sesiPelatihan->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
 
         $sesiPelatihan->gambar_pelatihan = $foto;
