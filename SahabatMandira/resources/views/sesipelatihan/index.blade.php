@@ -640,9 +640,9 @@ PELATIHAN
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
                         @else --}}
-                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
+                        {{-- <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
                             onclick="modalTambahInstuktur({{$d->id}})">
-                        @else
+                        @else --}}
                         <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
                             Tambah Instruktur
                         </a>
