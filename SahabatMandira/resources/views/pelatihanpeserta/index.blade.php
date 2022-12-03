@@ -31,8 +31,17 @@ Pelatihan Peserta
             }
             ],
             dom: 'Bflrtip'
-        })
+        });
+
+        $(".selectAll").on( "click", function(e) {
+            if ($(this).is( ":checked" )) {
+                table.rows(  ).select();        
+            } else {
+                table.rows(  ).deselect(); 
+            }
+        });
     });
+
 
     function modalEdit(email, id) {
         $.ajax({
@@ -124,7 +133,7 @@ Pelatihan Peserta
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th></th>
+                <th><input type="checkbox" class="selectAll"> Select All</th>
                 <th>No</th>
                 <th>Nama Peserta</th>
                 <th>Profil Peserta</th>
