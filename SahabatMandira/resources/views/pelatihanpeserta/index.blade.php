@@ -238,14 +238,20 @@ Pelatihan Peserta
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                      <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div>
-                        <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                      <center>
+                        <div class="mb-3">
+                            <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                            <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                            <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                        </div>
+                      <div class="">
+                        <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                       </div>
                       <hr>
                       <div>
@@ -260,6 +266,7 @@ Pelatihan Peserta
                         <label for="">Pendidikan Terakhir</label><br>
                         <p>{{$d->pendidikan_terakhir}}</p>
                       </div>
+                      </center>
                     </div>
                   </div>
                 </div>
