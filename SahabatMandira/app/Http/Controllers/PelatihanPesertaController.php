@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\MinatUser;
+use App\PaketProgram;
 use App\PelatihanPeserta;
 use App\SesiPelatihan;
 use App\User;
@@ -244,7 +246,17 @@ class PelatihanPesertaController extends Controller
         ->GROUPBY('s.kuota_daftar')
         ->first();
 
-        // dd($cnt_daftar);
+        $pernah_tes_minat = MinatUser::WHERE('users_email', $userLogin)
+            ->count();
+
+        $cek_minat = PaketProgram::JOIN('mandira_db.sesi_pelatihans AS s', 's.paket_program_id', 'paket_program.id')
+            ->JOIN('sub_kejuruans AS sk', 'paket_program.sub_kejuruans_id', 'sk.id')
+            ->JOIN('kategori_psikometrik AS kp', 'sk.kode_kategori', 'kp.id')
+            ->JOIN('minat_user AS m', 'm.kategori_psikometrik_id', 'kp.id')
+            ->WHERE('m.users_email', $userLogin)
+            ->WHERE('s.id', $id)
+            ->SELECTRAW('IFNULL(COUNT(m.kategori_psikometrik_id),0) AS cek')
+            ->value('cek');
         
         $cekdaftartahunan = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
         ->whereRaw("pelatihan_pesertas.email_peserta = '$userLogin' AND YEAR(s.tanggal_tutup) = YEAR(CURDATE()) AND pelatihan_pesertas.rekom_keputusan IN ('LULUS', 'CADANGAN', 'MENGUNDURKAN DIRI')")
@@ -290,12 +302,41 @@ class PelatihanPesertaController extends Controller
                 $emailUser = auth()->user()->email;
                 // dd($emailValidator);
 
-                $insert = array(
-                    'email_peserta' => $emailUser,
-                    'sesi_pelatihans_id' => $id,
-                    'tanggal_seleksi' => $request->get('tanggal_seleksi'),
-                    'rekom_validator' => $emailValidator,
-                );
+                if($pernah_tes_minat > 0)
+                {
+                    if($cek_minat > 0)
+                    {
+                        $insert = array(
+                            'email_peserta' => $emailUser,
+                            'sesi_pelatihans_id' => $id,
+                            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+                            'rekom_validator' => $emailValidator,
+                            'is_sesuai_minat' => '1'
+                        );
+                    }
+                    else
+                    {
+                        $insert = array(
+                            'email_peserta' => $emailUser,
+                            'sesi_pelatihans_id' => $id,
+                            'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+                            'rekom_validator' => $emailValidator,
+                            'is_sesuai_minat' => '-1'
+                        );
+                    }
+                }
+                else
+                {
+                    $insert = array(
+                        'email_peserta' => $emailUser,
+                        'sesi_pelatihans_id' => $id,
+                        'tanggal_seleksi' => $request->get('tanggal_seleksi'),
+                        'rekom_validator' => $emailValidator,
+                        'is_sesuai_minat' => 0
+                    );
+                }
+
+                
 
                 DB::connection('mandira')
                     ->table('pelatihan_pesertas')

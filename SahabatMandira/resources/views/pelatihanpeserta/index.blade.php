@@ -130,11 +130,11 @@ Pelatihan Peserta
                 </td>
                 <td>{{ $d->status_fase }}</td>
                 @if( $d->is_sesuai_minat == 1 )
-                <td> Ya </td>
+                <td> Sesuai Minat </td>
                 @elseif( $d->is_sesuai_minat == 0 )
-                <td> Belum Mengisi </td>
+                <td> Belum Mengikuti Tes </td>
                 @elseif( $d->is_sesuai_minat == -1)
-                <td> Tidak </td>
+                <td> Tidak Sesuai Minat </td>
                 @endif
                 <td>{{ $d->is_daftar_ulang == 1 ? 'Ya' : 'Tidak'  }}</td>
                 <td>

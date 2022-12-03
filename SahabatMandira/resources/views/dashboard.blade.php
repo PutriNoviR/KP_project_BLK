@@ -462,7 +462,7 @@ Dashboard
                 </td>
                 <td>
                     <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-primary">
-                        <i>DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
+                        <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
                     </a>
                 </td>
             </tr>
