@@ -53,7 +53,7 @@ Pelatihan Peserta
                         success: function(data) {
                             Swal.fire(
                             'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
-                            '',
+                            'Refresh halaman untuk melihat hasil update seleksi',
                             'success'
                             )
                         },
