@@ -10,24 +10,58 @@ Pelatihan Peserta
         var table = $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
-            columnDefs: [ {
-                orderable: false,
-                className: 'select-checkbox',
-                targets:   0
-            } ],
+            columnDefs: [ 
+                {
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets:   0
+                },
+                {
+                    target: 2,
+                    visible: false,
+                    searchable: false,
+                }
+
+            ],
             select: {
                 style:    'multi',
-                selectorr: 'td:first-child'
+                selector: 'td:first-child'
             },
             order: [[ 1, 'asc' ]],
             buttons: [
             {
                 text: 'Update Lulus Seleksi',
                 action: function () {
-                    var count = table.rows( { selected: true } ).data();
- 
-                    console.log(count);
-                    alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+                    var data = table.rows( { selected: true } ).data();
+                    var emails = [];
+                    var sesi_id = '{{ $data[0]->sesi_pelatihans_id }}';
+                    for (let i = 0; i < data.length; i++) {
+                        emails.push(data[i][2]);
+                    }
+
+                    console.log(emails);
+                    //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route("pelatihanPeserta.updatemasal") }}',
+                        data: {
+                            '_token': '<?php echo csrf_token() ?>',
+                            'emails': emails,
+                            'sesi_id': sesi_id
+                        },
+                        success: function(data) {
+                            Swal.fire(
+                            'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
+                            '',
+                            'success'
+                            )
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+                        }
+                    });
+                    
                 }
             }
             ],
@@ -134,8 +168,9 @@ Pelatihan Peserta
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
-                <th><input type="checkbox" class="selectAll"> Select All</th>
+                <th><input type="checkbox" class="selectAll" id="selectAll"> <label for="selectAll">Select All</label></th>
                 <th>No</th>
+                <th>Email</th>
                 <th>Nama Peserta</th>
                 <th>Profil Peserta</th>
                 <th>Status</th>
@@ -155,6 +190,7 @@ Pelatihan Peserta
             <tr>
                 <td></td>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $d->email }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
                 <td class="text-center">
                   <a data-toggle="modal" data-target="#modalInfoPeserta{{$d->username}}" class="btn btn-info">

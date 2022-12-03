@@ -429,4 +429,23 @@ class PelatihanPesertaController extends Controller
             'data' => $catatan
         ), 200);
     }
+
+    public function updateSeleksiMasal(Request $request)
+    {
+        $emails = $request->emails;
+        $sesi_id = $request->sesi_id;
+
+        foreach ($emails as $e) {
+            DB::connection('mandira')
+            ->table('pelatihan_pesertas')
+            ->where('email_peserta', $e)
+            ->where('sesi_pelatihans_id',$sesi_id)
+            ->update(['rekom_keputusan' => 'LULUS']);
+        }
+
+        return response()->json(array(
+            'status' => 'oke',
+            'data' => $emails
+        ), 200);
+    }
 }
