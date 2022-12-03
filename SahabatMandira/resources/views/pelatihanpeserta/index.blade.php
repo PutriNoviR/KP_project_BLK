@@ -27,6 +27,7 @@ Pelatihan Peserta
                     var count = table.rows( { selected: true } ).data();
  
                     console.log(count);
+                    alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
                 }
             }
             ],
