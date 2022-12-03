@@ -5,12 +5,33 @@ Pelatihan Peserta
 @endsection
 @section('javascript')
 <script>
-    $(function() {
-        $("#myTable").DataTable({
+    $(function() 
+    {
+        var table = $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
-
-        });
+            columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+            } ],
+            select: {
+                style:    'multi',
+                selectorr: 'td:first-child'
+            },
+            order: [[ 1, 'asc' ]],
+            buttons: [
+            {
+                text: 'Update Lulus Seleksi',
+                action: function () {
+                    var count = table.rows( { selected: true } ).data();
+ 
+                    console.log(count);
+                }
+            }
+            ],
+            dom: 'Bflrtip'
+        })
     });
 
     function modalEdit(email, id) {
@@ -103,6 +124,7 @@ Pelatihan Peserta
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
+                <th></th>
                 <th>No</th>
                 <th>Nama Peserta</th>
                 <th>Profil Peserta</th>
@@ -121,6 +143,7 @@ Pelatihan Peserta
         <tbody id="myTable">
             @foreach($data as $d)
             <tr>
+                <td></td>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
                 <td class="text-center">

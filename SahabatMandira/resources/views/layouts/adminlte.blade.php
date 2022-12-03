@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -42,6 +43,8 @@
 
     {{-- Datatables Fix --}}
     <link rel="stylesheet" href="{{ asset('adminlte/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/dataTables.checkboxes.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/buttons.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('adminlte/responsive.bootstrap4.min.css')}}">
     {{-- Datatables Fix --}}
@@ -465,6 +468,8 @@
     <script src="{{ asset('adminlte/jszip.min.js') }}"></script>
     <script src="{{ asset('adminlte/pdfmake.min.js') }}"></script>
     <script src="{{ asset('adminlte/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.checkboxes.min.js') }}"></script>
     {{-- Datatbles Fix --}}
 
     <script>
