@@ -123,6 +123,13 @@ Dashboard
             },
             success: function(data) {
                 $(`#modalContentTambahInstruktur`).html(data.msg);
+
+                $('.ins-select2').select2({
+                    dropdownParent: '#modalTambahInstruktur',
+                    width: '100%',
+                    placeholder: 'Silahkan Tentukan Nama Instruktur',
+                    allowClear: true
+                });
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -140,6 +147,7 @@ Dashboard
             },
             success: function(data) {
                 $(`#modalContentRiwayatInstruktur`).html(data.msg);
+
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -157,6 +165,18 @@ Dashboard
             },
             success: function(data) {
                 $("#modalContent").html(data.msg);
+
+                ClassicEditor
+                        .create( document.querySelector( '#deskripsi' ) )
+                        .catch( error => {
+                            console.error( error );
+                        } );
+
+                ClassicEditor
+                        .create( document.querySelector( '#activity' ) )
+                        .catch( error => {
+                            console.error( error );
+                        } );
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -442,7 +462,7 @@ Dashboard
                 </td>
                 <td>
                     <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-primary">
-                        <i>DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
+                        <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
                     </a>
                 </td>
             </tr>
@@ -687,7 +707,7 @@ Dashboard
                     <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <form method="POST" action="" onsubmit="return submitFormDelete(this);" class="d-inline">
+                    <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>

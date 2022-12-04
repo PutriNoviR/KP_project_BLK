@@ -5,13 +5,78 @@ Pelatihan Peserta
 @endsection
 @section('javascript')
 <script>
-    $(function() {
-        $("#myTable").DataTable({
+    $(function() 
+    {
+        var table = $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
+            columnDefs: [ 
+                {
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets:   0
+                },
+                {
+                    target: 2,
+                    visible: false,
+                    searchable: false,
+                }
 
+            ],
+            select: {
+                style:    'multi',
+                selector: 'td:first-child'
+            },
+            order: [[ 1, 'asc' ]],
+            buttons: [
+            {
+                text: 'Update Lulus Seleksi',
+                action: function () {
+                    var data = table.rows( { selected: true } ).data();
+                    var emails = [];
+                    var sesi_id = '{{ $data[0]->sesi_pelatihans_id }}';
+                    for (let i = 0; i < data.length; i++) {
+                        emails.push(data[i][2]);
+                    }
+
+                    console.log(emails);
+                    //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route("pelatihanPeserta.updatemasal") }}',
+                        data: {
+                            '_token': '<?php echo csrf_token() ?>',
+                            'emails': emails,
+                            'sesi_id': sesi_id
+                        },
+                        success: function(data) {
+                            Swal.fire(
+                            'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
+                            'Refresh halaman untuk melihat hasil update seleksi',
+                            'success'
+                            )
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+                        }
+                    });
+                    
+                }
+            }
+            ],
+            dom: 'Bflrtip'
+        });
+
+        $(".selectAll").on( "click", function(e) {
+            if ($(this).is( ":checked" )) {
+                table.rows(  ).select();        
+            } else {
+                table.rows(  ).deselect(); 
+            }
         });
     });
+
 
     function modalEdit(email, id) {
         $.ajax({
@@ -103,7 +168,9 @@ Pelatihan Peserta
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
+                <th><input type="checkbox" class="selectAll" id="selectAll"> <label for="selectAll">Select All</label></th>
                 <th>No</th>
+                <th>Email</th>
                 <th>Nama Peserta</th>
                 <th>Profil Peserta</th>
                 <th>Status</th>
@@ -121,7 +188,9 @@ Pelatihan Peserta
         <tbody id="myTable">
             @foreach($data as $d)
             <tr>
+                <td></td>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $d->email }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
                 <td class="text-center">
                   <a data-toggle="modal" data-target="#modalInfoPeserta{{$d->username}}" class="btn btn-info">
@@ -130,11 +199,11 @@ Pelatihan Peserta
                 </td>
                 <td>{{ $d->status_fase }}</td>
                 @if( $d->is_sesuai_minat == 1 )
-                <td> Ya </td>
+                <td> Sesuai Minat </td>
                 @elseif( $d->is_sesuai_minat == 0 )
-                <td> Belum Mengisi </td>
+                <td> Belum Mengikuti Tes </td>
                 @elseif( $d->is_sesuai_minat == -1)
-                <td> Tidak </td>
+                <td> Tidak Sesuai Minat </td>
                 @endif
                 <td>{{ $d->is_daftar_ulang == 1 ? 'Ya' : 'Tidak'  }}</td>
                 <td>
@@ -169,14 +238,20 @@ Pelatihan Peserta
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                      <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div>
-                        <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                      <center>
+                        <div class="mb-3">
+                            <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                            <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                            <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                        </div>
+                      <div class="">
+                        <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                       </div>
                       <hr>
                       <div>
@@ -191,6 +266,7 @@ Pelatihan Peserta
                         <label for="">Pendidikan Terakhir</label><br>
                         <p>{{$d->pendidikan_terakhir}}</p>
                       </div>
+                      </center>
                     </div>
                   </div>
                 </div>

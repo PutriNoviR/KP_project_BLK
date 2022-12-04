@@ -44,7 +44,7 @@ class HomeController extends Controller
                         ->select("select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority from pelatihan_vendor where is_headline=1");
 
         $sliderblk = DB::connection("mandira")
-                        ->select("select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1");
+                        ->select("select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1 AND is_delete=0");
 
         $slidermentor = DB::connection("mandira")
                         ->select("select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority from mandira_mentorings where is_headline=1");
@@ -96,6 +96,7 @@ class HomeController extends Controller
             ->JOIN('masterblk_db.minat_user as mu', 'mu.kategori_psikometrik_id', '=', 'kp.id')
             ->WHERE('mu.users_email', '=', $userLogin)
             ->WHERE('tanggal_tutup', '>=', $mytime)
+            ->where('sesi_pelatihans.is_delete',0)
             ->select('sesi_pelatihans.*')
             // ->WHERE('p.email_peserta', '=', $userLogin)
             ->skip(0)
@@ -111,12 +112,13 @@ class HomeController extends Controller
                 ->JOIN('masterblk_db.blks as b', 'p.blks_id', '=', 'b.id')
                 ->WHERE('b.id', '=', $adminBlk)
                 ->Where('tanggal_tutup', '>=', $mytime)
+                ->where('sesi_pelatihans.is_delete',0)
                 ->select('sesi_pelatihans.*')
                 ->get();
 
                 //dd($adminDashboard);
         } else {
-            $adminDashboard = SesiPelatihan::all();
+            $adminDashboard = SesiPelatihan::where('sesi_pelatihans.is_delete',0)->get();
             // dd($adminDashboard);
         }
 
@@ -146,6 +148,7 @@ class HomeController extends Controller
 
         $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->WHERE('P.mentors_email', '=', $userLogin)
+            ->where('sesi_pelatihans.is_delete',0)
             ->get();
 
         $suspend = auth()->user()->is_suspend;

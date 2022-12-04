@@ -33,6 +33,7 @@ class SesiPelatihanController extends Controller
             $blk_id = auth()->user()->blks_id_admin;
             $data = SesiPelatihan::join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
             ->where('blks_id',$blk_id)
+            ->where('sesi_pelatihans.is_delete',0)
             ->select('sesi_pelatihans.*')
             ->get();
             $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get();
@@ -61,15 +62,18 @@ class SesiPelatihanController extends Controller
 
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
+            ->where('S.is_delete',0)
             ->get();
 
         $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->WHERE('P.mentors_email', '=', $userLogin)
+            ->where('sesi_pelatihans.is_delete',0)
             ->get();
 
         $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
             ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
             ->WHERE('p.email_peserta', '=', $userLogin)
+            ->where('sesi_pelatihans.is_delete',0)
             ->get();
         //
         // $dataPeserta = User::join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
@@ -112,6 +116,7 @@ class SesiPelatihanController extends Controller
         $sesi->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
         $sesi->harga = $request->harga;
         $sesi->kuota = $request->kuota;
+        $sesi->kuota_daftar = $request->kuota_daftar;
         $sesi->tanggal_seleksi = $request->tanggal_seleksi;
         $sesi->paket_program_id = $request->paket_program_id;
         $sesi->jamPelajaran = $request->jamPelajaran;
@@ -187,8 +192,6 @@ class SesiPelatihanController extends Controller
      */
     public function update(Request $request, SesiPelatihan $sesiPelatihan)
     {
-        //
-
         // $this->validate($request, [
         //         'fotoPelatihan' => ['required'],
         //     ]);
@@ -203,6 +206,7 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
         $sesiPelatihan->harga = $request->harga;
         $sesiPelatihan->kuota = $request->kuota;
+        $sesiPelatihan->kuota_daftar = $request->kuota_daftar;
         $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
         $sesiPelatihan->paket_program_id = $request->paket_program_id;
         $sesiPelatihan->jamPelajaran = $request->jamPelajaran;
@@ -227,9 +231,13 @@ class SesiPelatihanController extends Controller
      */
     public function destroy(SesiPelatihan $sesiPelatihan)
     {
-        //
+        $id_sesi = $sesiPelatihan->id;
+
         try {
-            $sesiPelatihan->delete();
+            //$delete_peserta = PelatihanPeserta::WHERE('sesi_pelatihans_id', $id_sesi)->delete();
+
+            $sesiPelatihan->is_delete = 1;
+            $sesiPelatihan->save();
             return redirect()->back()->with('success', 'Data Sesi Pelatihan berhasil dihapus!');
         } catch (\PDOException $e) {
             $msg = "Data gagal dihapus";
@@ -295,12 +303,13 @@ class SesiPelatihanController extends Controller
             $blk_id = auth()->user()->blks_id_admin;
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
-            ->where('blks_id',$blk_id)->select('sesi_pelatihans.*')->get();
+            ->where('blks_id',$blk_id)->where('sesi_pelatihans.is_delete',0)->select('sesi_pelatihans.*')->get();
             $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get();
 
         } else {
 
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
+            ->where('sesi_pelatihans.is_delete',0)
             ->select('sesi_pelatihans.*')
             ->get();
 

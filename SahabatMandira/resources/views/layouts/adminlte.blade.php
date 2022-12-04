@@ -9,6 +9,11 @@
 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
+    {{-- Select2 --}}
+    <link rel="stylesheet" href="{{ asset('adminlte/select2.min.css') }}"></link>
+    <script src="{{ asset('adminlte/select2.min.js') }}"></script>
+    {{-- Select2 --}}
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -24,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -37,6 +43,8 @@
 
     {{-- Datatables Fix --}}
     <link rel="stylesheet" href="{{ asset('adminlte/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/dataTables.checkboxes.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/buttons.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('adminlte/responsive.bootstrap4.min.css')}}">
     {{-- Datatables Fix --}}
@@ -460,6 +468,8 @@
     <script src="{{ asset('adminlte/jszip.min.js') }}"></script>
     <script src="{{ asset('adminlte/pdfmake.min.js') }}"></script>
     <script src="{{ asset('adminlte/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dataTables.checkboxes.min.js') }}"></script>
     {{-- Datatbles Fix --}}
 
     <script>

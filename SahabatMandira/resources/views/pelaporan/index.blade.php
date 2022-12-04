@@ -145,17 +145,23 @@ Pelaporan
           <div class="modal fade" id="modalInfoAkun{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             {{-- TEMPAT AWAL MODAL --}}
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                  <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div>
-                    <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                  <center>
+                    <div class="mb-3">
+                        <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                        <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                        <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                    </div>
+                  <div class="">
+                    <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                   </div>
                   <hr>
                   <div>
@@ -170,7 +176,7 @@ Pelaporan
                     <label for="">Pendidikan Terakhir</label><br>
                     <p>{{$d->pendidikan_terakhir}}</p>
                   </div>
-
+                  </center>
                 </div>
               </div>
             </div>
@@ -225,8 +231,8 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -278,23 +284,29 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
                 Update Hasil Seleksi
               </button>
           </tr>
           <div class="modal fade" id="modalInfoAkunPesertaLolosSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                  <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div>
-                    <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                  <center>
+                    <div class="mb-3">
+                        <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                        <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                        <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                    </div>
+                  <div class="">
+                    <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                   </div>
                   <hr>
                   <div>
@@ -309,7 +321,7 @@ Pelaporan
                     <label for="">Pendidikan Terakhir</label><br>
                     <p>{{$d->pendidikan_terakhir}}</p>
                   </div>
-
+                  </center>
                 </div>
               </div>
             </div>
@@ -362,8 +374,9 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -414,23 +427,29 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiIkut{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
                 Update Hasil Seleksi
               </button>
           </tr>
           <div class="modal fade" id="modalInfoAkunPesertaMengikutiSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                  <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div>
-                    <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                  <center>
+                    <div class="mb-3">
+                        <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                        <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                        <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                    </div>
+                  <div class="">
+                    <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                   </div>
                   <hr>
                   <div>
@@ -445,13 +464,13 @@ Pelaporan
                     <label for="">Pendidikan Terakhir</label><br>
                     <p>{{$d->pendidikan_terakhir}}</p>
                   </div>
-
+                  </center>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="modal fade" id="modalUpdateHasilSeleksi{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalUpdateHasilSeleksiIkut{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
               <div class="modal-content">
@@ -499,8 +518,9 @@ Pelaporan
                       <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                       <div class="modal-footer">
                         <div>
-                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                          <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                          {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                          <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                         </div>
                       </div>
                     </div>
@@ -556,17 +576,23 @@ Pelaporan
           </tr>
           <div class="modal fade" id="modalInfoAkunPesertaKompeten{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                  <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div>
-                    <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                  <center>
+                    <div class="mb-3">
+                        <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                        <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                        <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                    </div>
+                  <div class="">
+                    <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                   </div>
                   <hr>
                   <div>
@@ -581,7 +607,7 @@ Pelaporan
                     <label for="">Pendidikan Terakhir</label><br>
                     <p>{{$d->pendidikan_terakhir}}</p>
                   </div>
-
+                  </center>
                 </div>
               </div>
             </div>
@@ -631,24 +657,30 @@ Pelaporan
             </a>
           </td>
           <td>
-            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->rekom_is_permanent == 1 ? 'disabled' : '' }}>
+            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
               Update Hasil Seleksi
             </button>
           </td>
         </tr>
         <div class="modal fade" id="modalInfoAkunPesertaCadangan{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <div>
-                  <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                <center>
+                  <div class="mb-3">
+                      <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                      <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                      <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                  </div>
+                <div class="">
+                  <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                 </div>
                 <hr>
                 <div>
@@ -663,6 +695,7 @@ Pelaporan
                   <label for="">Pendidikan Terakhir</label><br>
                   <p>{{$d->pendidikan_terakhir}}</p>
                 </div>
+                </center>
               </div>
             </div>
           </div>
@@ -713,8 +746,9 @@ Pelaporan
                     <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                     <div class="modal-footer">
                       <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                        {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                       </div>
                     </div>
                   </div>
@@ -777,17 +811,23 @@ Pelaporan
         </tr>
         <div class="modal fade" id="modalInfoAkunPesertaDaftarUlang{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <div>
-                  <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                <center>
+                  <div class="mb-3">
+                      <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                      <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                      <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                  </div>
+                <div class="">
+                  <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
                 </div>
                 <hr>
                 <div>
@@ -802,6 +842,7 @@ Pelaporan
                   <label for="">Pendidikan Terakhir</label><br>
                   <p>{{$d->pendidikan_terakhir}}</p>
                 </div>
+                </center>
               </div>
             </div>
           </div>
@@ -852,8 +893,9 @@ Pelaporan
                     <input type="hidden" id="permanent" name="rekom_is_permanent" class="col-md-12 col-form-label" value="0">
                     <div class="modal-footer">
                       <div>
-                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
-                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button>
+                        <button onclick="" type="submit" id="sementara" name="action" class="btn btn-success" value="1">Simpan</button>
+                        {{-- <button onclick="" type="submit" id="sementara" name="action" class="btn btn-default" value="1">Simpan Sementara</button>
+                        <button onclick="myFunction(); submitFormSimpanPermanen(this);" type="submit" id="permanent" name="action" class="btn btn-primary">Simpan Permanen</button> --}}
                       </div>
                     </div>
                   </div>

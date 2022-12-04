@@ -106,13 +106,18 @@
             </div>
 
             <div class="form-group">
-                <label for="kuota" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
+                <label for="harga" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="harga" value="{{$sesiPelatihan->harga}}">
             </div>
 
             <div class="form-group">
                 <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota" value="{{$sesiPelatihan->kuota}}">
+            </div>
+
+            <div class="form-group">
+                <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
+                <input type="text" class="col-md-12 col-form-label" name="kuota_daftar" value="{{$sesiPelatihan->kuota_daftar}}">
             </div>
 
             <div class="form-group">
@@ -170,7 +175,7 @@
 
             <div class="form-group">
                 <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                <textarea class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
+                <textarea id="activity" class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
                 <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$sesiPelatihan->paket_program_id}}">
             </div>
             <div class="modal-footer">

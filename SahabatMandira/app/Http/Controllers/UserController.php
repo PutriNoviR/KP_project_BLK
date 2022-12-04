@@ -288,8 +288,11 @@ class UserController extends Controller
         $user->ijazah = $request->ijazah;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->pendidikan_terakhir = $request->pendidikan_terakhir;
-        $User->tempat_lahir =$request->tempatLahir;
-        $User->tanggal_lahir=$request->tanggalLahir;
+        $user->tempat_lahir =$request->tempatLahir;
+        $user->tanggal_lahir=$request->tanggalLahir;
+        $user->save();
+
+        return redirect()->back()->back()->with('success', 'Data riwayat hidup sudah diperbarui. Silahkan lanjutkan pendaftaran');
     }
 
     public function daftar()

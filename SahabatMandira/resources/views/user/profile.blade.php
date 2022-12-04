@@ -35,7 +35,11 @@ Profile
                             <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
 
                             <p><br></p>
-
+                            <div class="mb-3">
+                                <a href="{{ asset('storage/'.$data->ktp) }}" class="btn btn-success" download="KTP_{{$data->email."_".$data->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                                <a href="{{ asset('storage/'.$data->ksk) }}" class="btn btn-primary" download="KSK_{{$data->email."_".$data->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                                <a href="{{ asset('storage/'.$data->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{$data->email."_".$data->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                            </div>
                             <br>
                             <div>
                                 <div class="m-t-20">
