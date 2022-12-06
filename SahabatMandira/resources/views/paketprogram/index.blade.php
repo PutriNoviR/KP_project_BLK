@@ -130,17 +130,24 @@ PAKET PROGRAM
         allowClear: true
     });
 
-    ClassicEditor
-            .create( document.querySelector( '#deskripsi' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+    window.editors = {};
 
-    ClassicEditor
-            .create( document.querySelector( '#activity' ) )
-            .catch( error => {
-                console.error( error );
+    document.querySelectorAll( '.deskripsi' ).forEach( ( node, index ) => {
+        ClassicEditor
+            .create( node, {} )
+            .then( newEditor => {
+                window.editors[ index ] = newEditor 
             } );
+    } );
+
+    document.querySelectorAll( '.activity' ).forEach( ( node, index ) => {
+        ClassicEditor
+            .create( node, {} )
+            .then( newEditor => {
+                window.editors[ index ] = newEditor 
+            } );
+    } );
+   
 </script>
 @endsection
 
@@ -180,8 +187,8 @@ PAKET PROGRAM
                 <td>{{ $paketprogram->kejuruan->nama }}</td>
                 <td>{{ $paketprogram->subkejuruan->nama }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-warning'>
-                        Tambah Sesi Pelatihan
+                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-warning text-white'>
+                        <i class="fas fa-plus-circle"></i> &nbsp;Sesi Pelatihan
                     </a>
                     <!-- <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$paketprogram->id}})">
                         <i class="fas fa-pen"></i>
@@ -210,7 +217,7 @@ PAKET PROGRAM
                                 <div class="form-group">
                                     <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
                                     <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
-                                    <textarea name="deskripsi" class="form-control" required id="deskripsi" cols="40"
+                                    <textarea name="deskripsi" class="form-control deskripsi" required id="deskripsi" cols="40"
                                     rows="10"></textarea>
                                 </div>
                                 <div class="form-group">
@@ -373,11 +380,11 @@ PAKET PROGRAM
 
                                 <div class="form-group">
                                     <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                                    <textarea class="col-md-12 col-form-label" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+                                    <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
                                     <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
                                     <button type="submit" class="btn btn-primary">SIMPAN</button>
                                 </div>
                             </form>
