@@ -187,7 +187,7 @@ PAKET PROGRAM
                 <td>{{ $paketprogram->kejuruan->nama }}</td>
                 <td>{{ $paketprogram->subkejuruan->nama }}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-warning text-white'>
+                    <a data-toggle="modal" data-target="#modalTambahSesiPelatihan{{$paketprogram->id}}" class='btn btn-success text-white'>
                         <i class="fas fa-plus-circle"></i> &nbsp;Sesi Pelatihan
                     </a>
                     <!-- <a data-toggle="modal" data-target="#modalEditPaketProgram" class='btn btn-warning' onclick="modalEdit({{$paketprogram->id}})">
