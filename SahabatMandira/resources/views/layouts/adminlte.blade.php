@@ -120,10 +120,10 @@
                                         </p>
                                     </a>
                                     @endif
-                                    @can('peserta-permission')
                                     <a href="{{ route('User.show', Auth::user()->email) }}" class="dropdown-item">
                                         Akun
                                     </a>
+                                    @can('peserta-permission')
                                     <a class="dropdown-item" href="{{ route('lamaran.lamaranku') }}"
                                         type="button">Kegiatan Ku</a>
                                     @endcan
