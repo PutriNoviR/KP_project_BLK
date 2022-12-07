@@ -217,7 +217,7 @@ PAKET PROGRAM
                                 <div class="form-group">
                                     <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
                                     <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
-                                    <textarea name="deskripsi" class="form-control deskripsi" required id="deskripsi" cols="40"
+                                    <textarea name="deskripsi" class="form-control deskripsi" id="deskripsi" cols="40"
                                     rows="10"></textarea>
                                 </div>
                                 <div class="form-group">
