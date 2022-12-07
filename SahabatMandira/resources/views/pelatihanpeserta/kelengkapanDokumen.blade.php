@@ -146,8 +146,10 @@ Kelengkapan Dokumen
                                 <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
                                     <option value="SD Sederajat">SD Sederajat</option>
                                     <option value="SMP Sederajat">SMP Sederajat</option>
-                                    <option value="SMA Sederajat">SMA Sederajat</option>
-                                    <option value="Sarjana(Strata-1)">S1</option>
+                                    <option value="SMA Sederajat">SMA</option>
+                                    <option value="SMK Sederajat">SMK</option>
+                                    <option value="D1/D2/D3/D4">Diploma (D1/D2/D3/D4)</option>
+                                    <option value="Sarjana(Strata-1)">Sarjana(S1)</option>
                                     <option value="Pasca Sarjana">Pasca Sarjana</option>
                                 </select>
                             </div>
