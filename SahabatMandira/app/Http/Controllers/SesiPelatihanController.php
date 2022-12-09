@@ -333,7 +333,7 @@ class SesiPelatihanController extends Controller
 
     public function daftarUlang(Request $request)
     {
-        $userLogin = auth()->user()->email;
+        $peserta = $request->email;
 
         $update = array(
             'is_daftar_ulang' => 1,
@@ -343,14 +343,14 @@ class SesiPelatihanController extends Controller
         DB::connection('mandira')
             ->table('pelatihan_pesertas')
             ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
-            ->where('email_peserta', $userLogin)
+            ->where('email_peserta', $peserta)
             ->update($update);
         //
-        $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
-            ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
-            ->WHERE('p.email_peserta', '=', $userLogin)
-            ->get();
-        //
+        // $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
+        //     ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
+        //     ->WHERE('p.email_peserta', '=', $userLogin)
+        //     ->get();
+        // //
         return redirect()->back()->with('success', 'Berhasil Daftar Ulang');
     }
 

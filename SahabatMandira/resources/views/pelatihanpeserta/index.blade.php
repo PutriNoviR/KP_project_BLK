@@ -228,9 +228,16 @@ Pelatihan Peserta
                 </td>
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <td>
-                    <button data-toggle="modal" data-target="#" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ $d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN' ? 'disabled' : ''}}>
-                        Daftar Ulang
-                    </button>
+                    <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
+                        @csrf
+                        <div class="form-group">
+                            <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->sesi_pelatihans_id}}">
+                            <input type="hidden" name="email" class="col-md-12 col-form-label" value="{{$d->email_peserta}}">
+                            <button data-toggle="modal" data-target="" class='btn btn-success' {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
+                                Daftar Ulangkan
+                            </button>
+                        </div>
+                    </form>
                 </td>
                 @endif
             </tr>
@@ -249,7 +256,7 @@ Pelatihan Peserta
                         <div class="mb-3">
                             <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
                             <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
-                            <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                            <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning text-white" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
                         </div>
                       <div class="">
                         <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">

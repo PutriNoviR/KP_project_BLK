@@ -489,6 +489,7 @@ PELATIHAN
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label" value="{{$d->sesi_pelatihans_id}}">
+                            <input type="hidden" name="email" class="col-md-12 col-form-label" value="{{Auth::user()->email}}">
                             @if($d->status_fase == 'DITERIMA' || $d->status_fase == 'PESERTA CADANGAN')
                             <button data-toggle="modal" data-target="" class='btn btn-success' {{ $d->is_daftar_ulang  == '1' ? 'disabled' : ''}}>
                                 Daftar Ulang
