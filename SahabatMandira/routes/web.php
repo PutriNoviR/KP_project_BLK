@@ -51,7 +51,7 @@ Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware('auth');
 
 // Role
 Route::resource('menu/role', 'RoleController');
