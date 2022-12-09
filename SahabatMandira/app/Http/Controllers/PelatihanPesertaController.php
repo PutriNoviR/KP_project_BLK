@@ -140,7 +140,7 @@ class PelatihanPesertaController extends Controller
 
         $flag = 0;
         // flag  0 -> normal
-        // flag = 1 -> melebihi $kuota
+        // flag = 1 -> melebihi kuota
         // flag = 2 -> tanggal sekarang melampaui tgl mulai pelatihan
         
             // dd('1');
