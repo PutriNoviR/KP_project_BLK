@@ -8,6 +8,7 @@ use App\PelatihanPeserta;
 use App\SesiPelatihan;
 use App\User;
 use Auth;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -95,7 +96,8 @@ class PelatihanPesertaController extends Controller
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
             ->where('sesi_pelatihans_id', $id)
             ->get();
-        return view('pelatihanpeserta.index', compact('data', 'periode'));
+        $id_sesi = $id;
+        return view('pelatihanpeserta.index', compact('data', 'periode','id_sesi'));
     }
 
     /**
@@ -130,18 +132,31 @@ class PelatihanPesertaController extends Controller
         $kuota = DB::connection('mandira')
         ->table('sesi_pelatihans')
         ->where('id',$idSesiPelatihan)->value('kuota');
-        // dd($kuota);
 
-        if ($countDiterima <= $kuota) {
+        $tgl_mulai_pelatihan = DB::connection('mandira')
+        ->table('sesi_pelatihans')
+        ->where('id',$idSesiPelatihan)->value('tanggal_mulai_pelatihan');
+        //dd($kuota);
+
+        $flag = 0;
+        // flag  0 -> normal
+        // flag = 1 -> melebihi $kuota
+        // flag = 2 -> tanggal sekarang melampaui tgl mulai pelatihan
+        
             // dd('1');
             if ($request->get('rekom_keputusan') == 'LULUS') {
-                $update = array(
-                    'rekom_catatan' => $request->get('rekom_catatan'),
-                    'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                    'rekom_keputusan' => $request->get('rekom_keputusan'),
-                    'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                    'status_fase' => 'DITERIMA',
-                );
+                if ($countDiterima < $kuota) {
+                    $update = array(
+                        'rekom_catatan' => $request->get('rekom_catatan'),
+                        'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                        'rekom_keputusan' => $request->get('rekom_keputusan'),
+                        'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                        'status_fase' => 'DITERIMA',
+                    );
+                }
+                else {
+                    $flag = 1;
+                }
             } elseif (($request->get('rekom_keputusan') == 'TIDAK LULUS') || ($request->get('rekom_keputusan') == 'MENGUNDURKAN DIRI')) {
                 $update = array(
                     'rekom_catatan' => $request->get('rekom_catatan'),
@@ -160,23 +175,30 @@ class PelatihanPesertaController extends Controller
                 );
             }
 
-            DB::connection('mandira')
+            if(strtotime($tgl_mulai_pelatihan) <= strtotime('now'))
+            {
+                $flag = 2;
+            }
+
+            if($flag == 1)
+            {
+                return redirect()->back()->with('failed', 'Gagal Update! Jumlah diterima sudah max kuota!.');
+            }
+            elseif($flag == 2)
+            {
+                return redirect()->back()->with('failed', 'Tidak Dapat Mengundurkan Diri Setelah Periode Pelatihan Dimulai');
+                //bisa juga disuspend/blacklist
+            }
+            else
+            {
+                DB::connection('mandira')
                 ->table('pelatihan_pesertas')
                 ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
                 ->where('email_peserta', $email)
                 ->update($update);
 
-            return redirect()->back()->with('success', 'Berhasil Mengupdate');
-
-        } else {
-
-            return redirect()->back()->with('failed', 'Gagal Update! Jumlah diterima sudah max kuota!.');
-
-        }
-
-
-        //
-        
+                return redirect()->back()->with('success', 'Berhasil Mengupdate');
+            }
     }
 
     /**
@@ -337,7 +359,7 @@ class PelatihanPesertaController extends Controller
                         'sesi_pelatihans_id' => $id,
                         'tanggal_seleksi' => $request->get('tanggal_seleksi'),
                         'rekom_validator' => $emailValidator,
-                        'is_sesuai_minat' => 0
+                        'is_sesuai_minat' => '0'
                     );
                 }
 

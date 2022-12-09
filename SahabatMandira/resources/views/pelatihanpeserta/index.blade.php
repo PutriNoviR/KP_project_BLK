@@ -34,7 +34,7 @@ Pelatihan Peserta
                 action: function () {
                     var data = table.rows( { selected: true } ).data();
                     var emails = [];
-                    var sesi_id = '{{ $data[0]->sesi_pelatihans_id }}';
+                    var sesi_id = '{{$id_sesi}}';
                     for (let i = 0; i < data.length; i++) {
                         emails.push(data[i][2]);
                     }
@@ -186,6 +186,7 @@ Pelatihan Peserta
             </tr>
         </thead>
         <tbody id="myTable">
+            @if(count($data) > 0)
             @foreach($data as $d)
             <tr>
                 <td></td>
@@ -272,18 +273,19 @@ Pelatihan Peserta
                 </div>
               </div>
             @endforeach
+            @endif
         </tbody>
     </table>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
+<div class="modal fade" id="modalEditPelatihanPeserta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$id_sesi}}">
     <div class="modal-dialog" id="modalContent">
 
     </div>
 </div>
 
-<div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$d->sesi_pelatihans_id}}">
+<div class="modal fade" id="modalEditRekomendasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" name="sesi_pelatihans_id" value="{{$id_sesi}}">
     <div class="modal-dialog" id="modalContent2">
 
     </div>
