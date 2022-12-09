@@ -82,7 +82,9 @@ class SesiPelatihanController extends Controller
         //     ->get();
         // dd($dataPeserta);
 
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk'));
+        $selectedSumberDana = SesiPelatihan::first()->sumber_dana;
+
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana'));
     }
 
     /**
@@ -127,6 +129,7 @@ class SesiPelatihanController extends Controller
         $sesi->deskripsi = $request->deskripsi;
         $sesi->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
         $sesi->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
+        $sesi->sumber_dana =$request->sumberDana;
 
 
         //insert foto (maaf gk bisa elequent [yobong])
@@ -216,6 +219,7 @@ class SesiPelatihanController extends Controller
         $sesiPelatihan->aktivitas = $request->aktivitas;
         $sesiPelatihan->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
         $sesiPelatihan->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
+        $sesiPelatihan->sumber_dana = $request->sumberDana;
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
 
         $sesiPelatihan->gambar_pelatihan = $foto;

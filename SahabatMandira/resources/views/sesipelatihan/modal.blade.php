@@ -106,6 +106,17 @@
             </div>
 
             <div class="form-group">
+                <label for="sumberDana" class="col-md-12 col-form-label">{{ __('Sumber Dana') }}</label>
+                <div class="col-md-12">
+                    <select class="form-control" aria-label="Default select example" name="sumberDana" value="{{$sesiPelatihan->selectedSumberDana}}">
+                        <option value="APBN">APBN</option>
+                        <option value="APBD">APBD</option>
+                        <option value="SWADANA">SWADANA</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="harga" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="harga" value="{{$sesiPelatihan->harga}}">
             </div>

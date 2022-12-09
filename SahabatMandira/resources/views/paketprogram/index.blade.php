@@ -9,7 +9,7 @@ PAKET PROGRAM
 @section('javascript')
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -17,32 +17,31 @@ PAKET PROGRAM
             buttons: [
                 'copy', 'csv', 'excel', 'print',
                 {
-                extend: 'pdfHtml5',
-                customize: function ( doc ) {
-                    doc.content.splice( 1, 0 );
-                    var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
-                    doc.pageMargins = [20,100,20,30];
-                    doc['header']=(function() {
-							return {
-								columns: [
-									{
-										image: logo,
-										width: 45
-									},
-									{
-										alignment: 'center',
-										text: '<?= $blk[0]->nama ?>',
-										fontSize: 18,
-										margin: [10,0]
-									},
-								],
-								margin: 20
-							}
-						});
+                    extend: 'pdfHtml5',
+                    customize: function(doc) {
+                        doc.content.splice(1, 0);
+                        var logo = 'data:image/png;base64,' + '<?= base64_encode(file_get_contents('https://seeklogo.com/images/J/jawa-timur-logo-24818906D1-seeklogo.com.png')) ?>'
+                        doc.pageMargins = [20, 100, 20, 30];
+                        doc['header'] = (function() {
+                            return {
+                                columns: [{
+                                        image: logo,
+                                        width: 45
+                                    },
+                                    {
+                                        alignment: 'center',
+                                        text: '<?= $blk[0]->nama ?>',
+                                        fontSize: 18,
+                                        margin: [10, 0]
+                                    },
+                                ],
+                                margin: 20
+                            }
+                        });
 
-                },
-                 exportOptions: {
-                    columns: [ 0, 1, 2,3 ]
+                    },
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
                     }
                 },
                 'colvis'
@@ -132,22 +131,21 @@ PAKET PROGRAM
 
     window.editors = {};
 
-    document.querySelectorAll( '.deskripsi' ).forEach( ( node, index ) => {
+    document.querySelectorAll('.deskripsi').forEach((node, index) => {
         ClassicEditor
-            .create( node, {} )
-            .then( newEditor => {
-                window.editors[ index ] = newEditor 
-            } );
-    } );
+            .create(node, {})
+            .then(newEditor => {
+                window.editors[index] = newEditor
+            });
+    });
 
-    document.querySelectorAll( '.activity' ).forEach( ( node, index ) => {
+    document.querySelectorAll('.activity').forEach((node, index) => {
         ClassicEditor
-            .create( node, {} )
-            .then( newEditor => {
-                window.editors[ index ] = newEditor 
-            } );
-    } );
-   
+            .create(node, {})
+            .then(newEditor => {
+                window.editors[index] = newEditor
+            });
+    });
 </script>
 @endsection
 
@@ -178,7 +176,7 @@ PAKET PROGRAM
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody >
+        <tbody>
             @foreach($paketprograms as $paketprogram)
             {{-- @dd($paketprogram->subkejuruan) --}}
             <tr>
@@ -217,8 +215,7 @@ PAKET PROGRAM
                                 <div class="form-group">
                                     <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
                                     <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
-                                    <textarea name="deskripsi" class="form-control deskripsi" id="deskripsi" cols="40"
-                                    rows="10"></textarea>
+                                    <textarea name="deskripsi" class="form-control deskripsi" id="deskripsi" cols="40" rows="10"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
@@ -308,6 +305,17 @@ PAKET PROGRAM
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sumberDana" class="col-md-12 col-form-label">{{ __('Sumber Dana') }}</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control" aria-label="Default select example" name="sumberDana">
+                                            <option value="APBN">APBN</option>
+                                            <option value="APBD">APBD</option>
+                                            <option value="SWADANA">SWADANA</option>
+                                        </select>
                                     </div>
                                 </div>
 
