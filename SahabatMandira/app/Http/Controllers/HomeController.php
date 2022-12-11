@@ -83,6 +83,7 @@ class HomeController extends Controller
         $ditawarkan = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
             ->skip(0)
             ->take(4)
+            ->where('sesi_pelatihans.is_delete',0)
             ->get();
         // dd($ditawarkan);
         // $disarankan = PelatihanPeserta::join('sesi_pelatihans as P', 'pelatihan_pesertas.sesi_pelatihans_id', '=', 'P.id')
