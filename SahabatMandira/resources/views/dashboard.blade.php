@@ -278,7 +278,7 @@ Dashboard
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
                 <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p> {{--ini belum ambil dari db--}}
+                    <p>{!!\Illuminate\Support\Str::limit($d->deskripsi,50,'...')!!}.</p> {{--ini belum ambil dari db--}}
                 </div>
                 <div class="card-footer">
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -321,8 +321,8 @@ Dashboard
                 <div class="card-body font-weight-bold">
                     {{ $d->paketprogram->subkejuruan->nama }}
                 </div>
-                <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p>
+                <div class="card-body mb-5">
+                    {!!\Illuminate\Support\Str::limit($d->deskripsi,50,'...')!!}.
                 </div>
                 <div class="card-footer">
                     <a href="{{url('sesiPelatihan/'.$d->id)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -360,8 +360,8 @@ Dashboard
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar kejuruan">
                 </div>
-                <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')}}.</p>
+                <div class="card-body mb-5">
+                    <p>{!!Illuminate\Support\Str::limit($d->deskripsi_program,50,'...')!!}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{url('mandiraMentoring/detail/'.$d->id_mentoring)}}" class="button btn btn-primary">{{ __('DETAIL') }}</a>
@@ -398,8 +398,8 @@ Dashboard
                     <!-- <h1>GAMBAR KEJURUAN</h1> -->
                     <img src="{{ asset('storage/'.$d->gambar.'') }}" style='width:100%; height:100%; padding: 10px' alt="gambar mentoring">
                 </div>
-                <div class="card-body">
-                    <p>{{\Illuminate\Support\Str::limit($d->deskripsi,50,'...')}}.</p>
+                <div class="card-body mb-5">
+                    <p>{!!\Illuminate\Support\Str::limit($d->deskripsi,50,'...')!!}.</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{ $d->link }}" target="_blank" class="button btn btn-primary">{{ __('DETAIL') }}</a>
