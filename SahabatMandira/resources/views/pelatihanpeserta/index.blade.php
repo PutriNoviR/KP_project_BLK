@@ -222,7 +222,7 @@ Pelatihan Peserta
                     </button>
                 </td>
                 <td>
-                    <button data-toggle="modal" @if(strtotime('now') >= strtotime($periode->tanggal_selesai_pelatihan ." + 3 days")) disabled @endif data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
+                    <button data-toggle="modal" @if(strtotime('now') < strtotime($periode->tanggal_selesai_pelatihan) || strtotime('now') >= strtotime($periode->tanggal_selesai_pelatihan ." + 3 days")) disabled @endif data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>

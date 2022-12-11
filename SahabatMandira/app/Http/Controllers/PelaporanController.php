@@ -68,42 +68,42 @@ class PelaporanController extends Controller
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
-            ->select('users.*','P.*')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
         // dd($peserta);
         $lolos = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.rekom_keputusan', 'LULUS')
-            ->select('users.*','P.*')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
         $cadangan = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.rekom_keputusan', 'CADANGAN')
-            ->select('users.*', 'P.*')
+            ->select('users.*', 'P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
         $kompeten = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.hasil_kompetensi', 'KOMPETEN')
-            ->select('users.*','P.*')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
         $daftarUlang = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->where('P.is_daftar_ulang', '1')
-            ->select('users.*','P.*')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
          $mengikutiSeleksi = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->whereNotNull('P.rekom_keputusan')
-            ->select('users.*','P.*')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
         return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten','daftarUlang','mengikutiSeleksi'));
     }
