@@ -1,3 +1,4 @@
+
 <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Email Instruktur</h5>
@@ -16,9 +17,11 @@
                         <select class="form-control ins-select2" aria-label="Default select example" name="mentors_email"
                             id="nama_instruktur">
                             <option></option>
-                            @foreach($instrukturs as $us)
-                            <option value="{{$us->email}}">{{$us->username}}</option>
-                            @endforeach
+                            @if(count($instrukturs) > 0)
+                                @foreach($instrukturs as $us)
+                                <option value="{{$us->email}}">{{$us->username}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                     <input type="hidden" name="sesi_pelatihans_id" class="col-md-12 col-form-label"
@@ -29,7 +32,7 @@
                     <div>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
                             id="btnRiwayatInstruktur" data-target="#modalRiwayatInstuktur"
-                            onclick="modalShowRiwayatInstruktur('{{ $instrukturs[0]->email }}')">Riwayat
+                            onclick="modalShowRiwayatInstruktur(@if(count($instrukturs) > 0) {{ $instrukturs[0]->email }} @endif)">Riwayat
                             Instuktur</button>
                     </div>
                     <div>

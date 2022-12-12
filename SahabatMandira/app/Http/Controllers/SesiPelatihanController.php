@@ -376,14 +376,16 @@ class SesiPelatihanController extends Controller
 
     public function getTambahInstruktr(Request $request)
     {
+        $blk_id = Auth()->user()->blks_id_admin;
         $idsesipelatihan = $request->id;
         $instrukturs = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator')
+        ->WHERE('users.blks_id_admin',$blk_id)
         ->get();
         // dd($instrukturs);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('instrukturs','idsesipelatihan'))->render()
+            'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('blk_id','instrukturs','idsesipelatihan'))->render()
         ), 200);
     }
 }
