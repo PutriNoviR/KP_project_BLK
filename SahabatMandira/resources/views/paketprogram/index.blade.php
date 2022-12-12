@@ -255,6 +255,20 @@ PAKET PROGRAM
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="tanggalSeleksi" class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_seleksi">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="tanggalMulaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Daftar Ulang') }}</label>
                                     <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalMulaiDaftarUlang">
 
@@ -332,20 +346,6 @@ PAKET PROGRAM
                                 <div class="form-group">
                                     <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota Pendaftaran') }}</label>
                                     <input type="number" class="col-md-12 col-form-label" name="kuota_daftar">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tanggalSeleksi" class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
-                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_seleksi">
-
-                                    <div class="col-md-12">
-
-                                        @error('website')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
                                 </div>
 
                                 <div class="form-group">

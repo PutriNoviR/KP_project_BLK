@@ -53,6 +53,20 @@
             </div>
 
             <div class="form-group">
+                <label for="tanggalSeleksi" class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_seleksi" value="<?php echo date('Y-m-d\TH:i:s', strtotime($sesiPelatihan->tanggal_seleksi)); ?>">
+
+                <div class="col-md-12">
+
+                    @error('website')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="tanggalMulaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Daftar Ulang') }}</label>
                 <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalMulaiDaftarUlang" value="{{$sesiPelatihan->tanggal_mulai_daftar_ulang}}">
 
@@ -130,21 +144,6 @@
                 <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota_daftar" value="{{$sesiPelatihan->kuota_daftar}}">
             </div>
-
-            <div class="form-group">
-                <label for="tanggalSeleksi" class="col-md-12 col-form-label">{{ __('Tanggal Seleksi') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_seleksi" value="<?php echo date('Y-m-d\TH:i:s', strtotime($sesiPelatihan->tanggal_seleksi)); ?>">
-
-                <div class="col-md-12">
-
-                    @error('website')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-
 
             <div class="form-group">
                 <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
