@@ -270,6 +270,14 @@
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('blk-inst.index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                        <p>
+                                            Pengelolaan Instruktur
+                                        </p>
+                                    </a>
+                                </li>
                                 @endcan
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')

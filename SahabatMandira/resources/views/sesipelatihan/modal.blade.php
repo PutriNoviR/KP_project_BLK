@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
                 <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi" value="{{ $sesiPelatihan->deskripsi}}"> -->
-                <textarea name="deskripsi" class="form-control" required id="deskripsi" cols="40" rows="10">{{ $sesiPelatihan->deskripsi}}</textarea>
+                <textarea name="deskripsi" class="form-control deskripsi" required cols="40" rows="10">{{ $sesiPelatihan->deskripsi}}</textarea>
             </div>
             <div class="form-group">
                 <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
@@ -185,7 +185,7 @@
 
             <div class="form-group">
                 <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                <textarea id="activity" class="col-md-12 col-form-label" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
+                <textarea class="col-md-12 col-form-label activity" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
                 <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$sesiPelatihan->paket_program_id}}">
             </div>
             <div class="modal-footer">

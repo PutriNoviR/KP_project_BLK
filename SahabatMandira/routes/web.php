@@ -47,6 +47,7 @@ Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 
 // TESTING SECTION ENDS HERE
 
+Route::resource('blk-inst', 'BLKInstrukturController');
 
 Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
 

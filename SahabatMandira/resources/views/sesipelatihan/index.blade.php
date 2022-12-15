@@ -307,17 +307,21 @@ PELATIHAN
             success: function(data) {
                 $("#modalContent").html(data.msg);
 
-                ClassicEditor
-                        .create( document.querySelector( '#deskripsi' ) )
-                        .catch( error => {
-                            console.error( error );
-                        } );
+                document.querySelectorAll('.deskripsi').forEach((node, index) => {
+                    ClassicEditor
+                        .create(node, {})
+                        .then(newEditor => {
+                            window.editors[index] = newEditor
+                        });
+                });
 
-                ClassicEditor
-                        .create( document.querySelector( '#activity' ) )
-                        .catch( error => {
-                            console.error( error );
-                        } );
+                document.querySelectorAll('.activity').forEach((node, index) => {
+                    ClassicEditor
+                        .create(node, {})
+                        .then(newEditor => {
+                            window.editors[index] = newEditor
+                        });
+                });
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -368,6 +372,7 @@ PELATIHAN
                 swal({
                     title: "Aktivitas",
                     text: data.data,
+                    html:true
                 })
             },
             error: function(xhr) {
