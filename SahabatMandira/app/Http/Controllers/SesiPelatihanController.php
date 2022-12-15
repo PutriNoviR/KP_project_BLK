@@ -388,4 +388,39 @@ class SesiPelatihanController extends Controller
             'msg'=> view('sesipelatihan.modalTambahInstruktur', compact('blk_id','instrukturs','idsesipelatihan'))->render()
         ), 200);
     }
+
+    public function storeMTU(Request $request)
+    {
+        // return($request);
+        if (!$request->hasFile('fotoPelatihan')) {
+            return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
+        }
+
+        $sesi = new SesiPelatihan();
+        $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
+        $sesi->tanggal_tutup = $request->tanggal_tutup;
+        $sesi->lokasi = $request->lokasi;
+        $sesi->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
+        $sesi->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
+        $sesi->harga = $request->harga;
+        $sesi->kuota = $request->kuota;
+        $sesi->kuota_daftar = $request->kuota_daftar;
+        $sesi->paket_program_id = $request->paket_program_id;
+        $sesi->jamPelajaran = $request->jamPelajaran;
+        $sesi->aktivitas = $request->aktivitas;
+        $sesi->deskripsi = $request->deskripsi;
+        $sesi->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
+        $sesi->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
+        $sesi->sumber_dana =$request->sumberDana;
+        $sesi->is_mtu = 1;
+
+        //insert foto (maaf gk bisa elequent [yobong])
+        $foto = $request->file('fotoPelatihan')->store('programPelatihan');
+        // $name = $foto->getClientOriginalName();
+        // $foto->move('images/programPelatihan', $name);
+
+        $sesi->gambar_pelatihan = $foto;
+        $sesi->save();
+        return redirect()->back()->with('success', 'Data pelatihan MTU berhasil ditambahkan!');
+    }
 }

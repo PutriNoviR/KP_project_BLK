@@ -131,6 +131,7 @@ Route::post('sesiPelatihan/getEditForm', 'SesiPelatihanController@getEditForm')-
 Route::post('sesiPelatihan/getDetail', 'SesiPelatihanController@getDetail')->name('sesiPelatihan.getDetail');
 Route::post('sesiPelatihan/getTambahInstruktur', 'SesiPelatihanController@getTambahInstruktr')->name('sesiPelatihan.getTambahInstruktur');
 Route::post('sesiPelatihan/riwayatInstruktur', 'UserController@riwayatVerifikator')->name('sesiPelatihan.getRiwayatInstruktur');
+Route::post('daftarPelatihan/addMTU', 'SesiPelatihanController@storeMTU')->name('sesiPelatihan.mtu');
 
 //Tugas
 Route::resource('/tugas', 'TugasController');

@@ -173,7 +173,8 @@ PAKET PROGRAM
                 <th>Nama Balai Latihan Kerja</th>
                 <th>Kejuruan</th>
                 <th>Sub Kejuruan</th>
-                <th>Aksi</th>
+                <th>Tambah Sesi</th>
+                {{-- <th>Tambah MTU</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -197,6 +198,11 @@ PAKET PROGRAM
                         <button type="submit" class="btn btn-danger" data-toggle="modal" href="{{route('blk.show',$paketprogram->id)}}" data-toggle="modal"><i class="fas fa-trash"></i></button>
                     </form> --}} -->
                 </td>
+                {{-- <td>
+                    <a data-toggle="modal" data-target="#modalTambahMTU{{$paketprogram->id}}" class='btn btn-info text-white'>
+                        <i class="fas fa-plus-circle"></i> &nbsp;MTU
+                    </a>
+                </td> --}}
             </tr>
 
             {{-- MODAL UNTUK TAMBAH SESI PELATIHAN--}}
@@ -400,6 +406,158 @@ PAKET PROGRAM
                     </div>
                 </div>
             </div>
+
+            {{-- MODAL UNTUK TAMBAH PELATIHAN MTU--}}
+            <div class="modal fade" id="modalTambahMTU{{$paketprogram->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tambah Pelatihan MTU - {{$paketprogram->subkejuruan->nama}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('sesiPelatihan.mtu') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
+                                    <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
+                                    <textarea name="deskripsi" class="form-control deskripsi" id="deskripsi" cols="40" rows="10"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
+                                    <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_pendaftaran">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggalTutupPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Tutup Pendaftaran') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_tutup">
+
+                                    <div class="col-md-12">
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lokasi" class="col-md-12 col-form-label">{{ __('Lokasi') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="lokasi">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanggalMulaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Daftar Ulang') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalMulaiDaftarUlang">
+
+                                    <div class="col-md-12">
+
+                                        @error('tanggalMulaiDaftarUlang')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggalSelesaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Daftar Ulang') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang">
+
+                                    <div class="col-md-12">
+
+                                        @error('tanggalSelesaiDaftarUlang')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanggalMulaiPelatihan" class="col-md-12 col-form-label">{{ __('Tanggal Mulai Pelatihan') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_mulai_pelatihan">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggalSelesaiPelatihan" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Pelatihan') }}</label>
+                                    <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_selesai_pelatihan">
+
+                                    <div class="col-md-12">
+
+                                        @error('website')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sumberDana" class="col-md-12 col-form-label">{{ __('Sumber Dana') }}</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control" aria-label="Default select example" name="sumberDana">
+                                            <option value="SWADANA" selected>SWADANA</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="harga" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
+                                    <input type="text" class="col-md-12 col-form-label" name="harga" placeholder="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota Pelatihan') }}</label>
+                                    <input type="number" placeholder="16" class="col-md-12 col-form-label" name="kuota">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota Pendaftaran') }}</label>
+                                    <input type="number" placeholder="40" class="col-md-12 col-form-label" name="kuota_daftar">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
+                                    <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
+                                    <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+                                    <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
+                                    <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @endforeach
         </tbody>
     </table>
