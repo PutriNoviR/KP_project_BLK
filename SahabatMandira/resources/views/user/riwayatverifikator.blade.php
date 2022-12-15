@@ -18,16 +18,18 @@
             <tbody>
                 @if(count($data)>0)
                     @foreach ($data as $d)
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{ $d->mentors_email}}</td>
-                    <td>
-                        <form method="POST" action="{{ route('pelatihanMentors.destroy',$d->mentors_email) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <input type="hidden" name="id_sesi" value="{{ $id_sesi }}">
-                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> &nbsp; Hapus</button>
-                        </form>
-                    </td>
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{ $d->mentors_email}}</td>
+                        <td>
+                            <form method="POST" action="{{ route('pelatihanMentors.destroy',$d->mentors_email) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <input type="hidden" name="id_sesi" value="{{ $id_sesi }}">
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> &nbsp; Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
                     @endforeach
                 @endif
             </tbody>
