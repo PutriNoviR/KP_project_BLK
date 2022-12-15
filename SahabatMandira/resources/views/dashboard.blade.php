@@ -137,13 +137,13 @@ Dashboard
         });
     }
 
-    function modalShowRiwayatInstruktur(email) {
+    function modalShowRiwayatInstruktur(id_sesi) {
         $.ajax({
             type: 'POST',
             url: '{{ route("sesiPelatihan.getRiwayatInstruktur") }}',
             data: {
                 '_token': '<?php echo csrf_token() ?>',
-                'mentors_email': email,
+                'id_sesi': id_sesi,
             },
             success: function(data) {
                 $(`#modalContentRiwayatInstruktur`).html(data.msg);
@@ -225,10 +225,10 @@ Dashboard
     }
 
 
-    $('body').on('change', '#nama_instruktur', function() {
-        var email = $('#nama_instruktur').val();
-        $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
-    });
+    // $('body').on('change', '#nama_instruktur', function() {
+    //     var email = $('#nama_instruktur').val();
+    //     $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
+    // });
 </script>
 @endsection
 

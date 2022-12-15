@@ -91,8 +91,13 @@ class PelatihanMentorController extends Controller
      * @param  \App\PelatihanMentor  $pelatihanMentor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PelatihanMentor $pelatihanMentor)
+    public function destroy($id, Request $request)
     {
         //
+        $inst = PelatihanMentor::Where('mentors_email', $id)
+            ->where('sesi_pelatihans_id', $request->id_sesi)
+            ->delete();
+            
+        return redirect()->back()->with('success', 'Data Berhasil Dihapus !');
     }
 }

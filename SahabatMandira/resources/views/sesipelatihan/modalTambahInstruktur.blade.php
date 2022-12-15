@@ -1,7 +1,7 @@
 
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Email Instruktur</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambahkan Instruktur</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -30,13 +30,13 @@
 
                 <div class="modal-footer justify-content-between px-0">
                     <div>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
                             id="btnRiwayatInstruktur" data-target="#modalRiwayatInstuktur"
-                            onclick="modalShowRiwayatInstruktur(@if(count($instrukturs) > 0) {{ $instrukturs[0]->email }} @endif)">Riwayat
-                            Instuktur</button>
+                            onclick="modalShowRiwayatInstruktur('{{ $idsesipelatihan }}')">Riwayat
+                            Instruktur</button>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button type=" submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
