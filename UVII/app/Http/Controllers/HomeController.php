@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\UjiMinatAwal;
 use Illuminate\Support\Facades\DB;
 use App\KlasterPsikometrik;
+use App\User;
+use App\Role;
 
 class HomeController extends Controller
 {
@@ -47,9 +49,14 @@ class HomeController extends Controller
         $riwayat_tes= UjiMInatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
 
         
-        $dataKlaster = KlasterPsikometrik::where('id','!=',0)->get();
+        $dataKlaster = KlasterPsikometrik::all();
         $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
-       
+
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $user =User::where('roles_id',$idRole->id)->get();
+
+        $hasil_final = User::hasilTesSemuaPeserta($user, $riwayat_tes, $dataKlaster, $dataKategori);
+     
         $riwayatTes1 = UjiMinatAwal::where('users_email',$email)
                         ->where('klaster_id','!=',0)
                         ->orderBy('tanggal_selesai','DESC')
@@ -77,7 +84,7 @@ class HomeController extends Controller
         }
         $settingValidasi = DB::connection('uvii')->table('settings')->where('id',4)->get();
 
-        return view('welcome', compact('tes','menu_role', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi','riwayat_tes', 'dataKlaster', 'dataKategori'));
+        return view('welcome', compact('tes','menu_role', 'riwayatTes1', 'riwayatTes2', 'linkTes2', 'lanjutTesTahap2','settingValidasi','hasil_final'));
     }
 
     public function search(Request $request){

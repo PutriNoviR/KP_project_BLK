@@ -1,4 +1,4 @@
-<p style="font-size: 16px;line-height: 27px;">Halo, Peserta</p>
+<p style="font-size: 16px;line-height: 27px;">Halo</p>
 
 <p style="font-size: 14px;line-height: 1.5em;">Kami dari tim UVII telah mengirimkan token.</p>
 <h2 style='color: #2d3748; padding: 2px 5px; letter-spacing: 2px;'>{{$token}}</h2>

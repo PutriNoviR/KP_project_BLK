@@ -2,13 +2,6 @@
 
 @section('content')
 <div class="container">
-    @if(count($errors) > 0)
-        @foreach($errors->all() as $error)
-        <div class="alert alert-danger">
-            <li>{{$error}}</li>
-        </div>
-        @endforeach
-    @endif
 
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -19,6 +12,11 @@
                 </div>
 
                 <div class="card-body">
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <form method="POST" action="{{ route('password.verify_otp') }}">
                         @csrf
@@ -36,7 +34,7 @@
                                 @enderror
                             </div>
 
-                            <input type="hidden" name="email" value="{{ $email?? old('email') }}">
+                            <input type="hidden" name="email" value="{{ $email?? session('email') }}">
                         </div>
 
                         <div class="form-group mb-0 rata_tengah">
@@ -47,7 +45,7 @@
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Back') }}
+                                        {{ __('Send Token Again') }}
                                     </a>
                                 @endif
                             </div>

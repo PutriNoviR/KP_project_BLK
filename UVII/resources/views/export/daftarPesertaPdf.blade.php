@@ -13,12 +13,13 @@
                     <tr>
                         <th style="width: 5%; text-align: center;">No</th>
                         <th style="width: 35%; text-align: center;">Peserta</th>
-                        <th style="width: 35%; text-align: center;">Telepon</th>
+                        <th style="width: 20%; text-align: center;">Telepon</th>
                         <th style="width: 15%; text-align: center;">Tempat Tanggal Lahir</th>
-                        <th style="width: 28%; text-align: center;">Pendidikan dan Konsentrasi/Keahlian</th>
-                        <th style="width: 18%; text-align: center;">Kota Domisili</th>
-                        <th style="width: 25%; text-align: center;">Hasil Klaster</th>
-                        <th style="width: 28%; text-align: center;">Hasil Kategori</th>
+                        <th style="width: 5%; text-align: center;">Usia</th>
+                        <th style="width: 4%; text-align: center;">Pendidikan</th>
+                        <th style="width: 5%; text-align: center;">Kota Domisili</th>
+                        <th style="width: 25%; text-align: center;">Hasil</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -38,12 +39,6 @@
                                 <div class="col-sm-6 hidden-xs"><br>       
                                     {{$u['nama_depan']}} {{$u['nama_belakang']}}
                                 </div>
-                                {{--<div class="col-sm-6 hidden-xs">
-                                    <br><br><small>{{$u['email']}}</small>
-                                    <br><br><small>Telepon: {{$u['nomer_hp'] ?? '-'}}</small>
-                                    <br><br><small>Alamat: {{$u['alamat'] ?? '-'}}</small>
-                                    
-                                </div>--}}
                             </div>
                         </td>
                         <td data-th="Telepon" style="text-align: center;">
@@ -58,44 +53,33 @@
                                     if($u['tempat_lahir'] != null){
                                         echo ', ';
                                     }
-
                                     echo date('d-m-Y', strtotime($u['tanggal_lahir']));
-                                @endphp
-                               
+                                @endphp  
                             </small>
                         </td>
-
-                        <td data-th="Pendidikan dan Konsentrasi/Keahlian" style="text-align: center;">
-                          
-                            <!-- <div class="row"> -->
-                                <!-- <div class="col-sm-6 hidden-xs"> -->
-                                    <small>{{$u['pendidikan']}} ({{$u['konsentrasi'] ?? '-'}})</small>
-                                <!-- </div> -->
-                            <!-- </div> -->
+                        <td data-th="Usia" style="text-align: center">
+                            {{$u['usia']}}
                         </td>
-                        
+
+                        <td data-th="Pendidikan" style="text-align: center">
+                            {{$u['pendidikan']}} <br> ({{$u['konsentrasi'] ?? '-'}})
+                        </td>
+                     
                         <td data-th="Kota Domisili" style="text-align: center;">
                             {{$u['kota']}}
                         </td>
+                        <td data-th="hasil" style="text-align: center;">
+                           <p>Klaster: {{$u['klaster']}}</p><br>
 
-                        <td data-th="Hasil Klaster" style="text-align: center;">
-                            {{$u['klaster']}}
-                        </td>
-
-                        <td data-th="Hasil Kategori">
-                            {{$u['kategori']}}
+                           <p>Kategori: {{$u['kategori']}}</p>
                         </td>
                       
                         @php
                             $no++;
                         @endphp
-                     
                     </tr><br>
-                   
                 @endforeach
-
                 </tbody>
-               
             </table>
         </div>
     </div>

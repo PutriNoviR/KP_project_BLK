@@ -15,57 +15,59 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class RiwayatPdfExport implements WithEvents, FromView
-// WithHeadings, FromCollection
+class RiwayatPdfExport implements WithEvents,WithHeadings, FromCollection
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    // public function collection()
-    // {
-    //     $datas=[];
-    //     $seluruh_data=[];
+    public function collection()
+    {
+        $datas=[];
+        $seluruh_data=[];
 
-    //     $idRole = Role::where('nama_role', 'peserta')->first();
-    //     $dataUser = User::where('roles_id', $idRole->id)->get();
-    //     $user = User::hasilTerakhir($dataUser);
+        $idRole = Role::where('nama_role', 'peserta')->first();
+        $dataUser = User::where('roles_id', $idRole->id)->get();
+        $user = User::hasilTerakhir($dataUser);
 
-    //     $riwayat_tes = DB::connection('uvii')->table('uji_minat_awals')->get();
+        $riwayat_tes = UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
+
+        $no =1;
     
-    //     foreach($riwayat_tes as $riwayat){
-    //         foreach($user as $d){
-    //             if($riwayat->users_email == $d['email']){
-    //                 $datas=[
-    //                     'kode'=>$riwayat->id,
-    //                     'nama'=>$d['nama_depan']." ".$d['nama_belakang'],
-    //                     'email'=>$d['email'],
-    //                     'mulai tes'=>$riwayat->tanggal_mulai,
-    //                     'selesai tes'=>$riwayat->tanggal_selesai,
-    //                     'klaster'=>$d['klaster'],
-    //                     'kategori'=>$d['kategori'],
-    //                 ];
-    //                 array_push($seluruh_data,$datas);
-    //             }
+        foreach($riwayat_tes as $riwayat){
+            foreach($user as $d){
+                if($riwayat->users_email == $d['email']){
+                    $datas=[
+                        'kode'=>$no,
+                        'nama'=>$d['nama_depan']." ".$d['nama_belakang'],
+                        'email'=>$d['email'],
+                        'mulai tes'=>"Mulai: ".$riwayat->tanggal_mulai."\n\nSelesai: ".$riwayat->tanggal_selesai,
+                        'klaster'=>$d['klaster'],
+                        'kategori'=>$d['kategori'],
+                    ];
+                    array_push($seluruh_data,$datas);
+
+                    $no++;
+                }
     
-    //         }
-    //     }
+            }
+        }
      
-    //     return collect($seluruh_data);//collect(['user','riwayat_tes','dataKlaster','dataKategori']);
-    // }
-    // public function headings(): array{
-    //     return [
+        return collect($seluruh_data);//collect(['user','riwayat_tes','dataKlaster','dataKategori']);
+    }
+    
+    public function headings(): array{
+        return [
            
-    //         [
-    //             'No',
-    //             'Nama Lengkap',
-    //             'Email',
-    //             'Mulai Tes',
-    //             'Selesai Tes',
-    //             'Hasil Klaster',
-    //             'Hasil Kategori',
-    //         ]
-    //     ];
-    // }
+            [
+                'No',
+                'Nama Lengkap',
+                'Email',
+                'Tanggal Tes',
+                'Hasil Klaster',
+                'Hasil Kategori',
+            ]
+        ];
+    }
 
     public function registerEvents(): array
     {
@@ -73,41 +75,34 @@ class RiwayatPdfExport implements WithEvents, FromView
         return [
           
                 AfterSheet::class => function(AfterSheet $event) {
-                    $event->sheet->mergeCells('A1:H1');
-                    $event->sheet->mergeCells('A2:H2');
-                    $event->sheet->mergeCells('A3:H3');
-                    $event->sheet->mergeCells('A4:H4');
-                    $event->sheet->mergeCells('A5:H5');
 
-                    for($i=6; $i<($event->sheet->getHighestRow() + 1); $i++){
-                        $event->sheet->mergeCells("G".$i.":H".$i); 
-                    }
-                   
-                    $event->sheet->getDelegate()->getStyle('A6:G6')
+                    $event->sheet->getDelegate()->getStyle('A1:F1')
                             ->getFont()
                             ->setBold(true)
-                            ->setSize(10);
+                            ->setSize(12);
         
                     $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(5);
                     $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(10);
                     $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(10);
                     $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(15);
-                    $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(15);
                 },
             
         ];
     }
 
-    public function view(): View
-    {
-        $idRole = Role::where('nama_role', 'peserta')->first();
-        $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
-        $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
-        $dataKlaster = KlasterPsikometrik::all();
-        $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
+    // public function view(): View
+    // {
+    //     $idRole = Role::where('nama_role', 'peserta')->first();
+    //     $user = DB::connection('mysql')->table('users')->where('roles_id',$idRole->id)->get();
+       
+    //     $riwayat_tes= UjiMinatAwal::where(DB::raw("(DATE_FORMAT(tanggal_mulai,'%Y-%m-%d'))"),'>=','2022-11-02')->get();
+    //     $dataKlaster = KlasterPsikometrik::all();
+    //     $dataKategori = UjiMinatAwal::getDataKategoriPsikometrik($riwayat_tes);
 
-        $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+    //     $data = User::hasilTesSemuaPeserta($user, $riwayat_tes, $dataKlaster, $dataKategori);
 
-        return view('export.riwayatPdf', compact('riwayat_tes','dataKlaster','dataKategori', 'totalPeserta', 'user'));
-    }
+    //     $totalPeserta = DB::connection('uvii')->table('uji_minat_awals')->distinct('users_email')->count('users_email');
+
+    //     return view('export.riwayatPdf', compact('data','totalPeserta'));
+    // }
 }

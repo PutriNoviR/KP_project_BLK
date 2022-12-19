@@ -46,7 +46,7 @@
 
 <a href="{{route('export')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
 {{--<a href="{{route('riwayat_tes_global.cetak')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>--}}
-<a href="{{route('export.cetakRiwayatPeserta')}}" target=_blank class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
+<a href="{{route('export.cetakRiwayatPeserta')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
 <a href="{{route('dat.rill')}}" id='btnData' class='btn btn-xs btn-success' onclick="getRiwayat()">{{$dataRill}}</a>
 
 

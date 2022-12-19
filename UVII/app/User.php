@@ -117,7 +117,7 @@ class User extends Authenticatable
                 $hasil_kategori ="Belum Tes";
             }    
              
-            $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir ?? 'Belum tes', 'kategori'=>$hasil_kategori ?? 'Belum tes','kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir, 'hobi'=>$u->hobi, 'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan,'jumsesi'=>$jumsesi];
+            $arr_hasil=['nama_depan'=>$u->nama_depan,'nama_belakang'=>$u->nama_belakang, 'email'=>$u->email, 'No.Hp'=>$u->nomer_hp, 'klaster'=>$hasil_terakhir ?? 'Belum tes', 'kategori'=>$hasil_kategori ?? 'Belum tes','kota'=>$u->kota, 'jenis_kelamin'=>$u->jenis_kelamin, 'alamat'=>$u->alamat,'jenis_identitas'=>$u->jenis_identitas, 'tempat_lahir'=>$u->tempat_lahir,'tanggal_lahir'=>$u->tanggal_lahir, 'hobi'=>$u->hobi, 'username'=>$u->username,'pendidikan'=>$u->pendidikan_terakhir,'konsentrasi'=>$u->konsentrasi_pendidikan,'jumsesi'=>$jumsesi, 'usia'=>Carbon::now()->diffInYears(Carbon::parse($u->tanggal_lahir))." tahun",];
             array_push($arr_akhir,$arr_hasil);
 
         }
@@ -165,7 +165,7 @@ class User extends Authenticatable
             }
             if($dataKategori[$data_test->id] != null){
                 // foreach($dataKategori[$data_test->id] as $d){
-                    $koma=implode(',',$dataKategori[$data_test->id]);
+                    $koma=implode(', ',$dataKategori[$data_test->id]);
                   
                     // if(!$loop->last){
                       

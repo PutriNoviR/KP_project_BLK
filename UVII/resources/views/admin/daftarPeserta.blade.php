@@ -68,7 +68,7 @@
         <div class="portlet-body">
         <a href="{{route('export.listPeserta')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
       {{--  <a href="{{route('daftar_peserta.cetak')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>--}}
-        <a href="{{route('export.cetakPeserta')}}" target=_blank class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
+        <a href="{{route('export.cetakPeserta')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
 
             <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
                 <thead>

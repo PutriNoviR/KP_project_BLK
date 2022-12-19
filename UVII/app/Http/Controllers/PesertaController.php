@@ -307,7 +307,7 @@ class PesertaController extends Controller
         
         if($request->password == $request->password_confirmation){
             User::where('email',$request->email)->update(['password'=>Hash::make($request->password)]);
-            return redirect()->route('login')->with('success','Password Berhasil dirubah');
+            return redirect()->route('login')->with('success','Password Berhasil diubah');
         }
         else{
             return redirect()->back()->with('error','password gagal terganti');
@@ -350,7 +350,7 @@ class PesertaController extends Controller
     }
 
     public function sendOtpToken(Request $request){
-        if($request->email != null){
+        
             $this->validate($request, [
                 'email' => ['required', 'string', 'email', 'max:255', 'exists:users']
             ]);
@@ -358,7 +358,16 @@ class PesertaController extends Controller
             $email = $request->email;
             //token 6 digit
             $token = random_int(100000, 999999);
-    
+          
+            $dataToken = DB::connection('mysql')->table('password_resets')
+                                ->where('email',$email) 
+                                ->get();
+            if($dataToken){
+                DB::connection('mysql')->table('password_resets')
+                                ->where('email',$email) 
+                                ->delete();
+            }
+
             DB::connection('mysql')->table('password_resets')
                         ->insert([
                                     'email'=>$email, 
@@ -368,20 +377,15 @@ class PesertaController extends Controller
     
             Mail::send('auth.passwords.verifyToken', ['token'=>$token], function($message) use($request){
                 $message->to($request->email);
-                $message->from('caniliem76@gmail.com', 'UBAYA VOCATIONAL INTEREST INVENTORY');
+                $message->from('uvii@ubayavii.id', 'UBAYA VOCATIONAL INTEREST INVENTORY');
                 $message->subject('Reset Password Account UVII');
             });
     
             return view('auth.passwords.confirm', compact('email'));
-    
-        }
-        else{
-            return redirect()->route('password.request')->with('error','please try again!');
-        }
     }
 
     public function validateOtpToken(Request $request){
-        if($request->email != null){
+        
             $this->validate($request, [
                 'token' => ['required', 'numeric','digits:6']
             ]);
@@ -394,25 +398,18 @@ class PesertaController extends Controller
                         ->orderBy('created_at','DESC')
                         ->first();
             
-            if($data){
-                if(Hash::check($token,$data->token)){
+            if($data && Hash::check($token,$data->token)){
                     DB::connection('mysql')->table('password_resets')
                     ->where('email',$email)
                     ->delete();
 
                     return view('auth.passwords.reset', compact('email'));
-                }
                 
             }      
             else{
-    
-                return redirect()->back()->with('error','token is invalid!');
+              
+                return redirect()->back()->with('error','token is invalid!')->with('email',$email);
             }
-        }
-        else{
-            return redirect()->route('password.request')->with('error','please try again!');
-        }
-      
 
     }
 }

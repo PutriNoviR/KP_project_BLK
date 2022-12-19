@@ -551,7 +551,7 @@
 
 <a href="{{route('export')}}" class='btn btn-xs btn-success'><i class="fa fa-print"></i> Export to Excel</a>
 {{--<a href="{{route('riwayat_tes_global.cetak')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>--}}
-<a href="{{route('export.cetakRiwayatPeserta')}}" target=_blank class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
+<a href="{{route('export.cetakRiwayatPeserta')}}" class='btn btn-xs btn-danger'><i class="fa fa-print"></i> Export to PDF</a><br><br>
 
 
 
@@ -560,94 +560,79 @@
     <table class="table table-striped table-bordered table-hover dataTable no-footer display responsive" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width:100%">
         <thead>
           <tr role="row">
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending">
-                      No
-            </th>
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-              aria-label="Browser: activate to sort column ascending">
-                      Peserta
-            </th>
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-              aria-label="Browser: activate to sort column ascending" style="width: 15%;">
-                      Mulai Tes
-            </th>
-            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
-                aria-label="Rendering engine: activate to sort column ascending" style="width: 15%;">
-                      Selesai Tes
-            </th>
-            
-            
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Klaster Terakhir
-            </th>
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
-                      Rekomendasi Kategori Terakhir
-            </th>
-            <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">Detail Tes
-
-            </th>
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                    aria-label="Rendering engine: activate to sort column ascending">
+                        No
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Browser: activate to sort column ascending">
+                        Email
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Browser: activate to sort column ascending">
+                        Nama Lengkap
+                </th> 
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Browser: activate to sort column ascending">
+                        Usia
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                aria-label="Browser: activate to sort column ascending" style="width: 15%;">
+                        Mulai Tes
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" 
+                    aria-label="Rendering engine: activate to sort column ascending" style="width: 15%;">
+                        Selesai Tes
+                </th>
+                
+                <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
+                        Rekomendasi Klaster Terakhir
+                </th>
+                <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">
+                        Rekomendasi Kategori Terakhir
+                </th>
+                <th aria-controls="sample_1" tabindex="0" rowspan="1" colspan="1">Detail Tes</th>
           </tr>
         </thead>
         <tbody>
-            @php 
-                $no = 1;
-            @endphp
-            @foreach($riwayat_tes as $key=>$data)
+         
+            @foreach($hasil_final as $key=>$data)
             <tr role="row" class="{{ ($key % 2 === 0) ? 'active' : 'success' }}">
-                <td class="">
-                    {{ $no }}
+            <td class="">
+                    {{ $data['no'] }}
                 </td>
                 <td>
-                    {{$data->users_email }}
-                </td>
-                
-                <td>
-                    {{$data->tanggal_mulai }}
+                    {{$data['email'] }}
                 </td>
                 <td>
-                    {{$data->tanggal_selesai }}
+                    {{$data['nama'] }}
                 </td>
                 <td>
-                  {{--  {{$data->rekomendasi_klaster }} --}}
-                 {{-- {{$data->klaster->nama}} --}}
-
-                  @foreach($dataKlaster as $d)
-                        @if($data->klaster_id == $d->id)
-                            {{ $d->nama }}
-                        @endif
-                    @endforeach
+                    {{$data['usia'] }}
                 </td>
                 <td>
-               {{--     @foreach($data->find($data->id)->hasilRekomAkhir as $d)
-                        {{$d->nama}}
-
-                        @if(!$loop->last)
-                            ,
-                        @endif
-                        
-                    @endforeach  --}}
-                    
-                    @if($dataKategori[$data->id] != null)
-                        @foreach($dataKategori[$data->id] as $d)
-                       
-                            {{ $d }}
-                            @if(!$loop->last)
-                                ,
-                            @endif
-                       
-                        @endforeach
-                    @else
-                        Belum tes
-                    @endif
+                    {{$data['mulai test'] }}
                 </td>
                 <td>
-                    <a href='{{ route("review_soal",["idsesi"=>$data->id,"email"=>$data->users_email]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
+                    {{$data['selesai test'] }}
+                </td>
+                <td>
+                 
+                    {{ $data['rekomendasi klaster'] }}
+                   
+                </td>
+                <td>
+                    {{ $data['rekomendasi kategori'] }}
+                </td>
+                <td>
+                    @php 
+                        $id = $data['id tes'];
+                        $email = $data['email'];
+                    @endphp
+                    <a href='{{ route("review_soal",["idsesi"=>$id,"email"=>$email]) }}' class='btn btn-xs btn-info'>Review Attempt</a>
                 </td>
             </tr>
-            @php
-                $no++;
-            @endphp
+           
             @endforeach
 
 
