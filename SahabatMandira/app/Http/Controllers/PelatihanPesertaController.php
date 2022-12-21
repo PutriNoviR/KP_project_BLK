@@ -462,17 +462,26 @@ class PelatihanPesertaController extends Controller
         $emails = $request->emails;
         $sesi_id = $request->sesi_id;
 
-        foreach ($emails as $e) {
-            DB::connection('mandira')
-            ->table('pelatihan_pesertas')
-            ->where('email_peserta', $e)
-            ->where('sesi_pelatihans_id',$sesi_id)
-            ->update(['rekom_keputusan' => 'LULUS']);
+        $sesi = SesiPelatihan::find($sesi_id);
+        if(strtotime('now') > strtotime($sesi->tanggal_tutup))
+        {
+            return response()->json(array(
+                'status' => 'err'
+            ), 200);
         }
-
-        return response()->json(array(
-            'status' => 'oke',
-            'data' => $emails
-        ), 200);
+        else
+        {
+            foreach ($emails as $e) {
+                DB::connection('mandira')
+                ->table('pelatihan_pesertas')
+                ->where('email_peserta', $e)
+                ->where('sesi_pelatihans_id',$sesi_id)
+                ->update(['rekom_keputusan' => 'LULUS','status_fase' => 'DITERIMA']);
+            }
+    
+            return response()->json(array(
+                'status' => 'oke'
+            ), 200);
+        }
     }
 }

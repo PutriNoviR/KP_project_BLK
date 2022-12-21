@@ -30,7 +30,7 @@ Pelatihan Peserta
             order: [[ 1, 'asc' ]],
             buttons: [
             {
-                text: 'Update Lulus Seleksi',
+                text: 'Update Lulus Seleksi Masal',
                 action: function () {
                     var data = table.rows( { selected: true } ).data();
                     var emails = [];
@@ -51,11 +51,23 @@ Pelatihan Peserta
                             'sesi_id': sesi_id
                         },
                         success: function(data) {
-                            Swal.fire(
-                            'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
-                            'Refresh halaman untuk melihat hasil update seleksi',
-                            'success'
-                            )
+
+                            if(data.status == 'oke')
+                            {
+                                Swal.fire(
+                                'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
+                                'Refresh halaman untuk melihat hasil update seleksi',
+                                'success'
+                                )
+                            }
+                            else
+                            {
+                                Swal.fire(
+                                'Update Hasil Seleksi Secara Masal Gagal',
+                                'Periode Update Seleksi Telah Berakhir !',
+                                'error'
+                                )
+                            }
                         },
                         error: function(xhr) {
                             console.log(xhr);
