@@ -463,7 +463,7 @@ class PelatihanPesertaController extends Controller
         $sesi_id = $request->sesi_id;
 
         $sesi = SesiPelatihan::find($sesi_id);
-        if(strtotime('now') > strtotime($sesi->tanggal_tutup))
+        if(strtotime('now') >= strtotime($sesi->tanggal_mulai_pelatihan))
         {
             return response()->json(array(
                 'status' => 'err'
