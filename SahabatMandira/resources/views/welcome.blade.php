@@ -508,6 +508,14 @@
                         </a>
                     </div>
                 </div>
+                <div class="single_instagram display d-none d-md-block d-lg-none">
+                    <img src="{{ asset('images/galeri/dinas2.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
+                    <div class="ovrelay">
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         <!-- instragram_area_start -->
         
