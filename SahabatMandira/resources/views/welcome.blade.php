@@ -469,7 +469,7 @@
             
             <div class="instragram_area">
                 <div class="single_instagram">
-                    <img src="{{ asset('images/galeri/jatimfair.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
+                    <img src="{{ asset('images/galeri/jatim_fair.jpg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
@@ -477,7 +477,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('images/galeri/internal.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
+                    <img src="{{ asset('images/galeri/blk3.jpg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
