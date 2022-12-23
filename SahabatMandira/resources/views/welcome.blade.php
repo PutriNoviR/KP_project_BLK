@@ -493,7 +493,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('images/galeri/jatim_fair.jpg') }}" style="height: 368px; object-fit: contain" alt="">
+                    <img src="{{ asset('images/galeri/maspion2.jpg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
