@@ -469,7 +469,7 @@
             
             <div class="instragram_area">
                 <div class="single_instagram">
-                    <img src="{{ asset('images/galeri/dinas2.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
+                    <img src="{{ asset('images/galeri/dinas.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
