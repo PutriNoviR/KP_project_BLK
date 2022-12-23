@@ -469,7 +469,7 @@
             
             <div class="instragram_area">
                 <div class="single_instagram">
-                    <img src="{{ asset('montana-master/img/instragram/1.png') }}" alt="">
+                    <img src="{{ asset('images/galeri/dinas2.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
@@ -477,7 +477,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('montana-master/img/instragram/2.png') }}" alt="">
+                    <img src="{{ asset('images/galeri/internal.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
@@ -485,7 +485,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('montana-master/img/instragram/3.png') }}" alt="">
+                    <img src="{{ asset('images/galeri/blk2.jpeg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
@@ -493,7 +493,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('montana-master/img/instragram/4.png') }}" alt="">
+                    <img src="{{ asset('images/galeri/jatim_fair.jpg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
@@ -501,7 +501,7 @@
                     </div>
                 </div>
                 <div class="single_instagram">
-                    <img src="{{ asset('montana-master/img/instragram/5.png') }}" alt="">
+                    <img src="{{ asset('images/galeri/maspion.jpg') }}" style="height: 368px; object-fit: contain" alt="">
                     <div class="ovrelay">
                         <a href="#">
                             <i class="fab fa-instagram"></i>
