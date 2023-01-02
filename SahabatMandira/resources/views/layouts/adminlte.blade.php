@@ -232,6 +232,14 @@
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item treeview">
+                                    <a href="{{ route('mtu.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-tasks"></i>
+                                        <p>
+                                            Pelatihan MTU
+                                        </p>
+                                    </a>
+                                </li>
                                 @endif
                                 @if(Auth::user()->role->nama_role == 'peserta')
                                 <li class="nav-item has-treeview">
@@ -267,6 +275,14 @@
                                         <i class="nav-icon fas fa-users-cog"></i>
                                         <p>
                                             Penugasan Admin
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('mtu.index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                        <p>
+                                            Pengelolaan MTU
                                         </p>
                                     </a>
                                 </li>

@@ -47,6 +47,10 @@ Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 
 // TESTING SECTION ENDS HERE
 
+Route::resource('mtu', 'MTUController');
+Route::post('mtu/getProgram', 'MTUController@get_program')->name('mtu.program');
+Route::post('mtu/persetujuan', 'MTUController@persetujuan')->name('mtu.persetujuan');
+
 Route::resource('blk-inst', 'BLKInstrukturController');
 
 Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');
