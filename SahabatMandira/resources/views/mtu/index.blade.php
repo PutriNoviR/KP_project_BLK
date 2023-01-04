@@ -142,15 +142,23 @@ PELATIHAN MTU
     });
 
     $(".addRow").click(function(){
-		$("#dynRow").append(
-            '<tr>'+
-                '<td><input type="text" class="form-control" name="name[]"></td>'+
-                '<td><input type="text" class="form-control" name="no_telp[]"></td>'+
-                '<td><input type="file" class="form-control" name="ktp[]"></td>'+
-                '<td><input type="file" class="form-control" name="ijazah[]"></td>'+
-                '<td><button class="btn btn-danger deleteRow"><i class="fas fa-trash"></i></button></td>'+
-            '</tr>'
-        );
+        var limitCheck = $('#dynRow tr').length;
+        if(limitCheck <= 16)
+        {
+            $("#dynRow").append(
+                '<tr>'+
+                    '<td><input type="text" class="form-control" name="name[]"></td>'+
+                    '<td><input type="text" class="form-control" name="no_telp[]"></td>'+
+                    '<td><input type="file" class="form-control" name="ktp[]"></td>'+
+                    '<td><input type="file" class="form-control" name="ijazah[]"></td>'+
+                    '<td><button class="btn btn-danger deleteRow"><i class="fas fa-trash"></i></button></td>'+
+                '</tr>'
+            );
+        }
+        else
+        {
+            alert('Jumlah Peserta Tidak Boleh Melebihi 16 Orang !');
+        }
 	});
 
     $("#dynRow").on('click','.deleteRow',function(){
