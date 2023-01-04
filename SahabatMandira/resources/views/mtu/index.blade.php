@@ -280,6 +280,13 @@ PELATIHAN MTU
         </ul>
     </div>
     @endif
+    @if (\Session::has('error'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('error') !!}</li>
+        </ul>
+    </div>
+    @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
@@ -345,7 +352,7 @@ PELATIHAN MTU
 
                     <div class="form-group">
                         <label for="proposalMtu" class="col-md-12 col-form-label">{{ __('Proposal Pelatihan') }}</label>
-                        <input type="file" name='proposalMtu' class="defaults" required>
+                        <input type="file" name='proposal' class="defaults" required>
                     </div>
 
                     <div class="form-group">

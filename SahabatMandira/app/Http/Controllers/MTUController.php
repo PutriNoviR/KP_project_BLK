@@ -97,28 +97,37 @@ class MTUController extends Controller
     public function store(Request $request)
     {
         //
-        $mtu = new PelatihanMTU();
-        $mtu->email_pic = auth()->user()->email;
-        $mtu->waktu_mulai = $request->tanggal_mulai_pelatihan;
-        $mtu->waktu_selesai = $request->tanggal_selesai_pelatihan;
-        $mtu->deskripsi_tempat = $request->lokasi;
-        $mtu->blk_dituju = $request->blk;
-        $mtu->paket_program_id = $request->program;
-        $mtu->keterangan = $request->deskripsi;
-        $mtu->save();
+        $checkKuota = count($request->name);
 
-        for ($i=0; $i < count($request->name); $i++) {
-            # code...
-            $peserta = new PesertaMTU();
-            $peserta->ktp = $request->file('ktp')[$i]->store('mtu/ktp');
-            $peserta->nama = $request->name[$i];
-            $peserta->no_hp = $request->no_telp[$i];
-            $peserta->ktp = $request->file('ijazah')[$i]->store('mtu/ijazah');
-            $peserta->pelatihan_mtus_idpelatihan_mtus = $mtu->id;
-            $peserta->save();
+        if ($checkKuota <= 16) {
+            $mtu = new PelatihanMTU();
+            $mtu->email_pic = auth()->user()->email;
+            $mtu->waktu_mulai = $request->tanggal_mulai_pelatihan;
+            $mtu->waktu_selesai = $request->tanggal_selesai_pelatihan;
+            $mtu->deskripsi_tempat = $request->lokasi;
+            $mtu->blk_dituju = $request->blk;
+            $mtu->paket_program_id = $request->program;
+            $mtu->keterangan = $request->deskripsi;
+            $mtu->proposal = $request->file('proposal')->store('mtu/proposal');
+            $mtu->surat_pengantar = $request->file('surat_pengantar')->store('mtu/surat_pengantar');
+            $mtu->save();
+
+            for ($i = 0; $i < $checkKuota; $i++) {
+                # code...
+                $peserta = new PesertaMTU();
+                $peserta->ktp = $request->file('ktp')[$i]->store('mtu/ktp');
+                $peserta->nama = $request->name[$i];
+                $peserta->no_hp = $request->no_telp[$i];
+                $peserta->ijazah = $request->file('ijazah')[$i]->store('mtu/ijazah');
+                $peserta->pelatihan_mtus_idpelatihan_mtus = $mtu->idpelatihan_mtus;
+                $peserta->save();
+            }
+
+            return redirect()->back()->with('success', "Pengajuan MTU Berhasil !");
         }
-
-        return redirect()->back()->with('success', "Pengajuan MTU Berhasil !");
+        else{
+            return redirect()->back()->with('error', "Pengajuan MTU gagal, jumlah peserta melebihi 16 orang !");
+        }
     }
 
     /**
