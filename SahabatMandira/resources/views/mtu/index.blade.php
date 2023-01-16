@@ -243,10 +243,14 @@ PELATIHAN MTU
                         Daftar Peserta</i>
                     </a></td>
                 <td>
-                    <button href="{{ asset('storage/'.$m->proposal) }}" class="btn btn-primary mb-1" style="width: 100%" download="PROPOSAL_{{Auth::user()->email."_".$m->proposal}}"><i class="fas fa-print"></i> &nbsp;PROPOSAL</button>
+                    <a type="button" href="{{ asset('storage/'.$m->proposal) }}" class="btn btn-primary mb-1" style="width: 100%" download="PROPOSAL_{{Auth::user()->email."_".$m->proposal}}"><i class="fas fa-print"></i> &nbsp;PROPOSAL</a>
                     <a href hidden id="download-file"></a>
 
-                    <button href="{{ asset('storage/'.$m->surat_pengantar) }}" class="btn btn-success" style="width: 100%" download="SURATPENGANTAR_{{Auth::user()->email."_".$m->surat_pengantar}}" @if(empty($m->surat_pengantar)) disabled @endif><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</button>
+                    @if(empty($m->surat_pengantar))
+                    <button class="btn btn-success" disabled style="width: 100%"><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</button>
+                    @else
+                    <a type="button" href="{{ asset('storage/'.$m->surat_pengantar) }}" class="btn btn-success" style="width: 100%" download="SURATPENGANTAR_{{Auth::user()->email."_".$m->surat_pengantar}}" @if(empty($m->surat_pengantar)) style="pointer-events: none;" @endif><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</a>
+                    @endif
                     {{--cek dulu dia ada ga pengantarnya kalo gaada disable--}}
 
                     <a href hidden id="download-file"></a>
