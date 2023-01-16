@@ -207,7 +207,7 @@ PELATIHAN MTU
 
 @section('contents')
 
-@if(auth()->user()->role->nama_role == 'adminblk')
+@if(auth()->user()->role->nama_role == 'adminblk' || auth()->user()->role->nama_role == 'verifikator')
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
         <h2>List Pengajuan Pelatihan MTU</h2>

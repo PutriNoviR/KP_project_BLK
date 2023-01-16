@@ -37,7 +37,7 @@ class MTUController extends Controller
                 ->select('pelatihan_mtus.*','b.nama as blk','s.nama as program')
                 ->get();
         }
-        elseif($role == 'adminblk')
+        elseif($role == 'adminblk' || $role == 'verifikator')
         {
             $mtu = PelatihanMTU::JOIN('masterblk_db.blks as b','pelatihan_mtus.blk_dituju','b.id')
             ->JOIN('masterblk_db.paket_program as p','pelatihan_mtus.paket_program_id','p.id')

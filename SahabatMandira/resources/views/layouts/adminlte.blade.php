@@ -298,6 +298,16 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @if(Auth::user()->role->nama_role == 'verifikator')
+                                <li class="nav-item">
+                                    <a href="{{ route('mtu.index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                        <p>
+                                            Pengelolaan MTU
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
                                 {{-- Super Admin --}}
                                 @can('super.admin-permission')
                                 <li class="nav-item has-treeview {{ Request::is('menu/*') ? 'menu-open' : '' }}">
