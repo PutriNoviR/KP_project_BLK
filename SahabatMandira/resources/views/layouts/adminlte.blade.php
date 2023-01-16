@@ -232,6 +232,7 @@
                                         </p>
                                     </a>
                                 </li>
+
                                 <li class="nav-item treeview">
                                     <a href="{{ route('mtu.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
                                         <i class="nav-icon fas fa-tasks"></i>
@@ -278,6 +279,7 @@
                                         </p>
                                     </a>
                                 </li>
+                                @if(Auth::user()->role->nama_role == 'adminblk')
                                 <li class="nav-item">
                                     <a href="{{ route('mtu.index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -286,6 +288,7 @@
                                         </p>
                                     </a>
                                 </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="{{ route('blk-inst.index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
