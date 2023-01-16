@@ -51,7 +51,7 @@ Kejuruan
                     <div class="col-md-12">
                         <input id="linkKejuruan" type="text" class="form-control @error('linkKejuruan') is-invalid @enderror" name="link_kejuruan_tes_2" value="{{$data->link_kejuruan_tes_2 }}" disabled autocomplete="linkKejuruan" autofocus>
 
-                        @error('alamat')
+                        @error('linkKejuruan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

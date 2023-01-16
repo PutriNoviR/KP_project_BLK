@@ -6,6 +6,7 @@ use App\Blk;
 use App\PaketProgram;
 use App\PelatihanMTU;
 use App\PesertaMTU;
+use App\User;
 use Illuminate\Http\Request;
 
 class MTUController extends Controller
@@ -109,7 +110,10 @@ class MTUController extends Controller
             $mtu->paket_program_id = $request->program;
             $mtu->keterangan = $request->deskripsi;
             $mtu->proposal = $request->file('proposal')->store('mtu/proposal');
-            $mtu->surat_pengantar = $request->file('surat_pengantar')->store('mtu/surat_pengantar');
+            if(!empty($request->file('surat_pengantar'))){
+                $mtu->surat_pengantar = $request->file('surat_pengantar')->store('mtu/surat_pengantar');
+            }
+            
             $mtu->save();
 
             for ($i = 0; $i < $checkKuota; $i++) {
@@ -139,6 +143,12 @@ class MTUController extends Controller
     public function show($id)
     {
         //
+        $data = PelatihanMTU::join('pelatihan_mtu_pesertas as P', 'pelatihan_mtus.idpelatihan_mtus', '=', 'P.pelatihan_mtus_idpelatihan_mtus')
+        ->select('pelatihan_mtus.*','P.*')
+        ->where('pelatihan_mtus.idpelatihan_mtus',$id)
+        ->get();
+
+        return view('mtu.detailpeserta', compact('data'));
     }
 
     /**

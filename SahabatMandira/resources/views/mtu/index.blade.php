@@ -41,7 +41,7 @@ PELATIHAN MTU
 
                     },
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2, 3, 5]
                     }
                 },
                 'colvis'
@@ -141,31 +141,28 @@ PELATIHAN MTU
             });
     });
 
-    $(".addRow").click(function(){
+    $(".addRow").click(function() {
         var limitCheck = $('#dynRow tr').length;
-        if(limitCheck <= 16)
-        {
+        if (limitCheck <= 16) {
             $("#dynRow").append(
-                '<tr>'+
-                    '<td><input type="text" class="form-control" name="name[]"></td>'+
-                    '<td><input type="text" class="form-control" name="no_telp[]"></td>'+
-                    '<td><input type="file" class="form-control" name="ktp[]"></td>'+
-                    '<td><input type="file" class="form-control" name="ijazah[]"></td>'+
-                    '<td><button class="btn btn-danger deleteRow"><i class="fas fa-trash"></i></button></td>'+
+                '<tr>' +
+                '<td><input type="text" class="form-control" name="name[]"></td>' +
+                '<td><input type="text" class="form-control" name="no_telp[]"></td>' +
+                '<td><input type="file" class="form-control" name="ktp[]"></td>' +
+                '<td><input type="file" class="form-control" name="ijazah[]"></td>' +
+                '<td><button class="btn btn-danger deleteRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>'
             );
-        }
-        else
-        {
+        } else {
             alert('Jumlah Peserta Tidak Boleh Melebihi 16 Orang !');
         }
-	});
+    });
 
-    $("#dynRow").on('click','.deleteRow',function(){
+    $("#dynRow").on('click', '.deleteRow', function() {
         $(this).parent().parent().remove();
     });
 
-    $('.blk-select2').change(function(){
+    $('.blk-select2').change(function() {
         var blk_id = $(this).val();
 
         $.ajax({
@@ -179,11 +176,11 @@ PELATIHAN MTU
                 console.log(data);
                 $('.program-select2').empty();
                 $('.program-select2').append('<option></option>');
-                
+
                 for (var i = 0; i < data.length; i++) {
-                    $('.program-select2').append('<option value="'+data[i]['id']+'">'+data[i]["nama"]+'</option>');
+                    $('.program-select2').append('<option value="' + data[i]['id'] + '">' + data[i]["nama"] + '</option>');
                 }
-                
+
                 $('.program-select2').select2({
                     dropdownParent: '#modalTambahMTU',
                     width: '100%',
@@ -231,6 +228,7 @@ PELATIHAN MTU
                 <th>Sub Kejuruan</th>
                 <th>Lokasi Pelatihan</th>
                 <th>Daftar Peserta</th>
+                <th>Lampiran Dokumen</th>
                 <th>Aksi Persetujuan</th>
             </tr>
         </thead>
@@ -241,7 +239,19 @@ PELATIHAN MTU
                 <td>{{ $m->email_pic }}</td>
                 <td>{{ $m->program }}</td>
                 <td>{{ $m->deskripsi_tempat }}</td>
-                <td><button class="btn btn-info" onclick="alert('Ditambahkan sendiri ya! hahaha');"> <i class="fas fa-info-circle"></i></button></td>
+                <td><a href="{{ route('mtu.show',$m->idpelatihan_mtus) }}" class="button btn btn-primary">
+                        Daftar Peserta</i>
+                    </a></td>
+                <td>
+                    <button href="{{ asset('storage/'.$m->proposal) }}" class="btn btn-primary mb-1" style="width: 100%" download="PROPOSAL_{{Auth::user()->email."_".$m->proposal}}"><i class="fas fa-print"></i> &nbsp;PROPOSAL</button>
+                    <a href hidden id="download-file"></a>
+
+                    <button href="{{ asset('storage/'.$m->surat_pengantar) }}" 
+                        class="btn btn-success" style="width: 100%" download="SURATPENGANTAR_{{Auth::user()->email."_".$m->surat_pengantar}}" @if(empty($m->surat_pengantar)) disabled @endif><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</button>
+                    {{--cek dulu dia ada ga pengantarnya kalo gaada disable--}}
+
+                    <a href hidden id="download-file"></a>
+                </td>
                 <td>
                     <form method="POST" action="{{ route('mtu.persetujuan') }}" onsubmit="return submitFormDisetujui(this);" class="d-inline">
                         @method('POST')
@@ -250,7 +260,7 @@ PELATIHAN MTU
                         <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
                         <input type="hidden" value="1" name="persetujuan">
 
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success mb-1" style="width: 100%">
                             SETUJUI
                         </button>
                     </form>
@@ -262,11 +272,11 @@ PELATIHAN MTU
                         <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
                         <input type="hidden" value="2" name="persetujuan">
 
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger mb-1" style="width: 100%">
                             TOLAK
                         </button>
                     </form>
-                    </tr>
+            </tr>
             @endforeach
         </tbody>
     </table>
@@ -341,12 +351,12 @@ PELATIHAN MTU
                         <select class="blk-select2 form-control" name="blk">
                             <option></option>
                             @foreach ($blk as $b)
-                                <option value="{{ $b->id }}">{{ $b->nama }}</option>
+                            <option value="{{ $b->id }}">{{ $b->nama }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-md-12 col-form-label">{{ __('Balai Latihan Kerja') }}</label>
+                        <label for="" class="col-md-12 col-form-label">{{ __('Program Pelatihan') }}</label>
                         <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
                         <select class="program-select2 form-control" name="program">
                             <option>Silahkan Tentukan BLK Terlebih Dahulu !</option>
@@ -451,20 +461,20 @@ PELATIHAN MTU
                         <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
                         <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
                     </div>
-{{-- 
+                    {{--
                     <div class="form-group">
                         <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                        <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
-                        <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
-                    </div> --}}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">BATAL</button>
-                        <button type="submit" class="btn btn-success btn-lg">AJUKAN</button>
-                    </div>
-                </form>
+                    <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+                    <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
+            </div> --}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">BATAL</button>
+                <button type="submit" class="btn btn-success btn-lg">AJUKAN</button>
             </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 @endsection
