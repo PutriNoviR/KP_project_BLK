@@ -246,8 +246,7 @@ PELATIHAN MTU
                     <button href="{{ asset('storage/'.$m->proposal) }}" class="btn btn-primary mb-1" style="width: 100%" download="PROPOSAL_{{Auth::user()->email."_".$m->proposal}}"><i class="fas fa-print"></i> &nbsp;PROPOSAL</button>
                     <a href hidden id="download-file"></a>
 
-                    <button href="{{ asset('storage/'.$m->surat_pengantar) }}" 
-                        class="btn btn-success" style="width: 100%" download="SURATPENGANTAR_{{Auth::user()->email."_".$m->surat_pengantar}}" @if(empty($m->surat_pengantar)) disabled @endif><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</button>
+                    <button href="{{ asset('storage/'.$m->surat_pengantar) }}" class="btn btn-success" style="width: 100%" download="SURATPENGANTAR_{{Auth::user()->email."_".$m->surat_pengantar}}" @if(empty($m->surat_pengantar)) disabled @endif><i class="fas fa-print"></i> &nbsp;SURAT PENGANTAR</button>
                     {{--cek dulu dia ada ga pengantarnya kalo gaada disable--}}
 
                     <a href hidden id="download-file"></a>
@@ -323,7 +322,10 @@ PELATIHAN MTU
                 <td>{{ $m->blk }}</td>
                 <td>{{ $m->program }}</td>
                 <td>{{ $m->waktu_mulai.' - '.$m->waktu_selesai }}</td>
-                <td><button class="btn btn-info" onclick="alert('Ditambahkan sendiri ya! hahaha');"> <i class="fas fa-info-circle"></i></button></td>
+                <td><a href="{{ route('mtu.show',$m->idpelatihan_mtus) }}" class="button btn btn-primary">
+                        Daftar Peserta</i>
+                    </a>
+                </td>
                 <td>@if($m->is_accepted == 1) Diterima @elseif($m->is_accepted == 2) Ditolak @else Dalam Proses @endif</td>
             </tr>
             @endforeach
