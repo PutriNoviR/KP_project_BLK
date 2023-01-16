@@ -98,7 +98,7 @@ class LoginController extends Controller
 
                 }
                 else{
-                    if($response->score < 0.6){
+                    if($response->score < 0.5){
                         $fail('Please refresh browser and try again!');
                         Session::flash('recaptcha', 'please refresh browser');
                     }
