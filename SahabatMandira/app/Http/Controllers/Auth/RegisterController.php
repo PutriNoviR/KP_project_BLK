@@ -97,16 +97,12 @@ class RegisterController extends Controller
                     Session::flash('recaptcha', 'please refresh browser');
 
                 }
-                
-                else{
-                    if($response->score < 0.5){
-                        $fail('Please refresh browser and try again!');
-                        Session::flash('recaptcha', 'please refresh browser');
-                    }
-                }
-                
-                
-
+                // else{
+                //     if($response->score < 0.5){
+                //         $fail('Please refresh browser and try again!');
+                //         Session::flash('recaptcha', 'please refresh browser');
+                //     }
+                // }
             }
         ],
         $messages = []
