@@ -6,22 +6,13 @@ Register
 @endsection
 
 @section('javascript')
-<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>
-    setInterval(function () {
-        grecaptcha.ready(function () {
-
-            grecaptcha.execute('{{config("services.recaptcha.site")}}', {
-                action: 'submit'
-            }).then(function (token) {
-                // Add your logic to submit to your backend server here.
-                if (token) {
-                    $("#recaptcha_token").val(token);
-                }
-
-            });
-        });
-    }, 3000);
+    function onSubmit(token) {
+         document.getElementById("regist-form").submit();
+    }    
+</script>
+<script src="https://www.google.com/recaptcha/api.js?&render=explicit" async defer></script>
+<script>
 
     $(document).ready(function () {
         $("#show_hide_password span").on('click', function (event) {
@@ -109,7 +100,7 @@ Register
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" id="regist-form">
                         @csrf
 
                         <div class="form-group">
@@ -255,8 +246,6 @@ Register
                             </div>
                         </div>
 
-                        <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
-
                         {{-- <div class="form-group col-md-6">
                             <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}">
                             </div>
@@ -265,7 +254,7 @@ Register
 
                         <div class="form-group mb-0 text-center">
                             <div class="col-md-12 offset-manual">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="g-recaptcha btn btn-primary" data-sitekey="{{ config('services.recaptcha.site') }}" data-callback="onSubmit">
                                     {{ __('Register') }}
                                 </button>
                                 <br>

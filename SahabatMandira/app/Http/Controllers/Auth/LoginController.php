@@ -71,7 +71,7 @@ class LoginController extends Controller
                 $secretKey = config('services.recaptcha.secret');
                 $response = $value;
                 $userIP = $_SERVER['REMOTE_ADDR'];
-                // $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response&remoteip=$userIP";
+                //$url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$response&remoteip=$userIP";
                 $url = "https://www.google.com/recaptcha/api/siteverify";
                 $data = [
                     'secret'=>$secretKey,
@@ -91,6 +91,7 @@ class LoginController extends Controller
                 $response = \file_get_contents($url, false, $context);
                 // decode response
                 $response = json_decode($response);
+                
            
                 if(!$response->success){
                     $fail('Please refresh browser and try again!');

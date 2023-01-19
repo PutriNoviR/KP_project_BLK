@@ -6,23 +6,13 @@ Login
 @endsection
 
 @section('javascript')
-<script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
 <script>
-    setInterval(function () {
-        grecaptcha.ready(function () {
-
-            grecaptcha.execute('{{config("services.recaptcha.site")}}', {
-                action: 'submit'
-            }).then(function (token) {
-                // Add your logic to submit to your backend server here.
-                if (token) {
-                    $("#recaptcha_token").val(token);
-                }
-
-            });
-        });
-    }, 3000);
-
+    function onSubmit(token) {
+         document.getElementById("login-form").submit();
+    }    
+</script>
+<script src="https://www.google.com/recaptcha/api.js?&render=explicit" async defer></script>
+<script>
     $(document).ready(function () {
         $("#show_hide_password span ").on('click', function (event) {
             event.preventDefault();
@@ -79,7 +69,7 @@ Login
                         </div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}" id="login-form">
                                 @csrf
 
                                 <div class="form-group">
@@ -133,11 +123,11 @@ Login
                                     </div>
                                 </div> -->
 
-                                <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
+                                {{-- <input type="hidden" name="g-recaptcha-response" id="recaptcha_token"> --}}
 
                                 <div class="form-group mb-0 rata_tengah">
                                     <div class="col-md-12 offset-manual">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="g-recaptcha btn btn-primary" data-sitekey="{{ config('services.recaptcha.site') }}" data-callback="onSubmit">
                                             {{ __('Masuk') }}
                                         </button>
                                         <br>
