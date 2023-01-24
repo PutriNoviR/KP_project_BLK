@@ -267,6 +267,82 @@ PELATIHAN MTU
                             SETUJUI
                         </button>
                     </form>
+                    {{-- modal disetujui --}}
+                    <div class="modal fade modalMtu" id="modalDisetujui{{$d->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Terima Pelatihan MTU</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('mtu.persetujuan') }}">
+                                        @csrf
+                                        <div class="form-body">
+        
+                                            <div class="form-group">
+                                                <label for="nama" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
+                                                <input type="text" name="harga" class="col-md-12 col-form-label">
+                                                {{-- <div class="col-md-12">
+                                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="email_admin" value="{{$userLogin}}" readonly autocomplete="nama" autofocus>
+        
+                                                    @error('nama')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div> --}}
+                                            </div>
+        
+                                            {{-- <div class="form-group">
+                                                <label for="namaVerifikator" class="col-md-12 col-form-label">{{ __('Nama Verifikator') }}</label>
+        
+                                                <div class="col-md-12">
+                                                    <select class="form-control verif-select2" aria-label="Default select example" name="email_mentor">
+                                                        <option></option>
+                                                        @foreach($mentor as $d)
+                                                        <option value="{{$d->email}}">
+                                                            {{$d->nama_depan}} {{$d->nama_belakang}}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('namaVerifikator')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div> --}}
+
+                                            {{-- <div class="form-group">
+                                                <label for="keterangan" class="col-md-12 col-form-label">{{ __('Keterangan') }}</label>
+                                                <div class="col-md-12">
+                                                    <input id="keterangan" type="text" class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" required autocomplete="keterangan" autofocus>
+        
+                                                    @error('keterangan')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="buktiKonfirmasi" class="col-md-12 col-form-label">{{ __('Bukti Konfirmasi') }}</label>
+        
+                                                <input type="file" name='bukti' class="defaults" value="" required>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary" >SIMPAN</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <form method="POST" action="{{ route('mtu.persetujuan') }}" onsubmit="return submitFormDitolak(this);" class="d-inline">
                         @method('POST')
