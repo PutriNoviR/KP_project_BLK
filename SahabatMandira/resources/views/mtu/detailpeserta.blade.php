@@ -45,7 +45,55 @@ Detail Peserta Pelatihan MTU
             ]
         });
     });
+
+    function alertShowKtp(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("mtuPesertas.getDetailKtp") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function(data) {
+                Swal.fire({
+                    title: "Ktp",
+                    imageUrl: "{{ asset('storage/') }}/"+data.data,
+                    imageHeight: 800,
+                    imageWidth: 1300,
+                    width: 1300,
+                })
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
+
+    function alertShowIjazah(id) {
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("mtuPesertas.getDetailIjazah") }}',
+            data: {
+                '_token': '<?php echo csrf_token() ?>',
+                'id': id,
+            },
+            success: function(data) {
+                Swal.fire({
+                    title: "Ijazah",
+                    imageUrl: "{{ asset('storage/') }}/"+data.data,
+                    imageHeight: 800,
+                    imageWidth: 1300,
+                    width: 1300,
+                })
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
+    }
 </script>
+
+
 @endsection
 
 @section('contents')
@@ -69,6 +117,7 @@ Detail Peserta Pelatihan MTU
                 <th>No Telepon</th>
                 <th>Ktp</th>
                 <th>Ijazah</th>
+                <th>Status Peserta</th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -79,12 +128,18 @@ Detail Peserta Pelatihan MTU
                 <td>{{ $d->no_hp }}</td>
                 <td> <a href="{{ url('storage/'.$d->ktp) }}" class="btn btn-primary" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;CETAK KTP</a>
                     <a href hidden id="download-file"></a>
+                    <button class='btn btn-info' onclick="alertShowKtp({{$d->id}})">
+                        <i class="fas fa-eye"> KTP </i>
+                    </button>
                 </td>
                 <td>
                     <a href="{{ url('storage/'.$d->ijazah) }}" class="btn btn-success" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-id-card"></i> &nbsp;CETAK IJAZAH</a>
                     <a href hidden id="download-file"></a>
+                    <button class='btn btn-info' onclick="alertShowIjazah({{$d->id}})">
+                        <i class="fas fa-eye"> IJAZAH </i>
+                    </button>
                 </td>
-
+                <td>{{ $d->status }}</td></td>
             </tr>
             @endforeach
         </tbody>

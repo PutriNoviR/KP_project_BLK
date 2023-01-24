@@ -51,6 +51,12 @@ Route::resource('mtu', 'MTUController');
 Route::post('mtu/getProgram', 'MTUController@get_program')->name('mtu.program');
 Route::post('mtu/persetujuan', 'MTUController@persetujuan')->name('mtu.persetujuan');
 
+
+
+Route::resource('mtuPesertas', 'PelatihanMtuPesertasController');
+Route::post('/mtuPesertas/getDetailKtp', 'PelatihanMtuPesertasController@getDetailKtp')->name('mtuPesertas.getDetailKtp');
+Route::post('/mtuPesertas/getDetailIjazah', 'PelatihanMtuPesertasController@getDetailIjazah')->name('mtuPesertas.getDetailIjazah');
+
 Route::resource('blk-inst', 'BLKInstrukturController');
 
 Route::post('/cetak-sertifikat', 'SertifikatController@generate')->name('cetak-serti');

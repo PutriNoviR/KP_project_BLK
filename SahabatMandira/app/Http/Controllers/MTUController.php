@@ -124,6 +124,7 @@ class MTUController extends Controller
                 $peserta->no_hp = $request->no_telp[$i];
                 $peserta->ijazah = $request->file('ijazah')[$i]->store('mtu/ijazah');
                 $peserta->pelatihan_mtus_idpelatihan_mtus = $mtu->idpelatihan_mtus;
+                $peserta->pendidikan_terakhir = $request->pendidikan_terakhir[$i];
                 $peserta->save();
             }
 
