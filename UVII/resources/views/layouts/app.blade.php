@@ -111,22 +111,12 @@
       
         </div>
     </div>
-    <!-- recaptcha v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.site')}}"></script>
+    <!-- recaptcha v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        setInterval(function () {
-                grecaptcha.ready(function() {
-                    
-                    grecaptcha.execute('{{config("services.recaptcha.site")}}', {action: 'submit'}).then(function(token) {
-                        // Add your logic to submit to your backend server here.
-                        if(token){
-                            $("#recaptcha_token").val(token);
-                        }
-                    
-                    });
-                });
-            }, 3000);
-
+        function onSubmit(token){       
+            $("#register-form").submit();
+        }
     </script>
     
     @yield('javascript')
