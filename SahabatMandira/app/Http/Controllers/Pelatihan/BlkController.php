@@ -40,7 +40,7 @@ class BlkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //mengirim data ke tabel blks
         $blk = new Blk();
         $blk->nama = $request->nama;
         $blk->alamat = $request->alamat;
@@ -59,7 +59,7 @@ class BlkController extends Controller
      */
     public function show(Blk $blk)
     {
-        //
+        //show view blk.detail berdasarkan blknya
         return view('blk.detail',compact('blk'));
     }
 
@@ -71,7 +71,7 @@ class BlkController extends Controller
      */
     public function edit(Blk $blk)
     {
-        // dd($blk);
+        //munculkan form edit
         return view('blk.update',compact('blk'));
     }
 
@@ -84,6 +84,7 @@ class BlkController extends Controller
      */
     public function update(Request $request, Blk $blk)
     {
+        //edit data yang ada di tabel blks
         $blk->nama = $request->nama;
         $blk->alamat = $request->alamat;
         $blk->website_portfolio = $request->website_portfolio;
@@ -101,7 +102,7 @@ class BlkController extends Controller
      */
     public function destroy(Blk $blk)
     {
-        //
+        //haous data blk
         try {
             $blk->delete(); 
             return redirect()->route('blk.index')->with('success','Data BLK berhasil dihapus!');

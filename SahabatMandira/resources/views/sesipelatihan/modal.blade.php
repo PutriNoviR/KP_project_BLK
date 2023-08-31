@@ -81,7 +81,7 @@
             </div>
             <div class="form-group">
                 <label for="tanggalSelesaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Daftar Ulang') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang" value="{{$sesiPelatihan->tangggal_selesai_daftar_ulang}}">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang" value="{{$sesiPelatihan->tanggal_selesai_daftar_ulang}}">
 
                 <div class="col-md-12">
 
@@ -188,6 +188,12 @@
                 <textarea class="col-md-12 col-form-label activity" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
                 <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$sesiPelatihan->paket_program_id}}">
             </div>
+
+            <div class="form-group">
+                <label for="harga" class="col-md-12 col-form-label">{{ __('Minimal Kelulusan') }}</label>
+                <input type="number" class="col-md-12 col-form-label" name="nilaiMinimalLulus" value="">
+            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
                 <button type="submit" class="btn btn-primary">SIMPAN</button>

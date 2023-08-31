@@ -158,7 +158,7 @@ Kelengkapan Dokumen
                         <div class="form-group form-button">
                             <div class="row">
                                 <div class="col-md-6 pull-right">
-                                    <a class="col-md-6 btn btn-primary" href="{{ route('home') }}">
+                                    <a class="col-md-6 btn btn-secondary" href="{{ route('home') }}">
                                         {{ __('Batal') }}
                                     </a>
                                 </div>

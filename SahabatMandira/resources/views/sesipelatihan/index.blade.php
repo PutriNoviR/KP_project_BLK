@@ -372,7 +372,7 @@ PELATIHAN
                 swal({
                     title: "Aktivitas",
                     text: data.data,
-                    html:true
+                    html: true
                 })
             },
             error: function(xhr) {
@@ -442,10 +442,6 @@ PELATIHAN
             }
         });
     }
-    // $('body').on('change', '#nama_instruktur', function() {
-    //     var email = $('#nama_instruktur').val();
-    //     $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
-    // });
 </script>
 @endsection
 
@@ -476,6 +472,7 @@ PELATIHAN
                 <th>Periode</th>
                 <th>Status</th>
                 <th>Daftar</th>
+                <th>Pembelajaran</th>
                 <th>Sertifikat</th>
             </tr>
         </thead>
@@ -507,6 +504,11 @@ PELATIHAN
                             @endif
                         </div>
                     </form>
+                </td>
+                <td>
+                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                        Pembelajaran</i>
+                    </a>
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
@@ -600,9 +602,10 @@ PELATIHAN
                 <th>Periode Pendaftaran</th>
                 <th>Instruktur/Verifikator</th>
                 <th>Lokasi</th>
-                <th>Kuota</th>
+                <th>Nilai Kelulusan</th>
                 <th>Tanggal Seleksi</th>
                 <th>Aktivitas</th>
+                <th>Kuota</th>
                 <th>Aksi</th>
                 <th>Detail</th>
             </tr>
@@ -629,11 +632,15 @@ PELATIHAN
                     @endforeach
                 </td>
                 <td>{{ $d->lokasi }}</td>
-                <td>{{ $d->kuota }}</td>
+                <td>
+                    {{ $d->nilai_minimal_lulus}}
+                </td>
                 <td>{{ $d->tanggal_seleksi }}</td>
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i>
                     </button></td>
+                
+                <td>{{ $d->kuota }}</td>
                 <td>
                     @php
                     date_default_timezone_set("Asia/Bangkok");
@@ -647,27 +654,30 @@ PELATIHAN
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
                         @else --}}
-                        {{-- <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
+                    {{-- <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
                             onclick="modalTambahInstuktur({{$d->id}})">
-                        @else --}}
-                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
-                            Tambah Instruktur
-                        </a>
-                        <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
-                            <i class="fas fa-pen"></i>
-                        </a>
-                        <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                        {{-- @endif --}}
+                    @else --}}
+                    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
+                        Tambah Instruktur
+                    </a>
+                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    {{-- @endif --}}
 
                 </td>
                 <td>
                     <a href="{{ route('pelaporan.show',$d->id) }}" class="button btn btn-primary">
                         Daftar Peserta</i>
+                    </a>
+                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                        Pembelajaran</i>
                     </a>
                 </td>
             </tr>

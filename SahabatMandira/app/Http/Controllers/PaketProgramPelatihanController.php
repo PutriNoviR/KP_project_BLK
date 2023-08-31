@@ -17,6 +17,7 @@ class PaketProgramPelatihanController extends Controller
 {
     public function __construct()
     {
+        //untuk autentikasi siapa yang sedang login
         $this->middleware('auth');
     }
     
@@ -27,30 +28,34 @@ class PaketProgramPelatihanController extends Controller
      */
     public function index()
     {
-        //
+        //mengambil semua data pada tabel kejuruan
         $kejuruan = Kejuruan::all();
+
+        //mengambil semua data sub kejuruan berdasarkan kejuruannya exp: kejuruan infomation technology maka sub kejuruannya yang tampil sesuai kejuruannya
         $subKejuruan = Subkejuruan::join('kejuruans as k', 'k.id', '=', 'sub_kejuruans.kejuruans_id')
             ->select('sub_kejuruans.id as id', 'sub_kejuruans.nama as nama')
             ->get();
+
+            //apabila yang login adalah admin blk
         if (auth()->user()->role->nama_role == 'adminblk') {
+
+            //blk id yang digunakan secara otomatis akan sesuuai dengan akun blk yang digunakan.
+            //cth. dia login sebagai admin blk surabaya maka id blk yang digunakan berasal dari id blk surabaya
             $blk_id = auth()->user()->blks_id_admin;
+
+            //paket program yang digunakan sesuai id blk
             $paketprograms = PaketProgram::where('blks_id', $blk_id)->get();
+
+            //mengambil data blk sesuai dengan id
             $blk = Blk::where('id', $blk_id)->get();
-            // $kejuruan = Kejuruan::join('paket_program as p', 'p.kejuruans_id', '=', 'kejuruans.id')
-            //     ->where('blks_id', $blk_id)
-            //     ->select('kejuruans.id as id', 'kejuruans.nama as nama')
-            //     ->get();
-            // $subKejuruan = Subkejuruan::join('kejuruans as k', 'k.id', '=', 'sub_kejuruans.kejuruans_id')
-            //     ->join('paket_program as p', 'p.kejuruans_id', '=', 'k.id')
-            //     ->where('blks_id', $blk_id)
-            //     ->select('sub_kejuruans.id as id', 'sub_kejuruans.nama as nama')
-            //     ->get();
         } else {
+
+            //mengambil data paket program
             $paketprograms = PaketProgram::all();
 
+            // mengambil data blk
             $blk = Blk::all();
         }
-        // dd($blk);
 
         return view('paketprogram.index', compact('paketprograms', 'blk', 'kejuruan', 'subKejuruan'));
     }
@@ -140,7 +145,7 @@ class PaketProgramPelatihanController extends Controller
      */
     public function destroy(PaketProgram $paketProgram)
     {
-        //
+        // melakukan penghapusan data paket program
         try {
             $paketProgram->delete();
             return redirect()->route('paketProgram.index')->with('success', 'Data paket program berhasil dihapus!');
@@ -153,20 +158,20 @@ class PaketProgramPelatihanController extends Controller
 
     public function detail($id)
     {
+
         $data = PaketProgram::find($id);
         return view('PaketProgram.detail', ['data' => $data]);
     }
 
     public function getEditForm(Request $request)
     {
-        $blkUser = auth()->user()->blks_id_admin;
+        $blkUser = auth()->user()->blks_id_admin; //ambil dia dari blk yang mana
         $paketProgram = PaketProgram::find($request->id);
         if (auth()->user()->role->nama_role == 'adminblk') {
             $blk = Blk::where('id', $blkUser)->get();
         } else {
             $blk = Blk::all();
         }
-        // dd($blk);
         $kejuruan = Kejuruan::all();
         $subKejuruan = SubKejuruan::all();
 
@@ -179,9 +184,7 @@ class PaketProgramPelatihanController extends Controller
     public function getSubkejuruan(Request $request)
     {
         $idkejuruan = $request->idkejuruan;
-        // $idkejuruan = 1;
         $subkejuruan = Subkejuruan::where('kejuruans_id', $idkejuruan)->get();
-        // dd('oi');
         $arr_subkejuruan = [];
         $arr = [];
 

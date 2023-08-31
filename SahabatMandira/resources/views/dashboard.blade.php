@@ -467,6 +467,10 @@ Dashboard
                 <td>
                     <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-primary">
                         <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
+                    </a><br><br>
+
+                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                        <i>&nbsp;PEMBELAJARAN</i>
                     </a>
                 </td>
             </tr>

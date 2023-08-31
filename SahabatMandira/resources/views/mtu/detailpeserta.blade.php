@@ -100,7 +100,7 @@ Detail Peserta Pelatihan MTU
 
 <div class="container">
     <div class="d-flex justify-content-between mb-2">
-        <h2>Detail Peserta Pelatihan</h2>
+        <h2>Detail Peserta Pelatihan MTU</h2>
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -121,25 +121,25 @@ Detail Peserta Pelatihan MTU
             </tr>
         </thead>
         <tbody id="myTable">
-            @foreach($data as $d)
+            @foreach($dataPeserta as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $d->nama }}</td>
-                <td>{{ $d->no_hp }}</td>
-                <td> <a href="{{ url('storage/'.$d->ktp) }}" class="btn btn-primary" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;CETAK KTP</a>
+                <td>{{ $d['nama'] }}</td>
+                <td>{{ $d['no_hp'] }}</td>
+                <td> <a href="{{ url('storage/'.$d['ktp']) }}" class="btn btn-primary" download="KTP_{{Auth::user()->email."_".$d['ktp']}}"><i class="fas fa-id-card"></i> &nbsp;CETAK KTP</a>
                     <a href hidden id="download-file"></a>
-                    <button class='btn btn-info' onclick="alertShowKtp({{$d->id}})">
+                    <button class='btn btn-info' onclick="alertShowKtp({{$d['id']}})">
                         <i class="fas fa-eye"> KTP </i>
                     </button>
                 </td>
                 <td>
-                    <a href="{{ url('storage/'.$d->ijazah) }}" class="btn btn-success" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-id-card"></i> &nbsp;CETAK IJAZAH</a>
+                    <a href="{{ url('storage/'.$d['ijazah']) }}" class="btn btn-success" download="IJAZAH_{{Auth::user()->email."_".$d['ijazah']}}"><i class="fas fa-id-card"></i> &nbsp;CETAK IJAZAH</a>
                     <a href hidden id="download-file"></a>
-                    <button class='btn btn-info' onclick="alertShowIjazah({{$d->id}})">
+                    <button class='btn btn-info' onclick="alertShowIjazah({{$d['id']}})">
                         <i class="fas fa-eye"> IJAZAH </i>
                     </button>
                 </td>
-                <td>{{ $d->status }}</td></td>
+                <td>{{ $d['status'] }}</td></td>
             </tr>
             @endforeach
         </tbody>

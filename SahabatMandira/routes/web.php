@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\PelatihanPesertaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SertifikatController;
+use App\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -191,14 +193,31 @@ Route::post('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@sto
 Route::get('/pelatihanPeserta/jadwalSeleksi', 'PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 Route::post('pelatihanPeserta/getDetail','PelatihanPesertaController@getDetail')->name('pelatihanPeserta.getDetail');
 Route::post('pelatihanPeserta/updateSeleksiMasal', 'PelatihanPesertaController@updateSeleksiMasal')->name('pelatihanPeserta.updatemasal');
+//nilai akhir
+Route::post('pelatihanPeserta/UpdateNilaiAkhir', 'PelatihanPesertaController@updateNilaiAkhir')->name('pelatihanPeserta.updateNilaiAkhir');
+
 
 // //Pelaporan(
 Route::resource('pelaporan', 'PelaporanController');
 // Route::resource('/pelaporan', 'PelaporanController');
 
+//Tugas Pembelajaran
 
+//Route::get('/pembelajaran/detail', 'PembelajaranPesertaController@showDetail')->name('pembelajaranPeserta.getDetail');
+Route::resource('/pembelajaran', 'PembelajaranPesertaController');
+
+//Mata pelajaran 
+Route::resource('/mataPelajaran', 'MataPelajaranController');
 Route::view('/selamatdatang', 'welcome');
 
+//tamabh tugas peserta
+Route::resource('/tugasPeserta', 'TugasPesertaController');
+// Route::get('/tugasPeserta', 'TugasPesertaController@KumpulTugasPeserta')->name('tugasPeserta.kumpulTugasPeserta');
+
+//jawaban tugas peserta
+Route::resource('/jawabanTugasPeserta', 'jawabanTugasPesertaController');
+Route::get('/jawabanTugasPeserta','jawabanTugasPesertaController@jawabanPeserta')->name('jawabanTugasPeserta.jawabanPeserta');
+Route::put('/nilaiTugasPeserta/storeNilaiTugas','jawabanTugasPesertaController@storeNilaiTugas')->name('jawabanTugasPeserta.storeNilaiTugas');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

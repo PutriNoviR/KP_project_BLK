@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Blk;
 use App\PaketProgram;
 use App\PelatihanMTU;
+use App\PelatihanMtuPesertas;
 use App\PesertaMTU;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\ElseIf_;
 
 class MTUController extends Controller
 {
@@ -66,17 +69,19 @@ class MTUController extends Controller
 
         $mtu = PelatihanMTU::find($id_mtu);
         $mtu->is_accepted = $persetujuan;
-        $mtu->update();
-
+       
         if($persetujuan == 1)
         {
-            return redirect()->back()->with('success', 'Pengajuan MTU Berhasil Disetujui !');
+          $mtu->harga = $r->harga;
+          $pesan = 'Pengajuan MTU Berhasil Disetujui !';
         }
         else
         {
-            return redirect()->back()->with('success', 'Pengajuan MTU Berhasil Ditolak !');
+            $mtu->alasan_ditolak = $r->keterangan;
+            $pesan = 'Pengajuan MTU Berhasil Ditolak !';
         }
-
+        $mtu->update();
+        return redirect()->back()->with('success', $pesan);
     }
 
     /**
@@ -144,12 +149,45 @@ class MTUController extends Controller
     public function show($id)
     {
         //
+
+        $dataPeserta = [];
         $data = PelatihanMTU::join('pelatihan_mtu_pesertas as P', 'pelatihan_mtus.idpelatihan_mtus', '=', 'P.pelatihan_mtus_idpelatihan_mtus')
         ->select('pelatihan_mtus.*','P.*')
         ->where('pelatihan_mtus.idpelatihan_mtus',$id)
         ->get();
 
-        return view('mtu.detailpeserta', compact('data'));
+        foreach ($data as $d){
+
+            if($d->is_accepted == null){
+                PelatihanMtuPesertas::where('pelatihan_mtus_idpelatihan_mtus',$id)->update(['status'=>'MENUNGGU VERIFIKASI PROPOSAL']);
+            }
+            elseif($d->is_accepted == 1 && Carbon::now()->format('Y-m-d') <= $d->waktu_selesai){
+                PelatihanMtuPesertas::where('pelatihan_mtus_idpelatihan_mtus',$id)->update(['status'=>'SEDANG PELATIHAN']);
+            }
+            elseif($d->is_accepted == 1 && Carbon::now()->format('Y-m-d') >= $d->waktu_selesai){
+                PelatihanMtuPesertas::where('pelatihan_mtus_idpelatihan_mtus',$id)->update(['status'=>'SUDAH MENGIKUTI PELATIHAN']);
+            }
+            else{
+                PelatihanMtuPesertas::where('pelatihan_mtus_idpelatihan_mtus',$id)->update(['status'=>'TIDAK DITERIMA']);
+            }
+
+        $status = PelatihanMtuPesertas::where('pelatihan_mtus_idpelatihan_mtus',$id)->first();
+        $status = $status->status;
+
+            $peserta = [
+                'nama' => $d->nama,
+                'alamat' => $d->alamat,
+                'no_hp' => $d->no_hp,
+                'ktp' => $d->ktp,
+                'ijazah' => $d->ijazah,
+                'id' => $d->id,
+                'status' => $d->status
+            ];
+            
+        array_push($dataPeserta, $peserta);
+        }
+
+        return view('mtu.detailpeserta', compact('dataPeserta'));
     }
 
     /**

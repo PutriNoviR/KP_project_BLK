@@ -68,6 +68,7 @@
 
     </script>
 
+    @yield('head')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -268,6 +269,16 @@
                                                 <i class="fas fa-graduation-cap nav-icon"></i>
                                                 <p>Paket Program Pelatihan</p>
                                             </a>
+                                           
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('mataPelajaran.index') }}" class="nav-link {{ Request::is('mataPelajaran') ? 'active' : '' }}">
+                                                <i class="fas fa-graduation-cap nav-icon"></i>
+                                                <p>Mata Pelajaran</p>
+                                            </a>
+                                           
                                         </li>
                                     </ul>
                                 </li>

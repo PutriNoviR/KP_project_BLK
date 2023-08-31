@@ -58,6 +58,7 @@ class PelaporanController extends Controller
     {
         //
 
+        //Mengambil semua data user
         $data = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
         ->select('users.*','P.*')
         ->get();
@@ -65,12 +66,15 @@ class PelaporanController extends Controller
         // dd($id);
         // $blk_id = auth()->user()->blks_id_admin;
 
+        //ambil data peserta pada sesi pelatihan
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
         // dd($peserta);
+
+        //ambil data peserta yang lolos sesi pelatihan
         $lolos = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
@@ -78,6 +82,7 @@ class PelaporanController extends Controller
             ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
+        //ambil data peserta yang merupakan peserta cadangan pada sesi pelatihan
         $cadangan = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
@@ -85,6 +90,7 @@ class PelaporanController extends Controller
             ->select('users.*', 'P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
+        //ambil data peserta yang kompeten pada sesi pelatihan
         $kompeten = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
@@ -92,6 +98,7 @@ class PelaporanController extends Controller
             ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
+        //ambil data peserta yang sudah daftar ulang 
         $daftarUlang = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
@@ -99,6 +106,7 @@ class PelaporanController extends Controller
             ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
 
+        // ambil data peserta yang mendaftar di pelatihan dan mengikuti seleksi
          $mengikutiSeleksi = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)

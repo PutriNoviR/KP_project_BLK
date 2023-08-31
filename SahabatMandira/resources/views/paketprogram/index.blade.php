@@ -4,7 +4,12 @@
 PAKET PROGRAM
 @endsection
 
-
+@section('head')
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> -->
+  
+@endsection
 
 @section('javascript')
 
@@ -30,7 +35,7 @@ PAKET PROGRAM
                                     },
                                     {
                                         alignment: 'center',
-                                        text: '<?= $blk[0]->nama ?>',
+                                        text: '',
                                         fontSize: 18,
                                         margin: [10, 0]
                                     },
@@ -390,6 +395,11 @@ PAKET PROGRAM
                                         </span>
                                         @enderror
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nilaiMinimalLulus" class="col-md-12 col-form-label">{{ __('Minimal Kelulusan') }}</label>
+                                    <input type="number" class="col-md-12 col-form-label" name="nilaiMinimalLulus">
                                 </div>
 
                                 <div class="form-group">

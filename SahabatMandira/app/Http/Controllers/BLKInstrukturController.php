@@ -14,9 +14,9 @@ class BLKInstrukturController extends Controller
      */
     public function index()
     {
-        //
+        //mengambil data instruktur 
         $instruktur = User::where('roles_id', 4)->get();
-
+        //mengambil data instruktur yang ada di blk tertentu
         $data = User::where('roles_id',4)
                 ->where('blks_id_admin',auth()->user()->blks_id_admin)
                 ->get();
@@ -42,7 +42,7 @@ class BLKInstrukturController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //insert data instruktur blk
         $email_inst = $request->email;
         $blk_id = auth()->user()->blks_id_admin;
 
@@ -95,7 +95,7 @@ class BLKInstrukturController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Hapus data instruktur blk
         $user=User::find($id);
         $user->blks_id_admin = null;
         $user->save();
