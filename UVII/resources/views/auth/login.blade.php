@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form id='register-form' method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="form-group">
@@ -86,8 +86,6 @@
                                 </div>
                             </div>
 
-                            <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
-
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="form-check">
@@ -102,7 +100,8 @@
 
                             <div class="form-group mb-0 rata_tengah">
                                 <div class="col-md-12 offset-manual">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="button" class="btn btn-primary g-recaptcha" data-sitekey="{{config('services.recaptcha.site')}}" 
+                                                data-callback='onSubmit'>
                                         {{ __('Login') }}
                                     </button>
                                     <br>
