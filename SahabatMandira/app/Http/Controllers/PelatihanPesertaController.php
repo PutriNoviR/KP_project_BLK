@@ -94,13 +94,54 @@ class PelatihanPesertaController extends Controller
         $periode = SesiPelatihan::find($id);
         // $pelatihan = ::find($id);
         //ambil data user dan pelatihan peserta
+        $p = 1;
         $data = DB::connection('mandira')
             ->table('pelatihan_pesertas as pp')
             ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
             ->where('sesi_pelatihans_id', $id)
             ->get();
         $id_sesi = $id;
-        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi'));
+        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p'));
+    }
+
+    public function showPesertas($id)
+    {
+        //ambil data siapa yang login
+        $userLogin = auth()->user()->email;
+        //ambil sesi pelatihan
+        $periode = SesiPelatihan::find($id);
+        // $pelatihan = ::find($id);
+        //ambil data user dan pelatihan peserta
+        $p = 0;
+        $data = DB::connection('mandira')
+            ->table('pelatihan_pesertas as pp')
+            ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+            ->where('sesi_pelatihans_id', $id)
+            ->where('status_fase','DITERIMA')
+            ->get();
+        $id_sesi = $id;
+        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi', 'p'));
+    }
+
+    public function showPesertaDiterima()
+    {
+        //ambil data siapa yang login
+        $userLogin = auth()->user()->email;
+        // $pelatihan = ::find($id);
+        //ambil data user dan pelatihan peserta
+        $data = DB::connection('mandira')
+            ->table('pelatihan_pesertas as pp')
+            ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+            ->join('sesi_pelatihans as sp', 'sp.id','=','pp.sesi_pelatihans_id')
+            ->join('masterblk_db.paket_program as pk', 'pk.id', '=', 'sp.paket_program_id')
+            ->join('masterblk_db.blks as b', 'b.id', '=', 'pk.blks_id')
+            ->join('masterblk_db.sub_kejuruans as sk', 'sk.id', '=', 'pk.sub_kejuruans_id')
+            ->where('status_fase','DITERIMA')
+            ->selectRaw('u.email as email, u.username as username, CONCAT(u.nama_depan," ",u.nama_belakang) AS nama, pp.status_fase as status, b.nama as blk, sk.nama as sub_kejuruan')
+            ->get();
+        // dd($data);
+
+        return view('instruktur.index', compact('data'));
     }
 
     /**
@@ -285,11 +326,14 @@ class PelatihanPesertaController extends Controller
 
         $cekdaftartahunan = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
             ->whereRaw("pelatihan_pesertas.email_peserta = '$userLogin' AND YEAR(s.tanggal_tutup) = YEAR(CURDATE())
-             AND pelatihan_pesertas.rekom_keputusan IN ('LULUS', 'CADANGAN', 'MENGUNDURKAN DIRI')")
+            AND pelatihan_pesertas.rekom_keputusan IN ('LULUS', 'CADANGAN', 'MENGUNDURKAN DIRI')")
             ->count();
 
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)
+            ->count();
+
+        $cekDaftarLain = PelatihanPeserta::where('email_peserta', '=', $userLogin)
             ->count();
 
         $cekseleksiaktif = PelatihanPeserta::JOIN('sesi_pelatihans as s', 'pelatihan_pesertas.sesi_pelatihans_id', 's.id')
@@ -306,7 +350,10 @@ class PelatihanPesertaController extends Controller
                 //
                 return redirect()->back()->with('error', 'Anda sedang dalam proses seleksi sebuah pelatihan. Mohon selesaikan seleksi terlebih dahulu !');
             }
-        } else {
+        } elseif ($cekDaftarLain > 0){
+            return redirect()->back()->with('error', 'Anda sedang dalam proses seleksi sebuah pelatihan. Mohon selesaikan seleksi terlebih dahulu !');
+        }
+        else {
 
             if ($cnt_daftar->pendaftar >= $cnt_daftar->kuota_daftar) {
                 return redirect()->back()->with('error', 'Mohon maaf, jumlah pendaftar untuk sesi pelatihan ini telah mencapai batas kuota !');
@@ -475,11 +522,20 @@ class PelatihanPesertaController extends Controller
     {
         $idSesiPelatihan = $request->get('id');
         $email = $request->get('email_peserta');
-        PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
-            ->where('email_peserta', $email)
-            ->update(['nilai_akhir'=>$request->nilaiAkhir]);
 
-        return redirect()->back()->with('success', 'Data nilai akhir berhasil di update !');
+        $jumlahCadangan = PelatihanPeserta::where('status_fase', '=', 'CADANGAN')
+            ->count();
+
+        if($jumlahCadangan > 3){
+            return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
+        }
+        else {
+            PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
+                ->where('email_peserta', $email)
+                ->update(['nilai_akhir'=>$request->nilaiAkhir]);
+            
+            return redirect()->back()->with('success', 'Data nilai akhir berhasil di update !');
+        }
     }
 
 }

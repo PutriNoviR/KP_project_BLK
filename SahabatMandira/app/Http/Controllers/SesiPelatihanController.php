@@ -87,9 +87,11 @@ class SesiPelatihanController extends Controller
             ->where('sesi_pelatihans.is_delete',0)
             ->get();
 
+        $pesertaDiterima = PelatihanPeserta::Where('status_fase', 'DITERIMA')->get();
+
         $selectedSumberDana = SesiPelatihan::first()->sumber_dana;
 
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana'));
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima'));
     }
 
     /**

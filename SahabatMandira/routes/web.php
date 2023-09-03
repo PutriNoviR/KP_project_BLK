@@ -185,6 +185,7 @@ Route::resource('/pelatihanPesertas', 'PelatihanPesertaController');
 Route::get('pelatihanPeserta/lengkapiBerkas/{idpelatihan}', 'PelatihanPesertaController@lengkapiBerkas')->name('pelatihanPeserta.lengkapiBerkas');
 Route::get('pelatihanPeserta/pendaftaran', 'PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
 Route::get('pelatihanPeserta/{id}', 'PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
+Route::get('pelatihanPeserta/pesertaDiterima/{id}', 'PelatihanPesertaController@showPesertas')->name('pelatihanPeserta.daftarPeserta');
 Route::post('pelatihanPeserta/getEditForm', 'PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::post('pelatihanPeserta/getKompetensiForm', 'PelatihanPesertaController@getKompetensiForm')->name('pelatihanPesertas.getKompetensiForm');
 Route::put('pelatihanPeserta/{email}', 'PelatihanPesertaController@update')->name('pelatihanPesertas.update');
@@ -195,6 +196,9 @@ Route::post('pelatihanPeserta/getDetail','PelatihanPesertaController@getDetail')
 Route::post('pelatihanPeserta/updateSeleksiMasal', 'PelatihanPesertaController@updateSeleksiMasal')->name('pelatihanPeserta.updatemasal');
 //nilai akhir
 Route::post('pelatihanPeserta/UpdateNilaiAkhir', 'PelatihanPesertaController@updateNilaiAkhir')->name('pelatihanPeserta.updateNilaiAkhir');
+
+//Peserta diterima
+Route::get('pelatihanPeserta', 'PelatihanPesertaController@showPesertaDiterima')->name('pelatihanPeserta.pesertaDiterima');
 
 
 // //Pelaporan(

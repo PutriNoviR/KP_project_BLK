@@ -421,6 +421,16 @@ Dashboard
 
 @if(Auth::user()->role->nama_role == 'verifikator')
 <div class="container">
+    @if (!is_null($pesertaDiterima))
+    <div class="d-flex justify-content-between mb-2">
+        <h2>Lihat hasil peserta yang diterima</h2>
+        <a href="{{ route('pelatihanPeserta.pesertaDiterima') }}" class="button btn btn-primary">
+            Daftar Peserta</i>
+        </a>
+    </div>
+    
+    <hr>
+    @endif
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
     </div>
@@ -462,6 +472,10 @@ Dashboard
                     </a> -->
                     <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-warning">
                         <i class="fas fa-edit"></i> {{--PINDAHIN KE UI  --}}
+                    </a><br><br>
+
+                    <a href="{{ url('pelatihanPeserta/pesertaDiterima/'.$d->id) }}" class="button btn btn-primary">
+                        <i class="fas fa-user"></i> {{--PINDAHIN KE UI  --}}
                     </a>
                 </td>
                 <td>

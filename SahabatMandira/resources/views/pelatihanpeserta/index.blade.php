@@ -28,53 +28,57 @@ Pelatihan Peserta
             order: [
                 [1, 'asc']
             ],
-            buttons: [{
-                text: 'Update Lulus Seleksi Masal',
-                action: function() {
-                    var data = table.rows({
-                        selected: true
-                    }).data(); //ambil data yang dicentang
-                    var emails = [];
-                    var sesi_id = '{{$id_sesi}}';
-                    //ambil data yang di centang masukkan ke array
-                    for (let i = 0; i < data.length; i++) {
-                        emails.push(data[i][2]);
-                    }
-
-                    console.log(emails);
-                    //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ route("pelatihanPeserta.updatemasal") }}',
-                        data: {
-                            '_token': '<?php echo csrf_token() ?>',
-                            'emails': emails,
-                            'sesi_id': sesi_id
-                        },
-                        success: function(data) {
-
-                            if (data.status == 'oke') {
-                                Swal.fire(
-                                    'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
-                                    'Refresh halaman untuk melihat hasil update seleksi',
-                                    'success'
-                                )
-                            } else {
-                                Swal.fire(
-                                    'Update Hasil Seleksi Secara Masal Gagal',
-                                    'Periode Update Seleksi Telah Berakhir !',
-                                    'error'
-                                )
-                            }
-                        },
-                        error: function(xhr) {
-                            console.log(xhr);
+            buttons: [
+                @if($p == 1)
+                {
+                    text: 'Update Lulus Seleksi Masal',
+                    action: function() {
+                        var data = table.rows({
+                            selected: true
+                        }).data(); //ambil data yang dicentang
+                        var emails = [];
+                        var sesi_id = '{{$id_sesi}}';
+                        //ambil data yang di centang masukkan ke array
+                        for (let i = 0; i < data.length; i++) {
+                            emails.push(data[i][2]);
                         }
-                    });
 
+                        console.log(emails);
+                        //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route("pelatihanPeserta.updatemasal") }}',
+                            data: {
+                                '_token': '<?php echo csrf_token() ?>',
+                                'emails': emails,
+                                'sesi_id': sesi_id
+                            },
+                            success: function(data) {
+
+                                if (data.status == 'oke') {
+                                    Swal.fire(
+                                        'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
+                                        'Refresh halaman untuk melihat hasil update seleksi',
+                                        'success'
+                                    )
+                                } else {
+                                    Swal.fire(
+                                        'Update Hasil Seleksi Secara Masal Gagal',
+                                        'Periode Update Seleksi Telah Berakhir !',
+                                        'error'
+                                    )
+                                }
+                            },
+                            error: function(xhr) {
+                                console.log(xhr);
+                            }
+                        });
+
+                    }
                 }
-            }],
+                @endif
+            ],
             dom: 'Bflrtip'
         });
 
@@ -190,7 +194,9 @@ Pelatihan Peserta
                 <th>Nilai TPA</th>
                 <th>Nilai Rata-Rata Tugas</th>
                 <th>Nilai Akhir</th>
+                @if($p == 1)
                 <th>Aksi</th>
+                @endif
                 <th>Kompetensi</th>
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <th>Daftar Ulangkan</th>
@@ -238,11 +244,13 @@ Pelatihan Peserta
                     </a>
 
                 </td>
+                @if($p == 1)
                 <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
                         Update Hasil Seleksi
                     </button>
                 </td>
+                @endif
                 <td>
                     <button data-toggle="modal" @if(strtotime('now') < strtotime($periode->tanggal_selesai_pelatihan) || strtotime('now') >= strtotime($periode->tanggal_selesai_pelatihan ." + 3 days")) disabled @endif data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
@@ -269,9 +277,11 @@ Pelatihan Peserta
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                            
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            
                         </div>
                         <div class="modal-body">
                             <center>
