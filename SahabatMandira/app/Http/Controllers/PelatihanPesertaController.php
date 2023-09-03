@@ -101,6 +101,9 @@ class PelatihanPesertaController extends Controller
             ->where('sesi_pelatihans_id', $id)
             ->get();
         $id_sesi = $id;
+
+        
+        
         return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p'));
     }
 
@@ -523,9 +526,11 @@ class PelatihanPesertaController extends Controller
         $idSesiPelatihan = $request->get('id');
         $email = $request->get('email_peserta');
 
-        $jumlahCadangan = PelatihanPeserta::where('status_fase', '=', 'CADANGAN')
-            ->count();
-
+        $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
+        ->where('rekom_keputusan', '=', 'CADANGAN')
+        ->count();
+        
+        
         if($jumlahCadangan > 3){
             return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
         }
