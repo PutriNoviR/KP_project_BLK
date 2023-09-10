@@ -246,7 +246,7 @@ Dashboard
 @if(Auth::user()->role->nama_role == 'peserta')
 
 {{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
-@if(count($disarankan) === 0)
+@if($checkMinat == 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan
         anda ! &nbsp;&nbsp;&nbsp;

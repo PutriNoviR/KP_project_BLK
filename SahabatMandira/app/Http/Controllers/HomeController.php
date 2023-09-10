@@ -6,6 +6,7 @@ use App\Keahlian;
 use App\KeahlianUser;
 use App\Lamaran;
 use App\MandiraMentoring;
+use App\MinatUser;
 use App\PelatihanMentor;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
@@ -92,6 +93,8 @@ class HomeController extends Controller
             ->get();
         // dd($disarankan);
 
+        $checkMinat = MinatUser::WHERE('users_email', '=', $userLogin)->count();
+
         $adminBlk = auth()->user()->blks_id_admin;
         $blk = DB::table('blks')->select('nama')->where('id',$adminBlk)->get();
 
@@ -148,7 +151,7 @@ class HomeController extends Controller
         // $sesi = SesiPelatihan::where('id',$pelatihans[0]->sesi_pelatihans_id)->first();
         // dd($sesi->paketprogram->kejuruan->nama);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat'));
 
         // return view('dashboard');
     }
