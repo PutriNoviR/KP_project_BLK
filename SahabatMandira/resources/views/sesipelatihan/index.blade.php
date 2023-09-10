@@ -462,6 +462,13 @@ PELATIHAN
         </ul>
     </div>
     @endif
+    @if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
@@ -587,6 +594,13 @@ PELATIHAN
     </div>
     @if (\Session::has('success'))
     <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
+    @if (\Session::has('failed'))
+    <div class="alert alert-danger">
         <ul>
             <li>{!! \Session::get('success') !!}</li>
         </ul>

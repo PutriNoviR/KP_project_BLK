@@ -143,8 +143,19 @@ class SesiPelatihanController extends Controller
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
 
         $sesi->gambar_pelatihan = $foto;
-        $sesi->save();
-        return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+
+        if($sesi->tanggal_pendaftaran <= $sesi->tanggal_seleksi && $sesi->tanggal_tutup <= $sesi->tanggal_seleksi){
+            
+            if($sesi->tanggal_pendaftaran <= $sesi->tanggal_mulai_pelatihan && $sesi->tanggal_tutup <= $sesi->tanggal_mulai_pelatihan){
+                $sesi->save();
+                return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+            } else {
+                return redirect()->back()->with('failed', 'Tanggal Pendaftaran melebihi tanggal Pelatihan!');
+            }
+            
+        } else {
+            return redirect()->back()->with('failed', 'Tanggal Pendaftaran melebihi tanggal seleksi!');
+        }
     }
 
     /**

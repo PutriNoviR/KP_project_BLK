@@ -145,7 +145,6 @@ Route::post('sesiPelatihan/getDetail', 'SesiPelatihanController@getDetail')->nam
 Route::post('sesiPelatihan/getTambahInstruktur', 'SesiPelatihanController@getTambahInstruktr')->name('sesiPelatihan.getTambahInstruktur');
 Route::post('sesiPelatihan/riwayatInstruktur', 'UserController@riwayatVerifikator')->name('sesiPelatihan.getRiwayatInstruktur');
 Route::post('daftarPelatihan/addMTU', 'SesiPelatihanController@storeMTU')->name('sesiPelatihan.mtu');
-
 //Tugas
 Route::resource('/tugas', 'TugasController');
 Route::post('/tugas/getDetail', 'TugasController@getDetail')->name('tugas.getDetail');
