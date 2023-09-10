@@ -247,6 +247,7 @@ Dashboard
 
 {{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
 @if($checkMinat == 0)
+@if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan
         anda ! &nbsp;&nbsp;&nbsp;
@@ -293,6 +294,8 @@ Dashboard
         @endforeach
     </div>
 </div>
+@endif
+
 @endif
 <hr>
 
