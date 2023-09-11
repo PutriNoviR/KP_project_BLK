@@ -147,11 +147,14 @@ class HomeController extends Controller
         $pesertaDiterima = PelatihanPeserta::Where('status_fase', 'DITERIMA')->get();
         // dd($suspend);
 
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->count();
         // $pelatihans = PelatihanMentor::where('mentors_email','kiky3@gmail.com')->get();
         // $sesi = SesiPelatihan::where('id',$pelatihans[0]->sesi_pelatihans_id)->first();
-        // dd($sesi->paketprogram->kejuruan->nama);
+        // dd($checkStatusPeserta);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat','checkStatusPeserta'));
 
         // return view('dashboard');
     }

@@ -91,8 +91,11 @@ class SesiPelatihanController extends Controller
 
         $selectedSumberDana = SesiPelatihan::first()->sumber_dana;
 
-        
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima'));
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->count();
+
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima','checkStatusPeserta'));
     }
 
     /**
@@ -169,19 +172,25 @@ class SesiPelatihanController extends Controller
     {
         //
         $data = SesiPelatihan::where('id', '=', $id)
-            ->get();
+        ->get();
+
         $mentor = PelatihanMentor::where('sesi_pelatihans_id', '=', $id)
-            ->get();
+        ->get();
 
         //ambil data user yang sedang login
         $userLogin = auth()->user()->email;
-
+        
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->Where('sesi_pelatihans_id', $id)
+        ->count();
+        
         //melakukan pengecekan apakah user yang login sudah pernah melakukan pendaftaran (?)
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)->get();
-        // dd($cekDaftar);
+        // dd($checkStatusPeserta);
         $cekTanggalDaftarUlang = PelatihanPeserta::where('email_peserta', $userLogin)->max('tanggal_daftar_ulang');
-        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang'));
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang','checkStatusPeserta'));
     }
 
     /**

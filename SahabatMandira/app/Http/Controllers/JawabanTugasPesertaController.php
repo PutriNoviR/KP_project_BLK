@@ -158,7 +158,6 @@ class JawabanTugasPesertaController extends Controller
 
         $pesertaTidakMengumpulkan = TugasPeserta::tugasPesertaBagianAdmin($request->id, 'belumMengumpulkan');
 
-
         $pesertaSudahMengumpulkan = TugasPeserta::tugasPesertaBagianAdmin($request->id, 'sudahMengumpulkan');
 
         $pesertaTerlambatMengumpulkan = TugasPeserta::tugasPesertaBagianAdmin($request->id, 'terlambat');

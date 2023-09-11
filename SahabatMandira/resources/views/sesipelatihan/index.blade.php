@@ -520,10 +520,12 @@ PELATIHAN
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
+                    @if($checkStatusPeserta == null)
                     <button class='btn btn-warning' {{ $d->hasil_kompetensi == NULL ? 'disabled' : ''}} onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
                         Download Sertifikat
                     </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                     <a href hidden id="download-file"></a>
+                    @endif
                 </td>
             </tr>
             @endforeach

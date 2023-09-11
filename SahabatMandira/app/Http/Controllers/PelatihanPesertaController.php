@@ -103,8 +103,11 @@ class PelatihanPesertaController extends Controller
         $id_sesi = $id;
 
         
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->count();
         
-        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p'));
+        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p','checkStatusPeserta'));
     }
 
     public function showPesertas($id)
