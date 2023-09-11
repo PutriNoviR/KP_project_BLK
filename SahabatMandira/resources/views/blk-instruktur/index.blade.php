@@ -64,6 +64,36 @@ BLK - Pengelolaan Instruktur
         allowClear: true
     });
 
+    // $(document).ready(function () {
+    //     $('.instruktur').change(function () {
+    //         var selectedEmail = $(this).val();
+            
+    //         if (selectedEmail) {
+    //             // Setel nilai input "Email Yang Dipilih" dengan email yang dipilih
+    //             $('#emailYangDipilih').val(selectedEmail);
+    //         } else {
+    //             // Kosongkan input "Email Yang Dipilih" jika tidak ada email yang dipilih
+    //             $('#emailYangDipilih').val('');
+    //         }
+    //     });
+    // });
+
+    $(document).ready(function () {
+        $('.instruktur').change(function () {
+            var selectedEmail = $(this).val();
+            
+            // Mencari instruktur yang sesuai dengan email yang dipilih
+            var selectedInstruktur = @json($instruktur->keyBy('email'));
+            
+            if (selectedEmail && selectedInstruktur[selectedEmail]) {
+                // Setel nilai input "Instruktur Detail" dengan detail instruktur yang sesuai
+                $('#instrukturDetail').val(selectedInstruktur[selectedEmail].username);
+            } else {
+                // Kosongkan input "Instruktur Detail" jika email tidak valid atau tidak sesuai dengan instruktur
+                $('#instrukturDetail').val('');
+            }
+        });
+    });
 </script>
 @endsection
 
@@ -156,23 +186,25 @@ BLK - Pengelolaan Instruktur
                         @csrf
 
                         <div class="form-group">
-                            <label for="memilikiSistem" class="col-md-12 col-form-label">{{ __('Email Instruktur') }}</label>
-
+                            <label for="emailInstruktur" class="col-md-12 col-form-label">{{ __('Email Instruktur') }}</label>
                             <div class="col-md-12">
-                                <select class="form-control instruktur" aria-label="Default select example" name="email">
+                                <select class="form-control instruktur" aria-label="Default select example" id="emailInstruktur" name="email">
                                     <option></option>
                                     @foreach ($instruktur as $i)
-                                        <option value="{{$i->email}}">{{ $i->email }}</option>
+                                        <option value="{{ $i->email }}">{{ $i->email }}</option>
                                     @endforeach
                                 </select>
-
-                                @error('memilikiSistem')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="instrukturDetail" class="col-md-12 col-form-label">{{ __('Detail Instruktur') }}</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" id="instrukturDetail" name="instrukturDetail" readonly>
+                            </div>
+                        </div>
+
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
                             <button type="submit" class="btn btn-primary">SIMPAN</button>

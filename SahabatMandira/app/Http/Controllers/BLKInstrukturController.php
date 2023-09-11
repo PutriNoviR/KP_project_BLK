@@ -20,7 +20,7 @@ class BLKInstrukturController extends Controller
         $data = User::where('roles_id',4)
                 ->where('blks_id_admin',auth()->user()->blks_id_admin)
                 ->get();
-
+        // dd($instruktur);
         return view('blk-instruktur.index',compact('instruktur','data'));
     }
 

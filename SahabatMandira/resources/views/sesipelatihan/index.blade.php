@@ -513,9 +513,10 @@ PELATIHAN
                     </form>
                 </td>
                 <td>
-                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
-                        Pembelajaran</i>
-                    </a>
+                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" {{ $d->status_fase != 'DITERIMA' && $d->status_fase != 'SEDANG PROSES PELATIHAN' ? 'disabled' : '' }}>
+                        Pembelajaran
+                    </button>
+
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>

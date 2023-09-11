@@ -91,6 +91,7 @@ class SesiPelatihanController extends Controller
 
         $selectedSumberDana = SesiPelatihan::first()->sumber_dana;
 
+        
         return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima'));
     }
 
