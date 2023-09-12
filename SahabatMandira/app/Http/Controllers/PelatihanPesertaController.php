@@ -279,10 +279,21 @@ class PelatihanPesertaController extends Controller
             ->first();
         //
         $check = '1';
-        return response()->json(array(
-            'status' => 'oke',
-            'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
-        ), 200);
+
+        $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $id)
+        ->where('rekom_keputusan', '=', 'CADANGAN')
+        ->count();
+
+        if($jumlahCadangan > 3){
+            return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
+        }
+        else {
+            return response()->json(array(
+                'status' => 'oke',
+                'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
+            ), 200);
+        }
+        
     }
 
     public function getKompetensiForm(Request $request)
