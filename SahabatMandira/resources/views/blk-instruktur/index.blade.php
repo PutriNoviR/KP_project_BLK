@@ -87,10 +87,12 @@ BLK - Pengelolaan Instruktur
             
             if (selectedEmail && selectedInstruktur[selectedEmail]) {
                 // Setel nilai input "Instruktur Detail" dengan detail instruktur yang sesuai
-                $('#instrukturDetail').val(selectedInstruktur[selectedEmail].username);
+                $('#instrukturUsername').val(selectedInstruktur[selectedEmail].username);
+                $('#instrukturName').val(selectedInstruktur[selectedEmail].nama_depan + ' ' + selectedInstruktur[selectedEmail].nama_belakang);
             } else {
                 // Kosongkan input "Instruktur Detail" jika email tidak valid atau tidak sesuai dengan instruktur
-                $('#instrukturDetail').val('');
+                $('#instrukturUsername').val('');
+                $('#instrukturName').val('');
             }
         });
     });
@@ -198,9 +200,16 @@ BLK - Pengelolaan Instruktur
                         </div>
 
                         <div class="form-group">
-                            <label for="instrukturDetail" class="col-md-12 col-form-label">{{ __('Detail Instruktur') }}</label>
+                            <label for="instrukturUsername" class="col-md-12 col-form-label">{{ __('Username Instruktur') }}</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" id="instrukturDetail" name="instrukturDetail" readonly>
+                                <input type="text" class="form-control" id="instrukturUsername" name="instrukturUsername" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instrukturName" class="col-md-12 col-form-label">{{ __('Nama Instruktur') }}</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" id="instrukturName" name="instrukturName" readonly>
                             </div>
                         </div>
 

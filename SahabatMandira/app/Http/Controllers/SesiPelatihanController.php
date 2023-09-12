@@ -95,6 +95,8 @@ class SesiPelatihanController extends Controller
         ->Where('status_fase', 'CADANGAN')
         ->count();
 
+        // dd($checkStatusPeserta);
+
         return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima','checkStatusPeserta'));
     }
 
@@ -148,6 +150,7 @@ class SesiPelatihanController extends Controller
 
         $sesi->gambar_pelatihan = $foto;
 
+
         if($sesi->tanggal_pendaftaran <= $sesi->tanggal_seleksi && $sesi->tanggal_tutup <= $sesi->tanggal_seleksi){
             
             if($sesi->tanggal_pendaftaran <= $sesi->tanggal_mulai_pelatihan && $sesi->tanggal_tutup <= $sesi->tanggal_mulai_pelatihan){
@@ -190,6 +193,8 @@ class SesiPelatihanController extends Controller
             ->where('email_peserta', '=', $userLogin)->get();
         // dd($checkStatusPeserta);
         $cekTanggalDaftarUlang = PelatihanPeserta::where('email_peserta', $userLogin)->max('tanggal_daftar_ulang');
+
+        // dd($cekDaftar);
         return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang','checkStatusPeserta'));
     }
 
@@ -390,9 +395,18 @@ class SesiPelatihanController extends Controller
     public function getEditForm(Request $request)
     {
         $sesiPelatihan = SesiPelatihan::find($request->id);
+        // Ambil URL atau path gambar dari objek $sesiPelatihan
+        $gambarPelatihan = $sesiPelatihan->gambar_pelatihan; // Gantilah dengan nama properti yang sesuai
+
+        // Dapatkan ekstensi file gambar (misalnya, jpg)
+        $ext = pathinfo($gambarPelatihan, PATHINFO_EXTENSION);
+
+        // Buat nama file baru dengan format yang Anda inginkan
+        $foto = "programPelatihan/" . uniqid() . "." . $ext;
+
         return response()->json(array(
             'status' => 'oke',
-            'msg' => view('sesipelatihan.modal', compact('sesiPelatihan'))->render()
+            'msg' => view('sesipelatihan.modal', compact('sesiPelatihan','foto'))->render()
         ), 200);
     }
 

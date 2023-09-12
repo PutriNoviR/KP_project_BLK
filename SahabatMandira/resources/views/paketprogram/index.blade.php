@@ -171,6 +171,13 @@ PAKET PROGRAM
         </ul>
     </div>
     @endif
+    @if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('failed') !!}</li>
+        </ul>
+    </div>
+    @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">

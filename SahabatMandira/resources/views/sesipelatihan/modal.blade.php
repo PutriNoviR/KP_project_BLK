@@ -17,8 +17,13 @@
             </div>
             <div class="form-group">
                 <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
-                <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
+                <input type="file" id="fotoPelatihanInput" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
             </div>
+
+            <div id="previewFotoPelatihan">
+                <img id="fotoPelatihanPreview" src="{{ asset('storage/'.$sesiPelatihan->gambar_pelatihan) }}" alt="Preview Gambar Pelatihan" style="max-width: 200px; max-height: 200px;">
+            </div>
+
             <div class="form-group">
                 <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
                 <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_pendaftaran" value="<?php echo date('Y-m-d\TH:i:s', strtotime($sesiPelatihan->tanggal_pendaftaran)); ?>">
@@ -201,3 +206,28 @@
         </form>
     </div>
 </div>
+
+<script>
+// Ambil elemen input file
+const fotoPelatihanInput = document.getElementById('fotoPelatihanInput');
+
+// Ambil elemen img untuk preview gambar
+const fotoPelatihanPreview = document.getElementById('fotoPelatihanPreview');
+
+// Tambahkan event listener untuk input file
+fotoPelatihanInput.addEventListener('change', function () {
+    // Pastikan ada file yang dipilih
+    if (fotoPelatihanInput.files && fotoPelatihanInput.files[0]) {
+        const reader = new FileReader();
+
+        // Saat file berhasil dibaca
+        reader.onload = function (e) {
+            // Tampilkan gambar pada elemen img
+            fotoPelatihanPreview.src = e.target.result;
+        };
+
+        // Baca file yang dipilih
+        reader.readAsDataURL(fotoPelatihanInput.files[0]);
+    }
+});
+</script>

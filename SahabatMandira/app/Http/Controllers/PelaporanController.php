@@ -107,12 +107,14 @@ class PelaporanController extends Controller
             ->get();
 
         // ambil data peserta yang mendaftar di pelatihan dan mengikuti seleksi
-         $mengikutiSeleksi = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
+        $mengikutiSeleksi = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
             ->whereNotNull('P.rekom_keputusan')
             ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
             ->get();
+
+        
         return view('pelaporan.index', compact('data', 'peserta', 'lolos', 'cadangan','kompeten','daftarUlang','mengikutiSeleksi'));
     }
 
