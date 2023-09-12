@@ -234,13 +234,25 @@ class PelatihanPesertaController extends Controller
             return redirect()->back()->with('failed', 'Tidak Dapat Mengundurkan Diri Setelah Periode Pelatihan Dimulai');
             //bisa juga disuspend/blacklist
         } else {
-            DB::connection('mandira')
+
+            $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
+            ->where('rekom_keputusan', '=', 'CADANGAN')
+            ->count();
+
+            if($jumlahCadangan > 3){
+                return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
+            }
+            else {
+                    
+                DB::connection('mandira')
                 ->table('pelatihan_pesertas')
                 ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
                 ->where('email_peserta', $email)
                 ->update($update);
+                    
+                return redirect()->back()->with('success', 'Berhasil Mengupdate');
+            }
 
-            return redirect()->back()->with('success', 'Berhasil Mengupdate');
         }
     }
 
