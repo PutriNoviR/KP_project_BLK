@@ -20,8 +20,13 @@
                 <input type="file" id="fotoPelatihanInput" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
             </div>
 
+            <div id="previewFoto">
+                <h5>Preview Foto Sebelumnya</h5>
+                <img id="fotoPelatihan" src="{{ asset('storage/'.$sesiPelatihan->gambar_pelatihan) }}" alt="Preview Gambar Pelatihan" style="max-width: 200px; max-height: 200px;">
+            </div>
+            <br>
             <div id="previewFotoPelatihan">
-                <img id="fotoPelatihanPreview" src="{{ asset('storage/'.$sesiPelatihan->gambar_pelatihan) }}" alt="Preview Gambar Pelatihan" style="max-width: 200px; max-height: 200px;">
+                <img id="fotoPelatihanPreview" src="#" alt="Gambar Baru akan ditampilkan disini" style="max-width: 200px; max-height: 200px;">
             </div>
 
             <div class="form-group">

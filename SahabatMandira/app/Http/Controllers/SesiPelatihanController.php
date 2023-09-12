@@ -395,18 +395,10 @@ class SesiPelatihanController extends Controller
     public function getEditForm(Request $request)
     {
         $sesiPelatihan = SesiPelatihan::find($request->id);
-        // Ambil URL atau path gambar dari objek $sesiPelatihan
-        $gambarPelatihan = $sesiPelatihan->gambar_pelatihan; // Gantilah dengan nama properti yang sesuai
-
-        // Dapatkan ekstensi file gambar (misalnya, jpg)
-        $ext = pathinfo($gambarPelatihan, PATHINFO_EXTENSION);
-
-        // Buat nama file baru dengan format yang Anda inginkan
-        $foto = "programPelatihan/" . uniqid() . "." . $ext;
 
         return response()->json(array(
             'status' => 'oke',
-            'msg' => view('sesipelatihan.modal', compact('sesiPelatihan','foto'))->render()
+            'msg' => view('sesipelatihan.modal', compact('sesiPelatihan'))->render()
         ), 200);
     }
 
