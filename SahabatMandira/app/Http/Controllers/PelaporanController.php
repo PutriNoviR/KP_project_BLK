@@ -70,7 +70,7 @@ class PelaporanController extends Controller
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('sesi_pelatihans_id', $id)
-            ->select('users.*','P.*','S.tanggal_mulai_pelatihan')
+            ->select('users.*','P.*','S.tanggal_mulai_pelatihan','S.tanggal_seleksi')
             ->get();
         // dd($peserta);
 
