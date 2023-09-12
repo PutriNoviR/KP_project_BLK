@@ -246,7 +246,7 @@ Pelatihan Peserta
                 </td>
                 @if($p == 1)
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" @if($d->status_fase == 'SEDANG PROSES PELATIHAN') disabled @endif>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" @if (strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d'))) disabled @endif>
                         Update Hasil Seleksi
                     </button>
                 </td>
