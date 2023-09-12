@@ -189,6 +189,8 @@ class PelatihanPesertaController extends Controller
         
 
         $flag = 0;
+
+        $cadangan = 0;
         // flag  0 -> normal
         // flag = 1 -> melebihi kuota
         // flag = 2 -> tanggal sekarang melampaui tgl mulai pelatihan
@@ -215,13 +217,26 @@ class PelatihanPesertaController extends Controller
                 'status_fase' => 'DITOLAK',
             );
         } elseif (($request->get('rekom_keputusan') == 'CADANGAN')) {
-            $update = array(
-                'rekom_catatan' => $request->get('rekom_catatan'),
-                'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
-                'rekom_keputusan' => $request->get('rekom_keputusan'),
-                'rekom_is_permanent' => $request->get('rekom_is_permanent'),
-                'status_fase' => 'PESERTA CADANGAN',
-            );
+            
+            $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
+            ->where('rekom_keputusan', '=', 'CADANGAN')
+            ->count();
+
+            if($jumlahCadangan > 3){
+                $cadangan = 1;
+            }
+            else {
+                
+                $update = array(
+                    'rekom_catatan' => $request->get('rekom_catatan'),
+                    'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
+                    'rekom_keputusan' => $request->get('rekom_keputusan'),
+                    'rekom_is_permanent' => $request->get('rekom_is_permanent'),
+                    'status_fase' => 'PESERTA CADANGAN',
+                );
+    
+            }
+
         }
 
         if (strtotime($tgl_mulai_pelatihan) <= strtotime('now')) {
@@ -235,15 +250,12 @@ class PelatihanPesertaController extends Controller
             //bisa juga disuspend/blacklist
         } else {
 
-            $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $idSesiPelatihan)
-            ->where('rekom_keputusan', '=', 'CADANGAN')
-            ->count();
+            if($cadangan == 1) {
 
-            if($jumlahCadangan > 3){
-                return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
-            }
-            else {
-                    
+                return redirect()->back()->with('failed', 'Gagal Mengupdate karena Jumlah Cadangan Max!');
+
+            } else {
+
                 DB::connection('mandira')
                 ->table('pelatihan_pesertas')
                 ->where('sesi_pelatihans_id', $request->get('sesi_pelatihans_id'))
@@ -252,7 +264,7 @@ class PelatihanPesertaController extends Controller
                     
                 return redirect()->back()->with('success', 'Berhasil Mengupdate');
             }
-
+            
         }
     }
 
