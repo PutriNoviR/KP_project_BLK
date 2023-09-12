@@ -197,7 +197,7 @@ class PelatihanPesertaController extends Controller
 
         // dd('1');
         if ($request->get('rekom_keputusan') == 'LULUS') {
-            if ($countDiterima < $kuota) {
+            if ($countDiterima <= $kuota) {
                 $update = array(
                     'rekom_catatan' => $request->get('rekom_catatan'),
                     'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
