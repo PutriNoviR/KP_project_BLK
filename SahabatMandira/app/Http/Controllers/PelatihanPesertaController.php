@@ -292,19 +292,10 @@ class PelatihanPesertaController extends Controller
         //
         $check = '1';
 
-        $jumlahCadangan = PelatihanPeserta::where('sesi_pelatihans_id', $id)
-        ->where('rekom_keputusan', '=', 'CADANGAN')
-        ->count();
-
-        if($jumlahCadangan > 3){
-            return redirect()->back()->with('failed', 'Gagal Update! Jumlah cadangan sudah max kuota!');
-        }
-        else {
-            return response()->json(array(
-                'status' => 'oke',
-                'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
-            ), 200);
-        }
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('pelatihanpeserta.modal', compact('data', 'check'))->render()
+        ), 200);
         
     }
 
