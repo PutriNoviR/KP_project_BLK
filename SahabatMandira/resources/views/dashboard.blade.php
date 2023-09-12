@@ -486,7 +486,7 @@ Dashboard
                         <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
                     </a><br><br>
 
-                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" @if(strtotime($d->tanggal_seleksi) < strtotime(date('Y-m-d')) && $checkStatusPeserta == null) disabled @endif>
+                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" @if(strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d')) && $checkStatusPeserta == null) disabled @endif>
                         <i>&nbsp;PEMBELAJARAN</i>
                     </button>
 
