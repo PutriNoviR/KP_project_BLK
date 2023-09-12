@@ -192,12 +192,16 @@ Pelatihan Peserta
                 <th>Daftar Ulang</th>
                 <th>Keputusan</th>
                 <th>Nilai TPA</th>
+                @if($p == 0)
                 <th>Nilai Rata-Rata Tugas</th>
                 <th>Nilai Akhir</th>
+                @endif
                 @if($p == 1)
                 <th>Aksi</th>
                 @endif
+                @if($p == 0)
                 <th>Kompetensi</th>
+                @endif
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <th>Daftar Ulangkan</th>
                 @endif
@@ -234,6 +238,7 @@ Pelatihan Peserta
                     </button> -->
                     {{ $d->rekom_nilai_TPA }}
                 </td>
+                @if($p == 0)
                 <td>
                     {{ round($d->nilai_rata_rata,2) }}
                 </td>
@@ -244,6 +249,7 @@ Pelatihan Peserta
                     </a>
 
                 </td>
+                @endif
                 @if($p == 1)
                 <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" @if (strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d'))) disabled @endif>
@@ -251,11 +257,13 @@ Pelatihan Peserta
                     </button>
                 </td>
                 @endif
+                @if($p == 0)
                 <td>
                     <button data-toggle="modal" @if(strtotime('now') < strtotime($periode->tanggal_selesai_pelatihan) || strtotime('now') >= strtotime($periode->tanggal_selesai_pelatihan ." + 3 days")) disabled @endif data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
+                @endif
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <td>
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">

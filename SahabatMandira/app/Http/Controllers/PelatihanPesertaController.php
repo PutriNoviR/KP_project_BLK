@@ -222,7 +222,7 @@ class PelatihanPesertaController extends Controller
             ->where('rekom_keputusan', '=', 'CADANGAN')
             ->count();
 
-            if($jumlahCadangan > 3){
+            if($jumlahCadangan > 2){
                 $cadangan = 1;
             }
             else {
