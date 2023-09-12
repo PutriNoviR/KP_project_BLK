@@ -38,6 +38,18 @@ Pelatihan Peserta
                         }).data(); //ambil data yang dicentang
                         var emails = [];
                         var sesi_id = '{{$id_sesi}}';
+
+                        var maxSelection = {{ $kuota }};
+
+                        if (data.length > maxSelection) {
+                            Swal.fire(
+                                'Batas Maksimal Seleksi Terlampaui',
+                                'Anda hanya dapat memilih maksimal ' + maxSelection + ' data.',
+                                'warning'
+                            );
+                            return;
+                        }
+
                         //ambil data yang di centang masukkan ke array
                         for (let i = 0; i < data.length; i++) {
                             emails.push(data[i][2]);

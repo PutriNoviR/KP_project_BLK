@@ -32,6 +32,7 @@ class PelatihanPesertaController extends Controller
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->get();
+            
         return view('pelatihanpeserta.index', compact('data', 'peserta'));
     }
 
@@ -106,8 +107,13 @@ class PelatihanPesertaController extends Controller
         $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
         ->Where('status_fase', 'CADANGAN')
         ->count();
+
         
-        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p','checkStatusPeserta'));
+        $kuota = DB::connection('mandira')
+            ->table('sesi_pelatihans')
+            ->where('id', $id_sesi)->value('kuota');
+        
+        return view('pelatihanpeserta.index', compact('data', 'periode', 'id_sesi','p','checkStatusPeserta','kuota'));
     }
 
     public function showPesertas($id)
@@ -528,6 +534,9 @@ class PelatihanPesertaController extends Controller
     {
         $emails = $request->emails;
         $sesi_id = $request->sesi_id;
+        $kuota = DB::connection('mandira')
+            ->table('sesi_pelatihans')
+            ->where('id', $sesi_id)->value('kuota');
 
         $sesi = SesiPelatihan::find($sesi_id);
         if (strtotime('now') >= strtotime($sesi->tanggal_mulai_pelatihan)) {
