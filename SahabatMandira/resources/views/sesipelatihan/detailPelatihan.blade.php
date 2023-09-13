@@ -35,7 +35,7 @@ PELATIHAN
             </div>
             <div class="card-body">
                 <h2>Deskripsi :</h2>
-                <h5>{{ $d->deskripsi}}</h5>
+                <h5>{!! $d->deskripsi !!}</h5>
             </div>
             <div class="card-body">
                 @php

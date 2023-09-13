@@ -190,6 +190,7 @@ Route::post('pelatihanPeserta/getKompetensiForm', 'PelatihanPesertaController@ge
 Route::put('pelatihanPeserta/{email}', 'PelatihanPesertaController@update')->name('pelatihanPesertas.update');
 Route::put('Kompetensi/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
 Route::post('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
+Route::get('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@lihatBukti')->name('PelatihanPeserta.lihatBuktiDaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi', 'PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 Route::post('pelatihanPeserta/getDetail','PelatihanPesertaController@getDetail')->name('pelatihanPeserta.getDetail');
 Route::post('pelatihanPeserta/updateSeleksiMasal', 'PelatihanPesertaController@updateSeleksiMasal')->name('pelatihanPeserta.updatemasal');

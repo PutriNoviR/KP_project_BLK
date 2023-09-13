@@ -7,7 +7,7 @@ use App\PelatihanPeserta;
 use App\PelatihanMentor;
 use App\User;
 use App\PelatihanOther;
-use Auth;
+// use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\MandiraMentoring;
 use App\PelatihanVendor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SesiPelatihanController extends Controller
 {
@@ -33,6 +34,8 @@ class SesiPelatihanController extends Controller
     {
         //
         $blk = null;
+        $tanggalSekarang = Carbon::now()->format('Y-m-d H:i:m');
+        $pelatihanPeserta = "";
         if (auth()->user()->role->nama_role == 'adminblk') {
 
             $blk_id = auth()->user()->blks_id_admin;
@@ -48,6 +51,10 @@ class SesiPelatihanController extends Controller
         } else {
 
             $data = SesiPelatihan::all();
+            $email = Auth::user()->email;
+            $pelatihanPeserta = PelatihanPeserta::where(
+                'email_peserta', $email 
+            )->get();
 
         }
 
@@ -97,7 +104,7 @@ class SesiPelatihanController extends Controller
 
         // dd($checkStatusPeserta);
 
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima','checkStatusPeserta'));
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima','checkStatusPeserta', 'tanggalSekarang', 'pelatihanPeserta'));
     }
 
     /**

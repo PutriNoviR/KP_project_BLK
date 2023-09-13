@@ -91,6 +91,7 @@ class TugasPeserta extends Model
                 $join->on('jtp.users_email', '=', 'pp.email_peserta');
             })
             ->where('tugas_pesertas.id', $id)
+            ->where('pp.rekom_keputusan', 'LULUS')
             ->select('tugas_pesertas.*', 'pp.email_peserta', 'jtp.nilai')
             ->distinct('tugas_pesertas.id')
             ->get();

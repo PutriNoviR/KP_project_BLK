@@ -203,7 +203,7 @@ class PelatihanPesertaController extends Controller
 
         // dd('1');
         if ($request->get('rekom_keputusan') == 'LULUS') {
-            if ($countDiterima <= $kuota) {
+            if ($countDiterima < $kuota) {
                 $update = array(
                     'rekom_catatan' => $request->get('rekom_catatan'),
                     'rekom_nilai_TPA' => $request->get('rekom_nilai_TPA'),
@@ -258,7 +258,7 @@ class PelatihanPesertaController extends Controller
 
             if($cadangan == 1) {
 
-                return redirect()->back()->with('failed', 'Gagal Mengupdate karena Jumlah Cadangan Max!');
+                return redirect()->back()->with('failed', 'Gagal Mengupdate karena Jumlah Cadangan Sudah Terpenuhi!');
 
             } else {
 
@@ -579,6 +579,23 @@ class PelatihanPesertaController extends Controller
             
             return redirect()->back()->with('success', 'Data nilai akhir berhasil di update !');
         }
+    }
+
+    public function lihatBukti(Request $request){
+        $emailUser = auth()->user()->email;
+        $data = DB::connection('mandira')
+        ->table('pelatihan_pesertas as pp')
+        ->join('sesi_pelatihans as s', 'pp.sesi_pelatihans_id', '=', 's.id')
+        ->join('masterblk_db.users as u', 'pp.email_peserta', '=', 'u.email')
+        ->join('masterblk_db.paket_program as pr', 'pr.id', '=', 's.paket_program_id')
+        ->join('masterblk_db.blks as b', 'pr.blks_id', 'b.id')
+        ->join('masterblk_db.sub_kejuruans as sk', 'pr.sub_kejuruans_id', 'sk.id')
+        ->join('masterblk_db.kejuruans as k', 'pr.kejuruans_id', 'k.id')
+        ->where('s.id', $request->id)
+        ->where('u.email', $emailUser)
+        ->selectRaw("CONCAT(u.nama_depan,' ',u.nama_belakang) AS nama, b.nama as blk, k.nama as kejuruan, sk.nama as subkejuruan, s.lokasi, s.tanggal_mulai_pelatihan as mulai, s.tanggal_selesai_pelatihan as selesai")
+        ->first();
+        return view('pelatihanpeserta.jadwalSeleksi', compact('data'));
     }
 
 }

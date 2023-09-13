@@ -424,7 +424,7 @@ Dashboard
 
 @if(Auth::user()->role->nama_role == 'verifikator')
 <div class="container">
-    @if (!is_null($pesertaDiterima))
+    {{-- @if (!is_null($pesertaDiterima))
     <div class="d-flex justify-content-between mb-2">
         <h2>Lihat hasil peserta yang diterima</h2>
         <a href="{{ route('pelatihanPeserta.pesertaDiterima') }}" class="button btn btn-primary">
@@ -433,7 +433,7 @@ Dashboard
     </div>
     
     <hr>
-    @endif
+    @endif --}}
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
     </div>
@@ -460,12 +460,12 @@ Dashboard
                 <td>{{ $d->paketprogram->blk->nama }}</td>
                 <td>{{ $d->paketprogram->kejuruan->nama }}</td>
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
-                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
+                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} s/d
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->lokasi }}</td>
                 <td>{{ $d->kuota }}</td>
-                <td>{{ $d->tanggal_seleksi }}</td>
+                <td>{{ date('d-M-y', strtotime($d->tanggal_seleksi)) }}</td>
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i>
                     </button></td>
@@ -474,19 +474,19 @@ Dashboard
                         <i class="fas fa-eye"></i>
                     </a> -->
                     <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-warning">
-                        <i class="fas fa-edit"></i> {{--PINDAHIN KE UI  --}}
+                        <i class="fas fa-edit"> Seleksi</i> {{--PINDAHIN KE UI  --}}
                     </a><br><br>
 
                     <a href="{{ url('pelatihanPeserta/pesertaDiterima/'.$d->id) }}" class="button btn btn-primary">
-                        <i class="fas fa-user"></i> {{--PINDAHIN KE UI  --}}
+                        <i class="fas fa-user"> Kompetensi</i> {{--PINDAHIN KE UI  --}}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-primary">
+                    <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-warning">
                         <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
-                    </a><br><br>
+                    </a>
 
-                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" @if(strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d')) && $checkStatusPeserta == null) disabled @endif>
+                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" @if(strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d')) && $checkStatusPeserta == 0) disabled @endif>
                         <i>&nbsp;PEMBELAJARAN</i>
                     </button>
 

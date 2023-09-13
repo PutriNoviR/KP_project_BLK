@@ -478,6 +478,7 @@ PELATIHAN
                 <th>Sub Kejuruan</th>
                 <th>Periode</th>
                 <th>Status</th>
+                <th>Bukti</th>
                 <th>Daftar</th>
                 <th>Pembelajaran</th>
                 <th>Sertifikat</th>
@@ -494,6 +495,11 @@ PELATIHAN
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->status_fase}}</td> {{-- lulus/ cadangan / tidak lulus--}}
+                <td>
+                    <a href="{{route('PelatihanPeserta.lihatBuktiDaftar',$d->id)}}" class="button btn btn-primary">
+                        Lihat Bukti Daftar
+                    </a>
+                </td>
                 <td>
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
                         @csrf
@@ -513,10 +519,31 @@ PELATIHAN
                     </form>
                 </td>
                 <td>
-                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" {{ $d->status_fase != 'DITERIMA' && $d->status_fase != 'SEDANG PROSES PELATIHAN' ? 'disabled' : '' }}>
-                        Pembelajaran
-                    </button>
+                    @php
+                    date_default_timezone_set("Asia/Bangkok");
+                    $tanggalSekarang = strtotime('now');
+                    $tanggalMulai = strtotime($d->tanggal_mulai_pelatihan);
+                    $tanggalselesai = strtotime($d->tanggal_selesai_pelatihan);
 
+                    @endphp
+                    @if($pelatihanPeserta->isNotEmpty())
+                        @foreach($pelatihanPeserta as $pelatihan)
+                            @if($pelatihan->sesi_pelatihans_id == $d->id)
+                                @if($tanggalSekarang >= $tanggalMulai && $tanggalSekarang <= $tanggalselesai && $pelatihan->rekom_keputusan == 'LULUS' && $pelatihan->is_daftar_ulang == 1)
+                                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                                        Pembelajaran</i>
+                                    </a>
+                                    @else
+                                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary" style="pointer-events:none;">
+                                        Pembelajaran</i>
+                                    </a>
+                                @endif
+                            @endif
+                        @endforeach
+                    @endif
+                        {{-- <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" {{ $d->status_fase != 'DITERIMA' && $d->status_fase != 'SEDANG PROSES PELATIHAN' ? 'disabled' : '' }}>
+                            Pembelajaran
+                        </button> --}}
                 </td>
                 <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
@@ -563,7 +590,7 @@ PELATIHAN
                 <td>{{ $d->paketprogram->blk->nama }}</td>
                 <td>{{ $d->paketprogram->kejuruan->nama }}</td>
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
-                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
+                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} s/d
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->lokasi }}</td>
@@ -656,7 +683,7 @@ PELATIHAN
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i>
                     </button></td>
-                
+
                 <td>{{ $d->kuota }}</td>
                 <td>
                     @php

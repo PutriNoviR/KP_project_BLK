@@ -75,7 +75,7 @@ PELATIHAN
                 <td>{{ $d->paketprogram->blk->nama }}</td>
                 <td>{{ $d->paketprogram->kejuruan->nama }}</td>
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
-                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
+                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} s/d
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->lokasi }}</td>

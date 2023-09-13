@@ -9,7 +9,7 @@ class PelatihanPeserta extends Model
     //
     protected $table = 'pelatihan_pesertas';
     protected $connection = 'mandira'; //koneksi apababila tabel berada pada database yang berbeda
-
+    public $incrementing = false;
 
     public function user()
     {

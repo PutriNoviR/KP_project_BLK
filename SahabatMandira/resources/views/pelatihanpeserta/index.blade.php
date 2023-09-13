@@ -256,15 +256,27 @@ Pelatihan Peserta
                 </td>
                 <td>
                     {{ $d->nilai_akhir}}<br>
+
+                    @php
+                    date_default_timezone_set("Asia/Bangkok");
+                    $tanggalSekarang = strtotime('now');
+                    $tanggalSeleksi = strtotime($periode->tanggal_seleksi);
+                    @endphp
+
+                    @if($tanggalSekarang > $tanggalSeleksi)
                     <a class='btn btn-primary text-white' data-toggle="modal" data-target="#modalEditNilaiAkhir{{$loop->iteration}}" class='btn btn-primary text-white'>
                         Update Nilai Akhir
                     </a>
-
+                    @else
+                    <a class='btn btn-primary text-white' data-toggle="modal" data-target="#modalEditNilaiAkhir{{$loop->iteration}}" class='btn btn-primary text-white' style="pointer-events:none;">
+                        Update Nilai Akhir
+                    </a>
+                    @endif
                 </td>
                 @endif
                 @if($p == 1)
                 <td>
-                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" @if (strtotime($d->tanggal_seleksi) > strtotime(date('Y-m-d'))) disabled @endif>
+                    <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
                         Update Hasil Seleksi
                     </button>
                 </td>

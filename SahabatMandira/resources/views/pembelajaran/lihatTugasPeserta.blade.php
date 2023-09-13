@@ -1,6 +1,6 @@
 @extends('layouts.adminlte')
 @section('title')
-DETAIL TUGAS PESERTA PELATIHAN NAMA INI BUAT KAYAK PELAPORAN
+DETAIL TUGAS PESERTA PELATIHAN
 @endsection
 @section('contents')
 <nav>
@@ -241,7 +241,7 @@ DETAIL TUGAS PESERTA PELATIHAN NAMA INI BUAT KAYAK PELAPORAN
             <td>{{$d['namaLengkap']}}</td>
             <td>{{$d['updated_at']}}</td>
             <td>
-              GA KUMPUL
+              Peserta Belum Mengumpulkan
             </td>
           </tr>
 

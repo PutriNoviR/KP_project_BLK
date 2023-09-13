@@ -290,7 +290,7 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksi{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')"  @if (strtotime($d->tanggal_seleksi) < strtotime(date('Y-m-d'))) disabled @endif >
                 Update Hasil Seleksi
               </button>
           </tr>
@@ -433,7 +433,7 @@ Pelaporan
               </a>
             </td>
             <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiIkut{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiIkut{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')"  @if (strtotime($d->tanggal_seleksi) < strtotime(date('Y-m-d'))) disabled @endif >
                 Update Hasil Seleksi
               </button>
           </tr>
@@ -663,7 +663,7 @@ Pelaporan
             </a>
           </td>
           <td>
-            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" >
+            <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiCalonPesertaCadangan{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')"  @if (strtotime($d->tanggal_seleksi) < strtotime(date('Y-m-d'))) disabled @endif >
               Update Hasil Seleksi
             </button>
           </td>
@@ -810,7 +810,7 @@ Pelaporan
             </a>
           </td>
           <td>
-              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiPesertaDaftarUlang{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
+              <button data-toggle="modal" data-target="#modalUpdateHasilSeleksiPesertaDaftarUlang{{$d->username}}" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')"  @if (strtotime($d->tanggal_seleksi) < strtotime(date('Y-m-d'))) disabled @endif>
                 Update Hasil Seleksi
               </button>
             </td>
