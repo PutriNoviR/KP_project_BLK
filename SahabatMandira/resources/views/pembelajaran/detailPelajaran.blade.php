@@ -6,6 +6,12 @@ DETAIL PEMBELAJARAN
 
 @section('javascript')
 <script>
+    $(function() {
+        $("#myTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
     function submitFormDelete(form) {
         swal({
                 title: "Peringatan!",

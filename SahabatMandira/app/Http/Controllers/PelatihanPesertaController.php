@@ -268,7 +268,7 @@ class PelatihanPesertaController extends Controller
                 ->where('email_peserta', $email)
                 ->update($update);
                     
-                return redirect()->back()->with('success', 'Berhasil Mengupdate');
+                return redirect()->back()->with('success', 'Berhasil Mengupdate Hasil Seleksi');
             }
             
         }
