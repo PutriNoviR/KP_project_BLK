@@ -137,24 +137,22 @@ class HomeController extends Controller
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
 
-        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-            ->WHERE('P.mentors_email', '=', $userLogin)
-            ->where('sesi_pelatihans.is_delete',0)
-            ->get();
+        $dataInstruktur = SesiPelatihan::getDataPelatihan($userLogin);
+        // dd($dataInstruktur);
 
         $suspend = auth()->user()->is_suspend;
 
         $pesertaDiterima = PelatihanPeserta::Where('status_fase', 'DITERIMA')->get();
         // dd($suspend);
 
-        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
-        ->Where('status_fase', 'CADANGAN')
+        $checkStatusPeserta = PelatihanPeserta::Where('rekom_keputusan', 'CADANGAN')
+        ->orWhere('rekom_keputusan', 'NULL')
         ->count();
         // $pelatihans = PelatihanMentor::where('mentors_email','kiky3@gmail.com')->get();
         // $sesi = SesiPelatihan::where('id',$pelatihans[0]->sesi_pelatihans_id)->first();
         // dd($checkStatusPeserta);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat','checkStatusPeserta'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat', 'checkStatusPeserta'));//
 
         // return view('dashboard');
     }

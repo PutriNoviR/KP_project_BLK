@@ -17,6 +17,7 @@
             </div>
             <div class="form-group">
                 <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
+                {{-- pake if kalo datanya ada, maka required nya hilang --}}
                 <input type="file" id="fotoPelatihanInput" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
             </div>
 
@@ -146,12 +147,12 @@
             </div>
 
             <div class="form-group">
-                <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
+                <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota Peserta Diterima') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota" value="{{$sesiPelatihan->kuota}}">
             </div>
 
             <div class="form-group">
-                <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
+                <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota Pendaftar') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota_daftar" value="{{$sesiPelatihan->kuota_daftar}}">
             </div>
 
