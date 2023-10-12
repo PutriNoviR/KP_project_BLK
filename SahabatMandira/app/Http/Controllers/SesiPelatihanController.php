@@ -226,34 +226,37 @@ class SesiPelatihanController extends Controller
      */
     public function update(Request $request, SesiPelatihan $sesiPelatihan)
     {
-        if (!$request->hasFile('fotoPelatihan')) {
-            return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
-        }
+        $regexPattern = "/^[a-zA-Z0-9-]+$/";
 
-        //melakukan update ke database tabel sesi_pelatihans
-        $sesiPelatihan->tanggal_pendaftaran = $request->tanggal_pendaftaran;
-        $sesiPelatihan->tanggal_tutup = $request->tanggal_tutup;
-        $sesiPelatihan->deskripsi = $request->deskripsi;
-        $sesiPelatihan->lokasi = $request->lokasi;
-        $sesiPelatihan->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
-        $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
-        $sesiPelatihan->harga = $request->harga;
-        $sesiPelatihan->kuota = $request->kuota;
-        $sesiPelatihan->kuota_daftar = $request->kuota_daftar;
-        $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
-        $sesiPelatihan->paket_program_id = $request->paket_program_id;
-        $sesiPelatihan->jamPelajaran = $request->jamPelajaran;
-        $sesiPelatihan->nomorSurat = $request->nomorSurat;
-        $sesiPelatihan->tanggalSurat = $request->tanggalSurat;
-        $sesiPelatihan->tanggalSertif = $request->tanggalSertif;
-        $sesiPelatihan->aktivitas = $request->aktivitas;
-        $sesiPelatihan->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
-        $sesiPelatihan->tanggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
-        $sesiPelatihan->sumber_dana = $request->sumberDana;
-        $sesiPelatihan->nilai_minimal_lulus = $request->nilaiMinimalLulus;
-        $foto = $request->file('fotoPelatihan')->store('programPelatihan');
+    if (
+        !preg_match($regexPattern, $request->tanggal_pendaftaran) ||
+        !preg_match($regexPattern, $request->tanggal_tutup) ||
+        !preg_match($regexPattern, $request->deskripsi) ||
+        !preg_match($regexPattern, $request->lokasi) ||
+        !preg_match($regexPattern, $request->tanggal_mulai_pelatihan) ||
+        !preg_match($regexPattern, $request->tanggal_selesai_pelatihan) ||
+        !preg_match($regexPattern, $request->harga) ||
+        !preg_match($regexPattern, $request->kuota) ||
+        !preg_match($regexPattern, $request->kuota_daftar) ||
+        !preg_match($regexPattern, $request->tanggal_seleksi) ||
+        !preg_match($regexPattern, $request->paket_program_id) ||
+        !preg_match($regexPattern, $request->jamPelajaran) ||
+        !preg_match($regexPattern, $request->nomorSurat) ||
+        !preg_match($regexPattern, $request->tanggalSurat) ||
+        !preg_match($regexPattern, $request->tanggalSertif) ||
+        !preg_match($regexPattern, $request->aktivitas) ||
+        !preg_match($regexPattern, $request->tanggalMulaiDaftarUlang) ||
+        !preg_match($regexPattern, $request->tanggalSelesaiDaftarUlang) ||
+        !preg_match($regexPattern, $request->sumberDana) ||
+        !preg_match($regexPattern, $request->nilaiMinimalLulus)
+    ) {
+        return redirect()->back()->with('error', 'Input tidak valid. Hanya angka, huruf, dan tanda minus (-) yang diperbolehkan.');
+    }
 
-        $sesiPelatihan->gambar_pelatihan = $foto;
+    if (!$request->hasFile('fotoPelatihan')) {
+        return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
+    }
+
         $sesiPelatihan->save();
         return redirect()->back()->with('success', 'Data sesi berhasil diubah!');
     }
