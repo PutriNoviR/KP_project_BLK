@@ -97,6 +97,7 @@ Perusahaan
                 <th>No</th>
                 <th>Nama Perusahaan</th>
                 <th>Bidang</th>
+                <th>Kota</th>
                 <th>Alamat</th>
                 <th>Kode Pos</th>
                 <th>Nomor Telepon</th>
@@ -114,6 +115,7 @@ Perusahaan
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $d->nama }}</td>
                 <td>{{ $d->bidang }}</td>
+                <td>{{ $d->kota }}</td>
                 <td>{{ $d->alamat }}</td>
                 <td>{{ $d->kode_pos }}</td>
                 <td>{{ $d->no_telp }}</td>

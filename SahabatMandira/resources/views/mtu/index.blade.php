@@ -69,7 +69,7 @@ PELATIHAN MTU
     function submitFormDisetujui(form) {
         swal({
                 title: "Peringatan!",
-                text: "Apakah anda yakin ingin menyetujui pengajuan MTU ini?",
+                text: "Apakah anda yakin ingin menyetujui pengajuan MTU ini?<br><input type="text" value="2" name="persetujuan">",
                 icon: "warning",
                 buttons: true,
                 dangerMode: false,

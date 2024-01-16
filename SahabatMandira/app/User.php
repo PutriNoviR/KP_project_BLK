@@ -43,6 +43,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
 
     protected $primaryKey = 'email';
     //perlu ditambahkan agar primary key dapat dikenali
@@ -54,7 +55,8 @@ class User extends Authenticatable
     }
 
     public function Perusahaan(){
-        return $this->belongsTo('App\Perusahaan','verified_by');
+
+        return $this->belongsTo('App\Perusahaan','perusahaans_id_admin');
     }
     
     public function blk()
@@ -75,5 +77,18 @@ class User extends Authenticatable
     public function hasRole($roleName)
     {
         return $this->roles_id ==$roleName;
+    }
+    public function pencaker()
+    {
+        return $this->hasMany('App\Pencaker','users_email','email');
+    }
+
+    public function lamaran()
+    {
+        return $this->hasMany('App\Lamaran','users_email','email');
+    }
+    public function pelatihan_peserta(){
+        
+        return $this->belongsToMany('App\PelatihanPeserta','email_peserta' , 'email');
     }
 }

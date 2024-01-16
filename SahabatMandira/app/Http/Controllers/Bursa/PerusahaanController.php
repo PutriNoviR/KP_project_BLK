@@ -6,6 +6,7 @@ use App\Perusahaan;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
+use App\DokumenPerusahaan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ use Session;
 class PerusahaanController extends Controller
 {
     /**
+     * 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -52,6 +54,7 @@ class PerusahaanController extends Controller
         $validatedData = $request->validate([
             'namaperusahaan' => 'required|max:200',
             'bidang' => ' required|max:200', 
+            'kota' => ' required|max:200', 
             'alamat' => 'required|max:200',
             'kode_pos' => 'required|digits:5',
             'no_telp' => 'required|max:12',
@@ -70,6 +73,7 @@ class PerusahaanController extends Controller
         $perusahaan = new Perusahaan();
         $perusahaan->nama=$validatedData['namaperusahaan'];
         $perusahaan->bidang=$validatedData['bidang'];
+        $perusahaan->kota=$validatedData['kota'];
         $perusahaan->alamat=$validatedData['alamat'];
         $perusahaan->kode_pos=$validatedData['kode_pos'];
         $perusahaan->no_telp=$validatedData['no_telp'];
@@ -123,6 +127,7 @@ class PerusahaanController extends Controller
         // dd($request,$perusahaan);
         $perusahaan->nama=$request->nama_perusahaan;
         $perusahaan->bidang=$request->bidang_perusahaan;
+        $perusahaan->kota=$request->kota_perusahaan;
         $perusahaan->alamat=$request->alamat_perusahaan;
         $perusahaan->kode_pos=$request->kodepos_perusahaan;
         $perusahaan->tentang_perusahaan=$request->tentang_perusahaan;
@@ -185,10 +190,125 @@ class PerusahaanController extends Controller
         ),200);
     }
 
-    // public function posting()
-    // {
-    //     //compact untuk kirim data
-    //     $lowongan = Lowongan::all();
-    //     return view("welcome", compact("lowongan"));
-    // }
+    public function uploadDokumen(Request $request){
+
+        //NPWP
+        $npwp = $request->file('NPWP');
+        //Tempat File akan disimpan
+        $folderPathNpwp = storage_path('app/public/npwp/');
+        //GET Nama File yang upload
+        $filenameWithExt = $request->file('NPWP')->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //Get Jenis file ex : pdf
+        $extension = $request->file('NPWP')->getClientOriginalExtension();
+        //Tambah Namafile denggan tanggal
+        $fileNameToStore = $filename.'-'.time().'.'.$extension;
+        //Mengganti Spasi dengan '_'
+        $namesave = str_replace(" " , "_" , $fileNameToStore);
+        //Simpan FIle ke Storage
+        $npwp->move($folderPathNpwp, $namesave);
+
+        //ADD Data On databse
+        $cekNPWP = DokumenPerusahaan::where('perusahaans_id',Auth::user()->perusahaans_id_admin)->where('nama','NPWP')->first();
+        // dd($cekNPWP);
+        if($cekNPWP != null){
+            $cekNPWP->nama = 'NPWP';
+            $cekNPWP->value = $namesave;
+            $cekNPWP->perusahaans_id = Auth::user()->perusahaans_id_admin;
+            $cekNPWP->save();
+        }
+        else{
+            $dokumenNpwp = new DokumenPerusahaan();
+            $dokumenNpwp->nama = 'NPWP';
+            $dokumenNpwp->value = $namesave;
+            $dokumenNpwp->perusahaans_id = Auth::user()->perusahaans_id_admin;
+            $dokumenNpwp->save();
+        }
+
+        //SIUP
+        $siup = $request->file('SIUP');
+        $folderPathSiup = storage_path('app/public/siup/');
+
+        $filenameWithExt2 = $request->file('SIUP')->getClientOriginalName();
+        $filename2 = pathinfo($filenameWithExt2, PATHINFO_FILENAME);
+        $extension2 = $request->file('SIUP')->getClientOriginalExtension();
+        $fileNameToStore2 = $filename2.'-'.time().'.'.$extension2;
+        $namesave2 = str_replace(" " , "_" , $fileNameToStore2);
+
+        $siup->move($folderPathSiup, $namesave2);
+
+        $cekSIUP = DokumenPerusahaan::where('perusahaans_id', Auth::user()->perusahaans_id_admin)->where('nama','SIUP')->first();
+
+        if($cekSIUP != null){
+            $cekSIUP->nama = 'SIUP';
+            $cekSIUP->value = $namesave2;
+            $cekSIUP->perusahaans_id = Auth::user()->perusahaans_id_admin;
+            $cekSIUP->save();
+        }
+        else{
+        $dokumenSiup = new DokumenPerusahaan();
+        $dokumenSiup->nama = 'SIUP';
+        $dokumenSiup->value = $namesave2;
+        $dokumenSiup->perusahaans_id = Auth::user()->perusahaans_id_admin;
+        $dokumenSiup->save();
+        }
+
+        //NIB
+        $cekNIB = DokumenPerusahaan::where('perusahaans_id', Auth::user()->perusahaans_id_admin)->where('nama','NIB')->first();
+        
+        if($cekNIB != null){
+            $cekNIB->nama = 'NIB';
+            $cekNIB->value = $request->get('NIB');
+            $cekNIB->perusahaans_id = Auth::user()->perusahaans_id_admin;
+            $cekNIB->save();
+        }
+        else{
+            $dokumenNib = new DokumenPerusahaan();
+            $dokumenNib->nama = 'NIB';
+            $dokumenNib->value = $request->get('NIB');
+            $dokumenNib->perusahaans_id = Auth::user()->perusahaans_id_admin;
+            $dokumenNib->save();
+        }
+        
+
+        return redirect()->route('perusahaan.profile')->with('success', 'Data perusahaan berhasil diubah!');
+    }
+
+    public function getDokumen()
+    {
+        // $perusahaan = Perusahaan::all();
+        //
+        $perusahaan = Perusahaan::where('verified_by',null)->get();
+        // dd($perusahaan);
+        return view('perusahaan.dokumen', compact('perusahaan'));
+    }
+
+    public function validasiPerusahaan($id)
+    {
+        $perusahaan = Perusahaan::find($id);
+        $perusahaan->verified_by = Auth::user()->role->nama_role = 'superadmin';
+        $perusahaan->save();
+
+        return redirect()->back()->with('success', 'Perusahaan divalidasi!');
+    }
+
+    public function semuadata()
+    {
+        // $perusahaan = Perusahaan::all();
+        //
+        $perusahaan = Perusahaan::all();
+        // dd($perusahaan);
+        return view('perusahaan.semuadata', compact('perusahaan'));
+    }
+
+    public function download($file){
+
+        $item = explode('^' , $file);
+        $nama = $item[0];
+        $fileName = $item[1];
+
+        // dd($fileName);
+
+        return response()->download(storage_path('app/public/'.$nama.'/'.$fileName));
+     }
 }

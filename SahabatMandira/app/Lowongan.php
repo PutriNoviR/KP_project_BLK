@@ -23,4 +23,12 @@ class Lowongan extends Model
     {
         return $this->hasMany(DokumenLowongan::class,'lowongans_id');
     }
+    public function pencaker()
+    {
+        return $this->hasMany(pencaker::class,'lowongans_id','id');
+    }
+    public function bidang_kerja(){
+        
+        return $this->belongsTo('App\bidang_kerja' , 'bidang_kerja_id');
+    }
 }

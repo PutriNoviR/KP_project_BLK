@@ -20,7 +20,12 @@ class ListKerjaController extends Controller
         //
         // return view ("bursa.listKerja");
         // $data=Perusahaan::ListKerja();
-        $data = Lowongan::all();
+
+        $currentDateTime = date("Y-m-d H:i:s");
+        // dd($currentDateTime);
+        $data = Lowongan::where('tanggal_kadaluarsa','>=',$currentDateTime)
+        ->orderBy('tanggal_pemasangan', 'desc')->get();
+        // dd($data);  
         return view('bursa.listKerja', compact('data'));
     }
 

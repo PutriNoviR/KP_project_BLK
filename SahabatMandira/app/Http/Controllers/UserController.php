@@ -72,7 +72,7 @@ class UserController extends Controller
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->tempat_lahir =$request->tempatLahir;
-        $User->tanggal_lahir=$request->tanggalLahir;
+        $User->tanggal_lahir=$request->tanggal_lahir;
 
         $User->save();
         return view();
@@ -119,6 +119,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $User)
     {
+
+        // dd($request);
         // return $request;
         //
         // dd($User, $request->id);
@@ -154,7 +156,7 @@ class UserController extends Controller
         $User->jenis_kelamin = $request->jenis_kelamin;
         $User->pendidikan_terakhir = $request->pendidikan_terakhir;
         $User->tempat_lahir =$request->tempatLahir;
-        $User->tanggal_lahir=$request->tanggalLahir;
+        $User->tanggal_lahir=$request->tanggal_lahir;
 
         // $update = array(
         //     'jenis_identitas'       => 'KTP',
@@ -358,6 +360,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        // dd($request);
         $userLogin = auth()->user()->email;
         $type = $request->type;
         $update = array(
@@ -367,7 +370,8 @@ class UserController extends Controller
             'nomer_hp'              => $request->nomer_hp,
             'alamat'                => $request->domisili,
             'jenis_kelamin'         => $request->jenis_kelamin,
-            'pendidikan_terakhir'   => $request->pendidikan_terakhir
+            'pendidikan_terakhir'   => $request->pendidikan_terakhir,
+            'tanggal_lahir'         => $request->tanggal_lahir
         );
 
         if ($type == 'mentor') {
@@ -409,7 +413,8 @@ class UserController extends Controller
 
         $update = DB::table('users')->where('email', $userLogin)->update($update);
 
-        return back();
+        return redirect()->back()->with('success','Data Profile Berhasil diubah!');
+        // return back();
     }
 
     public function riwayatVerifikator(Request $request)

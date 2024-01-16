@@ -253,7 +253,15 @@ Dashboard
         <a href="https://ubayavii.id" class="button btn btn-primary" target="_blank">IKUTI TES SEKARANG !</a>
     </center>
 </div>
+
+<div class="alert alert-success" role="alert">
+    <center>Lowongan pekerjaan dapat dilihat pada halaman Bursa Kerja ! &nbsp;&nbsp;&nbsp;
+        <a href="/bursa/listKerja" class="button btn btn-primary">LIHAT BURSA !</a>
+    </center>
+</div>
 @else
+
+
 <div class="container">
     <div class="col-sm-6">
         <h4 class="m-0 text-dark">PROGRAM PELATIHAN</h4><br>

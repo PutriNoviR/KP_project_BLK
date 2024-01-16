@@ -82,6 +82,12 @@ Route::middleware('super.admin')->group(function () {
     Route::delete('datapegawai/adminblk/hapus/{email}', 'UserController@hapusAdminBlk')->name('super.adminblk.destroy');
     Route::put('datapegawai/adminblk/edit', 'UserController@editAdminBlk')->name('super.adminblk.update');
     Route::post('datapegawai/adminblk/getEditForm', 'UserController@getEditFormAdminBlk')->name('super.adminblk.getEditForm');
+
+    // Perusahaan
+    Route::get('validasi/{id}', 'Bursa\PerusahaanController@validasiPerusahaan')->name('perusahaan.validasi');
+    Route::get('semuadata', 'Bursa\PerusahaanController@semuadata')->name('perusahaan.semuadata');
+    Route::get('files/{file}', 'Bursa\PerusahaanController@download')->name('download');
+
 });
 
 // Dashboard
@@ -92,6 +98,7 @@ Route::resource('menu/peserta', 'PesertaController');
 Route::post('menu/peserta/edit', 'PesertaController@getEditForm')->name('peserta.edit');
 Route::post('/kelengkapan data diri', 'PesertaController@kelengkapanDataPribadi')->name('pengguna.data.pribadi');
 Route::post('/kelengkapandokumen/', 'PesertaController@kelengkapanDataDokumen')->name('pengguna.data.dokumen');
+
 
 //CRUD
 Route::resource('soal', "PertanyaanController");
@@ -104,20 +111,36 @@ Route::get('menu/detailPelatihan', 'Pelatihan\KejuruanController@detailAllPelati
 Route::resource('menu/perusahaan', 'Bursa\PerusahaanController');
 Route::get('profile/perusahaan', 'Bursa\PerusahaanController@profile')->name('perusahaan.profile');
 Route::post('editFotoProfile', 'Bursa\PerusahaanController@editFoto')->name('perusahaan.editfoto');
+Route::post('uploadDokumen', 'Bursa\PerusahaanController@uploadDokumen')->name('perusahaan.uploadDokumen');
+Route::get('perusahaan/dokumen', 'Bursa\PerusahaanController@getDokumen')->name('perusahaan.getDokumen');
 
 //Lowongan
 Route::resource('menu/lowongan', 'Bursa\LowonganController');
 Route::post('menu/lowongan/getEdit', 'Bursa\LowonganController@getEdit')->name('lowongan.getEdit');
 Route::get('semua-lowongan', 'Bursa\LowonganController@semuaLowongan')->name('lowongan.semua');
+Route::post('semua-lowongan/filter', 'Bursa\LowonganController@filter')->name('filterLowongan');
+Route::get('log-lowongan/{id}', 'Bursa\LowonganController@showlog')->name('lowongan.log');
+Route::post('menu/lowongan/view', 'Bursa\LowonganController@view')->name('lowongan.view');
+Route::get('/search', 'Bursa\LowonganController@search')->name('search');
+
+//Pencaker
+Route::resource('menu/pencaker', 'PencakerController');
+Route::post('menu/pencaker/getEditForm', 'PencakerController@getEditForm')->name('pencaker.getEditForm');
 
 //List Kerja
 Route::resource('bursa/listKerja', 'Bursa\ListKerjaController');
+Route::resource('/bidang-kerja', 'BidangPekerjaanController');
+
+//LOG
+Route::resource('perusahaan/log', 'LogController');
+Route::resource('sendEmail', 'SendEmailController');
 
 //Lamaran
 Route::resource('lamaran', 'LamaranController');
 Route::post('lamaran/getEditForm', 'LamaranController@getEditForm')->name('lamaran.getEditForm');
 Route::get('/kegiatanku/lamaran', 'LamaranController@index')->name('lamaran.lamaranku');
 Route::post('/getDetailLamaranCard', 'LamaranController@getDetailLamaranCard')->name('lamaran.getDetailLamaranCard');
+Route::post('/showRiwayat', 'LamaranController@showRiwayat')->name('lamaran.showRiwayat');
 
 //Paket Program
 Route::resource('paketProgram', 'PaketProgramPelatihanController');

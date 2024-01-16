@@ -41,6 +41,21 @@
             </div>
 
             <div class="form-group">
+                <label for="kota" class="col-md-12 col-form-label">{{ __('Kota') }}</label>
+
+                <div class="col-md-12">
+                    <input id="kota" type="text" class="form-control @error('kota') is-invalid @enderror"
+                        name="kota" value="{{  }}" required autocomplete="kota" autofocus>
+
+                    @error('kota')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="alamat" class="col-md-12 col-form-label">{{ __('Alamat') }}</label>
 
                 <div class="col-md-12">

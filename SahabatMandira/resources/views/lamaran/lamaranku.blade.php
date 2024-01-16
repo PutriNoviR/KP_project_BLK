@@ -26,28 +26,27 @@ Lamaran Ku
 
 </script>
 @endsection
-
-@section('page-bar')
-<div class="w-100">
-    <div class="card card-primary card-outline card-outline-tabs">
-        <h1 class="m-3 font-weight-bolder">Kegiatan Ku</h1>
-        <div class="card-header p-0 border-bottom-0">
-            <div class="row">
-                <div class="col-4">
-                    <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                        <li class="nav-item w-50">
-                            <a class="nav-link active" id="custom-tabs-two-lamaran-tab" data-toggle="pill"
-                                href="#custom-tabs-two-lamaran" role="tab" aria-controls="custom-tabs-two-lamaran"
-                                aria-selected="true">Lamaran</a>
-                        </li>
-                    </ul>
+    @section('page-bar')
+    <div class="w-100">
+        <div class="card card-primary card-outline card-outline-tabs">
+            <h1 class="m-3 font-weight-bolder">Kegiatan Ku</h1>
+            <div class="card-header p-0 border-bottom-0">
+                <div class="row">
+                    <div class="col-4">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="nav-item w-50">
+                                <a class="nav-link active" id="custom-tabs-two-lamaran-tab" data-toggle="pill"
+                                    href="#custom-tabs-two-lamaran" role="tab" aria-controls="custom-tabs-two-lamaran"
+                                    aria-selected="true">Lamaran</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@endsection
+    @endsection
 @section('contents')
 <div class="row pb-4">
     <div class="col-4 overflow-auto">
@@ -61,15 +60,6 @@ Lamaran Ku
                             Secondary Block Quotes
                         </h3>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body clearfix">
-                        <blockquote class="quote-secondary">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                            </p>
-                            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                        </blockquote>
-                    </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
             <div class="tab-pane fade active show" id="custom-tabs-two-lamaran" role="tabpanel"
@@ -103,7 +93,7 @@ Lamaran Ku
                             </div>
                         </div>
                         <div class="font-weight-bolder">
-                            {{ $lamaran->lowongan->nama }}
+                            {{ $lamaran->lowongan->posisi }}
                         </div>
                         <div>
                             {{ $lamaran->lowongan->perusahaan->nama }}

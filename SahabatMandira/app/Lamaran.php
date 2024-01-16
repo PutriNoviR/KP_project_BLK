@@ -9,11 +9,15 @@ class Lamaran extends Model
 {
     //
     public $incrementing = false;
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $connection = 'mandira';
 
     public function lowongan()
     {
         return $this->belongsTo('App\Lowongan', 'lowongans_id');
+    }
+    public function User()
+    {
+        return $this->belongsTo('App\User','users_email');
     }
 }

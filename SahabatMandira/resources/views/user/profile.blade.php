@@ -1,197 +1,278 @@
 @extends('layouts.adminlte')
 
 @section('title')
-Profile
+    Profile
 @endsection
 
 @section('page-bar')
 @endsection
 
+@section('javascript')
+@endsection
+
 @section('contents')
 
-<div class="content mt-2">
-    <!-- START JUMBOTRON -->
-    <div class="jumbotron" data-pages="parallax">
-        <div class="container-fluid p-l-25 p-r-25 sm-p-l-0 sm-p-r-0">
-            <div class="row row m-b-40">
-                <div class="col-xl-3 col-lg-4 ">
-                    <!-- START card -->
-                    <div class="">
-                        <div class="card-body text-center">
-                            @if($data->pas_foto == null)
-                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/logo/default.png') }}" alt="">
-                            @else
-                            <img class="image-responsive-width" style="height: 90%; width: 90%;" src="{{ asset('storage/'.$data->pas_foto) }}" alt="">
-                            @endif
-                        </div>
-                    </div>
-                    <!-- END card -->
+    @if (\Session::has('success'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        Swal.fire({
+            icon: 'success', // Ganti dengan 'success', 'error', 'warning', atau 'info' sesuai kebutuhan Anda
+            title: 'Berhasil !',
+            text: '{!! \Session::get('success') !!}'
+        });
+    </script>
+    @endif
+    <!-- Edit Photo Modal -->
+    <div class="modal fade" id="editPhotoModal" tabindex="-1" role="dialog" aria-labelledby="editPhotoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPhotoModalLabel">Edit Photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="col-xl-9 col-lg-8 ">
-                    <!-- START card -->
-                    <div class="card card-transparent">
-                        <div class="card-body">
-                            <p class="overline">Data Pribadi</p>
-                            <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
-
-                            <p><br></p>
-                            <div class="mb-3">
-                                <a href="{{ asset('storage/'.$data->ktp) }}" class="btn btn-success" download="KTP_{{$data->email."_".$data->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
-                                <a href="{{ asset('storage/'.$data->ksk) }}" class="btn btn-primary" download="KSK_{{$data->email."_".$data->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
-                                <a href="{{ asset('storage/'.$data->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{$data->email."_".$data->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
-                            </div>
-                            <br>
-                            <div>
-                                <div class="m-t-20">
-                                    <p class=""></p>
-                                    <p class=""><i class="fa fa-copy ml-1" id="copy-pinkrs" style="cursor: pointer;" title="Salin"></i></p>
-                                    <input type="hidden" value="" id="pinkrs">
-                                </div>
-                            </div>
+                <div class="modal-body">
+                    <!-- Photo editing form with image input -->
+                    <form>
+                        <div class="form-group">
+                            <label for="photoInput">Choose Photo</label>
+                            <input type="file" class="form-control-file" id="photoInput" name="photo">
                         </div>
-                    </div>
-                    <!-- END card -->
+                        <!-- Your other form fields go here -->
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- END JUMBOTRON -->
 
-    <!-- SHOW ERROR MESSAGE -->
-    <!-- END SHOW ERROR MESSAGE -->
 
-    <div class="container-fluid container-fixed-lg ">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="card card-transparent">
-                    <!-- START card -->
-                    <div class="card card-default">
-                        <div class="card-header ">
-                            <div class="card-title">
+    <div class="content mt-2">
+        <!-- START JUMBOTRON -->
+        <div class="jumbotron" data-pages="parallax">
+            <div class="container-fluid p-l-25 p-r-25 sm-p-l-0 sm-p-r-0">
+                <div class="row row m-b-40">
+                    <div class="col-xl-3 col-lg-4 ">
+                        <!-- START card -->
+                        <div class="">
+                            <div class="card-body text-center">
+                                @if ($data->pas_foto == null)
+                                    <img class="img-fluid" src="{{ asset('storage/logo/default.png') }}" alt="">
+                                @else
+                                    <img class="img-fluid" src="{{ asset('storage/' . $data->pas_foto) }}" alt="">
+                                @endif
+                                <button class="btn btn-primary mt-2" id="edit-photo-button" data-toggle="modal"
+                                    data-target="#editPhotoModal">Edit Photo</button>
+                            </div>
+
+                        </div>
+                        <!-- END card -->
+                    </div>
+                    <div class="col-xl-9 col-lg-8 ">
+                        <!-- START card -->
+                        <div class="card card-transparent">
+                            <div class="card-body">
+                                <p class="overline">Data Pribadi</p>
+                                <h2>{{ $data->nama_depan }} {{ $data->nama_belakang }}</h2>
+
+                                <p><br></p>
+                                {{-- <div class="mb-3">
+                                <a href="{{ asset('storage/'.$data->ktp) }}" class="btn btn-success" download="KTP_{{$data->email."_".$data->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                                <a href="{{ asset('storage/'.$data->ksk) }}" class="btn btn-primary" download="KSK_{{$data->email."_".$data->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                                <a href="{{ asset('storage/'.$data->ijazah) }}" class="btn btn-warning" download="IJAZAH_{{$data->email."_".$data->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                            </div> --}}
+                                <br>
+                                <div>
+                                    <div class="m-t-20">
+                                        <p class=""></p>
+                                        <p class=""><i class="fa fa-copy ml-1" id="copy-pinkrs"
+                                                style="cursor: pointer;" title="Salin"></i></p>
+                                        <input type="hidden" value="" id="pinkrs">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h4>Data Pribadi</h4>
-                            <p class="m-t-10 m-b-20 text-justify"></p>
-                            <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('user.profile.update') }}">
-                                @csrf
-                                <input type="hidden" name='type' value='peserta'>
+                        <!-- END card -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END JUMBOTRON -->
 
-                                <div class="form-body">
+        <!-- SHOW ERROR MESSAGE -->
+        <!-- END SHOW ERROR MESSAGE -->
 
-                                    <div class="form-group">
-                                        <label for="email" class="col-md-12 col-form-label">{{ __('Email') }}</label>
-                                        <div class="col-md-12">
-                                            <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" value="{{ $data->email }}" name="email" readonly autocomplete="email" autofocus>
+        <div class="container-fluid container-fixed-lg ">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card card-transparent">
+                        <!-- START card -->
+                        <div class="card card-default">
+                            <div class="card-header ">
+                                <div class="card-title">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4>Data Pribadi</h4>
+                                <p class="m-t-10 m-b-20 text-justify"></p>
+                                <form role='form' method="POST" enctype="multipart/form-data"
+                                    action="{{ route('user.profile.update') }}">
+                                    @csrf
+                                    <input type="hidden" name='type' value='peserta'>
 
-                                            @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                    <div class="form-body">
+
+                                        <div class="form-group">
+                                            <label for="email"
+                                                class="col-md-12 col-form-label">{{ __('Email') }}</label>
+                                            <div class="col-md-12">
+                                                <input id="email" type="text"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    value="{{ $data->email }}" name="email" readonly autocomplete="email"
+                                                    autofocus>
+
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
                                         </div>
 
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="nama"
+                                                class="col-md-12 col-form-label">{{ __('Nama Depan') }}</label>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Depan') }}</label>
+                                            <div class="col-md-12">
+                                                <input id="nama" type="text"
+                                                    class="form-control @error('nama') is-invalid @enderror"
+                                                    value="{{ $data->nama_depan }}" name="nama_depan" required
+                                                    autocomplete="nama" autofocus>
 
-                                        <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_depan }}" name="nama_depan" required autocomplete="nama" autofocus>
-
-                                            @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                                @error('nama')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Nama Belakang') }}</label>
+                                        <div class="form-group">
+                                            <label for="nama"
+                                                class="col-md-12 col-form-label">{{ __('Nama Belakang') }}</label>
 
-                                        <div class="col-md-12">
-                                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ $data->nama_belakang }}" name="nama_belakang" required autocomplete="nama" autofocus>
+                                            <div class="col-md-12">
+                                                <input id="nama" type="text"
+                                                    class="form-control @error('nama') is-invalid @enderror"
+                                                    value="{{ $data->nama_belakang }}" name="nama_belakang" required
+                                                    autocomplete="nama" autofocus>
 
-                                            @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                                @error('nama')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="nik" class="col-md-12 col-form-label">{{ __('NIK') }}</label>
+                                        {{-- @if ($data->perusahaans_id_admin == null)
+                                            <div class="form-group">
+                                                <label for="nik"
+                                                    class="col-md-12 col-form-label">{{ __('NIK') }}</label>
 
-                                        <div class="col-md-12">
-                                            <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" value="{{ $data->nomor_identitas }}" name="nik" required autocomplete="nik" autofocus>
+                                                <div class="col-md-12">
+                                                    <input id="nik" type="text"
+                                                        class="form-control @error('nik') is-invalid @enderror"
+                                                        value="{{ $data->nomor_identitas }}" name="nik" required
+                                                        autocomplete="nik" autofocus>
 
-                                            @error('nik')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                                    @error('nik')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endif --}}
+
+                                        <div class="form-group">
+                                            <label for="tanggal_lahir"
+                                                class="col-md-12 col-form-label">{{ __('Tanggal Lahir') }}</label>
+
+                                            <div class="col-md-12">
+                                                <input id="tanggal_lahir" type="date"
+                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                                    value="{{ $data->tanggal_lahir }}" name="tanggal_lahir" required
+                                                    autocomplete="tanggal_lahir" autofocus>
+
+                                                @error('tanggal_lahir')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nomer_hp" class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
 
-                                        <div class="col-md-12">
-                                            <input id="nomer_hp" type="text" class="form-control @error('nomer_hp') is-invalid @enderror" value="{{ $data->nomer_hp }}" name="nomer_hp" required autocomplete="nomer_hp" autofocus>
+                                        <div class="form-group">
+                                            <label for="nomer_hp"
+                                                class="col-md-12 col-form-label">{{ __('Nomor Hp') }}</label>
 
-                                            @error('nomer_hp')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                            <div class="col-md-12">
+                                                <input id="nomer_hp" type="text"
+                                                    class="form-control @error('nomer_hp') is-invalid @enderror"
+                                                    value="{{ $data->nomer_hp }}" name="nomer_hp" required
+                                                    autocomplete="nomer_hp" autofocus>
+
+                                                @error('nomer_hp')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="domisili" class="col-md-12 col-form-label">{{ __('Domisili') }}</label>
 
-                                        <div class="col-md-12">
-                                            <input id="domisili" type="text" class="form-control @error('domisili') is-invalid @enderror" value="{{ $data->alamat }}" name="domisili" required autocomplete="domisili" autofocus>
-
-                                            @error('domisili')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                        <div class="form-group">
+                                            <label for="nama"
+                                                class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
+                                            <div class="col-md-12">
+                                                <select class="form-control" aria-label="Default select example"
+                                                    name="jenis_kelamin" required>
+                                                    <option value="">Pilih Jenis Kelamin</option>
+                                                    @foreach (['jenis_kelamin' => 'Laki-Laki', 'Perempuan'] as $jenis => $j)
+                                                        <option value="{{ $j }}"
+                                                            {{ $data->jenis_kelamin === $j ? 'selected' : '' }}>
+                                                            {{ $j }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Jenis Kelamin') }}</label>
-                                        <div class="col-md-12">
-                                            <select class="form-control" aria-label="Default select example" name="jenis_kelamin" required>
-                                                <!-- <option value="Laki-Laki">Laki-Laki</option>
-                                                <option value="Perempuan">Perempuan</option> -->
-                                                @foreach(["jenis_kelamin" => "Laki-laki","Perempuan"] AS $jenis => $j)
-                                                <option value="{{ $j }}" {{ ( $data->jenis_kelamin === $j) ? 'selected' : '' }}>{{ $j }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group">
+                                            <label for="nama"
+                                                class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
+                                            <div class="col-md-12">
+                                                <select class="form-control" aria-label="Default select example"
+                                                    name="pendidikan_terakhir" required>
+                                                    <option value="">Pilih Pendidikan</option>
+                                                    @foreach (['data_pendidikan' => 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'SMK Sederajat', 'D1/D2/D3/D4', 'Sarjana(Strata-1)', 'Pasca Sarjana'] as $pendidikan => $p)
+                                                        <option value="{{ $p }}"
+                                                            {{ $data->pendidikan_terakhir === $p ? 'selected' : '' }}>
+                                                            {{ $p }}</option>
+                                                    @endforeach
+                                                    <!-- <option value="SD Sederajat" {{ $data->pendidikan_terakhir === 'SD Sederajat' ? 'selected' : '' }} >SD Sederajat</option>
+                                                        <option value="SMP Sederajat" {{ $data->pendidikan_terakhir === 'SMP Sederajat' ? 'selected' : '' }} >SMP Sederajat</option>
+                                                        <option value="SMA Sederajat" {{ $data->pendidikan_terakhir === 'SMA Sederajat' ? 'selected' : '' }} >SMA Sederajat</option>
+                                                        <option value="S1" {{ $data->pendidikan_terakhir === 'S1' ? 'selected' : '' }} >S1</option>
+                                                        <option value="Pasca Sarjana" {{ $data->pendidikan_terakhir === 'Pasca Sarjana' ? 'selected' : '' }} >Pasca Sarjana</option> -->
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-md-12 col-form-label">{{ __('Pendidikan Terakhir') }}</label>
-                                        <div class="col-md-12">
-                                            <select class="form-control" aria-label="Default select example" name="pendidikan_terakhir" required>
-                                                @foreach(["data_pendidikan" => "SD Sederajat","SMP Sederajat","SMA Sederajat","SMK Sederajat","D1/D2/D3/D4","Sarjana(Strata-1)","Pasca Sarjana"] AS $pendidikan => $p)
-                                                <option value="{{ $p }}" {{ ( $data->pendidikan_terakhir === $p) ? 'selected' : '' }}>{{ $p }}</option>
-                                                @endforeach
-                                                <!-- <option value="SD Sederajat" {{ ( $data->pendidikan_terakhir === 'SD Sederajat') ? 'selected' : '' }} >SD Sederajat</option>
-                                                <option value="SMP Sederajat" {{ ( $data->pendidikan_terakhir === 'SMP Sederajat') ? 'selected' : '' }} >SMP Sederajat</option>
-                                                <option value="SMA Sederajat" {{ ( $data->pendidikan_terakhir === 'SMA Sederajat') ? 'selected' : '' }} >SMA Sederajat</option>
-                                                <option value="S1" {{ ( $data->pendidikan_terakhir === 'S1') ? 'selected' : '' }} >S1</option>
-                                                <option value="Pasca Sarjana" {{ ( $data->pendidikan_terakhir === 'Pasca Sarjana') ? 'selected' : '' }} >Pasca Sarjana</option> -->
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
+                                        {{-- <div class="form-group">
                                         <label for="pas_foto" class="col-md-12 col-form-label">{{ __('Pas Foto') }}</label>
 
                                         <input type="file" name='pas_foto' class="defaults" value="">
@@ -242,19 +323,18 @@ Profile
                                         <label for="dokumen_lima" class="col-md-12 col-form-label">{{ __('Dokumen Lima') }}</label>
 
                                         <input type="file" name='dokumen_lima' class="defaults" value="">
+                                    </div> --}}
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">SIMPAN</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
+                        <!-- END card -->
                     </div>
-                    <!-- END card -->
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 @endsection

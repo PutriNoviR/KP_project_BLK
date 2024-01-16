@@ -119,24 +119,7 @@ Bursa Kerja
 
 @section('contents')
 
-<div class="modal fade" id="modalDetailKerja" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Kerja</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="form-group">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Daftar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="col-sm-6">
     <h1 class="m-0 text-dark">BURSA KERJA</h1>
@@ -150,30 +133,47 @@ Bursa Kerja
                     @php
                     $itemke = 0;
                     @endphp
+                    {{-- Pengecekan kotak carouselnya --}}
                     @for ($i = 0; $i < 2; $i++) <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                         <div class="row">
                             @php
                             $count = 1;
                             @endphp
-
-                            @while ($itemke < count($data)) <div
+                            {{-- Nampilin data di dalam kotak --}}
+                            @while ($itemke < count($data)) 
+                            
+                            <div
                                 class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                                 <div class="card bg-light">
                                     <div class="card-header border-bottom-0 text-primary">
-                                        {{$data[$itemke]->nama}}
+                                        {{$data[$itemke]->posisi}}
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
                                             <div class="col-7">
-                                                <h1 class="lead"><b>{{ $data[$itemke]->perusahaan->nama }}</b></h1>
+                                                
+                                                <h1 class="lead"><b>{{$data[$itemke]->perusahaan->nama}}</b></h1>
                                                 {{-- <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic
                                                     Artist
                                                     /
                                                     Coffee Lover </p> --}}
-                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i
+                                                                    class="fas fa-lg fa-briefcase"></i></span> Bidang:
+                                                                    {{ $data[$itemke]->bidang_kerja->nama_bidang}}
+                                                                </li>
+                                                    </ul>
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i
+                                                                    class="fas fa-lg fa-building"></i></span> Kota:
+                                                                    {{ $data[$itemke]->kota }}
+                                                                </li>
+                                                    </ul>
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
                                                     <li class="small"><span class="fa-li"><i
                                                                 class="fas fa-lg fa-building"></i></span> Alamat:
-                                                        {{ $data[$itemke]->perusahaan->alamat }}</li>
+                                                                {{ $data[$itemke]->perusahaan->alamat }}
+                                                            </li>
                                                 </ul>
                                             </div>
                                             <div class="col-5 text-center">

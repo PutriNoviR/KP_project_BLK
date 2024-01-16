@@ -28,4 +28,14 @@ class Perusahaan extends Model
 
         return $data;
     }
+
+    public function Dokumen()
+    {
+        return $this->hasMany('App\DokumenPerusahaan','perusahaans_id','id');
+    }
+
+    public function user(){
+        
+        return $this->hasMany('App\User','perusahaans_id_admin' , 'id');
+    }
 }

@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\DokumenLamaran;
 use App\DokumenLowongan;
+use App\PelatihanPeserta;
 use App\Lamaran;
+use App\Lowongan;
 use App\User;
+use App\Us;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use App\Log;
+use App\Mail\NotifEmail;
+use Illuminate\Support\Facades\Mail;
 
 class LamaranController extends Controller
 {
@@ -25,7 +32,8 @@ class LamaranController extends Controller
     public function index()
     {
         //
-        $lamarans = Lamaran::where('users_email',Auth::user()->email)->get();
+        $lamarans = Lamaran::where('users_email',Auth::user()->email)->orderBy('tanggal_pelamaran', 'DESC')->get();
+
         return view('lamaran.lamaranku',compact('lamarans'));
     }
 
@@ -47,7 +55,6 @@ class LamaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $dokumenLowongan = DokumenLowongan::where('lowongans_id', $request->id_lowongan)->get();
         foreach ($dokumenLowongan as $dokumen) {
             $nama = str_replace(' ', '_', $dokumen->nama);
@@ -68,7 +75,15 @@ class LamaranController extends Controller
         $lamaran->users_email = Auth::user()->email;
         $lamaran->tanggal_pelamaran = Carbon::now();
         $lamaran->status = 'Terdaftar';
+        if($request->jenisGaji == 'gajiPokok'){
+            $lamaran->gaji=$request->gajiPokok;
+        }
+        else {
+            $lamaran->gaji=$request->minimalGaji."-".$request->maksimalGaji;
+        }
+
         $lamaran->save();
+
         return redirect()->back()->with('success','Lamaran berhasil dikirim!');
     }
 
@@ -80,15 +95,37 @@ class LamaranController extends Controller
      */
     public function show($id)
     {
-        //
         $lamarans = Lamaran::where('lowongans_id', $id)->get();
+
+        $lowongan = Lowongan::find($id);
         $users = [];
+        $pelatihans = [];
         foreach ($lamarans as $lamaran ) {
             $email = $lamaran->users_email;
             $user = User::where('email',$email)->first();
             $users[] = $user;
+
+            $data = DB::connection('mandira')
+            ->table('pelatihan_pesertas as pp')
+            ->where('email_peserta', $email)
+            ->first();
+
+            if($data != null){
+                $pelatihans[] = $data;
+            }
+            else{
+                $newData =(object) [
+                    "sesi_pelatihans_id" => 36,
+                    "email_peserta" => $email,
+                    "hasil_kompetensi" => null,
+                ];
+                $pelatihans[] = $newData;
+            }
+            
         }
-        return view('lamaran.showpelamar',compact('lamarans','users'));
+
+        // dd($pelatihans);
+        return view('lamaran.showpelamar',compact('lamarans','pelatihans','users','lowongan'));
     }
 
     /**
@@ -111,9 +148,55 @@ class LamaranController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $keterangan = $request->keterangan;
+        $keteranganVal = '';
+
+        if($keterangan != null){
+        for ($i=0; $i < count($keterangan) ; $i++) { 
+            if($keteranganVal == ''){
+                $keteranganVal =  $keterangan[$i];
+            }
+            else{
+                $keteranganVal =  $keteranganVal.' , '. $keterangan[$i] ;
+            }
+        }
+    }
         //
-        $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$id)->update(['status'=> $request->status]);
-        // dd($lamaran);
+        $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$id)
+        ->update(['status'=> $request->status , 'keterangan'=>$keteranganVal]);
+
+        $getLamaran =  Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$id)->first();
+
+        // dd($getLamaran->lowongan->perusahaan->nama);
+
+     //SendEmail
+     $nama = $getLamaran->users_email;
+     $data =[];
+     if($request->status == 'Diterima'){
+        $data = ['namauser' => $nama , 
+        'konten' => 'Selamat! Anda diterima untuk bergabung dengan tim kami di '.$getLamaran->lowongan->perusahaan->nama.'. Mohon konfirmasi tanggal mulai kerja Anda dan detail administratif akan segera disampaikan.'];
+     }
+     elseif($request->status == 'Tahap Seleksi'){
+        $data = ['namauser' => $nama , 
+        'konten' => 'Selamat! Lamaran anda telah diterima dan pada saat ini sudah memasuki tahap "Seleksi" .'];
+     }
+     else{
+        $data = ['namauser' => $nama , 
+        'konten' => 'Terima kasih atas lamaran Anda untuk posisi di '.$getLamaran->lowongan->perusahaan->nama.'. Saat ini, kami telah memilih kandidat lain yang lebih sesuai dengan kebutuhan kami. Kami menghargai waktu dan usaha Anda.
+
+        Kami mengucapkan terima kasih atas minat Anda dan mendoakan kesuksesan dalam pencarian karier Anda ke depan.'];
+     }
+
+    Mail::to('s160419157@student.ubaya.ac.id')->send(new NotifEmail($data));
+
+        //ADD DATA ON TABLE LOG
+        $addlog = new Log();
+        
+        $addlog->aksi = "Update status lamaran lowongan:$id";
+        $addlog->keterangan = "Update status lamaran ID - $getLamaran->Id , Email user - $getLamaran->users_email status diubah menjadi $request->status";
+        $addlog->users_email = Auth::user()->email;
+        $addlog->save();
+
         return redirect()->back()->with('success','Data pelamar berhasil diubah!');
     }
 
@@ -136,11 +219,11 @@ class LamaranController extends Controller
             $dokumenLamaran[] = DokumenLamaran::where('users_email',$request->users_email)->where('dokumen_lowongans_id',$dl->id)->first();
         }
         $lamaran = Lamaran::where('users_email',$request->users_email)->where('lowongans_id',$request->lowongans_id)->first();
+        $user = User::find($request->users_email);
         return response()->json(array(
             'status'=>'oke',
-            'msg'=>view('lamaran.modalpelamar', compact('lamaran','dokumenLamaran'))->render() 
+            'msg'=>view('lamaran.modalpelamar', compact('lamaran','dokumenLamaran' , 'user'))->render() 
         ), 200);
-        // return view('blk.update',compact('blk'));
     }
 
     public function getDetailLamaranCard(Request $request)
@@ -156,6 +239,18 @@ class LamaranController extends Controller
         return response()->json(array(
             'status'=>'oke',
             'msg'=>view('lamaran.cardDetailLamaran', compact('lamaran','dokumenLamarans'))->render() 
+        ), 200);
+    }
+
+    
+    public function showRiwayat(Request $request)
+    {
+        $email = $request->users_email;
+        $riwayat = Lamaran::where('users_email' , $request->users_email)->get();
+
+        return response()->json(array(
+            'status'=>'oke',
+            'msg'=>view('lamaran.riwayatLamaran', compact('riwayat' , 'email'))->render() 
         ), 200);
     }
 }
