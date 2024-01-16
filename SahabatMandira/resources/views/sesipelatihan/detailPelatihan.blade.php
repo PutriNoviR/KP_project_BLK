@@ -35,7 +35,7 @@ PELATIHAN
             </div>
             <div class="card-body">
                 <h2>Deskripsi :</h2>
-                <h5>{{ $d->deskripsi}}</h5>
+                <h5>{!! $d->deskripsi !!}</h5>
             </div>
             <div class="card-body">
                 @php
@@ -67,11 +67,15 @@ PELATIHAN
                 </h5>
             </div>
             <div class="card-footer">
+                {{-- sebelum daftar cek apakah sudah melengkapi berkas atau belum --}}
                 @if(Auth::user()->nomor_identitas == null)
                 <a href="{{url('pelatihanPeserta/lengkapiBerkas/'.$d->id)}}" class="button btn btn-warning">{{ __('DAFTAR')}}</a>
                 @else
+                {{-- kalau udah maka bisa melakukan pendaftaran, menggunakan function store dan ngirim id  --}}
                 <form method="POST" action="{{ route('pelatihanPesertas.storePendaftar',$d->id) }}">
                     @csrf
+
+                    {{-- ngirim hidden tanggal seleksi --}}
                     <input type="hidden" name="tanggal_seleksi" class="col-md-12 col-form-label" value="{{ $d->tanggal_seleksi }}">
                     <button type="submit" class="button btn btn-info">{{ __('DAFTAR')}}</button>
                     {{-- @if ($cekTanggalDaftarUlang != null)

@@ -17,8 +17,19 @@
             </div>
             <div class="form-group">
                 <label for="fotoPelatihan" class="col-md-12 col-form-label">{{ __('Foto Pelatihan') }}</label>
-                <input type="file" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
+                {{-- pake if kalo datanya ada, maka required nya hilang --}}
+                <input type="file" id="fotoPelatihanInput" name='fotoPelatihan' class="defaults" accept="image/png, image/gif, image/jpeg" required>
             </div>
+
+            <div id="previewFoto">
+                <h5>Preview Foto Sebelumnya</h5>
+                <img id="fotoPelatihan" src="{{ asset('storage/'.$sesiPelatihan->gambar_pelatihan) }}" alt="Preview Gambar Pelatihan" style="max-width: 200px; max-height: 200px;">
+            </div>
+            <br>
+            <div id="previewFotoPelatihan">
+                <img id="fotoPelatihanPreview" src="#" alt="Gambar Baru akan ditampilkan disini" style="max-width: 200px; max-height: 200px;">
+            </div>
+
             <div class="form-group">
                 <label for="tanggalBukaPendaftaran" class="col-md-12 col-form-label">{{ __('Tanggal Buka Pendaftaran') }}</label>
                 <input type="datetime-local" class="col-md-12 col-form-label" name="tanggal_pendaftaran" value="<?php echo date('Y-m-d\TH:i:s', strtotime($sesiPelatihan->tanggal_pendaftaran)); ?>">
@@ -81,7 +92,7 @@
             </div>
             <div class="form-group">
                 <label for="tanggalSelesaiDaftarUlang" class="col-md-12 col-form-label">{{ __('Tanggal Selesai Daftar Ulang') }}</label>
-                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang" value="{{$sesiPelatihan->tangggal_selesai_daftar_ulang}}">
+                <input type="datetime-local" class="col-md-12 col-form-label" name="tanggalSelesaiDaftarUlang" value="{{$sesiPelatihan->tanggal_selesai_daftar_ulang}}">
 
                 <div class="col-md-12">
 
@@ -136,12 +147,12 @@
             </div>
 
             <div class="form-group">
-                <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
+                <label for="kuota" class="col-md-12 col-form-label">{{ __('Kuota Peserta Diterima') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota" value="{{$sesiPelatihan->kuota}}">
             </div>
 
             <div class="form-group">
-                <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota') }}</label>
+                <label for="kuota_daftar" class="col-md-12 col-form-label">{{ __('Kuota Pendaftar') }}</label>
                 <input type="text" class="col-md-12 col-form-label" name="kuota_daftar" value="{{$sesiPelatihan->kuota_daftar}}">
             </div>
 
@@ -188,6 +199,12 @@
                 <textarea class="col-md-12 col-form-label activity" rows="3" name="aktivitas">{{$sesiPelatihan->aktivitas}}</textarea>
                 <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$sesiPelatihan->paket_program_id}}">
             </div>
+
+            <div class="form-group">
+                <label for="harga" class="col-md-12 col-form-label">{{ __('Minimal Kelulusan') }}</label>
+                <input type="number" class="col-md-12 col-form-label" name="nilaiMinimalLulus" value="">
+            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
                 <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -195,3 +212,28 @@
         </form>
     </div>
 </div>
+
+<script>
+// Ambil elemen input file
+const fotoPelatihanInput = document.getElementById('fotoPelatihanInput');
+
+// Ambil elemen img untuk preview gambar
+const fotoPelatihanPreview = document.getElementById('fotoPelatihanPreview');
+
+// Tambahkan event listener untuk input file
+fotoPelatihanInput.addEventListener('change', function () {
+    // Pastikan ada file yang dipilih
+    if (fotoPelatihanInput.files && fotoPelatihanInput.files[0]) {
+        const reader = new FileReader();
+
+        // Saat file berhasil dibaca
+        reader.onload = function (e) {
+            // Tampilkan gambar pada elemen img
+            fotoPelatihanPreview.src = e.target.result;
+        };
+
+        // Baca file yang dipilih
+        reader.readAsDataURL(fotoPelatihanInput.files[0]);
+    }
+});
+</script>

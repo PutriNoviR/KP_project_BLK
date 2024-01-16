@@ -46,8 +46,7 @@ class KejuruanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+        //insert data kejuruan
         $kejuruan = new Kejuruan();
         $kejuruan->nama = $request->nama_kejuruan;
         $kejuruan->save();
@@ -62,7 +61,7 @@ class KejuruanController extends Controller
      */
     public function show(Kejuruan $Kejuruan)
     {
-        //
+        //munculin detail kejuruan
         return view('kejuruan.detail',compact('Kejuruan'));
     }
 
@@ -74,7 +73,7 @@ class KejuruanController extends Controller
      */
     public function edit(Kejuruan $Kejuruan)
     {
-        //
+        //munculin edit kejuruan
         return view('kejuruan.edit',compact('Kejuruan'));
     }
 
@@ -87,7 +86,7 @@ class KejuruanController extends Controller
      */
     public function update(Request $request, Kejuruan $Kejuruan)
     {
-        //
+        //ubah data yang ada di db
         $Kejuruan->nama = $request->nama;
         $Kejuruan->save();
         return redirect()->route('kejuruans.index')->with('success', 'Data Kejuruan berhasil diubah!');
@@ -101,7 +100,7 @@ class KejuruanController extends Controller
      */
     public function destroy(Kejuruan $Kejuruan)
     {
-        //
+        //hapus data kejuruan
         try {
             $Kejuruan->delete();
             return redirect()->route('kejuruans.index')->with('success', 'Data Kejuruan berhasil dihapus!');
@@ -111,8 +110,10 @@ class KejuruanController extends Controller
             return redirect()->route('kejuruans.index')->with('error',$msg);
         }
     }
+    //munculin form edit
     public function getEditForm(Request $request)
     {
+        //ambil data kejuruan yang sesuai dengan request
         $kejuruan = Kejuruan::find($request->id);
         return response()->json(array(
             'status'=>'oke',
@@ -120,6 +121,8 @@ class KejuruanController extends Controller
         ), 200);
     }
 
+
+    
     public function detailAllPelatihan(){
         $data = Kejuruan::join('sub_kejuruans as P', 'kejuruans.id', '=', 'P.kejuruans_id')
         ->join('paket_program AS PP', 'kejuruans.id', '=', 'PP.kejuruans_id')

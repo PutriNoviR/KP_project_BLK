@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\PelatihanPesertaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SertifikatController;
+use App\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,12 @@ Route::post('testingDir/create', 'EncryptController@encrypt_user_data');
 Route::resource('mtu', 'MTUController');
 Route::post('mtu/getProgram', 'MTUController@get_program')->name('mtu.program');
 Route::post('mtu/persetujuan', 'MTUController@persetujuan')->name('mtu.persetujuan');
+
+
+
+Route::resource('mtuPesertas', 'PelatihanMtuPesertasController');
+Route::post('/mtuPesertas/getDetailKtp', 'PelatihanMtuPesertasController@getDetailKtp')->name('mtuPesertas.getDetailKtp');
+Route::post('/mtuPesertas/getDetailIjazah', 'PelatihanMtuPesertasController@getDetailIjazah')->name('mtuPesertas.getDetailIjazah');
 
 Route::resource('blk-inst', 'BLKInstrukturController');
 
@@ -160,7 +168,6 @@ Route::post('sesiPelatihan/getDetail', 'SesiPelatihanController@getDetail')->nam
 Route::post('sesiPelatihan/getTambahInstruktur', 'SesiPelatihanController@getTambahInstruktr')->name('sesiPelatihan.getTambahInstruktur');
 Route::post('sesiPelatihan/riwayatInstruktur', 'UserController@riwayatVerifikator')->name('sesiPelatihan.getRiwayatInstruktur');
 Route::post('daftarPelatihan/addMTU', 'SesiPelatihanController@storeMTU')->name('sesiPelatihan.mtu');
-
 //Tugas
 Route::resource('/tugas', 'TugasController');
 Route::post('/tugas/getDetail', 'TugasController@getDetail')->name('tugas.getDetail');
@@ -200,22 +207,44 @@ Route::resource('/pelatihanPesertas', 'PelatihanPesertaController');
 Route::get('pelatihanPeserta/lengkapiBerkas/{idpelatihan}', 'PelatihanPesertaController@lengkapiBerkas')->name('pelatihanPeserta.lengkapiBerkas');
 Route::get('pelatihanPeserta/pendaftaran', 'PelatihanPesertaController@pendaftaran')->name('pelatihanPeserta.pendaftaran');
 Route::get('pelatihanPeserta/{id}', 'PelatihanPesertaController@show')->name('pelatihanPeserta.detail');
+Route::get('pelatihanPeserta/pesertaDiterima/{id}', 'PelatihanPesertaController@showPesertas')->name('pelatihanPeserta.daftarPeserta');
 Route::post('pelatihanPeserta/getEditForm', 'PelatihanPesertaController@getEditForm')->name('pelatihanPesertas.getEditForm');
 Route::post('pelatihanPeserta/getKompetensiForm', 'PelatihanPesertaController@getKompetensiForm')->name('pelatihanPesertas.getKompetensiForm');
 Route::put('pelatihanPeserta/{email}', 'PelatihanPesertaController@update')->name('pelatihanPesertas.update');
 Route::put('Kompetensi/{email}','PelatihanPesertaController@updateKompetensi')->name('pelatihanPesertas.updateKompetensi');
 Route::post('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@storePendaftar')->name('pelatihanPesertas.storePendaftar');
+Route::get('pelatihanPeserta/pendaftaran/{id}', 'PelatihanPesertaController@lihatBukti')->name('PelatihanPeserta.lihatBuktiDaftar');
 Route::get('/pelatihanPeserta/jadwalSeleksi', 'PelatihanPesertaController@urutan')->name('pelatihanpeserta.jadwal');
 Route::post('pelatihanPeserta/getDetail','PelatihanPesertaController@getDetail')->name('pelatihanPeserta.getDetail');
 Route::post('pelatihanPeserta/updateSeleksiMasal', 'PelatihanPesertaController@updateSeleksiMasal')->name('pelatihanPeserta.updatemasal');
+//nilai akhir
+Route::post('pelatihanPeserta/UpdateNilaiAkhir', 'PelatihanPesertaController@updateNilaiAkhir')->name('pelatihanPeserta.updateNilaiAkhir');
+
+//Peserta diterima
+Route::get('pelatihanPeserta', 'PelatihanPesertaController@showPesertaDiterima')->name('pelatihanPeserta.pesertaDiterima');
+
 
 // //Pelaporan(
 Route::resource('pelaporan', 'PelaporanController');
 // Route::resource('/pelaporan', 'PelaporanController');
 
+//Tugas Pembelajaran
 
+//Route::get('/pembelajaran/detail', 'PembelajaranPesertaController@showDetail')->name('pembelajaranPeserta.getDetail');
+Route::resource('/pembelajaran', 'PembelajaranPesertaController');
+
+//Mata pelajaran 
+Route::resource('/mataPelajaran', 'MataPelajaranController');
 Route::view('/selamatdatang', 'welcome');
 
+//tamabh tugas peserta
+Route::resource('/tugasPeserta', 'TugasPesertaController');
+// Route::get('/tugasPeserta', 'TugasPesertaController@KumpulTugasPeserta')->name('tugasPeserta.kumpulTugasPeserta');
+
+//jawaban tugas peserta
+Route::resource('/jawabanTugasPeserta', 'jawabanTugasPesertaController');
+Route::get('/jawabanTugasPeserta','jawabanTugasPesertaController@jawabanPeserta')->name('jawabanTugasPeserta.jawabanPeserta');
+Route::put('/nilaiTugasPeserta/storeNilaiTugas','jawabanTugasPesertaController@storeNilaiTugas')->name('jawabanTugasPeserta.storeNilaiTugas');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

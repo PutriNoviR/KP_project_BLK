@@ -6,6 +6,7 @@ use App\Keahlian;
 use App\KeahlianUser;
 use App\Lamaran;
 use App\MandiraMentoring;
+use App\MinatUser;
 use App\PelatihanMentor;
 use Illuminate\Http\Request;
 use App\SesiPelatihan;
@@ -48,19 +49,6 @@ class HomeController extends Controller
 
         $slidermentor = DB::connection("mandira")
                         ->select("select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority from mandira_mentorings where is_headline=1");
-
-        // $slider = DB::connection("mandira")
-        // ->select("select * from (
-        //     (select id, nama, deskripsi, gambar, pelatihan_vendor.link, headline_priority, @vend AS status from pelatihan_vendor where is_headline=1)
-        //     UNION
-        //     (select sesi_pelatihans.id, sk.nama as nama, deskripsi,sesi_pelatihans.gambar_pelatihan AS gambar,sesi_pelatihans.lokasi AS link, headline_priority, @blk as status from sesi_pelatihans inner join masterblk_db.paket_program AS pp on sesi_pelatihans.paket_program_id = pp.id INNER JOIN masterblk_db.sub_kejuruans as sk ON sk.id = pp.sub_kejuruans_id where is_headline=1)
-        //     UNION
-        //     (select id_mentoring AS id, nama_program AS nama, deskripsi_program AS deskripsi, gambar, mandira_mentorings.link_pendaftaran AS link, headline_priority, @mentor as status from mandira_mentorings where is_headline=1)
-        //     ) AS X
-        //     order by headline_priority");
-
-        // dd($slidermentor);
-        //carousel data-end
 
         // $pencaker = Lamaran::distinct('users_email')->count('users_email');
         $pencaker = User::where('roles_id', 1)->where('is_suspend','<>',1)->distinct('email')->count('email');
@@ -105,6 +93,8 @@ class HomeController extends Controller
             ->get();
         // dd($disarankan);
 
+        $checkMinat = MinatUser::WHERE('users_email', '=', $userLogin)->count();
+
         $adminBlk = auth()->user()->blks_id_admin;
         $blk = DB::table('blks')->select('nama')->where('id',$adminBlk)->get();
 
@@ -147,19 +137,22 @@ class HomeController extends Controller
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
 
-        $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
-            ->WHERE('P.mentors_email', '=', $userLogin)
-            ->where('sesi_pelatihans.is_delete',0)
-            ->get();
+        $dataInstruktur = SesiPelatihan::getDataPelatihan($userLogin);
+        // dd($dataInstruktur);
 
         $suspend = auth()->user()->is_suspend;
+
+        $pesertaDiterima = PelatihanPeserta::Where('status_fase', 'DITERIMA')->get();
         // dd($suspend);
 
+        $checkStatusPeserta = PelatihanPeserta::Where('rekom_keputusan', 'CADANGAN')
+        ->orWhere('rekom_keputusan', 'NULL')
+        ->count();
         // $pelatihans = PelatihanMentor::where('mentors_email','kiky3@gmail.com')->get();
         // $sesi = SesiPelatihan::where('id',$pelatihans[0]->sesi_pelatihans_id)->first();
-        // dd($sesi->paketprogram->kejuruan->nama);
+        // dd($checkStatusPeserta);
 
-        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk'));
+        return view('dashboard', compact('ditawarkan', 'disarankan', 'adminDashboard', 'user', 'other', 'keahlian', 'mentoring', 'daftarKeahlian', 'programMentor', 'suspend', 'dataInstruktur','blk','pesertaDiterima','checkMinat', 'checkStatusPeserta'));//
 
         // return view('dashboard');
     }

@@ -372,7 +372,7 @@ PELATIHAN
                 swal({
                     title: "Aktivitas",
                     text: data.data,
-                    html:true
+                    html: true
                 })
             },
             error: function(xhr) {
@@ -442,10 +442,6 @@ PELATIHAN
             }
         });
     }
-    // $('body').on('change', '#nama_instruktur', function() {
-    //     var email = $('#nama_instruktur').val();
-    //     $('#btnRiwayatInstruktur').attr('onclick', `modalShowRiwayatInstruktur('${email}')`);
-    // });
 </script>
 @endsection
 
@@ -466,6 +462,13 @@ PELATIHAN
         </ul>
     </div>
     @endif
+    @if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
@@ -475,7 +478,9 @@ PELATIHAN
                 <th>Sub Kejuruan</th>
                 <th>Periode</th>
                 <th>Status</th>
+                <th>Bukti</th>
                 <th>Daftar</th>
+                <th>Pembelajaran</th>
                 <th>Sertifikat</th>
             </tr>
         </thead>
@@ -490,6 +495,11 @@ PELATIHAN
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->status_fase}}</td> {{-- lulus/ cadangan / tidak lulus--}}
+                <td>
+                    <a href="{{route('PelatihanPeserta.lihatBuktiDaftar',$d->id)}}" class="button btn btn-primary">
+                        Lihat Bukti Daftar
+                    </a>
+                </td>
                 <td>
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
                         @csrf
@@ -509,11 +519,40 @@ PELATIHAN
                     </form>
                 </td>
                 <td>
+                    @php
+                    date_default_timezone_set("Asia/Bangkok");
+                    $tanggalSekarang = strtotime('now');
+                    $tanggalMulai = strtotime($d->tanggal_mulai_pelatihan);
+                    $tanggalselesai = strtotime($d->tanggal_selesai_pelatihan);
+
+                    @endphp
+                    @if($pelatihanPeserta->isNotEmpty())
+                        @foreach($pelatihanPeserta as $pelatihan)
+                            @if($pelatihan->sesi_pelatihans_id == $d->id)
+                                @if($tanggalSekarang >= $tanggalMulai && $tanggalSekarang <= $tanggalselesai && $pelatihan->rekom_keputusan == 'LULUS' && $pelatihan->is_daftar_ulang == 1)
+                                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                                        Pembelajaran</i>
+                                    </a>
+                                    @else
+                                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary" style="pointer-events:none;">
+                                        Pembelajaran</i>
+                                    </a>
+                                @endif
+                            @endif
+                        @endforeach
+                    @endif
+                        {{-- <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" {{ $d->status_fase != 'DITERIMA' && $d->status_fase != 'SEDANG PROSES PELATIHAN' ? 'disabled' : '' }}>
+                            Pembelajaran
+                        </button> --}}
+                </td>
+                <td>
                     <canvas id="canvas" height="2522px" width="3615px" hidden></canvas>
+                    @if($checkStatusPeserta == null)
                     <button class='btn btn-warning' {{ $d->hasil_kompetensi == NULL ? 'disabled' : ''}} onclick="cetak_sertifikat('{{ $d->sesi_pelatihans_id }}','{{ Auth::user()->email }}');">
                         Download Sertifikat
                     </button> {{-- kalau lolos di enable kalo ga lolos disable--}}
                     <a href hidden id="download-file"></a>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -551,7 +590,7 @@ PELATIHAN
                 <td>{{ $d->paketprogram->blk->nama }}</td>
                 <td>{{ $d->paketprogram->kejuruan->nama }}</td>
                 <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
-                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
+                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} s/d
                     {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
                 </td>
                 <td>{{ $d->lokasi }}</td>
@@ -590,6 +629,13 @@ PELATIHAN
         </ul>
     </div>
     @endif
+    @if (\Session::has('failed'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="myTable" role="grid" aria-describedby="sample_1_info">
         <thead>
             <tr role="row">
@@ -600,9 +646,10 @@ PELATIHAN
                 <th>Periode Pendaftaran</th>
                 <th>Instruktur/Verifikator</th>
                 <th>Lokasi</th>
-                <th>Kuota</th>
+                <th>Nilai Kelulusan</th>
                 <th>Tanggal Seleksi</th>
                 <th>Aktivitas</th>
+                <th>Kuota</th>
                 <th>Aksi</th>
                 <th>Detail</th>
             </tr>
@@ -629,11 +676,15 @@ PELATIHAN
                     @endforeach
                 </td>
                 <td>{{ $d->lokasi }}</td>
-                <td>{{ $d->kuota }}</td>
+                <td>
+                    {{ $d->nilai_minimal_lulus}}
+                </td>
                 <td>{{ $d->tanggal_seleksi }}</td>
                 <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
                         <i class="fas fa-eye"></i>
                     </button></td>
+
+                <td>{{ $d->kuota }}</td>
                 <td>
                     @php
                     date_default_timezone_set("Asia/Bangkok");
@@ -647,27 +698,30 @@ PELATIHAN
                         <button type="button" class="btn btn-secondary disabled"><i class="fas fa-trash"></i>
                         </button>
                         @else --}}
-                        {{-- <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
+                    {{-- <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning'
                             onclick="modalTambahInstuktur({{$d->id}})">
-                        @else --}}
-                        <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
-                            Tambah Instruktur
-                        </a>
-                        <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
-                            <i class="fas fa-pen"></i>
-                        </a>
-                        <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                        {{-- @endif --}}
+                    @else --}}
+                    <a data-toggle="modal" data-target="#modalTambahInstruktur" class='btn btn-warning' onclick="modalTambahInstuktur({{$d->id}})">
+                        Tambah Instruktur
+                    </a>
+                    <a data-toggle="modal" data-target="#modalEditSesiPelatihan" class='btn btn-warning' onclick="modalEdit({{$d->id}})">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form method="POST" action="{{ route('sesiPelatihan.destroy',$d->id) }}" onsubmit="return submitFormDelete(this);" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger" data-toggle="modal" href="" data-toggle="modal"><i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    {{-- @endif --}}
 
                 </td>
                 <td>
                     <a href="{{ route('pelaporan.show',$d->id) }}" class="button btn btn-primary">
                         Daftar Peserta</i>
+                    </a>
+                    <a href="{{ route('tugasPeserta.index',['sesi'=>$d->id]) }}" class="button btn btn-primary">
+                        Pembelajaran</i>
                     </a>
                 </td>
             </tr>

@@ -208,8 +208,6 @@
                         </div>
                        
                         <input type="hidden" name="peran" value="peserta">
-
-                        <input type="hidden" name="g-recaptcha-response" id="recaptcha_token">
 <!-- Recaptcha v2
                         <div class="form-group col-md-6">
                            
@@ -220,7 +218,8 @@
 
                         <div class="form-group mb-0 rata_tengah">
                             <div class="col-md-12 offset-manual">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary g-recaptcha" data-sitekey="{{config('services.recaptcha.site')}}" 
+                                                data-callback='onSubmit'>
                                     {{ __('Register') }}
                                 </button>
                                 <br>

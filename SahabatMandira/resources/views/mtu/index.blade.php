@@ -71,6 +71,7 @@ PELATIHAN MTU
                 title: "Peringatan!",
                 text: "Apakah anda yakin ingin menyetujui pengajuan MTU ini?<br><input type="text" value="2" name="persetujuan">",
                 icon: "warning",
+                html: "<input type='text' value='2' name='persetujuan'>",
                 buttons: true,
                 dangerMode: false,
             })
@@ -86,6 +87,7 @@ PELATIHAN MTU
         swal({
                 title: "Peringatan!",
                 text: "Apakah anda yakin ingin menolak pengajuan MTU ini?",
+                html: "<input type='text' value='2' name='persetujuan'>",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -149,7 +151,7 @@ PELATIHAN MTU
                 '<td><input type="text" class="form-control" name="name[]"></td>' +
                 '<td><input type="text" class="form-control" name="no_telp[]"></td>' +
                 '<td><input type="file" class="form-control" name="ktp[]"></td>' +
-                '<td><input type="file" class="form-control" name="ijazah[]"></td>' +
+                '<td><input type="file" class="form-control" name="ijazah[]"></td>' + '<td><input type="text" class="form-control" name="pendidikan_terakhir[]"></td>' +
                 '<td><button class="btn btn-danger deleteRow"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>'
             );
@@ -256,109 +258,120 @@ PELATIHAN MTU
                     <a href hidden id="download-file"></a>
                 </td>
                 <td>
+
+                    <a class="btn btn-success mb-1" style="width: 100%" data-target="#modalDisetujui{{$m->idpelatihan_mtus}}" data-toggle="modal">
+                        SETUJUI
+                    </a>
+
+                    <a class="btn btn-danger mb-1" style="width: 100%" data-target="#modalTolakPelatihanMtu{{$m->idpelatihan_mtus}}" data-toggle="modal">
+                        TOLAK
+                    </a>
+                </td>
+
+
+                {{-- <td>
                     <form method="POST" action="{{ route('mtu.persetujuan') }}" onsubmit="return submitFormDisetujui(this);" class="d-inline">
-                        @method('POST')
-                        @csrf
+                @method('POST')
+                @csrf
 
-                        <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
-                        <input type="hidden" value="1" name="persetujuan">
+                <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
+                <input type="hidden" value="1" name="persetujuan">
 
-                        <button type="submit" class="btn btn-success mb-1" style="width: 100%">
-                            SETUJUI
-                        </button>
-                    </form>
-                    {{-- modal disetujui --}}
-                    <div class="modal fade modalMtu" id="modalDisetujui{{$d->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button type="submit" class="btn btn-success mb-1" style="width: 100%">
+                    SETUJUI
+                </button>
+                </form> --}}
 
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Terima Pelatihan MTU</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('mtu.persetujuan') }}">
-                                        @csrf
-                                        <div class="form-body">
-        
-                                            <div class="form-group">
-                                                <label for="nama" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
-                                                <input type="text" name="harga" class="col-md-12 col-form-label">
-                                                {{-- <div class="col-md-12">
-                                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="email_admin" value="{{$userLogin}}" readonly autocomplete="nama" autofocus>
-        
-                                                    @error('nama')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div> --}}
-                                            </div>
-        
-                                            {{-- <div class="form-group">
-                                                <label for="namaVerifikator" class="col-md-12 col-form-label">{{ __('Nama Verifikator') }}</label>
-        
-                                                <div class="col-md-12">
-                                                    <select class="form-control verif-select2" aria-label="Default select example" name="email_mentor">
-                                                        <option></option>
-                                                        @foreach($mentor as $d)
-                                                        <option value="{{$d->email}}">
-                                                            {{$d->nama_depan}} {{$d->nama_belakang}}
-                                                        </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('namaVerifikator')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
+                {{-- modal disetujui --}}
+                <div class="modal fade modalMtu" id="modalDisetujui{{$m->idpelatihan_mtus}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                                            {{-- <div class="form-group">
-                                                <label for="keterangan" class="col-md-12 col-form-label">{{ __('Keterangan') }}</label>
-                                                <div class="col-md-12">
-                                                    <input id="keterangan" type="text" class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" required autocomplete="keterangan" autofocus>
-        
-                                                    @error('keterangan')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="buktiKonfirmasi" class="col-md-12 col-form-label">{{ __('Bukti Konfirmasi') }}</label>
-        
-                                                <input type="file" name='bukti' class="defaults" value="" required>
-                                            </div> --}}
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary" >SIMPAN</button>
-                                            </div>
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Terima Pelatihan MTU</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('mtu.persetujuan') }}">
+                                    @csrf
+                                    <div class="form-body">
+
+                                        <div class="form-group">
+                                            <label for="nama" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
+                                            <input type="text" name="harga" class="col-md-12 col-form-label">
+                                            <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
+                                            <input type="hidden" value="1" name="persetujuan">
                                         </div>
-                                    </form>
-                                </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <form method="POST" action="{{ route('mtu.persetujuan') }}" onsubmit="return submitFormDitolak(this);" class="d-inline">
-                        @method('POST')
-                        @csrf
 
-                        <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
-                        <input type="hidden" value="2" name="persetujuan">
 
-                        <button type="submit" class="btn btn-danger mb-1" style="width: 100%">
-                            TOLAK
-                        </button>
-                    </form>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="modal fade modalVerifikator" id="modalTolakPelatihanMtu{{$m->idpelatihan_mtus}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modalContent">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tolak Pelatihan MTU</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role='form' method="POST" enctype="multipart/form-data" action="{{ route('mtu.persetujuan') }}">
+                    @csrf
+                    <div class="form-body">
+
+                        {{-- <div class="form-group">
+                                                <label for="nama" class="col-md-12 col-form-label">{{ __('Email PIC') }}</label>
+                        <input type="hidden" name="id" class="col-md-12 col-form-label" value="{{$m->id}}">
+                        <div class="col-md-12">
+                            <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="email_admin" value="{{$userLogin}}" readonly autocomplete="nama" autofocus>
+
+                            @error('nama')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div> --}}
+                    <div class="form-group">
+                        <label for="keterangan" class="col-md-12 col-form-label">{{ __('Keterangan Ditolak') }}</label>
+                        <div class="col-md-12">
+                            <input id="keterangan" type="text" class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" required autocomplete="keterangan" autofocus>
+                            <input type="hidden" value="{{$m->idpelatihan_mtus}}" name="id_mtu">
+                            <input type="hidden" value="2" name="persetujuan">
+
+                            @error('keterangan')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</tr>
+@endforeach
+</tbody>
+</table>
 </div>
 @elseif(auth()->user()->role->nama_role == 'peserta')
 <div class="container">
@@ -391,8 +404,10 @@ PELATIHAN MTU
                 <th>Balai Latihan Kerja</th>
                 <th>Sub Kejuruan</th>
                 <th>Periode Pelatihan</th>
-                <th>Peserta Pelatihan</th>
                 <th>Status Pengajuan</th>
+                <th>Harga Pelatihan</th>
+                <th>Alasan Ditolak</th>
+                <th>Peserta Pelatihan</th>
             </tr>
         </thead>
         <tbody>
@@ -402,11 +417,13 @@ PELATIHAN MTU
                 <td>{{ $m->blk }}</td>
                 <td>{{ $m->program }}</td>
                 <td>{{ $m->waktu_mulai.' - '.$m->waktu_selesai }}</td>
+                <td>@if($m->is_accepted == 1) Diterima @elseif($m->is_accepted == 2) Ditolak @else Dalam Proses @endif</td>
+                <td>@if($m->harga == null ) Belum tersedia @else {{$m->harga}} @endif</td>
+                <td>@if($m->alasan_ditolak == null ) Belum tersedia @else {{$m->alasan_ditolak}} @endif</td>
                 <td><a href="{{ route('mtu.show',$m->idpelatihan_mtus) }}" class="button btn btn-primary">
                         Daftar Peserta</i>
                     </a>
                 </td>
-                <td>@if($m->is_accepted == 1) Diterima @elseif($m->is_accepted == 2) Ditolak @else Dalam Proses @endif</td>
             </tr>
             @endforeach
         </tbody>
@@ -445,7 +462,7 @@ PELATIHAN MTU
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Deskripsi Pelatihan') }}</label>
+                        <label for="deskripsi" class="col-md-12 col-form-label">{{ __('Keterangan Pelatihan') }}</label>
                         <!-- <input type="text" class="col-md-12 col-form-label" name="deskripsi"> -->
                         <textarea name="deskripsi" class="form-control deskripsi" id="deskripsi" cols="40" rows="10"></textarea>
                     </div>
@@ -453,15 +470,17 @@ PELATIHAN MTU
                     <div class="form-group">
                         <label for="proposalMtu" class="col-md-12 col-form-label">{{ __('Proposal Pelatihan') }}</label>
                         <input type="file" name='proposal' class="defaults" required>
+                        <span id='proposalreq' class="password-minimum">* wajib diisi</span>
                     </div>
 
                     <div class="form-group">
                         <label for="surat_pengantar" class="col-md-12 col-form-label">{{ __('Surat Pengantar') }}</label>
                         <input type="file" name='surat_pengantar' class="defaults">
+                        <span id='pengantarreq' class="class-minimum">* wajib diisi</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="lokasi" class="col-md-12 col-form-label">{{ __('Lokasi') }}</label>
+                        <label for="lokasi" class="col-md-12 col-form-label">{{ __('Nama Desa') }}</label>
                         <input type="text" class="col-md-12 col-form-label" name="lokasi">
                     </div>
 
@@ -474,6 +493,7 @@ PELATIHAN MTU
                                     <td>No. Telepon</td>
                                     <td>KTP</td>
                                     <td>Ijazah</td>
+                                    <td>Pendidikan Terakhir</td>
                                     <td><button class="btn btn-primary addRow" type="button"><i class="fas fa-plus"></i></button></td>
                                 </tr>
                             </thead>
@@ -483,6 +503,7 @@ PELATIHAN MTU
                                     <td><input type="text" class="form-control" name="no_telp[]"></td>
                                     <td><input type="file" class="form-control" name="ktp[]"></td>
                                     <td><input type="file" class="form-control" name="ijazah[]"></td>
+                                    <td><input type="text" class="form-control" name="pendidikan_terakhir[]"></td>
                                     <td>-</td>
                                 </tr>
                             </tbody>
@@ -492,6 +513,7 @@ PELATIHAN MTU
                                     <td>No. Telepon</td>
                                     <td>KTP</td>
                                     <td>Ijazah</td>
+                                    <td>Pendidikan Terakhir</td>
                                     <td><button class="btn btn-primary addRow" type="button"><i class="fas fa-plus"></i></button></td>
                                 </tr>
                             </tfoot>
@@ -530,32 +552,33 @@ PELATIHAN MTU
                         <div class="col-md-12">
                             <select class="form-control" aria-label="Default select example" name="sumberDana">
                                 <option value="SWADANA" selected>SWADANA</option>
+                                <option value="ANGGARAN DAERAH">ANGGARAN DAERAH</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="harga" class="col-md-12 col-form-label">{{ __('Harga') }}</label>
-                        <input type="text" class="col-md-12 col-form-label" name="harga" placeholder="0">
-                    </div>
+                    <input type="text" class="col-md-12 col-form-label" name="harga" placeholder="0">
+            </div>--}}
 
-                    <div class="form-group">
-                        <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
-                        <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="430">
-                    </div>
-                    {{--
+            <div class="form-group">
+                <label for="jamPelajaran" class="col-md-12 col-form-label">{{ __('Jam Pelajaran') }}</label>
+                <input type="text" onkeypress="return /[0-9]/i.test(event.key)" class="col-md-12 col-form-label" name="jamPelajaran" value="430" disabled>
+            </div>
+            {{--
                     <div class="form-group">
                         <label for="aktivitas" class="col-md-12 col-form-label">{{ __('Aktivitas') }}</label>
-                    <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
-                    <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
-            </div> --}}
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">BATAL</button>
-                <button type="submit" class="btn btn-success btn-lg">AJUKAN</button>
-            </div>
-            </form>
+            <textarea class="col-md-12 col-form-label activity" rows="3" id="activity" name="aktivitas">{{$paketprogram->subkejuruan->aktivitas}}</textarea>
+            <input type="hidden" name="paket_program_id" class="col-md-12 col-form-label" value="{{$paketprogram->id}}">
+        </div> --}}
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">BATAL</button>
+            <button type="submit" class="btn btn-success btn-lg">AJUKAN</button>
         </div>
+        </form>
     </div>
+</div>
 </div>
 </div>
 

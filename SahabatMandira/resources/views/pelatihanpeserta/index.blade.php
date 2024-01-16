@@ -5,16 +5,14 @@ Pelatihan Peserta
 @endsection
 @section('javascript')
 <script>
-    $(function() 
-    {
+    $(function() {
         var table = $("#myTable").DataTable({
             "responsive": true,
             "autoWidth": false,
-            columnDefs: [ 
-                {
+            columnDefs: [{
                     orderable: false,
                     className: 'select-checkbox',
-                    targets:   0
+                    targets: 0,
                 },
                 {
                     target: 2,
@@ -24,67 +22,83 @@ Pelatihan Peserta
 
             ],
             select: {
-                style:    'multi',
+                style: 'multi',
                 selector: 'td:first-child'
             },
-            order: [[ 1, 'asc' ]],
+            order: [
+                [1, 'asc']
+            ],
             buttons: [
-            {
-                text: 'Update Lulus Seleksi Masal',
-                action: function () {
-                    var data = table.rows( { selected: true } ).data();
-                    var emails = [];
-                    var sesi_id = '{{$id_sesi}}';
-                    for (let i = 0; i < data.length; i++) {
-                        emails.push(data[i][2]);
-                    }
+                @if($p == 1)
+                {
+                    text: 'Update Lulus Seleksi Masal',
+                    action: function() {
+                        var data = table.rows({
+                            selected: true
+                        }).data(); //ambil data yang dicentang
+                        var emails = [];
+                        var sesi_id = '{{$id_sesi}}';
 
-                    console.log(emails);
-                    //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+                        var maxSelection = {{ $kuota }};
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ route("pelatihanPeserta.updatemasal") }}',
-                        data: {
-                            '_token': '<?php echo csrf_token() ?>',
-                            'emails': emails,
-                            'sesi_id': sesi_id
-                        },
-                        success: function(data) {
-
-                            if(data.status == 'oke')
-                            {
-                                Swal.fire(
-                                'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
-                                'Refresh halaman untuk melihat hasil update seleksi',
-                                'success'
-                                )
-                            }
-                            else
-                            {
-                                Swal.fire(
-                                'Update Hasil Seleksi Secara Masal Gagal',
-                                'Periode Update Seleksi Telah Berakhir !',
-                                'error'
-                                )
-                            }
-                        },
-                        error: function(xhr) {
-                            console.log(xhr);
+                        if (data.length > maxSelection) {
+                            Swal.fire(
+                                'Batas Maksimal Seleksi Terlampaui',
+                                'Anda hanya dapat memilih maksimal ' + maxSelection + ' data.',
+                                'warning'
+                            );
+                            return;
                         }
-                    });
-                    
+
+                        //ambil data yang di centang masukkan ke array
+                        for (let i = 0; i < data.length; i++) {
+                            emails.push(data[i][2]);
+                        }
+
+                        console.log(emails);
+                        //alert("Mohon Maaf, Fitur ini masih dalam tahap pengembangan.");
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route("pelatihanPeserta.updatemasal") }}',
+                            data: {
+                                '_token': '<?php echo csrf_token() ?>',
+                                'emails': emails,
+                                'sesi_id': sesi_id
+                            },
+                            success: function(data) {
+
+                                if (data.status == 'oke') {
+                                    Swal.fire(
+                                        'Update Hasil Seleksi Secara Masal Berhasil Dilakukan',
+                                        'Refresh halaman untuk melihat hasil update seleksi',
+                                        'success'
+                                    )
+                                } else {
+                                    Swal.fire(
+                                        'Update Hasil Seleksi Secara Masal Gagal',
+                                        'Periode Update Seleksi Telah Berakhir !',
+                                        'error'
+                                    )
+                                }
+                            },
+                            error: function(xhr) {
+                                console.log(xhr);
+                            }
+                        });
+
+                    }
                 }
-            }
+                @endif
             ],
             dom: 'Bflrtip'
         });
 
-        $(".selectAll").on( "click", function(e) {
-            if ($(this).is( ":checked" )) {
-                table.rows(  ).select();        
+        $(".selectAll").on("click", function(e) {
+            if ($(this).is(":checked")) {
+                table.rows().select();
             } else {
-                table.rows(  ).deselect(); 
+                table.rows().deselect();
             }
         });
     });
@@ -190,8 +204,16 @@ Pelatihan Peserta
                 <th>Daftar Ulang</th>
                 <th>Keputusan</th>
                 <th>Nilai TPA</th>
+                @if($p == 0)
+                <th>Nilai Rata-Rata Tugas</th>
+                <th>Nilai Akhir</th>
+                @endif
+                @if($p == 1)
                 <th>Aksi</th>
+                @endif
+                @if($p == 0)
                 <th>Kompetensi</th>
+                @endif
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <th>Daftar Ulangkan</th>
                 @endif
@@ -206,9 +228,9 @@ Pelatihan Peserta
                 <td>{{ $d->email }}</td>
                 <td>{{ $d->nama_depan }} {{ $d->nama_belakang }}</td>
                 <td class="text-center">
-                  <a data-toggle="modal" data-target="#modalInfoPeserta{{$d->username}}" class="btn btn-info">
-                    <i class="fas fa-info-circle"></i>
-                  </a>
+                    <a data-toggle="modal" data-target="#modalInfoPeserta{{$d->username}}" class="btn btn-info">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
                 </td>
                 <td>{{ $d->status_fase }}</td>
                 @if( $d->is_sesuai_minat == 1 )
@@ -228,16 +250,44 @@ Pelatihan Peserta
                     </button> -->
                     {{ $d->rekom_nilai_TPA }}
                 </td>
+                @if($p == 0)
+                <td>
+                    {{ round($d->nilai_rata_rata,2) }}
+                </td>
+                <td>
+                    {{ $d->nilai_akhir}}<br>
+
+                    @php
+                    date_default_timezone_set("Asia/Bangkok");
+                    $tanggalSekarang = strtotime('now');
+                    $tanggalSeleksi = strtotime($periode->tanggal_seleksi);
+                    @endphp
+
+                    @if($tanggalSekarang > $tanggalSeleksi)
+                    <a class='btn btn-primary text-white' data-toggle="modal" data-target="#modalEditNilaiAkhir{{$loop->iteration}}" class='btn btn-primary text-white'>
+                        Update Nilai Akhir
+                    </a>
+                    @else
+                    <a class='btn btn-primary text-white' data-toggle="modal" data-target="#modalEditNilaiAkhir{{$loop->iteration}}" class='btn btn-primary text-white' style="pointer-events:none;">
+                        Update Nilai Akhir
+                    </a>
+                    @endif
+                </td>
+                @endif
+                @if($p == 1)
                 <td>
                     <button data-toggle="modal" data-target="#modalEditPelatihanPeserta" class='btn btn-warning' onclick="modalEdit('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')">
                         Update Hasil Seleksi
                     </button>
                 </td>
+                @endif
+                @if($p == 0)
                 <td>
                     <button data-toggle="modal" @if(strtotime('now') < strtotime($periode->tanggal_selesai_pelatihan) || strtotime('now') >= strtotime($periode->tanggal_selesai_pelatihan ." + 3 days")) disabled @endif data-target="#modalEditRekomendasi" class='btn btn-warning' onclick="modalKompetensi('{{$d->email_peserta}}','{{$d->sesi_pelatihans_id}}')" {{ ($d->hasil_kompetensi  == 'KOMPETEN' || $d->hasil_kompetensi  == ' BELUM KOMPETEN') ? 'disabled' : ''}}>
                         Update Kompetensi
                     </button>
                 </td>
+                @endif
                 @if(Auth::user()->role->nama_role == 'superadmin' || Auth::user()->role->nama_role == 'adminblk')
                 <td>
                     <form method="POST" action="{{ route('sesiPelatihan.daftarulang') }}" class="d-inline">
@@ -256,41 +306,73 @@ Pelatihan Peserta
             <div class="modal fade" id="modalInfoPeserta{{$d->username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <center>
-                        <div class="mb-3">
-                            <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
-                            <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
-                            <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning text-white" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title mx-auto text-bold" id="exampleModalLabel">Data {{ $d->nama_depan}} {{ $d->nama_belakang}}</h5>
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            
                         </div>
-                      <div class="">
-                        <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
-                      </div>
-                      <hr>
-                      <div>
-                        <label for="">Nomor Identitas</label><br>
-                        <p>{{$d->nomor_identitas}}</p>
-                        <label for="">Nomor HP</label><br>
-                        <p>{{$d->nomer_hp}}</p>
-                        <label for="">Domisili</label><br>
-                        <p>{{$d->kota}}</p>
-                        <label for="">Alamat</label><br>
-                        <p>{{$d->alamat}}</p>
-                        <label for="">Pendidikan Terakhir</label><br>
-                        <p>{{$d->pendidikan_terakhir}}</p>
-                      </div>
-                      </center>
+                        <div class="modal-body">
+                            <center>
+                                <div class="mb-3">
+                                    <a href="{{ asset('storage/'.$d->ktp) }}" class="btn btn-success" download="KTP_{{Auth::user()->email."_".$d->ktp}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KTP</a>
+                                    <a href="{{ asset('storage/'.$d->ksk) }}" class="btn btn-primary" download="KSK_{{Auth::user()->email."_".$d->ksk}}"><i class="fas fa-id-card"></i> &nbsp;Cetak KSK</a>
+                                    <a href="{{ asset('storage/'.$d->ijazah) }}" class="btn btn-warning text-white" download="IJAZAH_{{Auth::user()->email."_".$d->ijazah}}"><i class="fas fa-user-graduate"></i> &nbsp;Cetak Ijazah</a>
+                                </div>
+                                <div class="">
+                                    <img class="image-responsive-width" style="height: 400px; width: 300px;" src="{{ asset('storage/'.$d->pas_foto) }}" alt="">
+                                </div>
+                                <hr>
+                                <div>
+                                    <label for="">Nomor Identitas</label><br>
+                                    <p>{{$d->nomor_identitas}}</p>
+                                    <label for="">Nomor HP</label><br>
+                                    <p>{{$d->nomer_hp}}</p>
+                                    <label for="">Domisili</label><br>
+                                    <p>{{$d->kota}}</p>
+                                    <label for="">Alamat</label><br>
+                                    <p>{{$d->alamat}}</p>
+                                    <label for="">Pendidikan Terakhir</label><br>
+                                    <p>{{$d->pendidikan_terakhir}}</p>
+                                </div>
+                            </center>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+
+            {{-- MODAL EDIT NILAI AKHIR PESERTA --}}
+            <div class="modal fade" id="modalEditNilaiAkhir{{$loop->iteration}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nilai Akhir Peserta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{route('pelatihanPeserta.updateNilaiAkhir')}}">
+                                @csrf
+                                <div>
+                                    <label for="fileTugas" class="col-md-12 col-form-label">{{ __('Nilai Akhir') }}</label>
+                                    <input type="number" name="nilaiAkhir" class="col-md-12 col-form-label" />
+                                </div>
+                                <input type="hidden" value="{{$d->sesi_pelatihans_id}}" name="id">
+                                <input type="hidden" value="{{$d->email_peserta}}" name="email_peserta">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
+                                    <button type="submit" class="btn btn-primary">SIMPAN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @endforeach
             @endif
         </tbody>

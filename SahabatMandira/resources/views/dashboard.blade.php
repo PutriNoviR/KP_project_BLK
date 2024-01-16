@@ -232,13 +232,6 @@ Dashboard
 </script>
 @endsection
 
-
-@section('page-bar')
-<div class="col-sm-6">
-    <h1 class="m-0 text-dark">Dashboard</h1>
-</div><!-- /.col -->
-@endsection
-
 @section('contents')
 
 @if($suspend == 0)
@@ -246,6 +239,7 @@ Dashboard
 @if(Auth::user()->role->nama_role == 'peserta')
 
 {{-- mengecek di db apakah peminatan udah terisi atau blm ? kalau sudah hitang, kalau blm ada. --}}
+@if($checkMinat == 0)
 @if(count($disarankan) === 0)
 <div class="alert alert-warning" role="alert">
     <center>Anda belum mengikuti tes kejuruan, Ikuti tes untuk mengetahui pelatihan yang sesuai dengan minat kejuruan
@@ -301,6 +295,8 @@ Dashboard
         @endforeach
     </div>
 </div>
+@endif
+
 @endif
 <hr>
 
@@ -429,6 +425,16 @@ Dashboard
 
 @if(Auth::user()->role->nama_role == 'verifikator')
 <div class="container">
+    {{-- @if (!is_null($pesertaDiterima))
+    <div class="d-flex justify-content-between mb-2">
+        <h2>Lihat hasil peserta yang diterima</h2>
+        <a href="{{ route('pelatihanPeserta.pesertaDiterima') }}" class="button btn btn-primary">
+            Daftar Peserta</i>
+        </a>
+    </div>
+    
+    <hr>
+    @endif --}}
     <div class="d-flex justify-content-between mb-2">
         <h2>Daftar Sesi Pelatihan</h2>
     </div>
@@ -451,31 +457,42 @@ Dashboard
         <tbody id="myTable">
             @foreach($dataInstruktur as $d)
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $d->paketprogram->blk->nama }}</td>
-                <td>{{ $d->paketprogram->kejuruan->nama }}</td>
-                <td>{{ $d->paketprogram->subkejuruan->nama }}</td>
-                <td>{{ date('d-M-y', strtotime($d->tanggal_pendaftaran)) }} -
-                    {{ date('d-M-y', strtotime($d->tanggal_tutup)) }}
+                <td>{{ $d['nomor'] }}</td>
+                <td>{{ $d['namaBlk'] }}</td>
+                <td>{{ $d['namaKejuruan'] }}</td>
+                <td>{{ $d['namaSubKejuruan'] }}</td>
+                <td>{{ date('d-M-y', strtotime($d['tanggalBukaPendaftaran'])) }} s/d
+                    {{ date('d-M-y', strtotime($d['tanggalTutupPendaftaran'])) }}
                 </td>
-                <td>{{ $d->lokasi }}</td>
-                <td>{{ $d->kuota }}</td>
-                <td>{{ $d->tanggal_seleksi }}</td>
-                <td><button class='btn btn-info' onclick="alertShow({{$d->id}})">
+                <td>{{ $d['lokasi'] }}</td>
+                <td>{{ $d['kuota'] }}</td>
+                <td>{{ date('d-M-y', strtotime($d['tanggalSeleksi'])) }}</td>
+                <td><button class='btn btn-info' onclick="alertShow({{$d['idSesi']}})">
                         <i class="fas fa-eye"></i>
                     </button></td>
                 <td>
-                    <!-- <a data-toggle="modal" data-target="#modalDetailPeserta{{$d->id}}" class='btn btn-info' value>
+                    {{-- <a data-toggle="modal" data-target="#modalDetailPeserta{{$d->id}}" class='btn btn-info' value>
                         <i class="fas fa-eye"></i>
-                    </a> -->
-                    <a href="{{ url('pelatihanPesertas/'.$d->id) }}" class="button btn btn-warning">
-                        <i class="fas fa-edit"></i> {{--PINDAHIN KE UI  --}}
+                    </a> --}}
+                    <a href="{{ url('pelatihanPesertas/'.$d['idSesi']) }}" class="button btn btn-warning">
+                        <i class="fas fa-edit"> Seleksi</i> {{--PINDAHIN KE UI  --}}
+                    </a><br><br>
+
+                    <a href="{{ url('pelatihanPeserta/pesertaDiterima/'.$d['idSesi']) }}" class="button btn btn-primary">
+                        <i class="fas fa-user"> Kompetensi</i> {{--PINDAHIN KE UI  --}}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ url('pelaporan/'.$d->id) }}" class="button btn btn-primary">
+                    <a href="{{ url('pelaporan/'.$d['idSesi']) }}" class="button btn btn-warning">
                         <i class="fas fa-eye"> &nbsp;DETAIL PESERTA</i> {{--PINDAHIN KE UI  --}}
                     </a>
+                    <br><br>
+
+                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d['idSesi']]) }}'" class="btn btn-primary" @if((strtotime(date('Y-m-d')) < strtotime($d['tanggalSeleksi'])) || ($d['status']>0)) disabled @endif>
+                        <i>&nbsp;PEMBELAJARAN</i>
+                    </button>
+
+
                 </td>
             </tr>
             @endforeach
@@ -730,6 +747,11 @@ Dashboard
                     <a href="{{ route('pelaporan.show',$d->id) }}" class="button btn btn-primary">
                         Detail Peserta</i>
                     </a>
+                   {{-- 
+                    <button type="button" onclick="window.location.href='{{ route('tugasPeserta.index', ['sesi' => $d->id]) }}'" class="btn btn-primary" @if((strtotime(date('Y-m-d')) < strtotime($d->tanggal_seleksi)) || ($checkStatusPeserta>0)) disabled @endif>
+                        <i>&nbsp;PEMBELAJARAN</i>
+                    --}} 
+                    </button>
                 </td>
             </tr>
             @endforeach

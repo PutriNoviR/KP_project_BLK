@@ -41,6 +41,7 @@ class PelatihanMentorController extends Controller
     public function store(Request $request)
     {
         //
+        // insert data ke tabel pelatihan mentor untuk menentukan instruktur pelatihan persesi
         $pelatihanMentor = new PelatihanMentor();
      
         $pelatihanMentor->sesi_pelatihans_id = $request->sesi_pelatihans_id;
@@ -93,7 +94,7 @@ class PelatihanMentorController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        //
+        //hapus data
         $inst = PelatihanMentor::Where('mentors_email', $id)
             ->where('sesi_pelatihans_id', $request->id_sesi)
             ->delete();

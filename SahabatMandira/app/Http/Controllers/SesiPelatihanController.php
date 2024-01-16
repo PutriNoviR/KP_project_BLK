@@ -7,7 +7,7 @@ use App\PelatihanPeserta;
 use App\PelatihanMentor;
 use App\User;
 use App\PelatihanOther;
-use Auth;
+// use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\MandiraMentoring;
 use App\PelatihanVendor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SesiPelatihanController extends Controller
 {
@@ -33,9 +34,13 @@ class SesiPelatihanController extends Controller
     {
         //
         $blk = null;
+        $tanggalSekarang = Carbon::now()->format('Y-m-d H:i:m');
+        $pelatihanPeserta = "";
         if (auth()->user()->role->nama_role == 'adminblk') {
 
             $blk_id = auth()->user()->blks_id_admin;
+
+            //mengambil data dari tabel sesi pelatihan dan tabel paket program sesuai dengan id sesi pelatihan id blk sesuai dengan login
             $data = SesiPelatihan::join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
             ->where('blks_id',$blk_id)
             ->where('sesi_pelatihans.is_delete',0)
@@ -46,9 +51,14 @@ class SesiPelatihanController extends Controller
         } else {
 
             $data = SesiPelatihan::all();
+            $email = Auth::user()->email;
+            $pelatihanPeserta = PelatihanPeserta::where(
+                'email_peserta', $email 
+            )->get();
 
         }
 
+        // mengambil data user
         $user = User::join('roles as R', 'users.roles_id', '=', 'R.id')
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
@@ -65,31 +75,36 @@ class SesiPelatihanController extends Controller
         $userLogin = auth()->user()->email;
         // dd($userLogin);
 
+        //mengambiil data peserta dari sisi admin blk
         $peserta = User::join('mandira_db.pelatihan_pesertas as P', 'users.email', '=', 'P.email_peserta')
             ->join('mandira_db.sesi_pelatihans as S', 'P.sesi_pelatihans_id', '=', 'S.id')
             ->where('S.is_delete',0)
             ->get();
 
+        // mengambil data instruktur yang login
         $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->WHERE('P.mentors_email', '=', $userLogin)
             ->where('sesi_pelatihans.is_delete',0)
             ->get();
 
+        // mengambil data peserta dari peserta yang login
         $dataPeserta = SesiPelatihan::JOIN('pelatihan_pesertas as p', 'p.sesi_pelatihans_id', '=', 'sesi_pelatihans.id')
             ->join('masterblk_db.users as u', 'u.email', '=', 'p.email_peserta')
             ->WHERE('p.email_peserta', '=', $userLogin)
             ->where('sesi_pelatihans.is_delete',0)
             ->get();
-        //
-        // $dataPeserta = User::join('mandira_db.pelatihan_pesertas as p', 'p.email_peserta', '=', 'users.email')
-        // ->where('p.email_peserta', 'peserta15@gmail.com')
-        // ->where('p.sesi_pelatihans_id', '2')
-        //     ->get();
-        // dd($dataPeserta);
+
+        $pesertaDiterima = PelatihanPeserta::Where('status_fase', 'DITERIMA')->get();
 
         $selectedSumberDana = SesiPelatihan::first()->sumber_dana;
 
-        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana'));
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->count();
+
+        // dd($checkStatusPeserta);
+
+        return view('sesipelatihan.index', compact('dataInstruktur', 'data', 'user', 'peserta', 'dataPeserta','blk', 'selectedSumberDana','pesertaDiterima','checkStatusPeserta', 'tanggalSekarang', 'pelatihanPeserta'));
     }
 
     /**
@@ -111,10 +126,11 @@ class SesiPelatihanController extends Controller
     public function store(Request $request)
     {
         //
-        // return($request);
         if (!$request->hasFile('fotoPelatihan')) {
             return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
         }
+
+        // mengirim atau memasukkan data sesi pelatihan dari UI ke tabel sesi_pelatihans
         $sesi = new SesiPelatihan();
         $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesi->tanggal_tutup = $request->tanggal_tutup;
@@ -133,19 +149,27 @@ class SesiPelatihanController extends Controller
         $sesi->aktivitas = $request->aktivitas;
         $sesi->deskripsi = $request->deskripsi;
         $sesi->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
-        $sesi->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
+        $sesi->tanggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
         $sesi->sumber_dana =$request->sumberDana;
+        $sesi->nilai_minimal_lulus = $request->nilaiMinimalLulus;
 
-
-        //insert foto (maaf gk bisa elequent [yobong])
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
-        // $name = $foto->getClientOriginalName();
-        // $foto->move('images/programPelatihan', $name);
-
 
         $sesi->gambar_pelatihan = $foto;
-        $sesi->save();
-        return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+
+
+        if($sesi->tanggal_pendaftaran <= $sesi->tanggal_seleksi && $sesi->tanggal_tutup <= $sesi->tanggal_seleksi){
+            
+            if($sesi->tanggal_pendaftaran <= $sesi->tanggal_mulai_pelatihan && $sesi->tanggal_tutup <= $sesi->tanggal_mulai_pelatihan){
+                $sesi->save();
+                return redirect()->back()->with('success', 'Data sesi berhasil ditambahkan!');
+            } else {
+                return redirect()->back()->with('failed', 'Tanggal Pendaftaran melebihi tanggal Pelatihan!');
+            }
+            
+        } else {
+            return redirect()->back()->with('failed', 'Tanggal Pendaftaran melebihi tanggal seleksi!');
+        }
     }
 
     /**
@@ -157,26 +181,28 @@ class SesiPelatihanController extends Controller
     public function show($id)
     {
         //
-        // return $id;
         $data = SesiPelatihan::where('id', '=', $id)
-            ->get();
+        ->get();
 
-        // $data = DB::connection('mandira')
-        //         ->table('pelatihan_mentors as pm')
-        //         ->join('masterblk_db.paket_program as s', 'pm.sesi_pelatihans_id', '=', 's.id')
-        //         ->join('sesi_pelatihans as s', 'pm.sesi_pelatihans_id', '=', 's.id')
-        //         ->where('sesi_pelatihans_id',$id)
-        //         ->get();
-        // dd($data);
         $mentor = PelatihanMentor::where('sesi_pelatihans_id', '=', $id)
-            ->get();
-        // $datas = $data->paketprogram;
+        ->get();
+
+        //ambil data user yang sedang login
         $userLogin = auth()->user()->email;
+        
+        $checkStatusPeserta = PelatihanPeserta::Where('status_fase', 'DALAM SELEKSI')
+        ->Where('status_fase', 'CADANGAN')
+        ->Where('sesi_pelatihans_id', $id)
+        ->count();
+        
+        //melakukan pengecekan apakah user yang login sudah pernah melakukan pendaftaran (?)
         $cekDaftar = PelatihanPeserta::where('sesi_pelatihans_id', '=', $id)
             ->where('email_peserta', '=', $userLogin)->get();
-        // dd($cekDaftar);
+        // dd($checkStatusPeserta);
         $cekTanggalDaftarUlang = PelatihanPeserta::where('email_peserta', $userLogin)->max('tanggal_daftar_ulang');
-        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang'));
+
+        // dd($cekDaftar);
+        return view('sesipelatihan.detailPelatihan', compact('data', 'mentor', 'cekDaftar','cekTanggalDaftarUlang','checkStatusPeserta'));
     }
 
     /**
@@ -200,34 +226,37 @@ class SesiPelatihanController extends Controller
      */
     public function update(Request $request, SesiPelatihan $sesiPelatihan)
     {
-        // $this->validate($request, [
-        //         'fotoPelatihan' => ['required'],
-        //     ]);
-        if (!$request->hasFile('fotoPelatihan')) {
-            return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
-        }
-        $sesiPelatihan->tanggal_pendaftaran = $request->tanggal_pendaftaran;
-        $sesiPelatihan->tanggal_tutup = $request->tanggal_tutup;
-        $sesiPelatihan->deskripsi = $request->deskripsi;
-        $sesiPelatihan->lokasi = $request->lokasi;
-        $sesiPelatihan->tanggal_mulai_pelatihan = $request->tanggal_mulai_pelatihan;
-        $sesiPelatihan->tanggal_selesai_pelatihan = $request->tanggal_selesai_pelatihan;
-        $sesiPelatihan->harga = $request->harga;
-        $sesiPelatihan->kuota = $request->kuota;
-        $sesiPelatihan->kuota_daftar = $request->kuota_daftar;
-        $sesiPelatihan->tanggal_seleksi = $request->tanggal_seleksi;
-        $sesiPelatihan->paket_program_id = $request->paket_program_id;
-        $sesiPelatihan->jamPelajaran = $request->jamPelajaran;
-        $sesiPelatihan->nomorSurat = $request->nomorSurat;
-        $sesiPelatihan->tanggalSurat = $request->tanggalSurat;
-        $sesiPelatihan->tanggalSertif = $request->tanggalSertif;
-        $sesiPelatihan->aktivitas = $request->aktivitas;
-        $sesiPelatihan->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
-        $sesiPelatihan->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
-        $sesiPelatihan->sumber_dana = $request->sumberDana;
-        $foto = $request->file('fotoPelatihan')->store('programPelatihan');
+        $regexPattern = "/^[a-zA-Z0-9-]+$/";
 
-        $sesiPelatihan->gambar_pelatihan = $foto;
+    if (
+        !preg_match($regexPattern, $request->tanggal_pendaftaran) ||
+        !preg_match($regexPattern, $request->tanggal_tutup) ||
+        !preg_match($regexPattern, $request->deskripsi) ||
+        !preg_match($regexPattern, $request->lokasi) ||
+        !preg_match($regexPattern, $request->tanggal_mulai_pelatihan) ||
+        !preg_match($regexPattern, $request->tanggal_selesai_pelatihan) ||
+        !preg_match($regexPattern, $request->harga) ||
+        !preg_match($regexPattern, $request->kuota) ||
+        !preg_match($regexPattern, $request->kuota_daftar) ||
+        !preg_match($regexPattern, $request->tanggal_seleksi) ||
+        !preg_match($regexPattern, $request->paket_program_id) ||
+        !preg_match($regexPattern, $request->jamPelajaran) ||
+        !preg_match($regexPattern, $request->nomorSurat) ||
+        !preg_match($regexPattern, $request->tanggalSurat) ||
+        !preg_match($regexPattern, $request->tanggalSertif) ||
+        !preg_match($regexPattern, $request->aktivitas) ||
+        !preg_match($regexPattern, $request->tanggalMulaiDaftarUlang) ||
+        !preg_match($regexPattern, $request->tanggalSelesaiDaftarUlang) ||
+        !preg_match($regexPattern, $request->sumberDana) ||
+        !preg_match($regexPattern, $request->nilaiMinimalLulus)
+    ) {
+        return redirect()->back()->with('error', 'Input tidak valid. Hanya angka, huruf, dan tanda minus (-) yang diperbolehkan.');
+    }
+
+    if (!$request->hasFile('fotoPelatihan')) {
+        return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
+    }
+
         $sesiPelatihan->save();
         return redirect()->back()->with('success', 'Data sesi berhasil diubah!');
     }
@@ -240,11 +269,13 @@ class SesiPelatihanController extends Controller
      */
     public function destroy(SesiPelatihan $sesiPelatihan)
     {
+        // mengambil id sesi pelatihan
         $id_sesi = $sesiPelatihan->id;
 
         try {
             //$delete_peserta = PelatihanPeserta::WHERE('sesi_pelatihans_id', $id_sesi)->delete();
 
+            //hapus pakai is delete.
             $sesiPelatihan->is_delete = 1;
             $sesiPelatihan->save();
             return redirect()->back()->with('success', 'Data Sesi Pelatihan berhasil dihapus!');
@@ -257,6 +288,7 @@ class SesiPelatihanController extends Controller
 
     public function getDetailPeserta(Request $request)
     {
+        //mengambil data sesi pelatihan sesuai dengan id
         $sesi = SesiPelatihan::all()->where($request->id);
         // dd($sesi);
         // $lokasi = $sesi->;
@@ -269,20 +301,27 @@ class SesiPelatihanController extends Controller
 
     public function riwayatPelatihan()
     {
-
+        //mengambil data sesi pelatihan
         $data = SesiPelatihan::all();
         // dd($data);
         return view('pelatihanPeserta.pelatihanYangDiikuti', compact('data'));
     }
 
+
+    //untuk tombol show more pada dashboard
     public function showMore($id)
     {
+        // mengambil username atau email orang yang sedang login
         $userLogin = auth()->user()->email;
         $mytime = Carbon::now();
+
+        //sesi pelatihan yang di tawarkan oleh blk
         if ($id == '1') {
             $data = SesiPelatihan::Where('tanggal_tutup', '>=', $mytime)
             ->get();
             $sesi = '0';
+
+            //sesi pelatihan yang ditawarkan oleh mentor
         } elseif ($id == '2') {
             $data = MandiraMentoring::join('masterblk_db.users as u','u.email','=','mandira_mentorings.email_mentor')
             ->where('is_validated','=',1)
@@ -290,6 +329,8 @@ class SesiPelatihanController extends Controller
             ->get();
             //
             $sesi = '2';
+
+            //sesi pelatihan dari vendor (UGA)
         } else {
             $data = PelatihanVendor::all();
             $sesi = '1';
@@ -302,21 +343,29 @@ class SesiPelatihanController extends Controller
 
     public function daftarPelatihan()
     {
+
+        //ambil siapa yang login
         $userLogin = auth()->user()->email;
         // $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
         //     ->get();
         //
         $blk = null;
+
+        //jika yang login adalah admin blk
         if (auth()->user()->role->nama_role == 'adminblk') {
 
+            //ambil data blk sesuai dengan admin blk yang login
             $blk_id = auth()->user()->blks_id_admin;
+
+            //mengambil data instruktur berdasarkan sesi pelatihan (?)
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->join('masterblk_db.paket_program as p','p.id','=','sesi_pelatihans.paket_program_id')
-            ->where('blks_id',$blk_id)->where('sesi_pelatihans.is_delete',0)->select('sesi_pelatihans.*')->get();
-            $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get();
+            ->where('blks_id',$blk_id)->where('sesi_pelatihans.is_delete',0)->select('sesi_pelatihans.*')->get(); //get semua data sesi
+            $blk = DB::table('blks')->select('nama')->where('id',$blk_id)->get(); // get data nama
 
         } else {
 
+            //
             $dataInstruktur = SesiPelatihan::join('pelatihan_mentors as P', 'sesi_pelatihans.id', '=', 'P.sesi_pelatihans_id')
             ->where('sesi_pelatihans.is_delete',0)
             ->select('sesi_pelatihans.*')
@@ -327,7 +376,6 @@ class SesiPelatihanController extends Controller
             ->WHERE('R.nama_role', '=', 'verifikator')
             ->get();
 
-            // dd('dataInstruktur');
         return view('sesipelatihan.daftarPelatihan', compact('dataInstruktur', 'mentor', 'userLogin','blk'));
     }
 
@@ -357,12 +405,14 @@ class SesiPelatihanController extends Controller
     public function getEditForm(Request $request)
     {
         $sesiPelatihan = SesiPelatihan::find($request->id);
+
         return response()->json(array(
             'status' => 'oke',
             'msg' => view('sesipelatihan.modal', compact('sesiPelatihan'))->render()
         ), 200);
     }
 
+    //menampilkan form detail
     public function getDetail(Request $request)
     {
         $sesi = SesiPelatihan::find($request->id);
@@ -376,8 +426,12 @@ class SesiPelatihanController extends Controller
 
     public function getTambahInstruktr(Request $request)
     {
+
+        //ambil user yang masuk dari blk mana
         $blk_id = Auth()->user()->blks_id_admin;
+        //ambil id sesi pelatihan
         $idsesipelatihan = $request->id;
+        //ambil data semua instruktur yang ada di blk sesuai dengan id
         $instrukturs = User::join('roles as R', 'users.roles_id', '=', 'R.id')
         ->WHERE('R.nama_role', '=', 'verifikator')
         ->WHERE('users.blks_id_admin',$blk_id)
@@ -396,6 +450,7 @@ class SesiPelatihanController extends Controller
             return redirect()->back()->with('error', 'Tidak ada data foto, tolong untuk memasukan foto');
         }
 
+        // melakukan insert ke database tabel pelatihan_mtus
         $sesi = new SesiPelatihan();
         $sesi->tanggal_pendaftaran = $request->tanggal_pendaftaran;
         $sesi->tanggal_tutup = $request->tanggal_tutup;
@@ -410,11 +465,10 @@ class SesiPelatihanController extends Controller
         $sesi->aktivitas = $request->aktivitas;
         $sesi->deskripsi = $request->deskripsi;
         $sesi->tanggal_mulai_daftar_ulang = $request->tanggalMulaiDaftarUlang;
-        $sesi->tangggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
+        $sesi->tanggal_selesai_daftar_ulang = $request->tanggalSelesaiDaftarUlang;
         $sesi->sumber_dana =$request->sumberDana;
         $sesi->is_mtu = 1;
 
-        //insert foto (maaf gk bisa elequent [yobong])
         $foto = $request->file('fotoPelatihan')->store('programPelatihan');
         // $name = $foto->getClientOriginalName();
         // $foto->move('images/programPelatihan', $name);

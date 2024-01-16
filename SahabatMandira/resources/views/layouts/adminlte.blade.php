@@ -72,6 +72,7 @@
 
 
 
+    @yield('head')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -304,7 +305,6 @@
                                     </p>
                                 </a>
                             </li>
-
                             <li class="nav-item treeview">
                                 <a href="{{ route('mtu.index') }}"
                                     class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
@@ -356,6 +356,54 @@
                                 </a>
                             </li>
                             @if (Auth::user()->role->nama_role == 'adminblk')
+                                <li class="nav-item treeview">
+                                    <a href="{{ route('mtu.index') }}" class="nav-link {{ Request::is('sesiPelatihan') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-tasks"></i>
+                                        <p>
+                                            Pelatihan MTU
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if(Auth::user()->role->nama_role == 'peserta')
+                                <li class="nav-item has-treeview">
+                                    <a href="{{ route('listKerja.index') }}" class="nav-link {{ Request::is('bursa/listKerja') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-briefcase"></i>
+                                        <p>
+                                            Bursa Kerja
+                                        </p>
+                                    </a>
+                                </li>
+                                @endif
+                                {{-- Admin BLK --}}
+                                @can('adminblk-permission')
+                                <li class="nav-item has-treeview {{ Request::is('paketProgram') ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-school"></i>
+                                        <p>
+                                            Administrasi BLK
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('paketProgram.index') }}" class="nav-link {{ Request::is('paketProgram') ? 'active' : '' }}">
+                                                <i class="fas fa-graduation-cap nav-icon"></i>
+                                                <p>Paket Program Pelatihan</p>
+                                            </a>
+                                           
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('mataPelajaran.index') }}" class="nav-link {{ Request::is('mataPelajaran') ? 'active' : '' }}">
+                                                <i class="fas fa-graduation-cap nav-icon"></i>
+                                                <p>Mata Pelajaran</p>
+                                            </a>
+                                           
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ route('mtu.index') }}" class="nav-link">
                                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -379,7 +427,7 @@
                                 <a href="{{ route('mtu.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                     <p>
-                                        Pengelolaan MTU
+                                        Pengelolaan  MTU
                                     </p>
                                 </a>
                             </li>

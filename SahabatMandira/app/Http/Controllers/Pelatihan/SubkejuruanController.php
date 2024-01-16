@@ -21,6 +21,7 @@ class SubkejuruanController extends Controller
     public function index()
     {
         //
+        //AMBIL SEMUA DATA DARI TABEL
         $subs = Subkejuruan::all();
         $kejuruans=  Kejuruan::all();
         $kategoris = KategoriPsikometrik::all();
@@ -50,6 +51,7 @@ class SubkejuruanController extends Controller
     {
         //
         // dd($request);
+        //insert data ke tabel sub kejuruan
         $Subkejuruan = new Subkejuruan();
         $Subkejuruan->nama = $request->nama_subkejuruan;
         $Subkejuruan->aktivitas = $request->aktivitas;
@@ -97,6 +99,7 @@ class SubkejuruanController extends Controller
     public function update(Request $request, Subkejuruan $Subkejuruan)
     {
         //
+        //ubah data yang ada pada tabel sub kejuruan
         $Subkejuruan->nama = $request->nama_subkejuruan;
         $Subkejuruan->aktivitas = $request->aktivitas;
         $Subkejuruan->kode_kategori = $request->kode_kategori;
@@ -114,7 +117,7 @@ class SubkejuruanController extends Controller
      */
     public function destroy(Subkejuruan $Subkejuruan)
     {
-        //
+        //hapus data yang ada pada tabel sub kejuruan
         $Subkejuruan->delete();
         return redirect()->back()->with('success', 'Data Subkejuruan berhasil dihapus!');
     }
